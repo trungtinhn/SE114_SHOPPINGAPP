@@ -6,10 +6,56 @@
     android:layout_height="match_parent"
     tools:context=".BottomNavigationCustomActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        >
+
+        <EditText
+            android:id="@+id/editSearch"
+            android:layout_width="290dp"
+            android:layout_height="40dp"
+            android:background="@drawable/search_background"
+            android:drawableStart="@drawable/searchicon"
+            android:drawablePadding="12dp"
+            android:paddingStart="12dp"
+            android:layout_marginVertical="10dp"
+            android:hint="Search product"
+            android:layout_marginLeft="10dp"
+            android:maxLength="20"
+            />
+
+        <ImageView
+            android:id="@+id/chatBtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:srcCompat='@drawable/chat'
+            android:layout_gravity="center"
+            android:background="@drawable/background_icon"
+            android:padding="5dp"
+            android:layout_marginHorizontal="10dp"
+            />
+
+        <ImageView
+            android:id="@+id/ShoppingCart"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:srcCompat='@drawable/shoppingcarticon'
+            android:layout_gravity="center"
+            android:background="@drawable/background_icon"
+            android:padding="5dp"
+
+            />
+
+    </LinearLayout>
+
     <ScrollView
         android:id="@+id/scrollview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
     </ScrollView>
 
@@ -35,7 +81,7 @@
                     android:id="@+id/homeBtn"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.2"
+                    android:layout_weight="0.25"
                     android:orientation="vertical">
 
                     <ImageView
@@ -59,7 +105,7 @@
                     android:id="@+id/NotificationBtn"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.2"
+                    android:layout_weight="0.25"
                     android:orientation="vertical">
 
                     <ImageView
@@ -83,7 +129,7 @@
                     android:id="@+id/followBtn"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.2"
+                    android:layout_weight="0.25"
                     android:orientation="vertical">
 
                     <ImageView
@@ -107,7 +153,7 @@
                     android:id="@+id/AccountBtn"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight= "0.2"
+                    android:layout_weight= "0.25"
                     android:orientation="vertical">
 
                     <ImageView
