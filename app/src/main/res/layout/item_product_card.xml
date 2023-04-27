@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="100dp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    app:cardCornerRadius="50dp"
+    android:layout_margin="10dp"
+    >
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imgProduct"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:contentDescription="productcard"
+        android:scaleType="fitCenter"
+        app:shapeAppearanceOverlay = "@style/roundimageview"
+        android:src="@drawable/mauaodep" />
+
+    <TextView
+        android:id="@+id/txtNameProduct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Áo len nâu"
+        android:textSize="18dp"
+        android:textColor="@color/black"
+        android:gravity="center"
+
+        />
+
+</LinearLayout>
