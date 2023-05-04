@@ -4,21 +4,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
+import com.example.shoppingapp.customer_interface.IClickItemProductListener;
 
 import java.util.List;
 
 public class ProductAdapter extends  RecyclerView.Adapter<ProductAdapter.ProductViewHolder>{
 
     private List<Product> mProducts;
-    public void setData(List<Product> list)
+    private IClickItemProductListener iClickItemProductListener;
+    public void setData(List<Product> list, IClickItemProductListener listener)
     {
         this.mProducts = list;
+        this.iClickItemProductListener = listener;
         notifyDataSetChanged();
     }
 
@@ -37,6 +41,12 @@ public class ProductAdapter extends  RecyclerView.Adapter<ProductAdapter.Product
         holder.imgProduct.setImageResource(product.getResouceId());
         holder.txtNameProduct.setText(product.getName());
 
+        holder.layoutProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iClickItemProductListener.onClickItemProduct(product);
+            }
+        });
 
     }
 
@@ -52,11 +62,13 @@ public class ProductAdapter extends  RecyclerView.Adapter<ProductAdapter.Product
 
         private ImageView imgProduct;
         private TextView txtNameProduct;
+        private LinearLayout layoutProduct;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
             imgProduct = itemView.findViewById(R.id.imgProduct);
             txtNameProduct = itemView.findViewById(R.id.txtNameProduct);
+            layoutProduct = itemView.findViewById(R.id.layoutProduct);
         }
     }
 }
