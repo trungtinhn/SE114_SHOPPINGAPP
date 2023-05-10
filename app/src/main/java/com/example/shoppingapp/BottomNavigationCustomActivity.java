@@ -4,28 +4,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.example.shoppingapp.categories.Categories;
-import com.example.shoppingapp.categories.CategoriesAdapter;
-import com.example.shoppingapp.customer_interface.IClickItemProductListener;
 import com.example.shoppingapp.fragment.DetailProductFragment;
-import com.example.shoppingapp.fragment.FollowFragment;
-import com.example.shoppingapp.fragment.NotificationFragment;
+import com.example.shoppingapp.fragment.HomeFragment;
+import com.example.shoppingapp.fragment.SearchingFragment;
+import com.example.shoppingapp.fragment.TrendingFragment;
 import com.example.shoppingapp.fragment.ViewPagerAdapter;
 import com.example.shoppingapp.product.Product;
-import com.example.shoppingapp.product.ProductAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.tabs.TabLayout;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class BottomNavigationCustomActivity extends AppCompatActivity{
 
@@ -114,5 +104,25 @@ public class BottomNavigationCustomActivity extends AppCompatActivity{
 
     }
 
+    public void gotoHomeFragment()
+    {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.framehomepragment, new HomeFragment());
+        fragmentTransaction.commit();
+    }
+
+    public void gotoTrendingFragment()
+    {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.framehomepragment, new TrendingFragment());
+        fragmentTransaction.commit();
+    }
+
+    public void gotoSearchingFragment()
+    {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.framehomepragment, new SearchingFragment());
+        fragmentTransaction.commit();
+    }
 
 }

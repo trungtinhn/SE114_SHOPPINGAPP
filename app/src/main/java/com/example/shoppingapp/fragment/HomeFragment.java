@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.shoppingapp.BottomNavigationCustomActivity;
@@ -37,6 +39,8 @@ public class HomeFragment extends Fragment {
     private RecyclerView rcvCategories;
     private List<Categories> listCategories;
     private CategoriesAdapter categoriesAdapter;
+    private TextView txtSeeall;
+    private EditText editSearch;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,10 +58,32 @@ public class HomeFragment extends Fragment {
 
         rcvProduct = view.findViewById(R.id.rcvProduct);
         rcvCategories = view.findViewById(R.id.rcvCategories);
+        txtSeeall = view.findViewById(R.id.txtSeeall);
+        editSearch = view.findViewById(R.id.editSearch);
         setDataRcvProduct();
         setDataRcvCategories();
+        setOnClicktxtSeeall();
+        setOnClickEditSearch();
         // Inflate the layout for this fragment
         return view;
+    }
+
+    private void setOnClickEditSearch() {
+        editSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomNavigationCustomActivity.gotoSearchingFragment();
+            }
+        });
+    }
+
+    private void setOnClicktxtSeeall() {
+        txtSeeall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomNavigationCustomActivity.gotoTrendingFragment();
+            }
+        });
     }
 
     private void setDataRcvProduct() {
