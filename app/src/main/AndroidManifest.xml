@@ -12,6 +12,30 @@
         android:theme="@style/Theme.ShoppingApp"
         tools:targetApi="31">
         <activity
+            android:name=".ReViewer"
+            android:exported="false" />
+        <activity
+            android:name=".ShoppingCart"
+            android:exported="false" />
+        <activity
+            android:name=".BuyNow"
+            android:exported="false" />
+        <activity
+            android:name=".NewAddress"
+            android:exported="false" />
+        <activity
+            android:name=".SaveAddress"
+            android:exported="false" />
+        <activity
+            android:name=".DeliveryAddress"
+            android:exported="false" />
+        <activity
+            android:name=".NewCard"
+            android:exported="false" />
+        <activity
+            android:name=".CheckOut"
+            android:exported="false" />
+        <activity
             android:name=".DetailProdcutActivity"
             android:exported="false" />
         <activity
