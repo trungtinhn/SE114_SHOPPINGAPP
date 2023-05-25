@@ -12,10 +12,25 @@
         android:theme="@style/Theme.ShoppingApp"
         tools:targetApi="31">
         <activity
+            android:name=".customerview.activity.SearchingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".customerview.activity.MessageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".customerview.activity.DetailProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".customerview.activity.TrendingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".customerview.MainActivityDetail"
+            android:exported="false" />
+        <activity
             android:name=".DetailProdcutActivity"
             android:exported="false" />
         <activity
-            android:name=".BottomNavigationCustomActivity"
+            android:name=".customerview.BottomNavigationCustomActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
