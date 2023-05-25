@@ -36,6 +36,21 @@
             android:name=".CheckOut"
             android:exported="false" />
         <activity
+            android:name=".customerview.activity.SearchingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".customerview.activity.MessageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".customerview.activity.DetailProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".customerview.activity.TrendingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".customerview.MainActivityDetail"
+            android:exported="false" />
+        <activity
             android:name=".DetailProdcutActivity"
             android:exported="false" />
         <activity

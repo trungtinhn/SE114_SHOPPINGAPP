@@ -1,60 +1,49 @@
-package com.example.shoppingapp.fragment;
+package com.example.shoppingapp.customerview.activity;
 
-import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.example.shoppingapp.BottomNavigationCustomActivity;
 import com.example.shoppingapp.R;
-import com.example.shoppingapp.product.ProductCard;
-import com.example.shoppingapp.product.ProductCardAdapter;
+import com.example.shoppingapp.customerview.BottomNavigationCustomActivity;
+import com.example.shoppingapp.customerview.product.ProductCard;
+import com.example.shoppingapp.customerview.product.ProductCardAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class TrendingFragment extends Fragment {
+public class TrendingActivity extends AppCompatActivity {
 
     private RecyclerView rcvProductTrending;
-    BottomNavigationCustomActivity bottomNavigationCustomActivity;
+
     ProductCardAdapter productCardAdapter;
     List<ProductCard> mTrendingCard;
 
     ImageView backICon;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_trending);
 
-    }
+        rcvProductTrending = findViewById(R.id.rcvProductTrending);
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_trending, container, false);
-
-        rcvProductTrending = view.findViewById(R.id.rcvProductTrending);
-        bottomNavigationCustomActivity = (BottomNavigationCustomActivity) getActivity();
-        backICon = view.findViewById(R.id.backIcon);
+        backICon = findViewById(R.id.backIcon);
 
         setRcvProductTrending();
         setOnClickBackIcon();
-
-        return view;
     }
-
     private void setOnClickBackIcon() {
         backICon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bottomNavigationCustomActivity.gotoHomeFragment();
+                Intent intent = new Intent(TrendingActivity.this, BottomNavigationCustomActivity.class );
+                startActivity(intent);
             }
         });
 
@@ -72,7 +61,7 @@ public class TrendingFragment extends Fragment {
         mTrendingCard.add(new ProductCard(R.drawable.anhgiay1, "Giay loai 3", 299999));
         mTrendingCard.add(new ProductCard(R.drawable.mauaodep, "Giay loai 3", 299999));
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(bottomNavigationCustomActivity, 2);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
         rcvProductTrending.setLayoutManager(gridLayoutManager);
         productCardAdapter.setData(mTrendingCard);
         rcvProductTrending.setAdapter(productCardAdapter);

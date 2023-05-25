@@ -1,4 +1,4 @@
-package com.example.shoppingapp;
+package com.example.shoppingapp.customerview;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,15 +6,18 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.example.shoppingapp.fragment.DetailProductFragment;
-import com.example.shoppingapp.fragment.HomeFragment;
-import com.example.shoppingapp.fragment.SearchingFragment;
-import com.example.shoppingapp.fragment.TrendingFragment;
-import com.example.shoppingapp.fragment.ViewPagerAdapter;
-import com.example.shoppingapp.product.Product;
+import com.example.shoppingapp.customerview.activity.DetailProductActivity;
+import com.example.shoppingapp.customerview.activity.MessageActivity;
+import com.example.shoppingapp.R;
+import com.example.shoppingapp.customerview.activity.SearchingActivity;
+import com.example.shoppingapp.customerview.activity.TrendingActivity;
+import com.example.shoppingapp.customerview.fragment.HomeFragment;
+import com.example.shoppingapp.customerview.fragment.ViewPagerAdapter;
+import com.example.shoppingapp.customerview.product.Product;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class BottomNavigationCustomActivity extends AppCompatActivity{
@@ -97,9 +100,8 @@ public class BottomNavigationCustomActivity extends AppCompatActivity{
 
     public void gotoDetailProduct(Product product)
     {
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.framehomepragment, new DetailProductFragment());
-        fragmentTransaction.commit();
+        Intent intent = new Intent(BottomNavigationCustomActivity.this, DetailProductActivity.class);
+        startActivity(intent);
 
 
     }
@@ -111,18 +113,30 @@ public class BottomNavigationCustomActivity extends AppCompatActivity{
         fragmentTransaction.commit();
     }
 
-    public void gotoTrendingFragment()
+
+
+    public void gotoSearchingActivity()
     {
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.framehomepragment, new TrendingFragment());
-        fragmentTransaction.commit();
+        Intent intent = new Intent(BottomNavigationCustomActivity.this, SearchingActivity.class);
+        startActivity(intent);
     }
 
-    public void gotoSearchingFragment()
+    public void gotoMessageActivity()
     {
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.framehomepragment, new SearchingFragment());
-        fragmentTransaction.commit();
+        Intent intent = new Intent(BottomNavigationCustomActivity.this, MessageActivity.class);
+        startActivity(intent);
+    }
+
+    public void gotoDetail()
+    {
+        Intent intent = new Intent(BottomNavigationCustomActivity.this, MainActivityDetail.class);
+        startActivity(intent);
+    }
+
+    public void gotoTrendingActivity()
+    {
+        Intent intent = new Intent(BottomNavigationCustomActivity.this, TrendingActivity.class);
+        startActivity(intent);
     }
 
 }

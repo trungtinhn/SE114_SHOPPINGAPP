@@ -1,20 +1,21 @@
-package com.example.shoppingapp.fragment;
+package com.example.shoppingapp.customerview.fragment;
 
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import androidx.fragment.app.Fragment;
 
 import com.example.shoppingapp.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link FollowFragment#newInstance} factory method to
+ * Use the {@link AccountFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FollowFragment extends Fragment {
+public class AccountFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,7 +26,7 @@ public class FollowFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public FollowFragment() {
+    public AccountFragment() {
         // Required empty public constructor
     }
 
@@ -35,11 +36,11 @@ public class FollowFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment NotificationFragment.
+     * @return A new instance of fragment AccountFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static FollowFragment newInstance(String param1, String param2) {
-        FollowFragment fragment = new FollowFragment();
+    public static AccountFragment newInstance(String param1, String param2) {
+        AccountFragment fragment = new AccountFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -60,6 +61,6 @@ public class FollowFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_follow, container, false);
+        return inflater.inflate(R.layout.fragment_account, container, false);
     }
 }

@@ -1,4 +1,4 @@
-package com.example.shoppingapp.product;
+package com.example.shoppingapp.customerview.product;
 
 public class ProductCard {
     private int imageResouce;

@@ -1,4 +1,4 @@
-package com.example.shoppingapp.categories;
+package com.example.shoppingapp.customerview.categories;
 
 import android.view.LayoutInflater;
 import android.view.View;

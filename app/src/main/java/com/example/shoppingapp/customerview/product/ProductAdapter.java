@@ -1,4 +1,4 @@
-package com.example.shoppingapp.product;
+package com.example.shoppingapp.customerview.product;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
-import com.example.shoppingapp.customer_interface.IClickItemProductListener;
+import com.example.shoppingapp.customerview.customer_interface.IClickItemProductListener;
 
 import java.util.List;
 

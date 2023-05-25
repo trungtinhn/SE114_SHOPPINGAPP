@@ -1,10 +1,8 @@
-package com.example.shoppingapp.fragment;
+package com.example.shoppingapp.customerview.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,17 +10,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.shoppingapp.BottomNavigationCustomActivity;
+import com.example.shoppingapp.customerview.BottomNavigationCustomActivity;
 import com.example.shoppingapp.R;
-import com.example.shoppingapp.categories.Categories;
-import com.example.shoppingapp.categories.CategoriesAdapter;
+import com.example.shoppingapp.customerview.categories.Categories;
+import com.example.shoppingapp.customerview.categories.CategoriesAdapter;
 
-import com.example.shoppingapp.customer_interface.IClickItemProductListener;
-import com.example.shoppingapp.product.Product;
-import com.example.shoppingapp.product.ProductAdapter;
+import com.example.shoppingapp.customerview.customer_interface.IClickItemProductListener;
+import com.example.shoppingapp.customerview.product.Product;
+import com.example.shoppingapp.customerview.product.ProductAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +39,8 @@ public class HomeFragment extends Fragment {
     private CategoriesAdapter categoriesAdapter;
     private TextView txtSeeall;
     private EditText editSearch;
+    private ImageView chatBtn;
+    private  ImageView shoppingCart;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,19 +60,42 @@ public class HomeFragment extends Fragment {
         rcvCategories = view.findViewById(R.id.rcvCategories);
         txtSeeall = view.findViewById(R.id.txtSeeall);
         editSearch = view.findViewById(R.id.editSearch);
+        chatBtn = view.findViewById(R.id.chatBtn);
+        shoppingCart = view.findViewById(R.id.ShoppingCart);
         setDataRcvProduct();
         setDataRcvCategories();
         setOnClicktxtSeeall();
         setOnClickEditSearch();
+        setOnCLickChatbtn();
+
+        setOnClickShoppingCart();
         // Inflate the layout for this fragment
         return view;
+    }
+
+    private void setOnClickShoppingCart() {
+        shoppingCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomNavigationCustomActivity.gotoDetail();
+            }
+        });
+    }
+
+    private void setOnCLickChatbtn() {
+        chatBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomNavigationCustomActivity.gotoMessageActivity();
+            }
+        });
     }
 
     private void setOnClickEditSearch() {
         editSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bottomNavigationCustomActivity.gotoSearchingFragment();
+                bottomNavigationCustomActivity.gotoSearchingActivity();
             }
         });
     }
@@ -81,7 +104,7 @@ public class HomeFragment extends Fragment {
         txtSeeall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bottomNavigationCustomActivity.gotoTrendingFragment();
+                bottomNavigationCustomActivity.gotoTrendingActivity();
             }
         });
     }

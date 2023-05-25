@@ -1,4 +1,4 @@
-package com.example.shoppingapp.fragment;
+package com.example.shoppingapp.customerview.fragment;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
