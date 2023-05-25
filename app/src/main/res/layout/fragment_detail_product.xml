@@ -126,7 +126,6 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
             android:scaleX=".8"
-
             android:scaleY=".8"
             android:transformPivotX="0dp"
             android:transformPivotY="0dp"
