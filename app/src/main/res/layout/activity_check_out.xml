@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".CheckOut">
+    <LinearLayout
+        android:id="@+id/headingProductDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:padding="10dp"
+        >
+
+        <ImageView
+            android:id="@+id/backIcon"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:id="@+id/productName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@id/backIcon"
+            android:text="Payment"
+            android:textColor="@color/black"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+    />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></RadioButton>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/MoMo_Logo"></ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="MOMO Wallet"
+                android:textSize="25dp"
+                android:textStyle="bold"></TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></RadioButton>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/cash">
+
+            </ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="Cash Payment"
+                android:textSize="25dp"
+                android:textStyle="bold"></TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></RadioButton>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/arcticons_banking4">
+
+            </ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="Online Banking"
+                android:textSize="25dp"
+                android:textStyle="bold"></TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/background_btn_sliver">
+
+            <ImageView
+                android:layout_marginTop="10dp"
+                android:id="@+id/imageadd"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/add"></ImageView>
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:id="@+id/textAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Add New Card"></TextView>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="160dp"
+            android:layout_height="40dp"
+            android:background="@drawable/background_btn_orange"
+            android:gravity="center"
+            android:text="Continue"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</LinearLayout>

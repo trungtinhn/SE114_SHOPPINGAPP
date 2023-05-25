@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".CheckOut">
+
+    <LinearLayout
+        android:id="@+id/headingProductDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/backIcon"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:id="@+id/productName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@id/backIcon"
+            android:text="Address"
+            android:textSize="25dp"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+    <TextView
+        android:id="@+id/you_don_t_h"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:lineSpacingExtra="-3sp"
+        android:text="You don't have you own address" />
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:background="@drawable/background_btn_sliver"
+            android:layout_width="300dp"
+            android:gravity="center"
+            android:layout_height="40dp">
+
+            <ImageView
+                android:id="@+id/imageadd"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/add"></ImageView>
+
+            <TextView
+                android:id="@+id/textAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Add New Address"></TextView>
+        </LinearLayout>
+    </LinearLayout>
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="160dp"
+            android:layout_height="40dp"
+            android:background="@drawable/background_btn_orange"
+            android:gravity="center"
+            android:text="Save Address"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</LinearLayout>
