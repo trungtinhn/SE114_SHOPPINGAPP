@@ -4,7 +4,7 @@
     <string name="product">Product</string>
 
     <string name="list_items">List Items</string>
-    <string name="staff_name">Thạch Sang</string>
+    <string name="staff_name">Thạch Sang\nID:12345</string>
     <string name="LinesInProduct">
         Limited Edition 2019
         \n
