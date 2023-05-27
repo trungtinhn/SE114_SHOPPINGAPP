@@ -117,7 +117,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="206dp"
             android:layout_marginTop="3dp"
-            android:fontFamily="@font/montserrat"
+            android:fontFamily="@font/montserrat_semibold"
             android:gravity="top"
             android:text="List Items"
             android:textAppearance="@style/list_items"
