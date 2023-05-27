@@ -2,7 +2,6 @@ package com.example.shoppingapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
@@ -14,7 +13,6 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
@@ -26,10 +24,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.staffview_page9);
+        setContentView(R.layout.staffview_page09);
 
         // Assign variable
-        View inflatedView = getLayoutInflater().inflate(R.layout.staffview_page8, null);
+        View inflatedView = getLayoutInflater().inflate(R.layout.staffview_page08, null);
         barChart = inflatedView.findViewById(R.id.bc_act);
         pieChart = inflatedView.findViewById(R.id.pc_act);
         // array list
