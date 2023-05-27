@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:foregroundTint="#FFFFFF">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_orderP9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:drawableStart="@drawable/navigate_before"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/montserrat_semibold"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:text="Order"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_orderP9">
+
+        <androidx.appcompat.widget.AppCompatToggleButton
+
+            android:id="@+id/btn_confirmP9"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="-5dip"
+            android:layout_marginTop="-5dip"
+            android:layout_marginRight="-5dip"
+            android:layout_marginBottom="-5dip"
+            android:layout_weight="0.25"
+            android:backgroundTint="#FFFFFF"
+            android:backgroundTintMode="multiply"
+            android:buttonTint="#871111"
+            android:fontFamily="@font/montserrat_light"
+            android:textAlignment="center"
+            android:textColor="@drawable/toggle_selector"
+            android:textColorHighlight="#FF8400"
+            android:textColorLink="#FF8400"
+            android:textOff="@string/btn_confirmP9"
+            android:textOn="@string/btn_confirmP9"
+            android:textSize="11sp" />
+
+        <androidx.appcompat.widget.AppCompatToggleButton
+
+            android:id="@+id/btn_waitP9"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="-5dip"
+            android:layout_marginTop="-5dip"
+            android:layout_marginRight="-5dip"
+            android:layout_marginBottom="-5dip"
+            android:layout_weight="0.25"
+            android:backgroundTint="#FFFFFF"
+            android:backgroundTintMode="multiply"
+            android:checked="false"
+            android:fontFamily="@font/montserrat_light"
+            android:textAlignment="center"
+            android:textColor="@drawable/toggle_selector"
+            android:textOff="@string/btn_waitP9"
+            android:textOn="@string/btn_waitP9"
+            android:textSize="11sp" />
+
+        <androidx.appcompat.widget.AppCompatToggleButton
+
+            android:id="@+id/btn_deliveringP9"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="-5dip"
+            android:layout_marginTop="-5dip"
+            android:layout_marginRight="-5dip"
+            android:layout_marginBottom="-5dip"
+            android:layout_weight="0.25"
+            android:backgroundTint="#FFFFFF"
+            android:backgroundTintMode="multiply"
+            android:checked="false"
+            android:fontFamily="@font/montserrat_light"
+            android:textAlignment="center"
+            android:textColor="@drawable/toggle_selector"
+            android:textOff="@string/btn_deliveringP9"
+            android:textOn="@string/btn_deliveringP9"
+            android:textSize="11sp" />
+
+        <androidx.appcompat.widget.AppCompatToggleButton
+
+            android:id="@+id/btn_deliveredP9"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="-5dip"
+            android:layout_marginTop="-5dip"
+            android:layout_marginRight="-5dip"
+            android:layout_marginBottom="-5dip"
+            android:layout_weight="0.25"
+            android:backgroundTint="#FFFFFF"
+            android:backgroundTintMode="multiply"
+            android:checked="false"
+            android:fontFamily="@font/montserrat_light"
+            android:textAlignment="center"
+            android:textColor="@drawable/toggle_selector"
+            android:textOff="@string/btn_deliveredP9"
+            android:textOn="@string/btn_deliveredP9"
+            android:textSize="11sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingBottom="20dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/img_avtP9"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_weight="0"
+                app:srcCompat="@tools:sample/avatars"
+                app:shapeAppearanceOverlay="@style/Circular" />
+
+            <TextView
+                android:id="@+id/txt_nameP9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/montserrat_light"
+                android:paddingStart="10dp"
+                android:text="@string/staff_name"
+                android:textColor="@color/black"
+                android:textSize="8dp" />
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingStart="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/img_productP9_1"
+                            android:layout_width="59dp"
+                            android:layout_height="59dp"
+                            app:shapeAppearanceOverlay="@style/Square"
+                            app:srcCompat="@tools:sample/avatars" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/txt_productP9"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/montserrat_light"
+                                android:paddingStart="10dp"
+                                android:paddingTop="10dp"
+                                android:text="Item"
+                                android:textColor="@color/black"
+                                android:textSize="9dp" />
+
+                            <TextView
+                                android:id="@+id/txt_priceP9"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/montserrat_medium"
+                                android:paddingStart="10dp"
+                                android:text="100VND"
+                                android:textColor="@color/black"
+                                android:textSize="9dp" />
+
+                            <TextView
+                                android:id="@+id/txt_quanityP9"
+                                android:layout_width="150dp"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/montserrat_light"
+                                android:paddingStart="10dp"
+                                android:text="1"
+                                android:textColor="@color/black"
+                                android:textSize="9dp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingStart="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="5dp">
+
+                    <TextView
+                        android:id="@+id/lb_totalP9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:text="Total"
+                        android:textColor="@color/black"
+                        android:textSize="9dp" />
+
+                    <TextView
+                        android:id="@+id/txt_totalP9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:text="100VND"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/black"
+                        android:textSize="9dp" />
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="85dp"
+                    android:layout_height="23dp"
+                    android:layout_gravity="end"
+                    android:background="@drawable/button_shape"
+                    android:backgroundTint="#FF8400"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="Detail"
+                    android:textColor="@color/white"
+                    android:textSize="9dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingStart="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:id="@+id/lb_itemCodeP9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:fontFamily="@font/montserrat_light"
+                        android:text="Item Code"
+                        android:textColor="@color/black"
+                        android:textSize="8dp" />
+
+                    <TextView
+                        android:id="@+id/txt_itemCodeP9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:fontFamily="@font/montserrat_light"
+                        android:text="1293AS3"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/black"
+                        android:textSize="8dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FF8400"
+            android:text="Confirm"
+            android:fontFamily="@font/montserrat_bold"
+            android:textSize="12dp"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

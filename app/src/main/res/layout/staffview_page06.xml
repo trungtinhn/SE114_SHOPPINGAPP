@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/rectangle_3"
+        style="@style/fauget"
+        android:layout_width="329dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/rectangle_7"
+        android:backgroundTint="#F0F0F0"
+        android:drawableStart="@drawable/search"
+        android:drawablePadding="20dp"
+        android:fontFamily="@font/montserrat_medium"
+        android:hint="Search in the shop"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:paddingStart="10dp"
+        android:textColor="#000000"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rectangle_3">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingStart="20sp"
+                android:paddingBottom="10sp">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="59sp"
+                    android:layout_height="59sp"
+                    android:layout_weight="0"
+                    android:src="@drawable/ic_launcher_background"
+                    app:shapeAppearanceOverlay="@style/RoundedSquare" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingStart="20sp">
+
+                    <TextView
+                        android:id="@+id/txt_productNameP6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserrat_light"
+                        android:text="Product"
+                        android:textColor="#000000"
+                        android:textSize="9sp" />
+
+                    <TextView
+                        android:id="@+id/txt_priceP6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserrat_medium"
+
+                        android:paddingTop="10dp"
+                        android:text="Price"
+                        android:textColor="#000000"
+                        android:textSize="8sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:orientation="horizontal"
+                android:paddingStart="20sp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/txt_wareHouse"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_warehouse"
+                            android:drawablePadding="10sp"
+                            android:fontFamily="@font/montserrat_light"
+                            android:paddingStart="20sp"
+                            android:text="Warehouse"
+                            android:textColor="#000000"
+                            android:textSize="8sp" />
+
+                        <TextView
+                            android:id="@+id/txt_wH_quanity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/montserrat_light"
+                            android:paddingStart="10sp"
+                            android:text="100"
+                            android:textColor="#000000"
+                            android:textSize="8sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingTop="6sp">
+
+                        <TextView
+                            android:id="@+id/txt_fav"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_favorite"
+                            android:drawablePadding="10sp"
+                            android:fontFamily="@font/montserrat_light"
+                            android:paddingStart="20sp"
+                            android:text="Love"
+                            android:textColor="#000000"
+                            android:textSize="8sp" />
+
+                        <TextView
+                            android:id="@+id/txt_fav_quanity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/montserrat_light"
+                            android:paddingStart="10sp"
+                            android:text="100"
+                            android:textColor="#000000"
+                            android:textSize="8sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:orientation="vertical"
+                    android:paddingStart="80sp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/txt_soldOut"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_soldout"
+                            android:drawablePadding="10sp"
+                            android:fontFamily="@font/montserrat_light"
+                            android:text="Sold out"
+                            android:textColor="#000000"
+                            android:textSize="8sp" />
+
+                        <TextView
+                            android:id="@+id/txt_soldOut_quanity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/montserrat_light"
+                            android:paddingStart="10sp"
+                            android:text="100"
+                            android:textColor="#000000"
+                            android:textSize="8sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="6sp">
+
+                        <TextView
+                            android:id="@+id/txt_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_view"
+                            android:drawablePadding="10sp"
+                            android:fontFamily="@font/montserrat_light"
+                            android:paddingStart="0sp"
+                            android:text="Views"
+                            android:textColor="#000000"
+                            android:textSize="8sp" />
+
+                        <TextView
+                            android:id="@+id/txt_view_quanity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/montserrat_light"
+                            android:paddingStart="10sp"
+                            android:text="100"
+                            android:textColor="#000000"
+                            android:textSize="8sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start|end"
+                android:orientation="horizontal"
+                android:paddingHorizontal="30sp"
+                android:paddingStart="40sp"
+                android:paddingTop="20sp"
+                android:paddingEnd="40sp">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_hideP6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="#FF931F"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:text="Hide"
+                    android:textColor="#FFFFFF"
+                    android:textSize="11sp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_editP6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="#FF931F"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:text="Edit"
+                    android:textColor="#FFFFFF"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_addP6"
+        android:layout_width="155sp"
+        android:layout_height="35sp"
+        android:layout_marginBottom="44dp"
+        android:background="@drawable/button_shape"
+        android:backgroundTint="#FF931F"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="Add new product"
+        android:textColor="@color/white"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

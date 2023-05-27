@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="250dp">
+
+    <ImageView
+        android:id="@+id/id_avatar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/anh1"
+        />
+    <LinearLayout
+        android:id="@+id/linear1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@id/id_avatar"
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp"
+        >
+
+        <TextView
+            android:id="@+id/product_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="T-Shirt Black Blank -VSD343545D - New Elevent"
+            />
+
+        <TextView
+            android:id="@+id/product_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="139.999đ"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/linear1"
+        android:layout_marginTop="21dp">
+        <ImageView
+            android:id="@+id/imaware"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="25dp"
+            android:src="@drawable/ware"
+            />
+
+        <TextView
+            android:id="@+id/textware"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="25dp"
+            android:text="Ware House: " />
+        <TextView
+            android:id="@+id/idware"
+            android:layout_width="40dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="25dp"
+            android:text="20"
+            />
+
+        <ImageView
+            android:id="@+id/imasold"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="25dp"
+            android:src="@drawable/sold"
+            />
+
+        <TextView
+            android:id="@+id/textsold"
+            android:layout_width="67dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="25dp"
+            android:text="Sold Out:" />
+        <TextView
+            android:id="@+id/idsold"
+            android:layout_width="40dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="25dp"
+            android:text="20"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linear3"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/linear2">
+
+        <ImageView
+            android:id="@+id/imalove"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="25dp"
+            android:src="@drawable/love" />
+
+
+        <TextView
+            android:id="@+id/textlove"
+            android:layout_width="49dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="25dp"
+            android:text="Love: " />
+        <TextView
+            android:id="@+id/idlove"
+            android:layout_width="40dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="25dp"
+            android:text="20"
+            />
+
+        <ImageView
+            android:id="@+id/imaview"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="85dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="25dp"
+            android:src="@drawable/view"
+            />
+
+
+        <TextView
+            android:id="@+id/textview"
+            android:layout_width="61dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="25dp"
+            android:text="View:" />
+        <TextView
+            android:id="@+id/idviews"
+            android:layout_width="40dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="25dp"
+            android:text="20"
+            />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_below="@+id/linear3"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="vertical"
+        >
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hide"
+            android:layout_marginLeft="80dp"
+            android:backgroundTint="#FF931F"
+            />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_marginLeft="70dp"
+            android:layout_toRightOf="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FF931F"
+            android:text="Edit" />
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

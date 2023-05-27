@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/ptb_productImage"
+        android:layout_width="235dp"
+        android:layout_height="235dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="52dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/box" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_back"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/navigate_before"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.083"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/txt_productName"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="Product Name"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ptb_productImage" />
+
+    <TextView
+        android:id="@+id/txt_quanity"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="28dp"
+        android:fontFamily="@font/montserrat_light"
+        android:text="number"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_productName" />
+
+    <TextView
+        android:id="@+id/txt_productColor"
+        android:layout_width="47dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="Color"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rb_ratingbar" />
+
+    <TextView
+        android:id="@+id/txt_productColor2"
+        android:layout_width="wrap_content"
+        android:layout_height="22dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="Size"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/lay_size"
+        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_productColor" />
+
+    <TextView
+        android:id="@+id/txt_review"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/montserrat_light"
+        android:text="@string/see_reviews"
+        android:textColor="#000000"
+        android:textSize="10sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toEndOf="@+id/rb_ratingbar"
+        app:layout_constraintTop_toBottomOf="@+id/txt_quanity" />
+
+    <TextView
+        android:id="@+id/txt_HowToChooseSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/montserrat_light"
+        android:text="@string/choose_size_tuto"
+        android:textColor="#000000"
+        android:textSize="7sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_decrease" />
+
+    <TextView
+        android:id="@+id/txt_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="999.000 đ"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.601"
+        app:layout_constraintStart_toEndOf="@+id/txt_productName"
+        app:layout_constraintTop_toBottomOf="@+id/ptb_productImage" />
+
+    <RatingBar
+        android:id="@+id/rb_ratingbar"
+        style="@style/customRatingBar"
+        android:layout_width="81dp"
+        android:layout_height="17dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="12dp"
+        android:numStars="5"
+        android:progressTint="#F3603F"
+        android:rating="4"
+        android:stepSize="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_quanity" />
+
+    <LinearLayout
+        android:id="@+id/lay_color"
+        android:layout_width="0dp"
+        android:layout_height="16sp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toEndOf="@+id/txt_productColor"
+        app:layout_constraintTop_toBottomOf="@+id/txt_review">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_color1"
+            android:layout_width="16sp"
+            android:layout_height="16sp"
+            android:background="@drawable/button_shape"
+            android:backgroundTint="#F44336"
+            android:gravity="center_vertical" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lay_size"
+        android:layout_width="0dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="52dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toEndOf="@+id/txt_productColor"
+        app:layout_constraintTop_toBottomOf="@+id/txt_review">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_size1"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:background="@drawable/button_shape"
+            android:backgroundTint="#C8C8C8"
+            android:fontFamily="@font/montserrat"
+            android:text="S"
+            android:textAlignment="center"
+            android:textSize="10sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_size2"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:layout_weight="1"
+            android:background="@drawable/button_shape"
+            android:backgroundTint="#C8C8C8"
+            android:fontFamily="@font/montserrat"
+            android:text="M"
+            android:textAlignment="center"
+            android:textSize="10sp" />
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_increase"
+        android:layout_width="15sp"
+        android:layout_height="15sp"
+        android:layout_marginTop="92dp"
+        android:layout_marginEnd="24dp"
+        android:layout_weight="1"
+        android:background="@drawable/navigate_up"
+        android:fontFamily="@font/montserrat"
+        android:textAlignment="center"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.936"
+        app:layout_constraintStart_toEndOf="@+id/btn_decrease"
+        app:layout_constraintTop_toBottomOf="@+id/txt_price" />
+
+    <TextView
+        android:id="@+id/txt_numBuy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="88dp"
+        android:fontFamily="@font/montserrat_semibold"
+        android:text="1"
+        android:textColor="#000000"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toStartOf="@+id/btn_increase"
+        app:layout_constraintHorizontal_bias="0.475"
+        app:layout_constraintStart_toEndOf="@+id/btn_decrease"
+        app:layout_constraintTop_toBottomOf="@+id/txt_price" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_decrease"
+        android:layout_width="15sp"
+        android:layout_height="15sp"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="92dp"
+        android:layout_weight="1"
+        android:background="@drawable/navigate_down"
+        android:fontFamily="@font/montserrat"
+        android:textAlignment="center"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/lay_color"
+        app:layout_constraintTop_toBottomOf="@+id/txt_price" />
+
+    <TextView
+        android:id="@+id/txt_productDetail"
+        android:layout_width="306dp"
+        android:layout_height="17dp"
+        android:layout_marginBottom="20dp"
+        android:drawablePadding="10sp"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="See product detail"
+        android:textAlignment="viewStart"
+        android:textColor="#000000"
+        android:textSize="10sp"
+        app:drawableEndCompat="@drawable/icon_list"
+        app:layout_constraintBottom_toTopOf="@+id/btn_Edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lay_size"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_Edit"
+        android:layout_width="201dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="48dp"
+        android:backgroundTint="#FF8400"
+        android:fontFamily="@font/montserrat_semibold"
+        android:text="Edit now"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.547"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lay_size">
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

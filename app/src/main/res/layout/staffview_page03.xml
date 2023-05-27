@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/rectangle_"
+        android:layout_width="360dp"
+        android:layout_height="182dp"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/rectangle_181"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/btn_three_dots2"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="328dp"
+        android:layout_marginTop="23dp"
+        android:background="@drawable/three_dots"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <EditText
+        android:id="@+id/rectangle_2"
+        style="@style/fauget"
+        android:layout_width="285dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/rectangle_7"
+        android:fontFamily="@font/montserrat_medium"
+        android:hint="Search in the shop"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:paddingStart="50dp"
+        android:textColor="#000000"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <View
+        android:id="@+id/icon_search2"
+        android:layout_width="22.97dp"
+        android:layout_height="22.97dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="23dp"
+        android:background="@drawable/search"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageButton2"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_marginStart="144dp"
+        android:layout_marginTop="75dp"
+        android:src="@drawable/box"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/Circular" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="313dp"
+        android:layout_height="413dp"
+        android:layout_marginTop="194dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rectangle_">
+
+        <View
+            android:id="@+id/line_"
+            android:layout_width="140dp"
+            android:layout_height="1dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="173dp"
+            android:layout_marginTop="27dp"
+            android:background="@drawable/line_14"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/product2"
+            android:layout_width="61dp"
+            android:layout_height="18dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="43dp"
+            android:layout_marginTop="3dp"
+            android:fontFamily="@font/montserrat"
+            android:gravity="top"
+            android:text="Product"
+            android:textAppearance="@style/product"
+            android:textColor="#000000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/list_items2"
+            android:layout_width="73dp"
+            android:layout_height="18dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="206dp"
+            android:layout_marginTop="3dp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:gravity="top"
+            android:text="List Items"
+            android:textAppearance="@style/list_items"
+            android:textColor="#FF8400"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="311dp"
+            android:layout_height="383dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="35dp"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button15"
+                android:layout_width="match_parent"
+                android:layout_height="62dp"
+                android:background="#FFFFFF"
+                android:backgroundTint="#FFFFFF"
+
+                android:drawableStart="@drawable/box"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/montserrat"
+                android:includeFontPadding="true"
+                android:paddingStart="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="@string/LinesInProduct"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
+                android:textSize="13dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button17"
+                android:layout_width="match_parent"
+                android:layout_height="62dp"
+                android:background="#FFFFFF"
+                android:backgroundTint="#FFFFFF"
+
+                android:drawableStart="@drawable/box"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/montserrat"
+                android:includeFontPadding="true"
+                android:paddingStart="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="@string/LinesInProduct"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
+                android:textSize="13dp" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
