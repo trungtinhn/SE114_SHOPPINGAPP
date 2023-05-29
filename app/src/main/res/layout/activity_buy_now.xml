@@ -41,6 +41,7 @@
         android:gravity="center_vertical">
 
         <ImageView
+            android:id="@+id/image_product"
             android:layout_width="126dp"
             android:layout_height="149dp"
             android:layout_marginLeft="20dp"
@@ -53,6 +54,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/txt_tensp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -61,6 +63,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/txt_tendanhmuc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -68,6 +71,7 @@
                 android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/txt_giaban"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -83,11 +87,13 @@
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/btn_minus"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:src="@drawable/minus" />
 
                 <TextView
+                    android:id="@+id/txt_soluong"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
@@ -116,6 +122,7 @@
         android:layout_marginTop="10dp">
 
         <TextView
+            android:id="@+id/click_giamgia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -137,6 +144,7 @@
         android:layout_height="60dp">
 
         <TextView
+            android:id="@+id/txt_giagia"
             android:layout_width="308dp"
             android:layout_height="42dp"
             android:text="Mega Details"
@@ -144,7 +152,7 @@
             android:textSize="20sp" />
 
         <CheckBox
-            android:id="@+id/checkBox"
+            android:id="@+id/checkbox_voucher"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1" />
@@ -157,6 +165,7 @@
         android:layout_marginTop="10dp">
 
         <TextView
+            android:id="@+id/click_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -185,6 +194,7 @@
             android:src="@drawable/address" />
 
         <TextView
+            android:id="@+id/txt_address"
             android:layout_width="243dp"
             android:layout_height="42dp"
             android:text="Add your address"
@@ -192,7 +202,7 @@
             android:textSize="20sp" />
 
         <CheckBox
-            android:id="@+id/checkBox2"
+            android:id="@+id/checkbox_address"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1" />
@@ -205,11 +215,12 @@
         android:layout_marginTop="10dp">
 
         <TextView
+            android:id="@+id/click_payment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
-            android:text="Add Your Address"
+            android:text="Payment Method"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -233,6 +244,7 @@
             android:src="@drawable/visa" />
 
         <TextView
+            android:id="@+id/txt_payment"
             android:layout_width="243dp"
             android:layout_height="42dp"
             android:gravity="center"
@@ -241,7 +253,7 @@
             android:textSize="20sp" />
 
         <CheckBox
-            android:id="@+id/checkBox3"
+            android:id="@+id/checkBox_payment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1" />

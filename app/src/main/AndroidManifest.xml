@@ -12,28 +12,28 @@
         android:theme="@style/Theme.ShoppingApp"
         tools:targetApi="31">
         <activity
-            android:name=".ReViewer"
+            android:name=".customerview.activity.ReViewer"
             android:exported="false" />
         <activity
-            android:name=".ShoppingCart"
+            android:name=".customerview.activity.ShoppingCart"
             android:exported="false" />
         <activity
-            android:name=".BuyNow"
+            android:name=".customerview.activity.BuyNow"
             android:exported="false" />
         <activity
             android:name=".NewAddress"
             android:exported="false" />
         <activity
-            android:name=".SaveAddress"
+            android:name=".customerview.activity.SaveAddress"
             android:exported="false" />
         <activity
-            android:name=".DeliveryAddress"
+            android:name=".customerview.activity.BuyNow$DeliveryAddress"
             android:exported="false" />
         <activity
-            android:name=".NewCard"
+            android:name=".customerview.activity.NewCard"
             android:exported="false" />
         <activity
-            android:name=".CheckOut"
+            android:name=".customerview.activity.CheckOut"
             android:exported="false" />
         <activity
             android:name=".customerview.activity.SearchingActivity"
