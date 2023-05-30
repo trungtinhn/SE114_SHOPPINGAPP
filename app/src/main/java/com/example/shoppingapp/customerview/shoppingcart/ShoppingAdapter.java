@@ -1,5 +1,6 @@
 package com.example.shoppingapp.customerview.shoppingcart;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.example.shoppingapp.customerview.product.Product;
 import java.util.List;
 public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.ShoppingCartViewHolder>{
     private List<ShoppingCart> data;
+    private Context context;
     private IClickItemProductListener iClickItemShoppingCartListener;
 
     public void setData(List<ShoppingCart> list, IClickItemProductListener listener)
@@ -25,7 +27,9 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
         this.iClickItemShoppingCartListener= listener;
         notifyDataSetChanged();
     }
-
+    public ShoppingAdapter(Context context){
+        this.context = context;
+    }
     @NonNull
     @Override
     public ShoppingCartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

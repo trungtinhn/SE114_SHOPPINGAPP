@@ -1,6 +1,7 @@
 package com.example.shoppingapp.customerview.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -13,6 +14,11 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.shoppingapp.R;
+import com.example.shoppingapp.customerview.review.ReViewData;
+import com.example.shoppingapp.customerview.review.ReviewDataAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReViewer extends AppCompatActivity {
     TextView TongSoDanhGia, TrungBinh;
@@ -20,6 +26,9 @@ public class ReViewer extends AppCompatActivity {
     RecyclerView DataComment;
     ImageView backIcon;
     RatingBar Rating;
+    List<ReViewData> dataReview;
+    ReviewDataAdapter dataAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +39,18 @@ public class ReViewer extends AppCompatActivity {
         btn_addcomment = findViewById(R.id.btn_addreview);
         TrungBinh = findViewById(R.id.txt_trungbinh);
         Rating = findViewById(R.id.ratingBar);
+
+        dataReview = new ArrayList<>();
+
+        dataAdapter = new ReviewDataAdapter(this.getApplicationContext());
+        dataAdapter.setData(dataReview);
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+//        rcvMessage.setLayoutManager(linearLayoutManager);
+//
+//        rcvMessage.setAdapter(messageAdapter);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+        DataComment.setLayoutManager(linearLayoutManager);
+        DataComment.setAdapter(dataAdapter);
 
 
         btn_addcomment.setOnClickListener(new View.OnClickListener() {
