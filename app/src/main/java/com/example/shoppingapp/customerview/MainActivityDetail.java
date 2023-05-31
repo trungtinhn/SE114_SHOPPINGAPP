@@ -1,14 +1,16 @@
-package com.example.shoppingapp;
+package com.example.shoppingapp.customerview;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class BottomNavigationCustomActivity extends AppCompatActivity {
+import com.example.shoppingapp.R;
+
+public class MainActivityDetail extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bottom_navigation_custom);
+        setContentView(R.layout.activity_main_detail);
     }
 }

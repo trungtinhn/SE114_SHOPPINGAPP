@@ -7,4 +7,13 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="mercury">#E1E1E1</color>
+    <color name="carnation">#F66666</color>
+    <color name="mantis">#7EBE50</color>
+    <color name="yellow">#F0E951</color>
+    <color name="Cararra">#E7E7E4</color>
+    <color name="orange">#FB9423</color>
+    <color name="sliver">#EEEEEE</color>
+    <color name="lightpink">#FFEEE3</color>
+    <color name="chathams_blue">#143F6B</color>
 </resources>
