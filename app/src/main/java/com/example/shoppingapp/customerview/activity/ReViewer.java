@@ -44,10 +44,7 @@ public class ReViewer extends AppCompatActivity {
 
         dataAdapter = new ReviewDataAdapter(this.getApplicationContext());
         dataAdapter.setData(dataReview);
-//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-//        rcvMessage.setLayoutManager(linearLayoutManager);
-//
-//        rcvMessage.setAdapter(messageAdapter);
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         DataComment.setLayoutManager(linearLayoutManager);
         DataComment.setAdapter(dataAdapter);

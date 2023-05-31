@@ -7,7 +7,7 @@ public class ReViewData {
     private String danhgiatb;
     private int idanhgiatb;
     private String description;
-    private int[] imagecmt;
+    private int imagecmt;
 
     public int getIavartar() {
         return iavartar;
@@ -49,11 +49,11 @@ public class ReViewData {
         this.description = description;
     }
 
-    public int[] getImagecmt() {
+    public int getImagecmt() {
         return imagecmt;
     }
 
-    public void setImagecmt(int[] imagecmt) {
+    public void setImagecmt(int imagecmt) {
         this.imagecmt = imagecmt;
     }
 

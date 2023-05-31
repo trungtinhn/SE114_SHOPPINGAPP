@@ -45,6 +45,7 @@ public class ReviewDataAdapter extends RecyclerView.Adapter<ReviewDataAdapter.Re
         holder.tb.setText(reViewData.getDanhgiatb());
         holder.stardanhgia.setNumStars(reViewData.getIdanhgiatb());
         holder.noidung.setText(reViewData.getDescription());
+        holder.product.setImageResource(reViewData.getImagecmt());
 
     }
 
@@ -55,7 +56,7 @@ public class ReviewDataAdapter extends RecyclerView.Adapter<ReviewDataAdapter.Re
     }
 
     public class ReviewHolder extends RecyclerView.ViewHolder{
-        private ImageView avatar;
+        private ImageView avatar, product;
         private TextView name, time, tb, noidung;
         private RatingBar stardanhgia;
 
@@ -67,6 +68,7 @@ public class ReviewDataAdapter extends RecyclerView.Adapter<ReviewDataAdapter.Re
             tb = item.findViewById(R.id.txt_trungbinh);
             noidung = item.findViewById(R.id.text_noidung);
             stardanhgia = item.findViewById(R.id.ratingBar);
+            product = item.findViewById(R.id.image_product);
         }
     }
 }

@@ -27,7 +27,7 @@
             android:name=".customerview.activity.SaveAddress"
             android:exported="false" />
         <activity
-            android:name=".customerview.activity.BuyNow$DeliveryAddress"
+            android:name=".customerview.activity.DeliveryAddress"
             android:exported="false" />
         <activity
             android:name=".customerview.activity.NewCard"

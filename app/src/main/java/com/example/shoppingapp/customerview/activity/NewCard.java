@@ -2,7 +2,6 @@ package com.example.shoppingapp.customerview.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -20,8 +19,8 @@ public class NewCard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_card);
         backIcon = findViewById(R.id.backIcon);
-        Name = findViewById(R.id.text_namecard);
-        Number = findViewById(R.id.text_number);
+        Name = findViewById(R.id.text_name);
+        Number = findViewById(R.id.text_address);
         Date = findViewById(R.id.txt_ngay);
         CVV = findViewById(R.id.txt_maso);
         btn_addcard = findViewById(R.id.btn_addcard);
