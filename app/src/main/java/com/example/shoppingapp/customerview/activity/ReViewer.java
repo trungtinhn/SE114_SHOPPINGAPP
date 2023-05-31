@@ -41,7 +41,7 @@ public class ReViewer extends AppCompatActivity {
         Rating = findViewById(R.id.ratingBar);
 
         dataReview = new ArrayList<>();
-
+        //add data
         dataAdapter = new ReviewDataAdapter(this.getApplicationContext());
         dataAdapter.setData(dataReview);
 

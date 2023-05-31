@@ -1,6 +1,7 @@
 package com.example.shoppingapp.customerview.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -36,8 +37,11 @@ public class ShoppingCart extends AppCompatActivity {
         ButtonCheckOut = findViewById(R.id.btn_checkout);
 
         data = new ArrayList<>();
+        //Add du lieu
         shoppingAdapter = new ShoppingAdapter(this.getApplicationContext());
-
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+        recyclerViewdata.setLayoutManager(linearLayoutManager);
+        recyclerViewdata.setAdapter(shoppingAdapter);
 
         ButtonCheckOut.setOnClickListener(new View.OnClickListener() {
             @Override
