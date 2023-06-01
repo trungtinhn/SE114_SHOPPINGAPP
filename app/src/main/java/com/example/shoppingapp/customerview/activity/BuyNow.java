@@ -29,15 +29,15 @@ public class BuyNow extends AppCompatActivity {
         ClickPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent t = new Intent(BuyNow.this, com.example.shoppingapp.customerview.activity.CheckOut.class);
-                //startActivity(t);
+                Intent t = new Intent(BuyNow.this, CheckOut.class);
+                startActivity(t);
             }
         });
         ClickAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent t = new Intent(BuyNow.this, SaveAddress.class);
-                //startActivity(t);
+                Intent t = new Intent(BuyNow.this, SaveAddress.class);
+                startActivity(t);
             }
         });
         ClickGiamGia.setOnClickListener(new View.OnClickListener() {
@@ -50,14 +50,16 @@ public class BuyNow extends AppCompatActivity {
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent t = new Intent(BuyNow.this, ShoppingCart.class);
+                startActivity(t);
             }
         });
         CheckOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent t = new Intent(BuyNow.this,  );
-                //startActivity(t);
+                Intent t = new Intent(BuyNow.this, DoneActivity.class);
+                startActivity(t);
 
             }
         });

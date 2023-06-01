@@ -2,6 +2,7 @@ package com.example.shoppingapp.customerview.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -28,15 +29,15 @@ public class NewCard extends AppCompatActivity {
         btn_addcard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent t = new Intent(NewCard.this, CheckOut.class);
-                //startActivity(t);
+                Intent t = new Intent(NewCard.this, CheckOut.class);
+                startActivity(t);
             }
         });
         backIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent t = new Intent(NewCard.this, CheckOut.class);
-                //startActivity(t);
+                Intent t = new Intent(NewCard.this, CheckOut.class);
+                startActivity(t);
             }
         });
     }
