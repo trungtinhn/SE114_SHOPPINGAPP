@@ -1,6 +1,12 @@
 package com.example.shoppingapp;
 
-public class product_object {
+import android.view.View;
+import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+public class product_object{
     private String name;
     private double price;
     private int avatar;
@@ -10,6 +16,7 @@ public class product_object {
     private int views;
     private  int count;
 
+
     public int getCount() {
         return count;
     }
@@ -18,7 +25,8 @@ public class product_object {
         this.count = count;
     }
 
-    public product_object(String name, double price, int avatar, int warehouse, int love, int sold, int view,int count) {
+
+    public product_object(String name, double price, int avatar, int warehouse, int love, int sold, int view, int count) {;
         this.name = name;
         this.price = price;
         this.avatar = avatar;
@@ -27,6 +35,12 @@ public class product_object {
         this.sold = sold;
         this.views = views;
         this.count = count;
+    }
+    public product_object(String name, int price, int avt) {
+
+        this.name = name;
+        this.price = price;
+        this.avatar = avt;
     }
 
     public String getName() {

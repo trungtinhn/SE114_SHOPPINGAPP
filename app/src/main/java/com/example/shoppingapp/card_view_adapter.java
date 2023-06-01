@@ -25,7 +25,6 @@ public class card_view_adapter extends RecyclerView.Adapter<card_view_adapter.Pr
     public card_view_adapter(ArrayList<product_object> arrayList) {
 
         this.arrayList = arrayList;
-
     }
 
     @Override

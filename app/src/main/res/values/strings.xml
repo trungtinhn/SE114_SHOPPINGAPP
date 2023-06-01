@@ -17,4 +17,6 @@
     <string name="btn_waitP9">Wait\n(0)</string>
     <string name="btn_deliveringP9">Delivering\n(0)</string>
     <string name="btn_deliveredP9">Delivered\n(0)</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

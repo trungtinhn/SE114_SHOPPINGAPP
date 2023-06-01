@@ -148,7 +148,7 @@
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:layout_weight="0"
-                app:srcCompat="@tools:sample/avatars"
+                app:srcCompat="@drawable/btn_manage_user"
                 app:shapeAppearanceOverlay="@style/Circular" />
 
             <TextView
@@ -188,7 +188,7 @@
                             android:layout_width="59dp"
                             android:layout_height="59dp"
                             app:shapeAppearanceOverlay="@style/Square"
-                            app:srcCompat="@tools:sample/avatars" />
+                            app:srcCompat="@drawable/btn_manage_user" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"

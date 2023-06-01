@@ -9,8 +9,8 @@
         android:id="@+id/ptb_productImage"
         android:layout_width="235dp"
         android:layout_height="235dp"
-        android:layout_marginStart="60dp"
         android:layout_marginTop="52dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/box" />

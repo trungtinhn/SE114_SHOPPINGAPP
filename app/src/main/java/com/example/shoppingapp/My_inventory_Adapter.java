@@ -71,7 +71,7 @@ public class My_inventory_Adapter extends RecyclerView.Adapter<My_inventory_Adap
             views = itemView.findViewById(R.id.idviews);
             ava = itemView.findViewById(R.id.id_avatar);
             H = itemView.findViewById(R.id.button2);
-            Edit = itemView.findViewById(R.id.button3);
+            Edit = itemView.findViewById(R.id.btn_setting);
         }
     }
 }
