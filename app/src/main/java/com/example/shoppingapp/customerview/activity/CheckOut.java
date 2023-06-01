@@ -31,22 +31,22 @@ public class CheckOut extends AppCompatActivity {
         btn_continue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent t = new Intent(CheckOut.this, BuyNow.class);
-                //startActivity(t);
+                Intent t = new Intent(CheckOut.this, BuyNow.class);
+                startActivity(t);
             }
         });
         btn_add_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent t = new Intent(CheckOut.this, NewCard.class);
-                //startActivity(t);
+                Intent t = new Intent(CheckOut.this, NewCard.class);
+                startActivity(t);
             }
         });
         backIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent t = new Intent(CheckOut.this, BuyNow.class);
-//                startActivity(t);
+                Intent t = new Intent(CheckOut.this, BuyNow.class);
+                startActivity(t);
             }
         });
     }

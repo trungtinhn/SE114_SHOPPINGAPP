@@ -14,6 +14,7 @@ import com.example.shoppingapp.customerview.activity.DetailProductActivity;
 import com.example.shoppingapp.customerview.activity.MessageActivity;
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.customerview.activity.SearchingActivity;
+import com.example.shoppingapp.customerview.activity.ShoppingCart;
 import com.example.shoppingapp.customerview.activity.TrendingActivity;
 import com.example.shoppingapp.customerview.fragment.HomeFragment;
 import com.example.shoppingapp.customerview.fragment.ViewPagerAdapter;
@@ -129,7 +130,7 @@ public class BottomNavigationCustomActivity extends AppCompatActivity{
 
     public void gotoDetail()
     {
-        Intent intent = new Intent(BottomNavigationCustomActivity.this, MainActivityDetail.class);
+        Intent intent = new Intent(BottomNavigationCustomActivity.this, ShoppingCart.class);
         startActivity(intent);
     }
 

@@ -12,6 +12,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.shoppingapp.R;
+import com.example.shoppingapp.customerview.BottomNavigationCustomActivity;
 import com.example.shoppingapp.customerview.shoppingcart.ShoppingAdapter;
 
 import java.util.ArrayList;
@@ -46,14 +47,16 @@ public class ShoppingCart extends AppCompatActivity {
         ButtonCheckOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent t = new Intent(ShoppingCart.this, BuyNow.class);
+                startActivity(t);
             }
         });
         backIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent t = new Intent(ShoppingCart.this, )
-                //startActivity(t);
+                Intent t = new Intent(ShoppingCart.this, BottomNavigationCustomActivity.class);
+                startActivity(t);
             }
         });
     }
