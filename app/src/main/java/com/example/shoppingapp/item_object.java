@@ -1,8 +1,9 @@
 package com.example.shoppingapp;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class item_object {
+public class item_object implements Serializable {
     private String name;
     private int quanity;
     private int image;
@@ -12,12 +13,6 @@ public class item_object {
         return name;
     }
 
-    public item_object(String name, int quanity, int image, ArrayList<product_object> product_list) {
-        this.name = name;
-        this.quanity = quanity;
-        this.image = image;
-        this.product_list = product_list;
-    }
     public item_object(String name, int image, ArrayList<product_object> product_list) {
         this.name = name;
         getQuanity();
@@ -38,6 +33,7 @@ public class item_object {
     }
 
     public int getQuanity() {
+        if(product_list == null) return 0;
         return product_list.size();
     }
 

@@ -1,23 +1,31 @@
 package com.example.shoppingapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class My_list_product_fragment extends Fragment {
-    My_list_product_adapter myAdapter;
+public class fragment_detail_list_item extends Fragment {
+    adapter_My_list_product myAdapter;
+    TextView name;
     ArrayList<product_object> ProductArrayList;
+    Button btn;
+    item_object Item;
     RecyclerView RV;
-    public My_list_product_fragment() {
+    public fragment_detail_list_item(item_object item) {
+        Item = item;
         // Required empty public constructor
     }
 
@@ -31,8 +39,17 @@ public class My_list_product_fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_my_list_product ,container, false);
-        RV= view.findViewById(R.id.RCV_product_list);
+        View view = inflater.inflate(R.layout.fragment_detail_my_list_item ,container, false);
+        RV = view.findViewById(R.id.RCV_detail_listItems);
+        btn = view.findViewById(R.id.btn_back_list_items);
+        name = view.findViewById(R.id.txt_list_item_detail);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), activity_List_Product_And_Item.class);
+                startActivity(intent);
+            }
+        });
         setdata();
         // return view;
         return view;
@@ -40,14 +57,11 @@ public class My_list_product_fragment extends Fragment {
 
     private void setdata() {
 
-        ProductArrayList= new ArrayList<>();
-
-        ProductArrayList.add(new product_object("T-Shirt Black Blank - VSD343545D - New Elevent",2,R.drawable.anh1));
-        ProductArrayList.add(new product_object("T-Shirt Black Blank - VSD343545D - New Elevent",3,R.drawable.anh1));
-
-        myAdapter = new My_list_product_adapter(getActivity(),ProductArrayList);
+        ProductArrayList = Item.getProduct_list();
+        myAdapter = new adapter_My_list_product(this.getContext(),getActivity(),ProductArrayList);
+        name.setText(Item.getName());
         myAdapter.setData(ProductArrayList);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity() , RecyclerView.VERTICAL, false);
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext().getApplicationContext(), 2);
         RV.setLayoutManager(layoutManager);
         RV.setAdapter(myAdapter);
     }

@@ -1,9 +1,12 @@
 package com.example.shoppingapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,12 +16,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class My_list_item_fragment extends Fragment {
-    My_list_item_adapter myAdapter;
+public class fragment_My_list_item extends Fragment {
+    adapter_My_list_item myAdapter;
+
     ArrayList<product_object> ProductArrayList;
+
     ArrayList<item_object> ItemArrayList;
     RecyclerView RV;
-    public My_list_item_fragment() {
+    public fragment_My_list_item() {
         // Required empty public constructor
     }
 
@@ -34,6 +39,7 @@ public class My_list_item_fragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_list_item ,container, false);
         RV = view.findViewById(R.id.RCV_item_list);
+
         setdata();
         // return view;
         return view;
@@ -49,11 +55,13 @@ public class My_list_item_fragment extends Fragment {
         ItemArrayList.add(new item_object("T-Shirt", R.drawable.anh1, ProductArrayList));
         ItemArrayList.add(new item_object("T-Shirt2", R.drawable.anh1, ProductArrayList));
 
-        myAdapter = new My_list_item_adapter(getActivity(),ItemArrayList);
+        myAdapter = new adapter_My_list_item(getActivity(),ItemArrayList);
         myAdapter.setData(ItemArrayList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity()  , RecyclerView.VERTICAL, false);
         RV.setLayoutManager(layoutManager);
         RV.setAdapter(myAdapter);
+
+
 
     }
 
@@ -61,5 +69,6 @@ public class My_list_item_fragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
+
 
 }

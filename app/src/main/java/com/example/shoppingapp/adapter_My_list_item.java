@@ -9,19 +9,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class My_list_item_adapter extends RecyclerView.Adapter<My_list_item_adapter.list_item_holder> {
+public class adapter_My_list_item extends RecyclerView.Adapter<adapter_My_list_item.list_item_holder> {
 
-    Context context;
     private Activity activity;
-    private ArrayList<item_object> arrayList;
+    private Context context;
+    private List<item_object> arrayList;
 
-    public My_list_item_adapter(Activity activity, ArrayList<item_object> arrayList) {
+    public adapter_My_list_item(Activity activity, List<item_object> arrayList) {
         this.arrayList = arrayList;
         this.activity = activity;
+
     }
 
     @NonNull
@@ -39,6 +42,17 @@ public class My_list_item_adapter extends RecyclerView.Adapter<My_list_item_adap
         holder.name.setText(product.getName());
         holder.ava.setImageResource(product.getImage());
         holder.quanity.setText(String.valueOf(product.getQuanity()));
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppCompatActivity act = (AppCompatActivity) view.getContext();
+                fragment_detail_list_item fragment = new fragment_detail_list_item(product);
+                act.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_view_item,
+                        fragment).addToBackStack(null).commit();
+            }
+        });
+
     }
 
     @Override
@@ -57,6 +71,8 @@ public class My_list_item_adapter extends RecyclerView.Adapter<My_list_item_adap
             name = (TextView) itemView.findViewById(R.id.txt_item_name);
             quanity = (TextView) itemView.findViewById(R.id.txt_item_quanity);
             ava = itemView.findViewById(R.id.img_item_img);
+
+
         }
     }
     public void setData(ArrayList<item_object> arrayList)

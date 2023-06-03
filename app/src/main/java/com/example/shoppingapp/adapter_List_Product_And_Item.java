@@ -4,14 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-public class List_Product_And_Item_adapter extends FragmentStateAdapter {
+public class adapter_List_Product_And_Item extends FragmentStateAdapter {
 
 
-    public List_Product_And_Item_adapter(@NonNull FragmentActivity fragmentActivity) {
+    public adapter_List_Product_And_Item( FragmentActivity fragmentActivity) {
         super(fragmentActivity);
     }
 
@@ -21,13 +19,12 @@ public class List_Product_And_Item_adapter extends FragmentStateAdapter {
         switch (position)
         {
             case 0:
-                return new My_list_product_fragment();
+                return new fragment_My_list_product();
             case 1:
-                return new My_list_item_fragment();
+                return new fragment_My_list_item();
             default:
-                return new My_list_product_fragment();
+                return new fragment_My_list_item();
         }
-
     }
 
     @Override

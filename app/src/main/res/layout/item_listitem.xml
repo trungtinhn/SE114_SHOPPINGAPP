@@ -20,6 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="10dp"
+
                 android:paddingTop="10dp"
                 android:id="@+id/txt_item_name"
                 android:fontFamily="@font/montserrat"
@@ -27,6 +28,7 @@
                 android:textAllCaps="true"
                 android:textAlignment="textStart"
                 android:textColor="#000000"
+
                 android:textSize="13dp"></TextView>
 
             <LinearLayout
@@ -48,14 +50,16 @@
                     android:textStyle="italic"></TextView>
 
                 <TextView
-                    android:id="@+id/txt_product"
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:fontFamily="@font/montserrat"
+                    android:paddingEnd="10dp"
                     android:paddingStart="3dp"
                     android:text="Products"
                     android:textAlignment="textStart"
+                    android:drawableEnd="@drawable/navigation_after"
                     android:textAllCaps="true"
                     android:textColor="#000000"
                     android:textSize="10dp"

@@ -4,9 +4,137 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".My_list_product_fragment">
+    tools:context=".fragment_My_list_product"
+    android:columnCount="2"
+    android:stretchColumns="*">
 
     <!-- TODO: Update blank fragment layout -->
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:clipToPadding="false"
+        android:dividerPadding="20dp">
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:clipToPadding="false"
+            android:gravity="center">
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_product_related"
+                android:layout_height="21dp"
+                android:layout_width="67dp"
+                android:background="@drawable/button_shape"
+                android:backgroundTint="#FFFFFF"
+                android:fontFamily="@font/montserrat_light"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:text="Related"
+                android:textAllCaps="false"
+                android:textSize="10dp" />
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="16dp"
+                android:background="@drawable/line_14"
+                android:backgroundTint="#000000"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_product_newest"
+                android:layout_width="67dp"
+                android:layout_height="21dp"
+                android:background="@drawable/button_shape"
+                android:backgroundTint="#FFFFFF"
+                android:fontFamily="@font/montserrat_light"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:text="Newest"
+                android:textAllCaps="false"
+                android:textSize="10dp" />
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="16dp"
+                android:background="@drawable/line_14"
+                android:backgroundTint="#000000"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_product_topseller"
+                android:layout_height="21dp"
+                android:layout_width="67dp"
+                android:background="@drawable/button_shape"
+                android:backgroundTint="#FFFFFF"
+                android:fontFamily="@font/montserrat_light"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:text="Top Seller"
+                android:textAllCaps="false"
+                android:textSize="10dp" />
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="16dp"
+                android:background="@drawable/line_14"
+                android:backgroundTint="#000000"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_product_price"
+                android:layout_width="67dp"
+                android:layout_height="21dp"
+                android:background="@drawable/button_shape"
+                android:backgroundTint="#FFFFFF"
+                android:fontFamily="@font/montserrat_light"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:text="Price"
+                android:drawableEnd="@drawable/code"
+                android:paddingEnd="5dp"
+                android:textAllCaps="false"
+                android:textSize="10dp" />
+        </TableRow>
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:paddingBottom="10dp"
+            android:clipToPadding="false"
+            android:gravity="center">
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_product_rating"
+                android:layout_height="21dp"
+                android:layout_width="67dp"
+                android:background="@drawable/button_shape"
+                android:backgroundTint="#FFFFFF"
+                android:fontFamily="@font/montserrat_light"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:text="Rating"
+                android:textAllCaps="false"
+                android:textSize="10dp" />
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="16dp"
+                android:background="@drawable/line_14"
+                android:backgroundTint="#000000"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_product_discount"
+                android:layout_width="67dp"
+                android:layout_height="21dp"
+                android:background="@drawable/button_shape"
+                android:backgroundTint="#FFFFFF"
+                android:fontFamily="@font/montserrat_light"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:text="Discount"
+                android:textAllCaps="false"
+                android:textSize="10dp" />
+        </TableRow>
+
+    </TableLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RCV_product_list"
         android:layout_width="match_parent"

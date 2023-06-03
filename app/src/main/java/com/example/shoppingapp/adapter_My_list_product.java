@@ -13,21 +13,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class My_list_product_adapter extends RecyclerView.Adapter<My_list_product_adapter.list_product_holder> {
+public class adapter_My_list_product extends RecyclerView.Adapter<adapter_My_list_product.list_product_holder> {
 
     private Activity activity;
+    private Context context;
     private ArrayList<product_object> arrayList;
 
-    public My_list_product_adapter(Activity activity, ArrayList<product_object> arrayList) {
+    public adapter_My_list_product(Context context, Activity activity, ArrayList<product_object> arrayList) {
         this.arrayList = arrayList;
+        this.context = context;
         this.activity = activity;
     }
 
     @NonNull
     @Override
-    public My_list_product_adapter.list_product_holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public adapter_My_list_product.list_product_holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product,parent,false);
-        return new My_list_product_adapter.list_product_holder(view);
+        return new adapter_My_list_product.list_product_holder(view);
     }
 
     @Override
