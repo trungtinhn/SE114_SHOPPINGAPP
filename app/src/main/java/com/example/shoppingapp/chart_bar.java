@@ -26,7 +26,7 @@ public class chart_bar extends AppCompatActivity {
         setContentView(R.layout.staffview_page06);
 
         // Assign variable
-        View inflatedView = getLayoutInflater().inflate(R.layout.staffview_page08, null);
+        View inflatedView = getLayoutInflater().inflate(R.layout.screen_financial_report, null);
         barChart = inflatedView.findViewById(R.id.bc_act);
         pieChart = inflatedView.findViewById(R.id.pc_act);
         // array list
