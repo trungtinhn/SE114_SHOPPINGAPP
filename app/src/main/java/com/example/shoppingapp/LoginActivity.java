@@ -14,6 +14,8 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.AuthResult;
@@ -23,102 +25,87 @@ import com.google.android.gms.tasks.Task;
 public class LoginActivity extends AppCompatActivity {
 
     private EditText emailTextView, passwordTextView;
-    private Button Btn;
+    // Xử lý sự kiện click vào Fortgot password và Sign up
+    private TextView LG_forgotPassword, LG_SignUpNow;
+    private Button button;
     public ProgressBar progressbar;
 
     private FirebaseAuth mAuth;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // taking instance of FirebaseAuth
         mAuth = FirebaseAuth.getInstance();
 
         // initialising all views through id defined above
-        emailTextView = findViewById(R.id.email);
-        passwordTextView = findViewById(R.id.password);
-        Btn = findViewById(R.id.login);
-        progressbar = findViewById(R.id.progressBar);
+        emailTextView = findViewById(R.id.login_email);
+        passwordTextView = findViewById(R.id.login_password);
+        button = findViewById(R.id.login_button);
+        LG_forgotPassword = (TextView)findViewById(R.id.forgot_password);
+        LG_SignUpNow = (TextView)findViewById(R.id.SignUpNow);
 
         // Set on Click Listener on Sign-in button
-        Btn.setOnClickListener(new View.OnClickListener() {
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                loginUserAccount();
+            public void onClick(View v) {
+                String email, password;
+                email = emailTextView.getText().toString();
+                password = passwordTextView.getText().toString();
+                mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (email.isEmpty() || password.isEmpty() ) {
+                            Toast.makeText(LoginActivity.this, "Please enter all required information.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(getApplicationContext(),
+                                                "Login Successful",
+                                                Toast.LENGTH_LONG)
+                                        .show();
+                                Intent intent
+                                        = new Intent(LoginActivity.this,
+                                        MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                            else {
+                                Toast.makeText(
+                                                getApplicationContext(),
+                                                "Login failed!!"
+                                                        + " Please try again later",
+                                                Toast.LENGTH_LONG)
+                                        .show();
+
+
+
+                            }
+                        }
+                    }
+
+                });
             }
         });
-    }
 
-    private void loginUserAccount()
-    {
-
-        // show the visibility of progress bar to show loading
-        progressbar.setVisibility(View.VISIBLE);
-
-        // Take the value of two edit texts in Strings
-        String email, password;
-        email = emailTextView.getText().toString();
-        password = passwordTextView.getText().toString();
-
-        // validations for input email and password
-        if (TextUtils.isEmpty(email)) {
-            Toast.makeText(getApplicationContext(),
-                            "Please enter email!!",
-                            Toast.LENGTH_LONG)
-                    .show();
-            return;
-        }
-
-        if (TextUtils.isEmpty(password)) {
-            Toast.makeText(getApplicationContext(),
-                            "Please enter password!!",
-                            Toast.LENGTH_LONG)
-                    .show();
-            return;
-        }
-
-        // signin existing user
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(
-                        new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(
-                                    @NonNull Task<AuthResult> task)
-                            {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(getApplicationContext(),
-                                                    "Login successful!!",
-                                                    Toast.LENGTH_LONG)
-                                            .show();
-
-                                    // hide the progress bar
-
-                                    progressbar.setVisibility(View.GONE);
-
-                                    // if sign-in is successful
-                                    // intent to home activity
-                                    Intent intent
-                                            = new Intent(LoginActivity.this,
-                                                MainActivity.class);
-                                    startActivity(intent);
-                                }
-
-                                else {
-
-                                    // sign-in failed
-                                    Toast.makeText(getApplicationContext(),
-                                                    "Login failed!!",
-                                                    Toast.LENGTH_LONG)
-                                            .show();
-
-                                    // hide the progress bar
-                                    progressbar.setVisibility(View.GONE);
-                                }
-                            }
-                        });
+        LG_forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, ForgotPassword.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        LG_SignUpNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, Register.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 }

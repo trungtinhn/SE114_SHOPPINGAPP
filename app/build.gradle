@@ -45,6 +45,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:22.0.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.firebase:firebase-database:20.0.4'
+    implementation 'androidx.wear.tiles:tiles-material:1.1.0-alpha04'
 
     testImplementation 'junit:junit:4.13.2'
 

@@ -113,6 +113,7 @@ public class Register extends AppCompatActivity {
                             // hide the progress bar
                             progressbar.setVisibility(View.GONE);
                         }
+
                     }
                 });
     }
