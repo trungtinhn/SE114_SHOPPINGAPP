@@ -1,4 +1,4 @@
-package Login;
+package com.example.shoppingapp.Login;
 
 import android.content.Intent;
 import android.os.Bundle;

@@ -13,13 +13,13 @@
         android:theme="@style/Theme.ShoppingApp"
         tools:targetApi="tiramisu" >
         <activity
-            android:name="Login.EditProfile"
+            android:name=".Login.EditProfile"
             android:enableOnBackInvokedCallback="true"
             android:exported="false"
             android:label="@string/title_activity_edit_profile"
             android:theme="@style/Theme.ShoppingApp.NoActionBar" />
         <activity
-            android:name="Login.Register"
+            android:name=".Login.Register"
             android:enableOnBackInvokedCallback="true"
             android:exported="true"
             android:label="@string/title_activity_register"
@@ -29,7 +29,7 @@
             android:name=".MainActivity"
             android:exported="true" />
         <activity
-            android:name="Login.LoginActivity"
+            android:name=".Login.LoginActivity"
             android:enableOnBackInvokedCallback="true"
             android:exported="true"
             android:label="@string/title_activity_login"
@@ -41,7 +41,7 @@
         </activity>
 
         <activity
-            android:name="Login.ForgotPassword"
+            android:name=".Login.ForgotPassword"
             android:exported="true" />
 
 

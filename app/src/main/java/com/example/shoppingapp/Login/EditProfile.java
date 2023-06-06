@@ -1,4 +1,4 @@
-package Login;
+package com.example.shoppingapp.Login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
