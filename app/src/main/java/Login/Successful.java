@@ -1,4 +1,4 @@
-package com.example.shoppingapp;
+package Login;
 
 public class Successful {
 }

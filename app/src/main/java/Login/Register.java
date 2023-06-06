@@ -1,4 +1,4 @@
-package com.example.shoppingapp;
+package Login;
 
 
 import android.os.Bundle;
@@ -8,12 +8,13 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.shoppingapp.MainActivity;
+import com.example.shoppingapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.AuthResult;
 import com.google.android.gms.tasks.OnCompleteListener;
