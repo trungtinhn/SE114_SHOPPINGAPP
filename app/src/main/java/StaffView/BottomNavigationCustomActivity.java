@@ -1,8 +1,10 @@
-package com.example.shoppingapp;
+package StaffView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.shoppingapp.R;
 
 public class BottomNavigationCustomActivity extends AppCompatActivity {
 

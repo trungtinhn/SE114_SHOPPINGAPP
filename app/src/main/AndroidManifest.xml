@@ -12,10 +12,10 @@
         android:theme="@style/Theme.ShoppingApp"
         tools:targetApi="31">
         <activity
-            android:name=".BottomNavigationCustomActivity"
+            android:name="StaffView.BottomNavigationCustomActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name="StaffView.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

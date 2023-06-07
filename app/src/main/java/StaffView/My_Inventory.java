@@ -1,9 +1,6 @@
-package com.example.shoppingapp;
+package StaffView;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,9 +8,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.example.shoppingapp.R;
+
 import java.util.ArrayList;
 
-public class onwait extends Fragment {
+
+public class My_Inventory extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,11 +28,11 @@ public class onwait extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private RecyclerView recyclerView2;
+    private RecyclerView recyclerView1;
     private ArrayList<product_object> arrayList= new ArrayList<>();
-    private onwait_adapter adapter;
+    private My_inventory_Adapter adapter;
 
-    public onwait() {
+    public My_Inventory() {
         // Required empty public constructor
     }
 
@@ -42,8 +46,8 @@ public class onwait extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_onwait, container, false);
-        recyclerView2= view.findViewById(R.id.RCV_onwait);
+        View view = inflater.inflate(R.layout.fragment_my__inventory, container, false);
+        recyclerView1= view.findViewById(R.id.RCV_My_inventory);
         setdata();
         return view;
     }
@@ -53,11 +57,11 @@ public class onwait extends Fragment {
         arrayList.add(new product_object("T-Shirt Black Blank-VSD343545D - New Elevent",139.999,R.drawable.anh1,20,20,20,20,1));
         arrayList.add(new product_object("T-Shirt Black Blank-VSD3435231 - New Elevent",139.909,R.drawable.anh1,20,20,20,20,1));
         arrayList.add(new product_object("T-Shirt Black Blank-VSD343523d - New Elevent",139.9009,R.drawable.anh1,20,20,20,20,1));
-        adapter = new onwait_adapter(getActivity());
+        adapter = new My_inventory_Adapter(getActivity());
         adapter.setData(arrayList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity()  , RecyclerView.VERTICAL, false);
-        recyclerView2.setLayoutManager(layoutManager);
-        recyclerView2.setAdapter(adapter);
+        recyclerView1.setLayoutManager(layoutManager);
+        recyclerView1.setAdapter(adapter);
     }
 
     @Override

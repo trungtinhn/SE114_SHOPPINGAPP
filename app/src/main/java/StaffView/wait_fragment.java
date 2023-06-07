@@ -1,4 +1,4 @@
-package com.example.shoppingapp;
+package StaffView;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,16 +11,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.shoppingapp.R;
+
 import java.util.ArrayList;
 
-public class delivering_fragment extends Fragment {
-
-
+public class wait_fragment extends Fragment {
     list_item_adapter myAdapter;
     ArrayList<user_object> parentItemArrayList;
     ArrayList<product_object> childItemArrayList;
     RecyclerView RVparent;
-    public delivering_fragment() {
+    public wait_fragment() {
         // Required empty public constructor
     }
 
@@ -34,8 +34,8 @@ public class delivering_fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_delivering_screen_oder ,container, false);
-        RVparent= view.findViewById(R.id.RCV_delivering);
+        View view = inflater.inflate(R.layout.fragment_wait_screen_oder ,container, false);
+        RVparent= view.findViewById(R.id.RCV_wait);
         setdata();
         // return view;
         return view;
@@ -45,7 +45,8 @@ public class delivering_fragment extends Fragment {
         parentItemArrayList= new ArrayList<>();
         childItemArrayList= new ArrayList<>();
         parentItemArrayList.add(new user_object("Thach Sang","213123123",1500000,R.drawable.anh1));
-        parentItemArrayList.add(new user_object("Thach Sang1","213123123",15000,R.drawable.anh1));
+
+        childItemArrayList.add(new product_object("T-Shirt Black Blank - VSD343545D - New Elevent",213123,R.drawable.anh1,12,12,12,12,1));
         childItemArrayList.add(new product_object("T-Shirt Black Blank - VSD343545D - New Elevent",213123,R.drawable.anh1,12,12,12,12,1));
         childItemArrayList.add(new product_object("T-Shirt Black Blank - VSD343545D - New Elevent",213123,R.drawable.anh1,12,12,12,12,1));
 

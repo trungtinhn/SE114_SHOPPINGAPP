@@ -1,4 +1,4 @@
-package com.example.shoppingapp;
+package StaffView;
 
 public class product_object {
     private String name;

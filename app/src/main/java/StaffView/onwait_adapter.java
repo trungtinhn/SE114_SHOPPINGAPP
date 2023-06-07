@@ -1,4 +1,4 @@
-package com.example.shoppingapp;
+package StaffView;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,19 +11,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.shoppingapp.R;
+
 import java.util.ArrayList;
 
-public class My_inventory_Adapter extends RecyclerView.Adapter<My_inventory_Adapter.ProductsViewHolder> {
+public class onwait_adapter extends RecyclerView.Adapter<onwait_adapter.ProductsViewHolder>
+{
     @NonNull
     @Override
-    public ProductsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public onwait_adapter.ProductsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).
-                inflate(R.layout.item,parent,false);
-        return new ProductsViewHolder(view);
+                inflate(R.layout.item_onwait,parent,false);
+        return new onwait_adapter.ProductsViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProductsViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull onwait_adapter.ProductsViewHolder holder, int position) {
         product_object product = arrayList.get(position);
         if (product==null)
             return;
@@ -47,7 +50,7 @@ public class My_inventory_Adapter extends RecyclerView.Adapter<My_inventory_Adap
     private Context context;
     private ArrayList<product_object> arrayList;
 
-    public My_inventory_Adapter(Context context) {
+    public onwait_adapter(Context context) {
         this.context = context;
     }
     public void setData(ArrayList<product_object> arrayList)
@@ -63,15 +66,14 @@ public class My_inventory_Adapter extends RecyclerView.Adapter<My_inventory_Adap
 
         public ProductsViewHolder(@NonNull View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.product_name);
-            price = itemView.findViewById(R.id.product_price);
-            ware = itemView.findViewById(R.id.idware);
-            love = itemView.findViewById(R.id.idlove);
-            sold = itemView.findViewById(R.id.idsold);
-            views = itemView.findViewById(R.id.idviews);
-            ava = itemView.findViewById(R.id.id_avatar);
-            H = itemView.findViewById(R.id.button2);
-            Edit = itemView.findViewById(R.id.button3);
+            name = itemView.findViewById(R.id.product_name_on);
+            price = itemView.findViewById(R.id.product_price_on);
+            ware = itemView.findViewById(R.id.idware_on);
+            love = itemView.findViewById(R.id.idlove_on);
+            sold = itemView.findViewById(R.id.idsold_on);
+            views = itemView.findViewById(R.id.idviews_on);
+            ava = itemView.findViewById(R.id.id_avatar_on);
+            H = itemView.findViewById(R.id.button2_on);
         }
     }
 }

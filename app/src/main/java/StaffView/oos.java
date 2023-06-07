@@ -1,6 +1,9 @@
-package com.example.shoppingapp;
+package StaffView;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,21 +11,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import com.example.shoppingapp.R;
 
 import java.util.ArrayList;
 
 
-public class My_Inventory extends Fragment {
+public class oos extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -30,7 +25,7 @@ public class My_Inventory extends Fragment {
     private ArrayList<product_object> arrayList= new ArrayList<>();
     private My_inventory_Adapter adapter;
 
-    public My_Inventory() {
+    public oos() {
         // Required empty public constructor
     }
 
@@ -44,8 +39,8 @@ public class My_Inventory extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_my__inventory, container, false);
-        recyclerView1= view.findViewById(R.id.RCV_My_inventory);
+        View view = inflater.inflate(R.layout.fragment_oos, container, false);
+        recyclerView1= view.findViewById(R.id.RCV_My_oos);
         setdata();
         return view;
     }
@@ -65,6 +60,5 @@ public class My_Inventory extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
     }
 }

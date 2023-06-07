@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:minWidth="0dp"
     android:minHeight="0dp"
-    tools:context=".MainActivity">
+    tools:context="StaffView.MainActivity">
 
     <TextView
         android:id="@+id/textView00"
