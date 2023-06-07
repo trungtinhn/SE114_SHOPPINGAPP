@@ -1,5 +1,5 @@
+package com.example.shoppingapp;
 package StaffView;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;

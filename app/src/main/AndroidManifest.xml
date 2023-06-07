@@ -10,13 +10,34 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.ShoppingApp"
-        tools:targetApi="31">
+        tools:targetApi="tiramisu" >
+        <activity
+            android:name=".Login.EditProfile"
+            android:enableOnBackInvokedCallback="true"
+            android:exported="false"
+            android:label="@string/title_activity_edit_profile"
+            android:theme="@style/Theme.ShoppingApp.NoActionBar" />
         <activity
             android:name="StaffView.BottomNavigationCustomActivity"
             android:exported="false" />
         <activity
+            android:name=".Login.Register"
+            android:enableOnBackInvokedCallback="true"
+            android:exported="true"
+            android:label="@string/title_activity_register"
+            android:theme="@style/Theme.ShoppingApp.NoActionBar"
+            tools:targetApi="tiramisu" />
+        <activity
             android:name="StaffView.MainActivity"
             android:exported="true">
+            android:name=".MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Login.LoginActivity"
+            android:enableOnBackInvokedCallback="true"
+            android:exported="true"
+            android:label="@string/title_activity_login"
+            android:theme="@style/Theme.ShoppingApp.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,6 +47,13 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <activity
+            android:name=".Login.ForgotPassword"
+            android:exported="true" />
+
+
+
     </application>
 
 </manifest>

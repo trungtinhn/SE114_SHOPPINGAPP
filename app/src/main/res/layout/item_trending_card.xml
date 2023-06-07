@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginVertical="10dp"
+    android:layout_marginHorizontal="10dp"
+
+    >
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imgTrendingCard"
+        android:layout_width="200dp"
+        android:layout_height="180dp"
+        android:src="@drawable/anhgiay1"
+        app:shapeAppearance="@style/roundimageview"
+
+        />
+
+    <TextView
+        android:id="@+id/txtNameTrendingCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ten san pham"
+        android:layout_below="@id/imgTrendingCard"
+        android:textSize="20dp"
+        android:layout_marginHorizontal="20dp"
+        android:textColor="@color/black"
+        android:layout_marginTop="5dp"
+        />
+
+    <TextView
+        android:id="@+id/txtPriceTrendingCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="299000"
+        android:layout_below="@id/txtNameTrendingCard"
+        android:layout_marginLeft="20dp"
+        android:textSize="18dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/txtPriceTrendingCard"
+        android:layout_below="@id/txtNameTrendingCard"
+        android:textSize="18dp"
+        android:text="đ"
+        />
+</RelativeLayout>
