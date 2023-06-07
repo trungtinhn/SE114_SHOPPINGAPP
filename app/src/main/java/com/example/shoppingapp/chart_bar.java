@@ -23,7 +23,7 @@ public class chart_bar extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.staffview_page06);
+        setContentView(R.layout.screen_financial_report);
 
         // Assign variable
         View inflatedView = getLayoutInflater().inflate(R.layout.screen_financial_report, null);

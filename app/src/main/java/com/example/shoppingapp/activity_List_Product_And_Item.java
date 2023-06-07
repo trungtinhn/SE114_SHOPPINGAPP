@@ -1,5 +1,6 @@
 package com.example.shoppingapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +22,6 @@ public class activity_List_Product_And_Item extends AppCompatActivity {
 
         adapter_List_Product_And_Item adapter = new adapter_List_Product_And_Item(this);
         viewPager.setAdapter(adapter);
-
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

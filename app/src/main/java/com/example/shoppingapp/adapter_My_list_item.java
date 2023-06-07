@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -19,11 +20,13 @@ public class adapter_My_list_item extends RecyclerView.Adapter<adapter_My_list_i
 
     private Activity activity;
     private Context context;
+    private itf_RCV_list_item listener;
     private List<item_object> arrayList;
 
-    public adapter_My_list_item(Activity activity, List<item_object> arrayList) {
+    public adapter_My_list_item(Activity activity, List<item_object> arrayList, itf_RCV_list_item listener) {
         this.arrayList = arrayList;
         this.activity = activity;
+        this.listener = listener;
 
     }
 
@@ -43,13 +46,15 @@ public class adapter_My_list_item extends RecyclerView.Adapter<adapter_My_list_i
         holder.ava.setImageResource(product.getImage());
         holder.quanity.setText(String.valueOf(product.getQuanity()));
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AppCompatActivity act = (AppCompatActivity) view.getContext();
                 fragment_detail_list_item fragment = new fragment_detail_list_item(product);
                 act.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_view_item,
                         fragment).addToBackStack(null).commit();
+
+               // listener.onClick(product);
             }
         });
 
@@ -65,14 +70,14 @@ public class adapter_My_list_item extends RecyclerView.Adapter<adapter_My_list_i
     {
         private TextView name,quanity;
         private ImageView ava;
+        public CardView cardView;
 
         public list_item_holder(@NonNull View itemView) {
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.txt_item_name);
             quanity = (TextView) itemView.findViewById(R.id.txt_item_quanity);
             ava = itemView.findViewById(R.id.img_item_img);
-
-
+            cardView = itemView.findViewById(R.id.main_container);
         }
     }
     public void setData(ArrayList<item_object> arrayList)

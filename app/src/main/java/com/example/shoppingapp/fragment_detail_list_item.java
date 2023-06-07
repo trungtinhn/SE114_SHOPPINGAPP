@@ -43,6 +43,8 @@ public class fragment_detail_list_item extends Fragment {
         RV = view.findViewById(R.id.RCV_detail_listItems);
         btn = view.findViewById(R.id.btn_back_list_items);
         name = view.findViewById(R.id.txt_list_item_detail);
+        setdata();
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,13 +52,12 @@ public class fragment_detail_list_item extends Fragment {
                 startActivity(intent);
             }
         });
-        setdata();
+        
         // return view;
         return view;
     }
 
     private void setdata() {
-
         ProductArrayList = Item.getProduct_list();
         myAdapter = new adapter_My_list_product(this.getContext(),getActivity(),ProductArrayList);
         name.setText(Item.getName());

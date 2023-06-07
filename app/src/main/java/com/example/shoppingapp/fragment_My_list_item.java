@@ -1,5 +1,7 @@
 package com.example.shoppingapp;
 
+import static android.content.Intent.getIntent;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class fragment_My_list_item extends Fragment {
+public class fragment_My_list_item extends Fragment implements itf_RCV_list_item{
     adapter_My_list_item myAdapter;
 
     ArrayList<product_object> ProductArrayList;
@@ -55,7 +58,7 @@ public class fragment_My_list_item extends Fragment {
         ItemArrayList.add(new item_object("T-Shirt", R.drawable.anh1, ProductArrayList));
         ItemArrayList.add(new item_object("T-Shirt2", R.drawable.anh1, ProductArrayList));
 
-        myAdapter = new adapter_My_list_item(getActivity(),ItemArrayList);
+        myAdapter = new adapter_My_list_item(getActivity(),ItemArrayList, this);
         myAdapter.setData(ItemArrayList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity()  , RecyclerView.VERTICAL, false);
         RV.setLayoutManager(layoutManager);
@@ -71,4 +74,11 @@ public class fragment_My_list_item extends Fragment {
     }
 
 
+    @Override
+    public void onClick(item_object item) {
+        fragment_detail_list_item fragment = new fragment_detail_list_item(item);
+        Intent intent = new Intent(getActivity(), fragment.getClass());
+        intent.putExtra("list",item.getProduct_list());
+        startActivity(intent);
+    }
 }
