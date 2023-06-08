@@ -1,5 +1,4 @@
-<!-- styles.xml -->
-<?xml version="1.0" encoding="utf-8"?>
+<!--styles.xml-->
 <resources>
     <style name="product">
         <item name="android:textSize">15sp</item>
@@ -40,6 +39,5 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
         <item name="color">@color/white</item>
-
     </style>
 </resources>

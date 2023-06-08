@@ -10,6 +10,12 @@ public class product_object {
     private int views;
     private  int count;
 
+    public product_object(String name, int price, int avatar) {
+        this.name = name;
+        this.price = price;
+        this.avatar = avatar;
+    }
+
     public int getCount() {
         return count;
     }
