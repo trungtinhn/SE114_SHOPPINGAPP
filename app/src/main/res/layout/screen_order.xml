@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:id="@+id/linear1_order"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/imageButton3_order"
+            android:layout_width="45dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="10dp"
+            android:contentDescription="null"
+            app:srcCompat="@drawable/back_arrow" />
+
+        <TextView
+            android:id="@+id/My_product_order"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="170dp"
+            android:text="Order"
+            android:textSize="20dp" />
+
+    </LinearLayout>
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout_order"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="null"
+        android:layout_below="@+id/linear1_order"
+        tools:ignore="MissingConstraints"
+        app:tabMode="auto"
+        app:tabSelectedTextColor="#FF931F"
+        />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewpager_order"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tabLayout_order" >
+    </androidx.viewpager2.widget.ViewPager2>
+
+</RelativeLayout>
