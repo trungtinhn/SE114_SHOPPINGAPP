@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:columnCount="2"
+    tools:ignore="MissingClass">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp"
+        android:layout_columnWeight="1">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/img_product_img"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                app:srcCompat="@drawable/box" />
+
+            <TextView
+                android:id="@+id/txt_product_name"
+                android:layout_width="124dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_light"
+                android:text="T-Shirt Black Blank - VSD343545D - New Elevent"
+                android:textColor="#000000"
+                android:textSize="9dp" />
+
+            <TextView
+                android:id="@+id/txt_product_price"
+                android:layout_width="124dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="133.99đ"
+                android:textColor="#000000"
+                android:textSize="8dp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</GridLayout>
