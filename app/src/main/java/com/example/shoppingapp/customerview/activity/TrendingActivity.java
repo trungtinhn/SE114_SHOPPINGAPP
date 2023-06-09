@@ -85,22 +85,17 @@ public class TrendingActivity extends AppCompatActivity {
                             productCardAdapter.setData(mTrendingCard, new IClickItemProductTrendingListener() {
                                 @Override
                                 public void onClickItemProductTrending(ProductCard productCard) {
-                                    Intent t = new Intent(TrendingActivity.this, DetailProductActivity.class);
-                                    t.putExtra("MaSP", productCard.getMaSp());
-                                    startActivity(t);
+                                    onClickItemProductTrendingGo(productCard);
                                 }
                             });
                             rcvProductTrending.setAdapter(productCardAdapter);
                         }
                     }
                 });
-
-
-
-
-
-
-
-
+    }
+    private void onClickItemProductTrendingGo(ProductCard productCard){
+        Intent t = new Intent(TrendingActivity.this, DetailProductActivity.class);
+        t.putExtra("MaSP", productCard.getMaSp());
+        startActivity(t);
     }
 }

@@ -4,6 +4,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -46,6 +48,12 @@ public class ProductCardAdapter extends RecyclerView.Adapter<ProductCardAdapter.
         Picasso.get().load(productCard.getImageResouce()).into(holder.imgProductCard);
         holder.txtNameProductCard.setText(productCard.getNameProduct());
         holder.txtPriceProductCard.setText(String.valueOf(productCard.getPriceProduct()));
+        holder.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onClickItemProductTrending(productCard);
+            }
+        });
     }
 
     @Override
@@ -55,13 +63,14 @@ public class ProductCardAdapter extends RecyclerView.Adapter<ProductCardAdapter.
     }
 
     public class ProductCardViewHolder extends RecyclerView.ViewHolder {
+        private RelativeLayout layout;
 
         private ImageView imgProductCard;
         private TextView txtNameProductCard, txtPriceProductCard;
 
         public ProductCardViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            layout = itemView.findViewById(R.id.layout);
             imgProductCard = itemView.findViewById(R.id.imgTrendingCard);
             txtNameProductCard = itemView.findViewById(R.id.txtNameTrendingCard);
             txtPriceProductCard = itemView.findViewById(R.id.txtPriceTrendingCard);
