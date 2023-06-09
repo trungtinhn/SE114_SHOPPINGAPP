@@ -51,21 +51,21 @@ public class SearchingActivity extends AppCompatActivity {
         });
     }
     private void setRcvProductSearching() {
-        productCardAdapter = new ProductCardAdapter();
-        mSearching = new ArrayList<>();
-
-        mSearching.add(new ProductCard(R.drawable.anhgiay1, "Giay loai 1", 299999));
-        mSearching.add(new ProductCard(R.drawable.anhgiay1, "Giay loai 2", 299999));
-
-        mSearching.add(new ProductCard(R.drawable.anhgiay1, "Giay loai 3", 299999));
-
-        mSearching.add(new ProductCard(R.drawable.anhgiay1, "Giay loai 3", 299999));
-        mSearching.add(new ProductCard(R.drawable.mauaodep, "Giay loai 3", 299999));
-
-
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
-        rcvSearching.setLayoutManager(gridLayoutManager);
-        productCardAdapter.setData(mSearching);
-        rcvSearching.setAdapter(productCardAdapter);
+//        productCardAdapter = new ProductCardAdapter();
+//        mSearching = new ArrayList<>();
+//
+//        mSearching.add(new ProductCard(R.drawable.anhgiay1, "Giay loai 1", 299999));
+//        mSearching.add(new ProductCard(R.drawable.anhgiay1, "Giay loai 2", 299999));
+//
+//        mSearching.add(new ProductCard(R.drawable.anhgiay1, "Giay loai 3", 299999));
+//
+//        mSearching.add(new ProductCard(R.drawable.anhgiay1, "Giay loai 3", 299999));
+//        mSearching.add(new ProductCard(R.drawable.mauaodep, "Giay loai 3", 299999));
+//
+//
+//        GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
+//        rcvSearching.setLayoutManager(gridLayoutManager);
+//        productCardAdapter.setData(mSearching);
+//        rcvSearching.setAdapter(productCardAdapter);
     }
 }

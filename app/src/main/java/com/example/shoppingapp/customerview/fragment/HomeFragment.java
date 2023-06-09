@@ -133,8 +133,6 @@ public class HomeFragment extends Fragment {
 
     private void setDataRcvProduct() {
         listProduct = new ArrayList<>();
-        List<String> listsp = new ArrayList<>();
-        List<String> listhinhanh = new ArrayList<>();
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext(), RecyclerView.HORIZONTAL, false);
         rcvProduct.setLayoutManager(linearLayoutManager);
@@ -150,35 +148,18 @@ public class HomeFragment extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()){
                             for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
-                                listsp.add(documentSnapshot.getString("TenSP"));
+                                String masp = documentSnapshot.getString("MaSP");
+                                String name = documentSnapshot.getString("TenSP");
+                                List<String> Anh = (List<String>) documentSnapshot.get("HinhAnhSP");
+                                listProduct.add(new Product(Anh.get(0), name, masp));
                             }
-                            firebaseFirestore.collection("SANPHAM")
-                                    .whereEqualTo("Trending", true)
-                                    .get()
-                                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                                        @Override
-                                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                                                // Lấy thuộc tính của mảng có tên là "myArray" từ tài liệu phù hợp với điều kiện
-                                                List<String> myArray = (List<String>) documentSnapshot.get("HinhAnhSP");
-                                                // Thực hiện các hành động khác với các thuộc tính của mảng
-                                                listhinhanh.add(myArray.get(0));
-                                            }
-                                            for( int i = 0; i < listsp.size(); i++){
-                                                listProduct.add(new Product(listhinhanh.get(i),listsp.get(i)));
-                                            }
-
-                                            productAdapter.setData(listProduct, new IClickItemProductListener() {
-                                                @Override
-                                                public void onClickItemProduct(Product product) {
-                                                    onClickGoToDetailProduct(product);
-                                                }
-                                            });
-                                            rcvProduct.setAdapter(productAdapter);
-
-
-                                        }
-                                    });
+                            productAdapter.setData(listProduct, new IClickItemProductListener() {
+                                @Override
+                                public void onClickItemProduct(Product product) {
+                                    onClickGoToDetailProduct(product);
+                                }
+                            });
+                            rcvProduct.setAdapter(productAdapter);
                         }
                         else {
                             Log.d("Error", "KHong lay duoc ten san pham", task.getException());
