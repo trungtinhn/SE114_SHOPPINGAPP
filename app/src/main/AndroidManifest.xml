@@ -30,20 +30,20 @@
             android:exported="true" />
         <activity android:name=".customerview.BottomNavigationCustomActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".StaffView.activity_click_staff_check"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".Login.LoginActivity"
@@ -103,13 +103,13 @@
             android:name=".customerview.activity.TrendingActivity"
             android:exported="false" />
         <activity
-            android:name="StaffView.activity_home"
+            android:name=".StaffView.activity_home"
             android:exported="false"></activity>
         <activity
-            android:name="StaffView.activity_List_Product_And_Item"
+            android:name=".StaffView.activity_List_Product_And_Item"
             android:exported="false" />
         <activity
-            android:name="StaffView.activity_chartbar"
+            android:name=".StaffView.activity_chartbar"
             android:exported="false" />
 
     </application>
