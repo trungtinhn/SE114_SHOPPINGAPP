@@ -102,8 +102,8 @@ public class BottomNavigationCustomActivity extends AppCompatActivity{
     public void gotoDetailProduct(Product product)
     {
         Intent intent = new Intent(BottomNavigationCustomActivity.this, DetailProductActivity.class);
+        intent.putExtra("MaSP", product.getMasp());
         startActivity(intent);
-
 
     }
 

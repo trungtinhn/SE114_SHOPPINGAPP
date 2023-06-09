@@ -10,16 +10,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
+import com.example.shoppingapp.customerview.customer_interface.IClickItemProductListener;
+import com.example.shoppingapp.customerview.customer_interface.IClickItemProductTrendingListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class ProductCardAdapter extends RecyclerView.Adapter<ProductCardAdapter.ProductCardViewHolder>{
 
     List<ProductCard> mProductCard;
+    private IClickItemProductTrendingListener listener;
 
-    public void setData(List<ProductCard> list)
+    public void setData(List<ProductCard> list, IClickItemProductTrendingListener listener)
     {
         this.mProductCard = list;
+        this.listener = listener;
         notifyDataSetChanged();
     }
 
@@ -38,7 +43,7 @@ public class ProductCardAdapter extends RecyclerView.Adapter<ProductCardAdapter.
 
         if(productCard == null) return;
 
-        holder.imgProductCard.setImageResource(productCard.getImageResouce());
+        Picasso.get().load(productCard.getImageResouce()).into(holder.imgProductCard);
         holder.txtNameProductCard.setText(productCard.getNameProduct());
         holder.txtPriceProductCard.setText(String.valueOf(productCard.getPriceProduct()));
     }

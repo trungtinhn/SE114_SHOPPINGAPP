@@ -1,26 +1,21 @@
 package com.example.shoppingapp.customerview.product;
 
 public class ProductCard {
-    private int imageResouce;
+    private String MaSp;
+    private String imageResouce;
     private String nameProduct;
     private Integer priceProduct;
 
     public ProductCard() {
     }
 
-    public ProductCard(int imageResouce, String nameProduct, Integer priceProduct) {
+    public ProductCard(String imageResouce, String nameProduct, Integer priceProduct, String MaSp) {
         this.imageResouce = imageResouce;
         this.nameProduct = nameProduct;
         this.priceProduct = priceProduct;
+        this.MaSp = MaSp;
     }
 
-    public int getImageResouce() {
-        return imageResouce;
-    }
-
-    public void setImageResouce(int imageResouce) {
-        this.imageResouce = imageResouce;
-    }
 
     public String getNameProduct() {
         return nameProduct;
@@ -36,5 +31,17 @@ public class ProductCard {
 
     public void setPriceProduct(Integer priceProduct) {
         this.priceProduct = priceProduct;
+    }
+
+    public String getImageResouce() {
+        return imageResouce;
+    }
+
+    public String getMaSp() {
+        return MaSp;
+    }
+
+    public void setMaSp(String maSp) {
+        MaSp = maSp;
     }
 }
