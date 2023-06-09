@@ -53,13 +53,10 @@ public class TrendingActivity extends AppCompatActivity {
         productCardAdapter = new ProductCardAdapter();
         mTrendingCard = new ArrayList<>();
 
+
+
         mTrendingCard.add(new ProductCard(R.drawable.anhgiay1, "Giay loai 1", 299999));
-        mTrendingCard.add(new ProductCard(R.drawable.anhgiay1, "Giay loai 2", 299999));
 
-        mTrendingCard.add(new ProductCard(R.drawable.anhgiay1, "Giay loai 3", 299999));
-
-        mTrendingCard.add(new ProductCard(R.drawable.anhgiay1, "Giay loai 3", 299999));
-        mTrendingCard.add(new ProductCard(R.drawable.mauaodep, "Giay loai 3", 299999));
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
         rcvProductTrending.setLayoutManager(gridLayoutManager);

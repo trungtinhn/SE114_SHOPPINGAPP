@@ -6,7 +6,7 @@
     android:id="@+id/constaintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="StaffView.BottomNavigationCustomActivity">
+    tools:context=".StaffView.BottomNavigationCustomActivity">
 
     <ScrollView
         android:id="@+id/scrollview"

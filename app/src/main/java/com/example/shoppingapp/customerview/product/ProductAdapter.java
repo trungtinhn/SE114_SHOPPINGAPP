@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.customerview.customer_interface.IClickItemProductListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -38,7 +39,8 @@ public class ProductAdapter extends  RecyclerView.Adapter<ProductAdapter.Product
         Product product = mProducts.get(position);
         if(product == null) return;
 
-        holder.imgProduct.setImageResource(product.getResouceId());
+        //holder.imgProduct.setImageResource(product.getResouceId());
+        Picasso.get().load(product.getResouceId()).into(holder.imgProduct);
         holder.txtNameProduct.setText(product.getName());
 
         holder.layoutProduct.setOnClickListener(new View.OnClickListener() {

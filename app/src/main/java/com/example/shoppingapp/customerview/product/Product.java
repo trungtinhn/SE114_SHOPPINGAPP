@@ -1,19 +1,19 @@
 package com.example.shoppingapp.customerview.product;
 
 public class Product {
-    private int resouceId;
+    private String resouceId;
     private String name;
 
-    public Product(int resouceId, String name) {
+    public Product(String resouceId, String name) {
         this.resouceId = resouceId;
         this.name = name;
     }
 
-    public int getResouceId() {
+    public String getResouceId() {
         return resouceId;
     }
 
-    public void setResouceId(int resouceId) {
+    public void setResouceId(String resouceId) {
         this.resouceId = resouceId;
     }
 
