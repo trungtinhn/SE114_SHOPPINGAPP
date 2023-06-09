@@ -28,23 +28,61 @@
         <activity
             android:name=".MainActivity"
             android:exported="true" />
-        <activity
-            android:name=".Login.LoginActivity"
-            android:enableOnBackInvokedCallback="true"
+        <activity android:name=".customerview.BottomNavigationCustomActivity"
             android:exported="true"
-            android:label="@string/title_activity_login"
-            android:theme="@style/Theme.ShoppingApp.NoActionBar" >
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Login.LoginActivity"
+            android:enableOnBackInvokedCallback="true"
+            android:exported="false"
+            android:label="@string/title_activity_login"
+            android:theme="@style/Theme.ShoppingApp.NoActionBar" >
+        </activity>
 
         <activity
             android:name=".Login.ForgotPassword"
             android:exported="true" />
-
-
+        <activity
+            android:name=".customerview.activity.DoneActivity"
+            android:exported="false" />
+        <activity
+            android:name=".customerview.activity.ReViewer"
+            android:exported="false" />
+        <activity
+            android:name=".customerview.activity.BuyNow"
+            android:exported="false" />
+        <activity
+            android:name=".customerview.activity.SaveAddress"
+            android:exported="false" />
+        <activity
+            android:name=".customerview.activity.DeliveryAddress"
+            android:exported="false" />
+        <activity
+            android:name=".customerview.activity.NewCard"
+            android:exported="false" />
+        <activity
+            android:name=".customerview.activity.CheckOut"
+            android:exported="false" />
+        <activity
+            android:name=".customerview.activity.SearchingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".customerview.activity.MessageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".customerview.activity.DetailProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".customerview.activity.TrendingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".customerview.activity.DetailProductActivity"
+            android:exported="false" />
 
     </application>
 

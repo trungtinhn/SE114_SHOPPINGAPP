@@ -3,12 +3,14 @@ package com.example.shoppingapp.customerview.categories;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -35,6 +37,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
         if (categories == null) return;
 
         holder.txtNameCategories.setText(categories.getName());
+        Picasso.get().load(categories.getImage()).into(holder.imageView);
 
     }
 
@@ -50,10 +53,13 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
     public class CategoriesViewHolder extends RecyclerView.ViewHolder{
 
         private TextView txtNameCategories;
+        private ImageView imageView;
 
         public CategoriesViewHolder(@NonNull View itemView) {
             super(itemView);
             txtNameCategories = itemView.findViewById(R.id.txtNameCategories);
+            imageView = itemView.findViewById(R.id.imageDM);
+
         }
     }
 }
