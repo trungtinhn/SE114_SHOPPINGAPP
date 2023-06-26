@@ -23,7 +23,7 @@
             android:textAlignment="center"
             android:textSize="40dp"
             android:layout_marginLeft="100dp"
-            />
+        />
 
         <TextView
             android:layout_width="match_parent"
@@ -75,8 +75,8 @@
             android:layout_height="49dp"
             android:background="@drawable/outline_black"
             android:hint="Enter phone number"
-            android:inputType="phone"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:inputType="phone" />
 
         <TextView
             android:layout_width="match_parent"
