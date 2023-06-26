@@ -8,9 +8,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-
         android:orientation="vertical"
+
+        android:paddingTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -20,31 +20,29 @@
             android:layout_height="wrap_content"
             android:divider="@drawable/empty_tall_divider"
             android:dividerPadding="10dp"
-            android:paddingBottom="10dp"
             android:gravity="end"
             android:orientation="horizontal"
             android:paddingEnd="20dp"
+            android:paddingBottom="10dp"
             android:showDividers="middle">
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_setting"
                 android:layout_width="17dp"
                 android:layout_height="17dp"
+                android:layout_marginEnd="15dp"
                 android:background="@drawable/icon_setting"
                 android:minWidth="0dp"
                 android:minHeight="0dp"
                 android:paddingEnd="10dp"
-                android:paddingRight="10dp"
-                android:layout_marginEnd="15dp"
-               />
+                android:paddingRight="10dp" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_chat"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:background="@drawable/icon_message"
-                android:paddingStart="10dp"
-                />
+                android:paddingStart="10dp" />
 
         </LinearLayout>
 
@@ -143,7 +141,7 @@
             android:paddingEnd="10dp">
 
             <TextView
-                android:id="@+id/textView24"
+                android:id="@+id/order_news"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_medium"
@@ -175,12 +173,11 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:divider="@drawable/empty_tall_divider"
-            android:showDividers="middle"
-            android:padding="20dp"
             android:clipToPadding="false"
->
+            android:divider="@drawable/empty_tall_divider"
+            android:orientation="horizontal"
+            android:padding="20dp"
+            android:showDividers="middle">
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_cancel"
@@ -198,7 +195,7 @@
                 app:backgroundTint="#F4F4F4" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/button3"
+                android:id="@+id/btn_wait"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:layout_weight="0.25"
@@ -212,7 +209,7 @@
                 app:backgroundTint="#F4F4F4" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/button19"
+                android:id="@+id/btn_request"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:layout_weight="0.25"
@@ -226,10 +223,10 @@
                 android:textAllCaps="false"
                 android:textColor="@color/black"
                 android:textSize="11sp"
-                app:backgroundTint="#F4F4F4"/>
+                app:backgroundTint="#F4F4F4" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/button20"
+                android:id="@+id/btn_Review"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:layout_weight="0.25"
@@ -242,25 +239,26 @@
                 android:textAllCaps="false"
                 android:textColor="@color/black"
                 android:textSize="11sp"
-                app:backgroundTint="#F4F4F4"
-                />
+                app:backgroundTint="#F4F4F4" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/textView15"
             android:layout_width="413dp"
             android:layout_height="12dp"
-            android:background="#D0D9E1"
-            />
+            android:background="#D0D9E1" />
+
         <TableLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:stretchColumns="*"
-            android:gravity="center">
+            android:gravity="center"
+            android:stretchColumns="*">
+
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="20dp">
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -296,6 +294,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/button8" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -316,7 +315,7 @@
                         android:textAllCaps="false"
                         android:textColor="@color/black"
 
-                        android:textSize="11sp"/>
+                        android:textSize="11sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -330,6 +329,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/button8" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -366,10 +366,12 @@
                         app:layout_constraintTop_toBottomOf="@+id/button8" />
                 </LinearLayout>
             </TableRow>
+
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="20dp">
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -390,7 +392,7 @@
                         android:textAllCaps="false"
                         android:textColor="@color/black"
 
-                        android:textSize="11sp"/>
+                        android:textSize="11sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -405,6 +407,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/button8" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -425,7 +428,7 @@
                         android:textAllCaps="false"
                         android:textColor="@color/black"
 
-                        android:textSize="11sp"/>
+                        android:textSize="11sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
