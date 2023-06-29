@@ -30,11 +30,11 @@
             android:exported="true" />
         <activity android:name=".customerview.BottomNavigationCustomActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".StaffView.activity.activity_click_staff_check"
@@ -65,6 +65,18 @@
 
         <activity
             android:name=".Login.ForgotPassword"
+            android:exported="true" />
+        <activity
+            android:name=".StaffView.activity.activity_admin_control"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".StaffView.activity.activity_admin_detail"
             android:exported="true" />
         <activity
             android:name=".customerview.activity.DoneActivity"
