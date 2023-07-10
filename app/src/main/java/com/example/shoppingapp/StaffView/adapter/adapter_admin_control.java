@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,13 +19,15 @@ import com.example.shoppingapp.itf_RCV_list_item;
 
 import java.util.ArrayList;
 
-public class adapter_admin_control extends RecyclerView.Adapter<adapter_admin_control.list_admin_holder> {
+public class adapter_admin_control extends RecyclerView.Adapter<adapter_admin_control.list_admin_holder> implements Filterable {
     private itf_RCV_list_item itf_rcv_list_item;
     Context context;
     ArrayList<admin_object> arrayList;
+    ArrayList<admin_object> arrayListOld;
     public adapter_admin_control( Context context, ArrayList<admin_object> objects, itf_RCV_list_item itf_rcv_list_item) {
         this.arrayList = objects;
         this.context = context;
+        this.arrayListOld = objects;
         this.itf_rcv_list_item = itf_rcv_list_item;
     }
 
@@ -59,7 +63,8 @@ public class adapter_admin_control extends RecyclerView.Adapter<adapter_admin_co
         return 0;
     }
 
-//    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+
+    //    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 //        View userView = convertView;
 //        if (convertView == null) {
 //            userView = LayoutInflater.from(context).inflate(R.layout.item_staff_admin_control,
@@ -103,6 +108,39 @@ public class adapter_admin_control extends RecyclerView.Adapter<adapter_admin_co
     {
         this.arrayList=arrayList;
         notifyDataSetChanged();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String search = charSequence.toString();
+                if(search.isEmpty()){
+                    arrayList = arrayListOld;
+                }
+                else{
+                    ArrayList<admin_object> list = new ArrayList<>();
+                    for(admin_object object : arrayListOld){
+                        if(object.getName().toLowerCase().contains(search.toLowerCase())){
+                            list.add(object);
+                        }
+                    }
+
+                    arrayList = list;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = arrayList;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                arrayList = (ArrayList<admin_object>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
 }

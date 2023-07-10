@@ -98,6 +98,7 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
         TextView edDob = holderView.findViewById(R.id.txt_dob);
         EditText edPhone = holderView.findViewById(R.id.txt_phone);
         EditText edMail = holderView.findViewById(R.id.txt_mail);
+        Spinner edStatus = holderView.findViewById(R.id.txt_status);
         EditText edPass = holderView.findViewById(R.id.txt_pass);
         Button btnUpdate = holderView.findViewById(R.id.btn_update);
 
@@ -107,7 +108,14 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
         edSex.setAdapter(gender);
         edSex.setOnItemSelectedListener(this);
 
+        ArrayAdapter<CharSequence> status = ArrayAdapter.createFromResource(this,R.array.status,
+                R.layout.spinner_item);
+        status.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        edStatus.setAdapter(status);
+        edStatus.setOnItemSelectedListener(this);
+
         edName.setText(object.getName());
+        edStatus.setSelection(object.getStatusIndex());
         edSex.setSelection(object.getSexIndex());
         edDob.setText(object.getDob());
         edPhone.setText(object.getPhoneNum());
@@ -144,6 +152,7 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
                 Map<String, Object> map = new HashMap<>();
                 map.put("name",edName.getText().toString());
                 map.put("sex",edSex.getSelectedItem().toString());
+                map.put("status",edStatus.getSelectedItem().toString());
                 map.put("dob",edDob.getText().toString());
                 map.put("phoneNum",edPhone.getText().toString());
                 map.put("email",edMail.getText().toString());

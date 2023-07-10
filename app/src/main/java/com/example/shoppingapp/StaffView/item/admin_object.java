@@ -98,6 +98,13 @@ public class admin_object implements Serializable {
         return status;
     }
 
+    public int getStatusIndex() {
+        if(this.status == "Working") return 0;
+        else if(this.status == "On vacation") return 1;
+        else if(this.status == "Absent") return 3;
+        else return 0;
+    }
+
     public void setStatus(String status) {
         this.status = status;
     }
