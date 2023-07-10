@@ -1,17 +1,18 @@
 package com.example.shoppingapp.customerview.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.shoppingapp.R;
 
 public class BuyNow extends AppCompatActivity {
     ImageView backbtn;
+    //TextAcount
     TextView Subtotal, Delivery, CheckOut, Total, ClickGiamGia, ClickAddress, ClickPayment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
