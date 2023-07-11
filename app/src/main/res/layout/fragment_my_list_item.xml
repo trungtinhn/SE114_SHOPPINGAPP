@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/fragment_container_view_item"
-    tools:context=".fragment_My_list_item"
+    tools:context=".StaffView.fragment.fragment_My_list_item"
     android:padding = "10dp"
     android:layout_marginTop="10dp"
     android:layout_marginEnd="10dp">
