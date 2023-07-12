@@ -12,6 +12,7 @@ import com.example.shoppingapp.R;
 
 public class BuyNow extends AppCompatActivity {
     ImageView backbtn;
+    //TextAcount
     TextView Subtotal, Delivery, CheckOut, Total, ClickGiamGia, ClickAddress, ClickPayment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
