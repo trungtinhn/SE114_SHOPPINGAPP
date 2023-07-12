@@ -1,9 +1,11 @@
 package com.example.shoppingapp.customerview.shoppingcart;
 
 import android.content.Context;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -13,18 +15,64 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.customerview.customer_interface.IClickItemProductListener;
-import com.example.shoppingapp.customerview.product.Product;
+import com.google.android.material.button.MaterialButtonToggleGroup;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.ShoppingCartViewHolder>{
     private List<ShoppingCart> data;
     private Context context;
-    private IClickItemProductListener iClickItemShoppingCartListener;
+    private OnButtonAddClickListener onButtonAddClickListener;
+    private OnButtonMinusClickListener onButtonMinusClickListener;
+    private OnButtonCheck onButtonCheck;
+    private OnItemClick onitemClick;
+    private OnButtonDeleteClick onButtonDeleteClick;
+    private OnCheckedChangeListener onCheckedChangeListener;
 
-    public void setData(List<ShoppingCart> list, IClickItemProductListener listener)
+
+    public void setOnCheckedChangeListener(OnCheckedChangeListener listener) {
+        this.onCheckedChangeListener = listener;
+    }
+    public void setOnButtonAddClickListener(OnButtonAddClickListener onButtonAddClickListener) {
+        this.onButtonAddClickListener = onButtonAddClickListener;
+    }
+
+    public void setOnButtonMinusClickListener(OnButtonMinusClickListener onButtonMinusClickListener) {
+        this.onButtonMinusClickListener = onButtonMinusClickListener;
+    }
+
+    public void setOnButtonCheck(OnButtonCheck onButtonCheck) {
+        this.onButtonCheck = onButtonCheck;
+    }
+
+    public void setOnitemClick(OnItemClick onitemClick) {
+        this.onitemClick = onitemClick;
+    }
+
+    public void setOnButtonDeleteClick(OnButtonDeleteClick onButtonDeleteClick) {
+        this.onButtonDeleteClick = onButtonDeleteClick;
+    }
+    public interface OnCheckedChangeListener {
+        void onCheckedChange(int position);
+    }
+    public interface OnButtonAddClickListener {
+        void onButtonAddClick(int position);
+    }
+    public interface OnButtonCheck {
+        void onButtonCheckClick(int position);
+    }
+    public interface OnButtonMinusClickListener {
+        void onButtonMinusClick(int position);
+    }
+    public interface OnItemClick {
+        void onButtonItemClick(int position);
+    }
+    public interface OnButtonDeleteClick {
+        void onButtonDeleteClick(int position);
+    }
+    public void setData(List<ShoppingCart> list)
     {
         this.data = list;
-        this.iClickItemShoppingCartListener= listener;
         notifyDataSetChanged();
     }
     public ShoppingAdapter(Context context){
@@ -43,18 +91,47 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
         if(cart == null) return;
 
         holder.check.setChecked(cart.isCheck());
-        holder.imagesp.setImageResource(cart.getDataImage());
+        Picasso.get().load(cart.getDataImage()).into(holder.imagesp);
         holder.tensp.setText(cart.getTenSanPham());
         holder.soluong.setText(cart.getSoLuong());
-        holder.tendanhmuc.setText(cart.getTenDanhMuc());
-        holder.giaban.setText(cart.getGia());
-
-//        holder.btn_delete.setOnClickListener(View.OnClickListener(){
-//
-//        });
+        holder.kichthuoc.setText(cart.getSize());
+        holder.mausac.setText(cart.getMauSac());
+        holder.giaban.setText(cart.getGiaTien());
+        holder.check.setChecked(cart.isCheck());
+        holder.btn_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(onButtonDeleteClick != null){
+                    onButtonDeleteClick.onButtonDeleteClick(holder.getAdapterPosition());
+                }
+            }
+        });
+        holder.btn_minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(onButtonMinusClickListener != null){
+                    onButtonMinusClickListener.onButtonMinusClick(holder.getAdapterPosition());
+                }
+            }
+        });
+        holder.btn_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(onButtonAddClickListener != null){
+                    onButtonAddClickListener.onButtonAddClick(holder.getAdapterPosition());
+                }
+            }
+        });
+        holder.check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (onCheckedChangeListener != null) {
+                    onCheckedChangeListener.onCheckedChange(holder.getAdapterPosition());
+                }
+            }
+        });
 
     }
-
     @Override
     public int getItemCount() {
         if(data != null){
@@ -66,7 +143,7 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
     public class ShoppingCartViewHolder extends RecyclerView.ViewHolder{
         private ImageView imagesp, btn_minus, btn_add, btn_delete;
         private RadioButton check;
-        private TextView tensp, tendanhmuc, giaban, soluong;
+        private TextView tensp, kichthuoc, mausac, giaban, soluong;
 
         public ShoppingCartViewHolder(@NonNull View itemView){
             super(itemView);
@@ -76,7 +153,8 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
             btn_add = itemView.findViewById(R.id.btn_add);
             btn_delete = itemView.findViewById(R.id.btn_delete);
             tensp = itemView.findViewById(R.id.txt_tensanpham);
-            tendanhmuc = itemView.findViewById(R.id.txt_tendanhmuc);
+            kichthuoc = itemView.findViewById(R.id.txt_KichThuoc);
+            mausac = itemView.findViewById(R.id.txt_MauSac);
             giaban = itemView.findViewById(R.id.txt_giaban);
             soluong = itemView.findViewById(R.id.txt_soluong);
         }

@@ -36,11 +36,18 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/txt_tendanhmuc"
+            android:id="@+id/txt_MauSac"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="Ten Danh Muc"
+            android:text="Hồng"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/txt_KichThuoc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="S"
             android:textSize="16sp" />
 
         <TextView
@@ -62,6 +69,7 @@
                 android:id="@+id/btn_minus"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:scaleType="fitXY"
                 android:src="@drawable/minus" />
 
             <TextView
@@ -76,6 +84,7 @@
                 android:id="@+id/btn_add"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:scaleType="fitXY"
                 android:layout_marginLeft="5dp"
                 android:src="@drawable/plus" />
         </LinearLayout>
