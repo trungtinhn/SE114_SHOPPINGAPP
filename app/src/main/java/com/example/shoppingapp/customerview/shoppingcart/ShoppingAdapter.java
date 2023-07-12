@@ -93,10 +93,10 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
         holder.check.setChecked(cart.isCheck());
         Picasso.get().load(cart.getDataImage()).into(holder.imagesp);
         holder.tensp.setText(cart.getTenSanPham());
-        holder.soluong.setText(cart.getSoLuong());
+        holder.soluong.setText(String.valueOf(cart.getSoLuong()));
         holder.kichthuoc.setText(cart.getSize());
         holder.mausac.setText(cart.getMauSac());
-        holder.giaban.setText(cart.getGiaTien());
+        holder.giaban.setText(String.valueOf(cart.getGiaTien()));
         holder.check.setChecked(cart.isCheck());
         holder.btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,11 +122,12 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
                 }
             }
         });
-        holder.check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        holder.check.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (onCheckedChangeListener != null) {
+            public void onClick(View v) {
+                if(onCheckedChangeListener != null){
                     onCheckedChangeListener.onCheckedChange(holder.getAdapterPosition());
+                    //holder.check.setChecked(!cart.isCheck());
                 }
             }
         });
