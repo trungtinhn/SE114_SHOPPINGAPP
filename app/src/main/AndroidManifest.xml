@@ -57,8 +57,6 @@
         <activity
             android:name=".StaffView.MyOrder.Home.activity_List_Product_And_Item"
             android:exported="true" />
-        <activity android:name=".StaffView.MyProduct.Activity.activity_MyProduct"
-            android:exported="true"/>
         <activity android:name=".customerview.activity.ReViewer"
             android:exported="true"/>
         <activity android:name=".StaffView.Home.home_page"
