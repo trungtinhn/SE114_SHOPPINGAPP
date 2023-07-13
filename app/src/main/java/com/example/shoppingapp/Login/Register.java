@@ -73,7 +73,6 @@ public class Register extends AppCompatActivity {
                 //String encodedEmailFromDatabase = "bGVkYW5ndGh1b25nMjAwM0BnbWFpbC5jb20=";
                 //String decodedEmail = new String(Base64.getDecoder().decode(encodedEmailFromDatabase));
                 // Cách mã hóa lại code
-
                 final String password = passwordTextView.getText().toString();
                 final String confirmPassword = confirmpasswordTextView.getText().toString();
                 final String phoneNumber = phoneNumberTextView.getText().toString();
