@@ -100,24 +100,5 @@ public class TrendingActivity extends AppCompatActivity {
                                 rcvProductTrending.setAdapter(productCardAdapter);
                             }
                         });
-        firebaseFirestore.collection("SANPHAM")
-                .whereEqualTo("Trending", true)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()) {
-
-                        }
-                    }
-                });
-
-
-
-
-
-
-
-
     }
 }
