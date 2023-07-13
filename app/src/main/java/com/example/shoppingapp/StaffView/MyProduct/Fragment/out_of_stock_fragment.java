@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
@@ -48,15 +47,6 @@ public class out_of_stock_fragment extends Fragment {
     }
 
     private void setdata() {
-        arrayList= new ArrayList<>();
-        arrayList.add(new product_object("T-Shirt Black Blank-VSD343545D - New Elevent",139.999,R.drawable.anh1,20,20,20,20,1));
-        arrayList.add(new product_object("T-Shirt Black Blank-VSD3435231 - New Elevent",139.909,R.drawable.anh1,20,20,20,20,1));
-        arrayList.add(new product_object("T-Shirt Black Blank-VSD343523d - New Elevent",139.9009,R.drawable.anh1,20,20,20,20,1));
-        adapter = new My_inventory_Adapter(getActivity());
-        adapter.setData(arrayList);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity()  , RecyclerView.VERTICAL, false);
-        recyclerView1.setLayoutManager(layoutManager);
-        recyclerView1.setAdapter(adapter);
     }
 
     @Override

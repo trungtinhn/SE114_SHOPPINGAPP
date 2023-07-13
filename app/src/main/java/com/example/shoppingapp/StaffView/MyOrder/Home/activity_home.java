@@ -8,7 +8,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shoppingapp.R;
-import com.example.shoppingapp.StaffView.MyOrder.Activity.acitivity_MyOrder;
+import com.example.shoppingapp.StaffView.MyOrder.Activity.activity_MyOrder;
 
 public class activity_home extends AppCompatActivity {
 
@@ -16,8 +16,8 @@ public class activity_home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_home_page);
-        Button btnMyProduct = findViewById(R.id.btn_my_product);
-        btnMyProduct.setOnClickListener(new View.OnClickListener() {
+        Button btn_view_shop= findViewById(R.id.btn_view_shop);
+        btn_view_shop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(activity_home.this, activity_List_Product_And_Item.class);
@@ -29,7 +29,7 @@ public class activity_home extends AppCompatActivity {
         btnMyOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity_home.this, acitivity_MyOrder.class);
+                Intent intent = new Intent(activity_home.this, activity_MyOrder.class);
                 startActivity(intent);
             }
         });

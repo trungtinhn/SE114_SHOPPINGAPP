@@ -112,7 +112,7 @@
                 </LinearLayout>
             </LinearLayout>
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/button"
+                android:id="@+id/btn_view_shop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
@@ -247,35 +247,62 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="20dp">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_my_product"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:background="@drawable/box"
-                android:fontFamily="@font/montserrat_lights"
-                android:lineSpacingExtra="0sp"
-                android:minWidth="0dp"
-                android:minHeight="0dp"
-                android:textAlignment="center"
-                android:textAllCaps="false"
-                android:textColor="@color/black"
-                android:textSize="11sp" />
-
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat_lights"
-                android:text="My Product"
-                android:textColor="#000000"
-                android:textSize="10dp" />
-        </LinearLayout>
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_categories"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:background="@drawable/btn_promotions"
+                    android:fontFamily="@font/montserrat_lights"
+                    android:lineSpacingExtra="0sp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_lights"
+                    android:text="Categories"
+                    android:textColor="#000000"
+                    android:textSize="10dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_my_product"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:background="@drawable/box"
+                    android:fontFamily="@font/montserrat_lights"
+                    android:lineSpacingExtra="0sp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_lights"
+                    android:text="Products"
+                    android:textColor="#000000"
+                    android:textSize="10dp" />
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -300,45 +327,45 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserrat_lights"
-                    android:text="My Order"
+                    android:text="Orders"
                     android:textColor="#000000"
                     android:textSize="10dp" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical">
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_promotions"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:background="@drawable/btn_promotions"
-                    android:fontFamily="@font/montserrat_lights"
-                    android:lineSpacingExtra="0sp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:textAlignment="center"
-                    android:textAllCaps="false"
-                    android:textColor="@color/black"
-                    android:textSize="11sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_lights"
-                    android:text="Promotions"
-                    android:textColor="#000000"
-                    android:textSize="10dp" />
-            </LinearLayout>
         </TableRow>
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="20dp">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_promotions"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:background="@drawable/btn_promotions"
+                        android:fontFamily="@font/montserrat_lights"
+                        android:lineSpacingExtra="0sp"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:textAlignment="center"
+                        android:textAllCaps="false"
+                        android:textColor="@color/black"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_lights"
+                        android:text="Promotions"
+                        android:textColor="#000000"
+                        android:textSize="10dp" />
+                </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

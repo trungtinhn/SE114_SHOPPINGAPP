@@ -14,9 +14,8 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.shoppingapp.R;
-import com.example.shoppingapp.StaffView.MyOrder.Activity.OrderListAdapter;
+import com.example.shoppingapp.StaffView.MyOrder.Adapter.OrderListAdapter;
 import com.example.shoppingapp.StaffView.MyOrder.ItemOrder;
 import com.example.shoppingapp.StaffView.MyOrder.Order;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -77,7 +76,6 @@ public class confirm_fragment extends Fragment {
                         customerNameTextView.setText(customer.getHoTen());
                         customerAddressTextView.setText(customer.getDiaChi());
                         // Load hình từ URL sử dụng Glide hoặc Picasso
-                        Glide.with(getContext()).load(customer.getAnhDaiDien()).into(customerImageView);
                     }
                     String documentId = documentSnapshot.getId(); // Lấy ID của tài liệu
                     Map<String, Object> data = documentSnapshot.getData(); // Lấy toàn bộ dữ liệu của tài liệu dưới dạng Map

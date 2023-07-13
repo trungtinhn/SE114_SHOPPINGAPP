@@ -14,7 +14,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.shoppingapp.R;
-import com.example.shoppingapp.StaffView.MyOrder.Home.activity_home;
+import com.example.shoppingapp.StaffView.Home.home_page;
 import com.example.shoppingapp.StaffView.MyProduct.Fragment.my_inventory_fragment;
 import com.example.shoppingapp.StaffView.MyProduct.Fragment.onwait_fragment;
 import com.example.shoppingapp.StaffView.MyProduct.Fragment.out_of_stock_fragment;
@@ -44,7 +44,7 @@ public class activity_MyProduct extends AppCompatActivity {
         back_to_Home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity_MyProduct.this, activity_home.class);
+                Intent intent = new Intent(activity_MyProduct.this, home_page.class);
                 startActivity(intent);
             }
         });

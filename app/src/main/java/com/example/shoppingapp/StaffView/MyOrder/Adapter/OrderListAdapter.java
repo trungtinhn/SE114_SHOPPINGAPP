@@ -1,4 +1,4 @@
-package com.example.shoppingapp.StaffView.MyOrder.Activity;
+package com.example.shoppingapp.StaffView.MyOrder.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;

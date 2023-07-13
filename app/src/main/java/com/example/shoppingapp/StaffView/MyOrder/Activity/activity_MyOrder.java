@@ -22,7 +22,7 @@ import com.example.shoppingapp.StaffView.MyOrder.Fragment.delivering_fragment;
 import com.example.shoppingapp.StaffView.MyOrder.Fragment.wait_fragment;
 import com.google.android.material.tabs.TabLayout;
 
-public class acitivity_MyOrder extends AppCompatActivity {
+public class activity_MyOrder extends AppCompatActivity {
 
     private ViewPager viewPager;
     private TabLayout tabLayout;
@@ -46,7 +46,7 @@ public class acitivity_MyOrder extends AppCompatActivity {
         back_to_Home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(acitivity_MyOrder.this, activity_home.class);
+                Intent intent = new Intent(activity_MyOrder.this, activity_home.class);
                 startActivity(intent);
             }
         });

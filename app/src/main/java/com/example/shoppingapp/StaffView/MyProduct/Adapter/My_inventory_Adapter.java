@@ -12,66 +12,87 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
-import com.example.shoppingapp.StaffView.product_object;
+import com.example.shoppingapp.StaffView.Product;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class My_inventory_Adapter extends RecyclerView.Adapter<My_inventory_Adapter.ProductsViewHolder> {
+    private List<Product> productList;
+    private Context context;
+
+    public My_inventory_Adapter(List<Product> productList, Context context) {
+        this.context = context;
+        this.productList = new ArrayList<>();
+        loadDataFromFirestore();
+    }
+
+    private void loadDataFromFirestore() {
+        CollectionReference sanphamRef = FirebaseFirestore.getInstance().collection("SANPHAM");
+
+        sanphamRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                productList.clear();
+
+                for (DocumentSnapshot document : task.getResult()) {
+                    // Lấy các trường dữ liệu từ document
+                    // Lấy mảng địa chỉ ảnh
+                    List<String> hinhAnhSPList = (List<String>) document.get("HinhAnhSP");
+
+                    // Lấy địa chỉ ảnh đầu tiên trong mảng
+                    String hinhAnhSP = hinhAnhSPList != null && !hinhAnhSPList.isEmpty() ? hinhAnhSPList.get(0) : "";
+                    String tenSP = document.getString("TenSP");
+                    int giaSP = document.getLong("GiaSP") != null ? document.getLong("GiaSP").intValue() : 0;
+
+                    // Tạo đối tượng Product từ dữ liệu lấy được
+                    Product product = new Product(hinhAnhSP, tenSP, giaSP);
+
+                    // Thêm đối tượng Product vào danh sách
+                    productList.add(product);
+                }
+
+                notifyDataSetChanged();
+            } else {
+                // Xử lý khi không thành công
+                Exception exception = task.getException();
+                // ...
+            }
+        });
+    }
+
     @NonNull
     @Override
     public ProductsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).
-                inflate(R.layout.item,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
         return new ProductsViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ProductsViewHolder holder, int position) {
-        product_object product = arrayList.get(position);
-        if (product==null)
-            return;
+        Product product = productList.get(position);
         holder.name.setText(product.getName());
         holder.price.setText(String.valueOf(product.getPrice()));
-        holder.ava.setImageResource(product.getAvatar());
-        holder.ware.setText(String.valueOf(product.getWarehouse()));
-        holder.love.setText(String.valueOf(product.getWarehouse()));
-        holder.sold.setText(String.valueOf(product.getWarehouse()));
-        holder.views.setText(String.valueOf(product.getWarehouse()));
-
+        Picasso.get().load(product.getAvatar()).into(holder.ava);
     }
 
     @Override
     public int getItemCount() {
-        if(arrayList!=null)
-            return arrayList.size();
-        return 0;
+        return productList.size();
     }
 
-    private Context context;
-    private ArrayList<product_object> arrayList;
-
-    public My_inventory_Adapter(Context context) {
-        this.context = context;
-    }
-    public void setData(ArrayList<product_object> arrayList)
-    {
-        this.arrayList=arrayList;
-        notifyDataSetChanged();
-    }
-    public class ProductsViewHolder extends RecyclerView.ViewHolder
-    {
-        private TextView name,price,ware,love,sold,views;
+    public class ProductsViewHolder extends RecyclerView.ViewHolder {
+        private TextView name, price;
         private ImageView ava;
-        private Button H,Edit;
+        private Button H, Edit;
 
         public ProductsViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.product_name);
             price = itemView.findViewById(R.id.product_price);
-            ware = itemView.findViewById(R.id.idware);
-            love = itemView.findViewById(R.id.idlove);
-            sold = itemView.findViewById(R.id.idsold);
-            views = itemView.findViewById(R.id.idviews);
             ava = itemView.findViewById(R.id.id_avatar);
             H = itemView.findViewById(R.id.button2);
             Edit = itemView.findViewById(R.id.button3);
