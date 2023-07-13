@@ -110,6 +110,8 @@
         <activity
             android:name=".StaffView.activity.activity_chartbar"
             android:exported="false" />
+        <activity android:name=".StaffView.Home.home_page"
+            android:exported="true"/>
     </application>
 
 </manifest>
