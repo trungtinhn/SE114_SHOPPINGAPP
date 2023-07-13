@@ -8,6 +8,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shoppingapp.R;
+import com.example.shoppingapp.StaffView.Categories.Activity.activity_categories;
 import com.example.shoppingapp.StaffView.MyOrder.Activity.activity_MyOrder;
 import com.example.shoppingapp.StaffView.MyProduct.Activity.activity_MyProduct;
 import com.example.shoppingapp.StaffView.ViewShop.activity_viewshop;
@@ -21,7 +22,7 @@ public class home_page extends AppCompatActivity {
         setContentView(R.layout.screen_home_page);
         // initialising all views through id defined above
         btn_my_product = findViewById(R.id.btn_my_product);
-        btn_my_product = findViewById(R.id.btn_my_product);
+        btn_categories = findViewById(R.id.btn_categories);
         btn_myOrder = findViewById(R.id.btn_my_order);
         btn_Promotions = findViewById(R.id.btn_promotions);
         btn_financial_report = findViewById(R.id.btn_financial_report);
@@ -47,6 +48,15 @@ public class home_page extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(home_page.this, activity_viewshop.class);
+                startActivity(intent);
+            }
+        });
+        btn_categories.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent (home_page.this, activity_categories.class);
                 startActivity(intent);
             }
         });

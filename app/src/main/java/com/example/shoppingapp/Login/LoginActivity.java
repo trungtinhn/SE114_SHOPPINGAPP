@@ -105,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
                                                     Toast.makeText(getApplicationContext(), "Login as admin",
                                                             Toast.LENGTH_SHORT).show();
                                                     // Chuyển người dùng đến màn hình admin
-                                                    Intent adminIntent = new Intent(LoginActivity.this, ReViewer.class);
+                                                    Intent adminIntent = new Intent(LoginActivity.this, home_page.class);
                                                     startActivity(adminIntent);
                                                     finish();
                                                     break;

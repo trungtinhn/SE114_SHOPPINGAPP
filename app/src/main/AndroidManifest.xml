@@ -63,6 +63,8 @@
             android:exported="true"/>
         <activity android:name=".StaffView.ViewShop.activity_viewshop"
             android:exported="true"/>
+        <activity android:name=".StaffView.Categories.Activity.activity_categories"
+            android:exported="true"/>
     </application>
 
 </manifest>
