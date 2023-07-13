@@ -1,4 +1,6 @@
+
 package com.example.shoppingapp.StaffView.activity;
+
 
 import android.os.Bundle;
 
@@ -6,7 +8,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.shoppingapp.R;
+
 import com.example.shoppingapp.StaffView.adapter.adapter_List_Product_And_Item;
+
 import com.google.android.material.tabs.TabLayout;
 
 public class activity_List_Product_And_Item extends AppCompatActivity {
@@ -27,7 +31,6 @@ public class activity_List_Product_And_Item extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
-
             }
 
             @Override

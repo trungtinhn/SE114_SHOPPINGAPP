@@ -8,17 +8,16 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
-import com.example.shoppingapp.StaffView.adapter.My_inventory_Adapter;
+import com.example.shoppingapp.StaffView.MyProduct.Adapter.My_inventory_Adapter;
 import com.example.shoppingapp.StaffView.item.product_object;
 
 import java.util.ArrayList;
 
 
-public class oos extends Fragment {
+public class out_of_stock_fragment extends Fragment {
 
     private String mParam1;
     private String mParam2;
@@ -27,7 +26,7 @@ public class oos extends Fragment {
     private ArrayList<product_object> arrayList= new ArrayList<>();
     private My_inventory_Adapter adapter;
 
-    public oos() {
+    public out_of_stock_fragment() {
         // Required empty public constructor
     }
 
@@ -48,15 +47,6 @@ public class oos extends Fragment {
     }
 
     private void setdata() {
-        arrayList= new ArrayList<>();
-        arrayList.add(new product_object("T-Shirt Black Blank-VSD343545D - New Elevent",139.999,R.drawable.anh1,20,20,20,20,1));
-        arrayList.add(new product_object("T-Shirt Black Blank-VSD3435231 - New Elevent",139.909,R.drawable.anh1,20,20,20,20,1));
-        arrayList.add(new product_object("T-Shirt Black Blank-VSD343523d - New Elevent",139.9009,R.drawable.anh1,20,20,20,20,1));
-        adapter = new My_inventory_Adapter(getActivity());
-        adapter.setData(arrayList);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity()  , RecyclerView.VERTICAL, false);
-        recyclerView1.setLayoutManager(layoutManager);
-        recyclerView1.setAdapter(adapter);
     }
 
     @Override

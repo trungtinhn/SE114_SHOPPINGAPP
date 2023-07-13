@@ -40,19 +40,7 @@
             android:name=".StaffView.activity.activity_click_staff_check"
             android:exported="true">
         </activity>
-        <activity
-            android:name=".Login.LoginActivity"
-            android:enableOnBackInvokedCallback="true"
-            android:exported="true"
-            android:label="@string/title_activity_login"
-            android:theme="@style/Theme.ShoppingApp.NoActionBar" >
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-            >
 
-        </activity>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
@@ -70,42 +58,18 @@
              <category android:name="android.intent.category.LAUNCHER" />
              </intent-filter>
         </activity>
-        <activity
-            android:name=".StaffView.activity.activity_click_staff_check"
-            android:exported="true">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity>
         <activity
             android:name=".Login.LoginActivity"
-            android:enableOnBackInvokedCallback="true"
             android:exported="true"
-            android:label="@string/title_activity_login"
-            android:theme="@style/Theme.ShoppingApp.NoActionBar">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
             ></activity>
-
+        <activity android:name=".StaffView.activity.activity_List_Product_And_Item"
+            android:exported="true"/>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity
-            android:name=".Login.ForgotPassword"
-            android:exported="true" />
-        <activity
-            android:name=".StaffView.activity.activity_admin_control"
-            android:exported="true">
-        </activity>
         <activity
             android:name=".StaffView.activity.activity_admin_detail"
             android:exported="true" />
@@ -142,13 +106,7 @@
         <activity
             android:name=".customerview.activity.TrendingActivity"
             android:exported="false" />
-        <activity
-            android:name=".StaffView.activity.activity_home"
-            android:exported="false"/>
 
-        <activity
-            android:name=".StaffView.activity.activity_List_Product_And_Item"
-            android:exported="false" />
         <activity
             android:name=".StaffView.activity.activity_chartbar"
             android:exported="false" />
