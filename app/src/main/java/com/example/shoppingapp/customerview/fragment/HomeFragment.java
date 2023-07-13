@@ -1,6 +1,5 @@
 package com.example.shoppingapp.customerview.fragment;
 
-import android.nfc.Tag;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,18 +20,15 @@ import com.example.shoppingapp.R;
 import com.example.shoppingapp.customerview.categories.Categories;
 import com.example.shoppingapp.customerview.categories.CategoriesAdapter;
 
-import com.example.shoppingapp.customerview.customer_interface.IClickItemProductListener;
+import com.example.shoppingapp.customerview.product.customer_interface.IClickItemProductListener;
 import com.example.shoppingapp.customerview.product.Product;
 import com.example.shoppingapp.customerview.product.ProductAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.ktx.Firebase;
 
 import java.util.ArrayList;
 import java.util.List;

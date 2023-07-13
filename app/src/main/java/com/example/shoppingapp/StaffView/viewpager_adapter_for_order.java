@@ -5,6 +5,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.example.shoppingapp.StaffView.MyOrder.Fragment.confirm_fragment;
+import com.example.shoppingapp.StaffView.MyOrder.Fragment.delivered_fragment;
+import com.example.shoppingapp.StaffView.MyOrder.Fragment.delivering_fragment;
+import com.example.shoppingapp.StaffView.MyOrder.Fragment.wait_fragment;
+
 public class viewpager_adapter_for_order extends FragmentStateAdapter {
 
     public viewpager_adapter_for_order(@NonNull FragmentActivity fragmentActivity) {

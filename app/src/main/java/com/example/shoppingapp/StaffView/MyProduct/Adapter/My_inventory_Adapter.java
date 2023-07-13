@@ -1,4 +1,4 @@
-package com.example.shoppingapp.StaffView;
+package com.example.shoppingapp.StaffView.MyProduct.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
+import com.example.shoppingapp.StaffView.product_object;
 
 import java.util.ArrayList;
 

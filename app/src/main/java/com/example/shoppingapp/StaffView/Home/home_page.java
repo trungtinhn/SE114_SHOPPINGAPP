@@ -1,10 +1,12 @@
-package com.example.shoppingapp;
+package com.example.shoppingapp.StaffView.Home;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+import com.example.shoppingapp.R;
+
+public class home_page extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {

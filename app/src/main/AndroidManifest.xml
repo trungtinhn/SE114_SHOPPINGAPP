@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
-    <uses-permission android:name="android.permission.INTERNET"/>
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -11,7 +13,10 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.ShoppingApp"
-        tools:targetApi="tiramisu" >
+        tools:targetApi="tiramisu">
+        <activity
+            android:name=".StaffView.MyProduct.Activity.activity_MyProduct"
+            android:exported="false" />
         <activity
             android:name=".Login.EditProfile"
             android:enableOnBackInvokedCallback="true"
@@ -33,19 +38,31 @@
             android:enableOnBackInvokedCallback="true"
             android:exported="true"
             android:label="@string/title_activity_login"
-            android:theme="@style/Theme.ShoppingApp.NoActionBar" >
+            android:theme="@style/Theme.ShoppingApp.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".Login.ForgotPassword"
             android:exported="true" />
-
-
-
+        <activity
+            android:name=".StaffView.MyOrder.Activity.acitivity_MyOrder"
+            android:exported="true" />
+        <activity
+            android:name=".StaffView.MyOrder.Home.activity_home"
+            android:exported="true" />
+        <activity
+            android:name=".StaffView.MyOrder.Home.activity_List_Product_And_Item"
+            android:exported="true" />
+        <activity android:name=".StaffView.MyProduct.Activity.activity_MyProduct"
+            android:exported="true"/>
+        <activity android:name=".customerview.activity.ReViewer"
+            android:exported="true"/>
+        <activity android:name=".StaffView.Home.home_page"
+            android:exported="true"/>
     </application>
 
 </manifest>

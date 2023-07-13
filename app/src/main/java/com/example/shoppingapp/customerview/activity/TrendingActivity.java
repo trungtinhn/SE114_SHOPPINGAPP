@@ -7,13 +7,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.customerview.BottomNavigationCustomActivity;
-import com.example.shoppingapp.customerview.customer_interface.IClickItemProductTrendingListener;
+import com.example.shoppingapp.customerview.product.customer_interface.IClickItemProductTrendingListener;
 import com.example.shoppingapp.customerview.product.ProductCard;
 import com.example.shoppingapp.customerview.product.ProductCardAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,7 +23,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class TrendingActivity extends AppCompatActivity {
     private FirebaseFirestore firebaseFirestore;

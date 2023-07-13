@@ -9,13 +9,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.shoppingapp.MainActivity;
 import com.example.shoppingapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -26,10 +24,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.ktx.Firebase;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.Base64;
 import java.util.Calendar;
 
@@ -105,6 +100,7 @@ public class Register extends AppCompatActivity {
                                 reference.child("Users").child(email).child("Password").setValue(password);
                                 reference.child("Users").child(email).child("Confirm Password").setValue(confirmPassword);
                                 reference.child("Users").child(email).child("Email").setValue(emailUTF);
+                                reference.child("Users").child(email).child("LoaiND").setValue("customer");
                                 Toast.makeText(Register.this, "Register Successful, Login Now !", Toast.LENGTH_SHORT).show();
 
                             }

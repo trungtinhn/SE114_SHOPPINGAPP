@@ -48,8 +48,17 @@ dependencies {
     implementation 'androidx.wear.tiles:tiles-material:1.1.0-alpha04'
 
     implementation 'com.google.firebase:firebase-firestore:23.0.1'
+    implementation 'com.firebaseui:firebase-ui-database:8.0.2'
 
+    // FirebaseUI for Cloud Firestore
+    implementation 'com.firebaseui:firebase-ui-firestore:8.0.2'
+    // FirebaseUI for Firebase Auth
+    implementation 'com.firebaseui:firebase-ui-auth:8.0.2'
+
+    // FirebaseUI for Cloud Storage
+    implementation 'com.firebaseui:firebase-ui-storage:8.0.2'
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.google.android.gms:play-services-games:22.0.1'
 
     testImplementation 'junit:junit:4.13.2'
 
