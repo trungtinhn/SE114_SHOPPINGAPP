@@ -150,6 +150,7 @@ public class Register extends AppCompatActivity {
         String avatar = null;
         String diachi = null;
         String gioitinh = null;
+        String userID;
         email = emailTextView.getText().toString();
         password = passwordTextView.getText().toString();
         fullname = userNameTextView.getText().toString();
@@ -172,26 +173,7 @@ public class Register extends AppCompatActivity {
             return;
         }
         // Trong phương thức registerNewUser()
-        FirebaseUser firebaseUser = mAuth.getCurrentUser();
-        String userID = firebaseUser.getUid();
 
-        User user = new User(fullname, email, dayofbirth,phonenumber, userID, avatar, diachi, gioitinh);
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference usersCollection = db.collection("NGUOIDUNG");
-
-        usersCollection.document(userID).set(user)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(Register.this, "Register Successful, Login Now!", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(Register.this, "Failed to register user", Toast.LENGTH_SHORT).show();
-                    }
-                });
 
         // create new user or register new user
         mAuth
@@ -202,7 +184,25 @@ public class Register extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task)
                     {
                         if (task.isSuccessful()) {
+                            FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                            String userID = task.getResult().getUser().getUid();
+                            User user = new User(fullname, email, dayofbirth,phonenumber, userID, avatar, diachi, gioitinh);
+                            FirebaseFirestore db = FirebaseFirestore.getInstance();
+                            CollectionReference usersCollection = db.collection("NGUOIDUNG");
 
+                            usersCollection.document(userID).set(user)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Toast.makeText(Register.this, "Register Successful, Login Now!", Toast.LENGTH_SHORT).show();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(Register.this, "Failed to register user", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
                             Toast.makeText(getApplicationContext(),
                                             "Registration successful!",
                                             Toast.LENGTH_LONG)
