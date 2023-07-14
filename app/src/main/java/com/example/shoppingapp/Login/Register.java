@@ -87,6 +87,9 @@ public class Register extends AppCompatActivity {
                     Toast.makeText(Register.this, "Password is not matching, please check Password and  Confirm Password again", Toast.LENGTH_SHORT).show();
 
                 }
+                if (password.length() < 6) {
+                    Toast.makeText(Register.this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show();
+                }
                 else
                 {
 
@@ -195,6 +198,10 @@ public class Register extends AppCompatActivity {
                                         @Override
                                         public void onSuccess(Void aVoid) {
                                             Toast.makeText(Register.this, "Register Successful, Login Now!", Toast.LENGTH_SHORT).show();
+                                            Intent intent
+                                                    = new Intent(Register.this,
+                                                    LoginActivity.class);
+                                            startActivity(intent);
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
@@ -203,17 +210,6 @@ public class Register extends AppCompatActivity {
                                             Toast.makeText(Register.this, "Failed to register user", Toast.LENGTH_SHORT).show();
                                         }
                                     });
-                            Toast.makeText(getApplicationContext(),
-                                            "Registration successful!",
-                                            Toast.LENGTH_LONG)
-                                    .show();
-
-                            // hide the progress bar
-                            // if the user created intent to login activity
-                            Intent intent
-                                    = new Intent(Register.this,
-                                    LoginActivity.class);
-                            startActivity(intent);
                         }
                         else {
 
