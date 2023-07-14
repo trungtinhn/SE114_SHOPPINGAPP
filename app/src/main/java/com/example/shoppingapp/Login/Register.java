@@ -104,8 +104,7 @@ public class Register extends AppCompatActivity {
                                 // sending data to firebase
                                 reference.child("Users").child(email).child("Email").setValue(emailUTF);
                                 reference.child("Users").child(email).child("LoaiND").setValue("customer");
-                                Toast.makeText(Register.this, "Register Successful, Login Now !", Toast.LENGTH_SHORT).show();
-
+                                registerNewUser();
                             }
                         }
 
@@ -115,8 +114,6 @@ public class Register extends AppCompatActivity {
                         }
                     });
                 }
-                registerNewUser();
-
             }
         });
     }
@@ -229,4 +226,3 @@ public class Register extends AppCompatActivity {
     }
 
 }
-
