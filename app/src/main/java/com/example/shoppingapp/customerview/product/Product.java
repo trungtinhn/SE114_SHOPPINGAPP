@@ -1,14 +1,24 @@
 package com.example.shoppingapp.customerview.product;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
     private String masp;
     private String resouceId;
     private String name;
+    private Integer price;
 
+    public Product(String resouceId, String name, String masp, Integer price) {
+        this.resouceId = resouceId;
+        this.name = name;
+        this.masp = masp;
+        this.price = price;
+    }
     public Product(String resouceId, String name, String masp) {
         this.resouceId = resouceId;
         this.name = name;
         this.masp = masp;
+
     }
 
     public String getResouceId() {
@@ -33,5 +43,13 @@ public class Product {
 
     public void setMasp(String masp) {
         this.masp = masp;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 }

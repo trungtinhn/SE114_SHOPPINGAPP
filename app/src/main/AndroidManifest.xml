@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" >
-
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,6 +12,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ShoppingApp"
         tools:targetApi="tiramisu" >
+
+        <activity android:name=".customerview.BottomNavigationCustomActivity"
+            android:exported="true">
+                        <intent-filter>
+                            <action android:name="android.intent.action.MAIN" />
+
+                            <category android:name="android.intent.category.LAUNCHER" />
+                        </intent-filter>
+        </activity>
+
+
         <activity
             android:name=".Login.EditProfile"
             android:enableOnBackInvokedCallback="true"
@@ -28,14 +39,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true" />
-        <activity android:name=".customerview.BottomNavigationCustomActivity"
-            android:exported="true">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-        </activity>
         <activity
             android:name=".StaffView.activity.activity_click_staff_check"
             android:exported="true">
@@ -66,9 +70,12 @@
             ></activity>
         <activity android:name=".StaffView.activity.activity_List_Product_And_Item"
             android:exported="true"/>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+
 
         <activity
             android:name=".StaffView.activity.activity_admin_detail"
