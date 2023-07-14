@@ -1,4 +1,6 @@
+
 package com.example.shoppingapp.StaffView.item;
+
 
 public class user_object {
     private String name;

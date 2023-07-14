@@ -7,7 +7,6 @@
     android:orientation="horizontal"
     android:gravity="center_vertical"
     tools:context=".customerview.activity.ShoppingCart">
-
     <RadioButton
         android:id="@+id/check_button"
         android:layout_width="wrap_content"
@@ -17,11 +16,12 @@
 
     <ImageView
         android:id="@+id/image_product"
-        android:layout_width="126dp"
-        android:layout_height="149dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:scaleType="fitXY"
         android:src="@drawable/anhgiay1" />
     <LinearLayout
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="30dp"
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -36,11 +36,18 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/txt_tendanhmuc"
+            android:id="@+id/txt_MauSac"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="Ten Danh Muc"
+            android:text="Hồng"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/txt_KichThuoc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="S"
             android:textSize="16sp" />
 
         <TextView
@@ -60,8 +67,9 @@
 
             <ImageView
                 android:id="@+id/btn_minus"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:scaleType="fitXY"
                 android:src="@drawable/minus" />
 
             <TextView
@@ -74,8 +82,9 @@
 
             <ImageView
                 android:id="@+id/btn_add"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:scaleType="fitXY"
                 android:layout_marginLeft="5dp"
                 android:src="@drawable/plus" />
         </LinearLayout>
@@ -83,8 +92,8 @@
 
     <ImageView
         android:id="@+id/btn_delete"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginLeft="20dp"
         android:src="@drawable/delete" />
 </LinearLayout>
