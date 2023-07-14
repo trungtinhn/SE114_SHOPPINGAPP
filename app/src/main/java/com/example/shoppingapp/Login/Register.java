@@ -38,6 +38,7 @@ public class Register extends AppCompatActivity {
     private EditText emailTextView, userNameTextView, phoneNumberTextView, passwordTextView, confirmpasswordTextView;
     private EditText DayofBirthTextView;
     private Button Btn;
+    
     private FirebaseAuth mAuth;
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     DatabaseReference reference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://se114-df58a-default-rtdb.firebaseio.com/");
@@ -54,6 +55,8 @@ public class Register extends AppCompatActivity {
         userNameTextView = findViewById(R.id.editTextFullName);
         phoneNumberTextView = findViewById(R.id.editTextPhone);
         DayofBirthTextView = findViewById(R.id.editTextDayOfBirth);
+
+
         DayofBirthTextView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -105,16 +108,13 @@ public class Register extends AppCompatActivity {
 
                             }
                         }
-
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
 
                         }
                     });
-                    registerNewUser();
                 }
-
-
+                registerNewUser();
             }
         });
     }
@@ -142,8 +142,6 @@ public class Register extends AppCompatActivity {
                 }, year, month, day);
         datePickerDialog.show();
     }
-
-
     private void registerNewUser()
     {
         // Take the value of two edit texts in Strings
