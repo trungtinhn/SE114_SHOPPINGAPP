@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.StaffView.Home.home_page;
-import com.example.shoppingapp.customerview.fragment.HomeFragment;
+import com.example.shoppingapp.customerview.BottomNavigationCustomActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -86,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
                                                     Toast.makeText(getApplicationContext(), "Login as customer",
                                                             Toast.LENGTH_SHORT).show();
                                                     // Chuyển người dùng đến màn hình khách hàng
-                                                    Intent customerIntent = new Intent(LoginActivity.this, HomeFragment.class);
+                                                    Intent customerIntent = new Intent(LoginActivity.this, BottomNavigationCustomActivity.class);
                                                     startActivity(customerIntent);
                                                     finish();
                                                     break;
