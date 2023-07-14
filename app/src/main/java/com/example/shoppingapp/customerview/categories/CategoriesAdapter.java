@@ -1,5 +1,6 @@
 package com.example.shoppingapp.customerview.categories;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +38,8 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
         if (categories == null) return;
 
         holder.txtNameCategories.setText(categories.getName());
-        Picasso.get().load(categories.getImage()).into(holder.imageView);
+        Picasso.get().load(categories.getImage()).fit().centerCrop().into(holder.imageView);
+        Log.d("image:", categories.getImage());
 
     }
 

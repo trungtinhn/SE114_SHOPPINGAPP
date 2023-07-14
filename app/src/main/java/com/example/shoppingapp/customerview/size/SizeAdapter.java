@@ -10,15 +10,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
+import com.example.shoppingapp.customerview.activity.DetailProductActivity;
 
 import java.util.List;
 
 public class SizeAdapter extends RecyclerView.Adapter<SizeAdapter.SizeViewHolder> {
 
     private List<String> sizes;
+    private DetailProductActivity detailProductActivity;
     private int selectedItem = -1;
-    public void setData(List<String> list){
-        this.sizes = list; notifyDataSetChanged();
+    public void setData(List<String> list, DetailProductActivity detailProductActivity){
+        this.sizes = list;
+        this.detailProductActivity = detailProductActivity;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -47,6 +51,8 @@ public class SizeAdapter extends RecyclerView.Adapter<SizeAdapter.SizeViewHolder
                     selectedItem = -1; // Bỏ chọn item nếu đã được chọn
                 } else {
                     selectedItem = position; // Đánh dấu item được chọn
+                    String size = sizes.get(position);
+                    detailProductActivity.onSizeClick(size);
                 }
                 notifyDataSetChanged(); // Cập nhật
             }

@@ -11,17 +11,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
+import com.example.shoppingapp.customerview.activity.DetailProductActivity;
 
 import java.util.List;
 
 public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorViewHolder> {
 
     private List<Colors> mColor;
+    DetailProductActivity detailProductActivity;
 
     private int selectedItem = -1;
-    public void setData(List<Colors> list){
+    public void setData(List<Colors> list, DetailProductActivity detailProductActivity){
         this.mColor = list;
-
+        this.detailProductActivity = detailProductActivity;
         notifyDataSetChanged();
     }
 
@@ -55,6 +57,8 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorViewHol
                     selectedItem = -1; // Bỏ chọn item nếu đã được chọn
                 } else {
                     selectedItem = position; // Đánh dấu item được chọn
+                    Colors color = mColor.get(position);
+                    detailProductActivity.onColorClick(color.getTenMau(), color.getMaMau());
                 }
                 notifyDataSetChanged(); // Cập nhật
             }

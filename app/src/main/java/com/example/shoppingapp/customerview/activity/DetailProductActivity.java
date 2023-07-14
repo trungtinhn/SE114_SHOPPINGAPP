@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -22,6 +23,8 @@ import com.example.shoppingapp.customerview.color.ColorAdapter;
 import com.example.shoppingapp.customerview.color.Colors;
 import com.example.shoppingapp.customerview.product.Product;
 import com.example.shoppingapp.customerview.size.SizeAdapter;
+import com.example.shoppingapp.customerview.viewpagerimage.AutoScrollTask;
+import com.example.shoppingapp.customerview.viewpagerimage.ViewPagerImageAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
@@ -33,6 +36,8 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class DetailProductActivity extends AppCompatActivity {
 
@@ -48,6 +53,12 @@ public class DetailProductActivity extends AppCompatActivity {
     private  RecyclerView rcvSize;
     private SizeAdapter sizeAdapter;
     private List<String> sizes;
+    private TextView btnDown, btnUp, txtSoLuong;
+    private String dataColor, dataSize;
+    private TextView txtMoTaSP;
+    private ImageView btnAnHienMoTa;
+    private ViewPager2 viewpagerImage;
+    private List<String> imageUrls;
 
 
     @SuppressLint("MissingInflatedId")
@@ -59,6 +70,15 @@ public class DetailProductActivity extends AppCompatActivity {
         txtPriceProductDetail = findViewById(R.id.txtPriceProductDetail);
         revColor = findViewById(R.id.rcvCorlor);
         rcvSize = findViewById(R.id.rcvSize);
+        btnDown = findViewById(R.id.btnDown);
+        btnUp = findViewById(R.id.btnUp);
+        txtSoLuong = findViewById(R.id.txtSoLuong);
+        txtMoTaSP = findViewById(R.id.txtMoTaSP);
+        btnAnHienMoTa = findViewById(R.id.btnAnHienMoTa);
+        viewpagerImage = findViewById(R.id.viewpagerImage);
+
+
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getApplicationContext(), RecyclerView.HORIZONTAL, false);
         revColor.setLayoutManager(linearLayoutManager);
         LinearLayoutManager linearLayoutManagerSize = new LinearLayoutManager(this.getApplicationContext(), RecyclerView.HORIZONTAL, false);
@@ -72,13 +92,68 @@ public class DetailProductActivity extends AppCompatActivity {
         maSP = intent.getStringExtra("MaSP");
 
 
+        setBtnUpDown();
         getProduct(maSP);
+        setMoTaSP();
 
         //txtProductNameDetail.setText(maSP);
 
 
 
         setOnClickBackICon();
+    }
+
+    private void setMoTaSP() {
+        txtMoTaSP.setVisibility(View.GONE);
+
+        btnAnHienMoTa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (txtMoTaSP.getVisibility() == View.GONE){
+                    txtMoTaSP.setVisibility(View.VISIBLE);
+                }
+                else {
+                    txtMoTaSP.setVisibility(View.GONE);
+                }
+            }
+        });
+    }
+
+    public void onColorClick(String colorName, String colorCode) {
+        // Xử lý sự kiện khi màu được chọn
+        // Dữ liệu màu tên và mã màu được truyền từ adapter qua activity
+        dataColor = colorName;
+        Log.d("Color", dataColor);
+    }
+
+    public void onSizeClick(String size) {
+        // Xử lý sự kiện khi màu được chọn
+        // Dữ liệu màu tên và mã màu được truyền từ adapter qua activity
+        dataSize = size;
+        Log.d("Size", dataSize);
+    }
+
+    private void setBtnUpDown() {
+
+        btnDown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int soLuong =  Integer.parseInt((String) txtSoLuong.getText());
+                if (soLuong > 1){
+                    soLuong--;
+                    txtSoLuong.setText(String.valueOf(soLuong));
+                }
+            }
+        });
+
+        btnUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int soLuong =  Integer.parseInt((String) txtSoLuong.getText());
+                soLuong++;
+                txtSoLuong.setText(String.valueOf(soLuong));
+            }
+        });
     }
 
 
@@ -89,6 +164,8 @@ public class DetailProductActivity extends AppCompatActivity {
 
         sizeAdapter =  new SizeAdapter();
         sizes = new ArrayList<>();
+
+        imageUrls = new ArrayList<>();
 
 
         final DocumentReference docRef = firebaseFirestore.collection("SANPHAM").document(maSP);
@@ -105,8 +182,19 @@ public class DetailProductActivity extends AppCompatActivity {
                     Log.d(TAG, "Current data: " + snapshot.getData());
                     String tenSP = snapshot.getString("TenSP");
                     Long giaSP = snapshot.getLong("GiaSP");
+                    String moTaSP = snapshot.getString("MoTaSP");
                     txtProductNameDetail.setText(tenSP);
                     txtPriceProductDetail.setText(String.valueOf(giaSP));
+                    txtMoTaSP.setText(moTaSP);
+
+                    imageUrls = (List<String>) snapshot.get("HinhAnhSP");
+
+                    ViewPagerImageAdapter imageAdapter = new ViewPagerImageAdapter(getApplicationContext(), imageUrls);
+                    viewpagerImage.setAdapter(imageAdapter);
+
+                    TimerTask autoScrollTask = new AutoScrollTask(viewpagerImage);
+                    Timer timer = new Timer();
+                    timer.schedule(autoScrollTask, 2000, 2000);
 
                     List<Colors> mauSacs = new ArrayList<>();
                     List<Map<String, Object>> colorMapList = (List<Map<String, Object>>) snapshot.get("MauSac");
@@ -120,17 +208,12 @@ public class DetailProductActivity extends AppCompatActivity {
 
                     sizes = (List<String>) snapshot.get("Size");
 
-                    colorAdapter.setData(mauSacs);
+                    colorAdapter.setData(mauSacs, DetailProductActivity.this);
                     revColor.setAdapter(colorAdapter);
 
-                    sizeAdapter.setData(sizes);
+                    sizeAdapter.setData(sizes, DetailProductActivity.this);
                     rcvSize.setAdapter(sizeAdapter);
-                   // setColor(mauSac);
 
-
-
-                   // colorAdapter.setData(colors);
-                  //  revColor.setAdapter(colorAdapter);
                 } else {
                     Log.d(TAG, "Current data: null");
                 }

@@ -65,23 +65,28 @@
 
 
 
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewpagerImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/headingProductDetail"/>
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/imgProduct"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:src="@drawable/mauaodep"
-            android:layout_below="@id/headingProductDetail"
-            app:shapeAppearance="@style/roundimageview"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="0dp"
-            />
+<!--        <com.google.android.material.imageview.ShapeableImageView-->
+<!--            android:id="@+id/imgProduct"-->
+<!--            android:layout_width="250dp"-->
+<!--            android:layout_height="250dp"-->
+<!--            android:src="@drawable/mauaodep"-->
+<!--            android:layout_below="@id/headingProductDetail"-->
+<!--            app:shapeAppearance="@style/roundimageview"-->
+<!--            android:layout_centerHorizontal="true"-->
+<!--            android:layout_marginTop="0dp"-->
+<!--            />-->
 
         <RelativeLayout
             android:id="@+id/rltlayout_ProductName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/imgProduct"
+            android:layout_below="@id/viewpagerImage"
             android:layout_marginTop="20dp"
             >
 
@@ -299,6 +304,7 @@
                 />
 
             <ImageView
+                android:id="@+id/btnAnHienMoTa"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_alignParentRight="true"
@@ -308,46 +314,69 @@
                 />
         </RelativeLayout>
 
-        <RelativeLayout
+
+
+        <LinearLayout
             android:id="@+id/layoutBtnProductDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/layoutSeeProductDetail"
             android:layout_marginTop="10dp"
+            android:orientation="vertical"
             >
-
             <TextView
-                android:id="@+id/btnAddToCard"
-                android:layout_width="160dp"
+                android:id="@+id/txtMoTaSP"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/background_btn_carnation"
-                android:text="ADD TO CARD"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="10dp"
-                android:textSize="18dp"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:gravity="center"
-                android:layout_marginLeft="30dp"
+                android:layout_below="@id/layoutSeeProductDetail"
+                android:layout_marginHorizontal="20dp"
+
+                android:text="Chiếc áo mà chúng tôi sẽ giới thiệu là một mẫu thiết kế đẹp và phong cách, mang lại sự thoải mái và sự tự tin cho người mặc. Chiếc áo được làm từ chất liệu cao cấp, nhẹ nhàng và thoáng mát, giúp bạn cảm thấy thoải mái suốt cả ngày."
                 />
 
-            <TextView
-                android:id="@+id/btnBuyNow"
-                android:layout_width="160dp"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/background_btn_orange"
-                android:text="BUY NOW"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="10dp"
-                android:textSize="18dp"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:gravity="center"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="30dp"
-                />
+                android:layout_marginTop="10dp">
 
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/btnAddToCard"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_btn_carnation"
+                    android:text="ADD TO CARD"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="10dp"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    />
+
+                <TextView
+                    android:id="@+id/btnBuyNow"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_btn_orange"
+                    android:text="BUY NOW"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="10dp"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="10dp"
+                    />
+
+            </RelativeLayout>
+
+
+
+        </LinearLayout>
 
     </RelativeLayout>
 
