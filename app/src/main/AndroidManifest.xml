@@ -112,6 +112,14 @@
             android:exported="false" />
         <activity android:name=".StaffView.Home.home_page"
             android:exported="true"/>
+        <activity android:name=".StaffView.ViewShop.activity_viewshop"
+            android:exported="true"/>
+        <activity android:name=".StaffView.Categories.Activity.activity_categories"
+            android:exported="true"/>
+        <activity android:name=".StaffView.MyProduct.Activity.activity_MyProduct"
+            android:exported="true"/>
+        <activity android:name=".StaffView.MyOrder.Activity.activity_MyOrder"
+            android:exported="true"/>
     </application>
 
 </manifest>

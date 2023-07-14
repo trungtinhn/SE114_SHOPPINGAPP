@@ -87,24 +87,20 @@
             android:layout_height="wrap_content"
             android:id="@+id/tab_layout_listItem_Products"
             app:tabSelectedTextColor="#FF8400">
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Products"
-                android:id="@+id/tab_item_products"/>
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="List Items"
-                android:id="@+id/tab_item_listItem"/>
-
-
+        </com.google.android.material.tabs.TabLayout>
+        <com.google.android.material.tabs.TabLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tab_layout_Soft"
+            app:tabSelectedTextColor="#FF8400">
         </com.google.android.material.tabs.TabLayout>
 
-        <androidx.viewpager2.widget.ViewPager2
+        <androidx.viewpager.widget.ViewPager
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/viewPager_listItem_Product"/>
+            android:id="@+id/viewPager_listItem_Product">
+
+        </androidx.viewpager.widget.ViewPager>
 
 
     </LinearLayout>

@@ -61,16 +61,15 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String email, password;
                 email = emailTextView.getText().toString();
-
                 password = passwordTextView.getText().toString();
-                mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (email.isEmpty() || password.isEmpty() ) {
-                            Toast.makeText(LoginActivity.this, "Please enter all required information.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                        else {
+
+                if (email.isEmpty() || password.isEmpty()) {
+                    Toast.makeText(LoginActivity.this, "Please enter all required information.",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 // Xác thực thành công
                                 String emailhandle = mAuth.getCurrentUser().getEmail();
@@ -123,8 +122,7 @@ public class LoginActivity extends AppCompatActivity {
                                         // Xử lý lỗi nếu có
                                     }
                                 });
-                            }
-                            else {
+                            } else if (!task.isSuccessful()) {
                                 Toast.makeText(
                                                 getApplicationContext(),
                                                 "Login failed!!"
@@ -132,13 +130,11 @@ public class LoginActivity extends AppCompatActivity {
                                                 Toast.LENGTH_LONG)
                                         .show();
 
-
-
                             }
                         }
-                    }
 
-                });
+                    });
+                }
             }
         });
 
