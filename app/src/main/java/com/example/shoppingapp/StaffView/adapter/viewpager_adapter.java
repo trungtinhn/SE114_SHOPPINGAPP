@@ -7,7 +7,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.shoppingapp.StaffView.fragment.My_Inventory;
 import com.example.shoppingapp.StaffView.fragment.onwait;
-import com.example.shoppingapp.StaffView.fragment.oos;
+import com.example.shoppingapp.StaffView.fragment.out_of_stock_fragment;
 
 public class viewpager_adapter extends FragmentStateAdapter {
 
@@ -25,7 +25,7 @@ public class viewpager_adapter extends FragmentStateAdapter {
             case 0:
                 return new My_Inventory();
             case 1:
-                return new oos();
+                return new out_of_stock_fragment();
             case 2:
                 return new onwait();
             default:
