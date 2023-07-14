@@ -9,6 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+
+import android.widget.ProgressBar;
+
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,14 +24,23 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
 import com.google.firebase.auth.FirebaseUser;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import com.google.firebase.ktx.Firebase;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+
 
 import java.util.Base64;
 import java.util.Calendar;
@@ -39,7 +51,10 @@ public class Register extends AppCompatActivity {
     private EditText DayofBirthTextView;
     private Button Btn;
     private FirebaseAuth mAuth;
+
+
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+
     DatabaseReference reference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://se114-df58a-default-rtdb.firebaseio.com/");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,12 +82,14 @@ public class Register extends AppCompatActivity {
         Btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 final String fullname = userNameTextView.getText().toString();
                 final String emailUTF = emailTextView.getText().toString();
                 final String email = Base64.getEncoder().encodeToString(emailUTF.getBytes());
                 //String encodedEmailFromDatabase = "bGVkYW5ndGh1b25nMjAwM0BnbWFpbC5jb20=";
                 //String decodedEmail = new String(Base64.getDecoder().decode(encodedEmailFromDatabase));
                 // Cách mã hóa lại code
+
                 final String password = passwordTextView.getText().toString();
                 final String confirmPassword = confirmpasswordTextView.getText().toString();
                 final String phoneNumber = phoneNumberTextView.getText().toString();
@@ -87,11 +104,13 @@ public class Register extends AppCompatActivity {
                     Toast.makeText(Register.this, "Password is not matching, please check Password and  Confirm Password again", Toast.LENGTH_SHORT).show();
 
                 }
+
                 if (password.length() < 6) {
                     Toast.makeText(Register.this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
+
 
                     reference.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -102,8 +121,16 @@ public class Register extends AppCompatActivity {
                             }
                             else {
                                 // sending data to firebase
+
+                                reference.child("Users").child(email).child("Full Name").setValue(fullname);
+                                reference.child("Users").child(email).child("Phone Number").setValue(phoneNumber);
+                                reference.child("Users").child(email).child("Day Of Birth").setValue(dayofbirth);
+                                reference.child("Users").child(email).child("Password").setValue(password);
+                                reference.child("Users").child(email).child("Confirm Password").setValue(confirmPassword);
                                 reference.child("Users").child(email).child("Email").setValue(emailUTF);
+
                                 reference.child("Users").child(email).child("LoaiND").setValue("customer");
+
                                 Toast.makeText(Register.this, "Register Successful, Login Now !", Toast.LENGTH_SHORT).show();
 
                             }
@@ -131,6 +158,7 @@ public class Register extends AppCompatActivity {
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
+
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(
                 this,
@@ -187,6 +215,7 @@ public class Register extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task)
                     {
                         if (task.isSuccessful()) {
+
                             FirebaseUser firebaseUser = mAuth.getCurrentUser();
                             String userID = task.getResult().getUser().getUid();
                             User user = new User(fullname, email, dayofbirth,phonenumber, userID, avatar, diachi, gioitinh);
@@ -210,6 +239,7 @@ public class Register extends AppCompatActivity {
                                             Toast.makeText(Register.this, "Failed to register user", Toast.LENGTH_SHORT).show();
                                         }
                                     });
+
                         }
                         else {
 
