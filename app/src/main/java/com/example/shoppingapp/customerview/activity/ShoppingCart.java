@@ -1,5 +1,4 @@
 package com.example.shoppingapp.customerview.activity;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,7 +32,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 public class ShoppingCart extends AppCompatActivity {
     RecyclerView recyclerViewdata;
     List<com.example.shoppingapp.customerview.shoppingcart.ShoppingCart> dataCheck;
@@ -48,7 +46,6 @@ public class ShoppingCart extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_cart);
         dataCheck = new ArrayList<>();
-
         db = FirebaseFirestore.getInstance();
         recyclerViewdata = findViewById(R.id.RecyclerData);
         backIcon = findViewById(R.id.backIcon);
@@ -62,10 +59,8 @@ public class ShoppingCart extends AppCompatActivity {
         ButtonCheckOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent t = new Intent(ShoppingCart.this, BuyNow.class);
                 startActivity(t);
-
             }
         });
         backIcon.setOnClickListener(new View.OnClickListener() {
@@ -75,16 +70,26 @@ public class ShoppingCart extends AppCompatActivity {
                 startActivity(t);
             }
         });
-        checktotal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(checktotal.isChecked()){
-                    for(int i = 0; i < data.size(); i++){
-
+        if(data != null){
+            checktotal.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    checktotal.setChecked(!checktotal.isChecked());
+                    if(checktotal.isChecked()){
+                        for(int i = 0; i < data.size(); i++){
+                            data.get(i).setCheck(true);
+                            shoppingAdapter.setData(data);
+                        }
+                    }
+                    else{
+                        for(int i = 0; i < data.size(); i++) {
+                            data.get(i).setCheck(true);
+                            shoppingAdapter.setData(data);
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
     }
     private void getDataCart() {
         //get Data
@@ -149,7 +154,6 @@ public class ShoppingCart extends AppCompatActivity {
                                 shoppingAdapter.setData(data);
                                 SetToTal(data);
                             }
-
                         });
                         recyclerViewdata.setAdapter(shoppingAdapter);
                     }
