@@ -8,6 +8,8 @@ import com.example.shoppingapp.databinding.ActivityMessageBinding;
 
 public class activity_chat extends AppCompatActivity {
     ActivityMessageBinding binding;
+    String receiverID;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
