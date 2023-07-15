@@ -11,8 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
-import com.example.shoppingapp.customerview.customer_interface.IClickItemProductListener;
-import com.example.shoppingapp.customerview.customer_interface.IClickItemProductTrendingListener;
+import com.example.shoppingapp.customerview.product.customer_interface.IClickItemProductTrendingListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
