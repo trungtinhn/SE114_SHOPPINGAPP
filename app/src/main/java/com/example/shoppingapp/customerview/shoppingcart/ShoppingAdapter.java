@@ -1,11 +1,9 @@
 package com.example.shoppingapp.customerview.shoppingcart;
 
 import android.content.Context;
-import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -14,8 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
-import com.example.shoppingapp.customerview.customer_interface.IClickItemProductListener;
-import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
