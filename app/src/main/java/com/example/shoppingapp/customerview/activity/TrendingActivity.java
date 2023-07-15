@@ -64,9 +64,9 @@ public class TrendingActivity extends AppCompatActivity {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
         rcvProductTrending.setLayoutManager(gridLayoutManager);
 
-        mTrendingCard = new ArrayList<>();
-        firebaseFirestore.collection("GIOHANG")
-                .whereEqualTo("MaND","ND001")
+
+        firebaseFirestore.collection("SANPHAM")
+                .whereEqualTo("Trending",true)
                         .addSnapshotListener(new EventListener<QuerySnapshot>() {
                             @Override
                             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -74,6 +74,7 @@ public class TrendingActivity extends AppCompatActivity {
                                     Log.w("Error", "listen:error", error);
                                     return;
                                 }
+                                mTrendingCard = new ArrayList<>();
                                 for (DocumentSnapshot documentSnapshot : value.getDocuments()) {
                                     if (documentSnapshot.exists()) {
                                         String masp = documentSnapshot.getString("MaSP");
@@ -83,11 +84,12 @@ public class TrendingActivity extends AppCompatActivity {
                                         mTrendingCard.add(new ProductCard(Anh.get(0), name, price, masp));
                                     }
                                 }
-                                productCardAdapter.setData(mTrendingCard, new IClickItemProductTrendingListener() {
+                                productCardAdapter.setData(mTrendingCard);
+                                productCardAdapter.setOnItemClick(new ProductCardAdapter.OnItemClick() {
                                     @Override
-                                    public void onClickItemProductTrending(ProductCard productCard) {
+                                    public void onButtonItemClick(int position) {
                                         Intent t = new Intent(TrendingActivity.this, DetailProductActivity.class);
-                                        t.putExtra("MaSP", productCard.getMaSp());
+                                        t.putExtra("MaSP", mTrendingCard.get(position).getMaSp());
                                         startActivity(t);
                                     }
                                 });
