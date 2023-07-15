@@ -75,8 +75,6 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-
-
         <activity
             android:name=".StaffView.activity.activity_admin_detail"
             android:exported="true" />
@@ -113,7 +111,11 @@
         <activity
             android:name=".customerview.activity.TrendingActivity"
             android:exported="false" />
-
+        <activity android:name=".customerview.activity.ShoppingCart"
+            android:exported="false"
+            />
+        <activity android:name=".customerview.activity.CategoriesDetails"
+            android:exported="false" />
         <activity
             android:name=".StaffView.activity.activity_chartbar"
             android:exported="false" />
