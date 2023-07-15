@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.StaffView.Home.home_page;
-import com.example.shoppingapp.customerview.fragment.HomeFragment;
+import com.example.shoppingapp.customerview.BottomNavigationCustomActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -61,16 +61,15 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String email, password;
                 email = emailTextView.getText().toString();
-
                 password = passwordTextView.getText().toString();
-                mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (email.isEmpty() || password.isEmpty() ) {
-                            Toast.makeText(LoginActivity.this, "Please enter all required information.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                        else {
+
+                if (email.isEmpty() || password.isEmpty()) {
+                    Toast.makeText(LoginActivity.this, "Please enter all required information.",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 // Xác thực thành công
                                 String emailhandle = mAuth.getCurrentUser().getEmail();
@@ -87,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
                                                     Toast.makeText(getApplicationContext(), "Login as customer",
                                                             Toast.LENGTH_SHORT).show();
                                                     // Chuyển người dùng đến màn hình khách hàng
-                                                    Intent customerIntent = new Intent(LoginActivity.this, HomeFragment.class);
+                                                    Intent customerIntent = new Intent(LoginActivity.this, BottomNavigationCustomActivity.class);
                                                     startActivity(customerIntent);
                                                     finish();
                                                     break;
@@ -123,8 +122,7 @@ public class LoginActivity extends AppCompatActivity {
                                         // Xử lý lỗi nếu có
                                     }
                                 });
-                            }
-                            else {
+                            } else if (!task.isSuccessful()) {
                                 Toast.makeText(
                                                 getApplicationContext(),
                                                 "Login failed!!"
@@ -132,13 +130,11 @@ public class LoginActivity extends AppCompatActivity {
                                                 Toast.LENGTH_LONG)
                                         .show();
 
-
-
                             }
                         }
-                    }
 
-                });
+                    });
+                }
             }
         });
 

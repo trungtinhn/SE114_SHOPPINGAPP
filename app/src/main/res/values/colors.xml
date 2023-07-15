@@ -17,5 +17,10 @@
     <color name="sliver">#EEEEEE</color>
     <color name="lightpink">#FFEEE3</color>
     <color name="chathams_blue">#143F6B</color>
-
+    <color name="indigo_900_33">#33143f6b</color>
+    <color name="black_900">#000000</color>
+    <color name="bluegray_100">#d9d9d9</color>
+    <color name="orange_600">#ff8400</color>
+    <color name="bluegray_100_4c">#4cd9d9d9</color>
+    <color name="white_A700">#ffffff</color>
 </resources>

@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
+    id 'com.google.relay' version '0.3.02'
 }
 
 android {
@@ -29,6 +30,7 @@ android {
     }
     buildFeatures {
         viewBinding true
+        dataBinding true
     }
 
 }
@@ -50,9 +52,12 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.firebase:firebase-database:20.0.4'
     implementation 'androidx.wear.tiles:tiles-material:1.1.0-alpha04'
+
     implementation 'de.hdodenhof:circleimageview:3.0.1'
+
     implementation 'com.google.firebase:firebase-firestore:23.0.1'
     implementation 'com.firebaseui:firebase-ui-database:8.0.2'
+
     implementation 'com.orhanobut:dialogplus:1.11@aar'
 
     implementation 'com.squareup.picasso:picasso:2.71828'
@@ -61,6 +66,12 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore-ktx:24.6.1'
     implementation 'com.google.firebase:firebase-database-ktx:20.2.2'
 
+
+
+    implementation 'com.google.firebase:firebase-firestore:23.0.1'
+
+
+
     // FirebaseUI for Cloud Firestore
     implementation 'com.firebaseui:firebase-ui-firestore:8.0.2'
     // FirebaseUI for Firebase Auth
@@ -68,6 +79,7 @@ dependencies {
 
     // FirebaseUI for Cloud Storage
     implementation 'com.firebaseui:firebase-ui-storage:8.0.2'
+
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.google.android.gms:play-services-games:22.0.1'
 
