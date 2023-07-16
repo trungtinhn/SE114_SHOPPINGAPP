@@ -125,12 +125,11 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
             android:layout_marginRight="20dp"
             android:src="@drawable/right" />
     </LinearLayout>
-
     <LinearLayout
+        android:id="@+id/layout_not_promotion"
         android:layout_width="match_parent"
         android:layout_height="60dp">
 
@@ -140,13 +139,25 @@
             android:layout_height="42dp"
             android:text="Mega Details"
             android:textAlignment="center"
-            android:textSize="20sp" />
+            android:textSize="20sp"/>
 
         <CheckBox
             android:id="@+id/checkbox_voucher"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/layout_promotion"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <CheckBox
+            android:id="@+id/checkbox_voucher1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
 
     </LinearLayout>
 
@@ -174,6 +185,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/layout_not_address"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginLeft="20dp"
@@ -193,11 +205,84 @@
             android:textSize="20sp" />
 
         <CheckBox
-            android:id="@+id/checkbox_address"
+            android:id="@+id/checkbox_address1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1" />
 
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/layout_address"
+        android:layout_marginLeft="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/address" />
+        <LinearLayout
+            android:background="@drawable/background_product_sliver"
+            android:orientation="vertical"
+            android:layout_width="250dp"
+            android:layout_margin="10dp"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="15dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/txt_Ten"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="TrungTinh"
+                    android:textSize="19sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="|"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/txt_SDT"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="0704408389"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_marginLeft="15dp"
+                android:id="@+id/txt_DC"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="TrungTinh"
+                android:textSize="16sp" />
+            <TextView
+                android:layout_marginLeft="15dp"
+                android:id="@+id/txt_PX"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Dinh Bo Linh"
+                android:textSize="16sp" />
+        </LinearLayout>
+        <CheckBox
+            android:id="@+id/checkBox_payment1"
+            android:layout_width="match_parent"
+            android:checked="true"
+            android:enabled="false"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
     </LinearLayout>
 
     <LinearLayout
@@ -239,13 +324,15 @@
             android:layout_width="243dp"
             android:layout_height="42dp"
             android:gravity="center"
-            android:text="Add payment method"
+            android:text="Cash Payment"
             android:textAlignment="center"
             android:textSize="20sp" />
 
         <CheckBox
             android:id="@+id/checkBox_payment"
             android:layout_width="match_parent"
+            android:checked="true"
+            android:enabled="false"
             android:layout_height="match_parent"
             android:layout_weight="1" />
 
