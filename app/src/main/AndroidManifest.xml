@@ -78,7 +78,13 @@
             android:name=".StaffView.activity.activity_admin_detail"
             android:exported="true" />
         <activity
+            android:name=".customerview.activity.CategoriesDetails"
+            android:exported="false" />
+        <activity
             android:name=".customerview.activity.DoneActivity"
+            android:exported="false" />
+        <activity
+            android:name=".customerview.activity.ShoppingCart"
             android:exported="false" />
         <activity
             android:name=".customerview.activity.ReViewer"
