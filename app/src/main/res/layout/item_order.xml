@@ -9,7 +9,10 @@
         android:layout_width="80dp"
         android:id = "@+id/cardview"
         android:layout_height="80dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
         app:cardCornerRadius="40dp">
+
 
         <ImageView
             android:id="@+id/img_product"
@@ -57,6 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginBottom="25dp"
             android:text="Number: " />
 

@@ -4,6 +4,16 @@ public class Product {
     private String name;
     private int price;
     private String avatar;
+
+    public String getMaSP() {
+        return MaSP;
+    }
+
+    public void setMaSP(String maSP) {
+        MaSP = maSP;
+    }
+
+    private String MaSP;
     private int warehouse; //Tồn kho
     private Object imageUrl;
     private int love;  //Yêu thích
