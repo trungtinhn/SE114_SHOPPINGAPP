@@ -47,7 +47,6 @@ public class BuyNow extends AppCompatActivity {
             if(intent.getStringArrayExtra("ListMaGH")!=null){
                 myList = new String[intent.getStringArrayExtra("ListMaGH").length];
                 myList = intent.getStringArrayExtra("ListMaGH");
-
                 myData = new ArrayList<>();
             }
             if(intent.getStringExtra("MaDC") != null){

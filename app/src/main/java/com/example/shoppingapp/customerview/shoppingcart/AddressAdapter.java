@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -73,7 +74,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressV
         return 0;
     }
     public class AddressViewHolder extends RecyclerView.ViewHolder{
-        CheckBox check;
+        RadioButton check;
         TextView Name, SDT, DiaChi, PhuongXa;
         public AddressViewHolder(@NonNull View view){
             super(view);
