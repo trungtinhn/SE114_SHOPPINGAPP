@@ -30,7 +30,6 @@ public class BuyNow extends AppCompatActivity {
     ImageView backbtn;
     String MaDC;
     String MaGG;
-    String MaPTTT;
     String[] myList;
     List<com.example.shoppingapp.customerview.shoppingcart.ShoppingCart> myData;
     TextView Subtotal, Delivery, CheckOut, Total, ClickGiamGia, ClickAddress, ClickPayment;
@@ -52,6 +51,9 @@ public class BuyNow extends AppCompatActivity {
             if(intent.getStringExtra("MaDC") != null){
                 MaDC = intent.getStringExtra("MaDC");
             }
+            if(intent.getStringExtra("MaGG") != null){
+                MaGG = intent.getStringExtra(MaGG);
+            }
         }
         db = FirebaseFirestore.getInstance();
         super.onCreate(savedInstanceState);
@@ -71,7 +73,10 @@ public class BuyNow extends AppCompatActivity {
         else{
             DontHaveDC.setVisibility(View.GONE);
         }
-        if(myList[1] == null) NextProduct.setVisibility(View.INVISIBLE);
+        if(myList != null){
+            if(myList[1] == null) NextProduct.setVisibility(View.INVISIBLE);
+        }
+
 
         backbtn = findViewById(R.id.backIcon);
         Subtotal = findViewById(R.id.subtotal_text);
@@ -104,6 +109,10 @@ public class BuyNow extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent t = new Intent(BuyNow.this, CheckOut.class);
+                t.putExtra("ListMaGH", myList);
+                if(MaDC != null){
+                    t.putExtra("MaDC", MaDC );
+                }
                 startActivity(t);
             }
         });
@@ -111,6 +120,10 @@ public class BuyNow extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent t = new Intent(BuyNow.this, SaveAddress.class);
+                t.putExtra("ListMaGH", myList);
+                if(MaGG != null){
+                    t.putExtra("MaGG", MaGG );
+                }
                 startActivity(t);
             }
         });

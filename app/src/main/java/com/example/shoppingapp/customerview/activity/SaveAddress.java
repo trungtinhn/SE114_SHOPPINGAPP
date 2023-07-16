@@ -35,10 +35,23 @@ public class SaveAddress extends AppCompatActivity {
     RecyclerView recyclerView;
     ImageView backIcon ;
     LinearLayout buttonadd;
+    String MaGG;
+    String[] myList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_save_address);
+
+        Intent intent = getIntent();
+        if(intent != null){
+            if(intent.getStringArrayExtra("ListMaGH")!=null){
+                myList = new String[intent.getStringArrayExtra("ListMaGH").length];
+                myList = intent.getStringArrayExtra("ListMaGH");
+            }
+            if(intent.getStringExtra("MaGG") != null){
+                MaGG = intent.getStringExtra(MaGG);
+            }
+        }
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         recyclerView = findViewById(R.id.rcyAddress);
@@ -62,6 +75,10 @@ public class SaveAddress extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent t = new Intent(SaveAddress.this, BuyNow.class);
+                t.putExtra("ListMaGH", myList);
+                if(MaGG!=null){
+                    t.putExtra("MaGG", MaGG);
+                }
                 startActivity(t);
             }
         });
@@ -91,9 +108,12 @@ public class SaveAddress extends AppCompatActivity {
                         addressAdapter.setCheckClick(new AddressAdapter.OnCheckedChangeListener() {
                             @Override
                             public void onCheckedChange(int position) {
+                                for(int i = 0; i < addressList.size(); i++){
+                                    addressList.get(i).setCheck(false);
+                                }
                                 Address address = addressList.get(position);
-
-
+                                addressList.get(position).setCheck(!address.getCheck());
+                                addressAdapter.setData(addressList);
                             }
                         });
                     }
