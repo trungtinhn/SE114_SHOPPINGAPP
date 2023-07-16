@@ -1,11 +1,11 @@
 package com.example.shoppingapp.customerview.activity;
 
+import android.annotation.SuppressLint;
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.annotation.SuppressLint;
-import android.os.Bundle;
 
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.customerview.message.Message;
@@ -19,6 +19,7 @@ public class MessageActivity extends AppCompatActivity {
     RecyclerView rcvMessage;
     List<Message> messageList;
     MessageAdapter messageAdapter;
+    String receiverID;
 
     @SuppressLint("MissingInflatedId")
     @Override
