@@ -46,6 +46,7 @@ public class My_inventory_Adapter extends RecyclerView.Adapter<My_inventory_Adap
                     // Lấy địa chỉ ảnh đầu tiên trong mảng
                     String hinhAnhSP = hinhAnhSPList != null && !hinhAnhSPList.isEmpty() ? hinhAnhSPList.get(0) : "";
                     String tenSP = document.getString("TenSP");
+                    String MaSP  =  document.getString("MaSP");
                     int giaSP = document.getLong("GiaSP") != null ? document.getLong("GiaSP").intValue() : 0;
                     int warehouse = document.getLong("SoLuongConLai") != null ? document.getLong("SoLuongConLai").intValue() : 0;
 
@@ -53,7 +54,7 @@ public class My_inventory_Adapter extends RecyclerView.Adapter<My_inventory_Adap
                     int Love = document.getLong("SoLuongYeuThich") != null ? document.getLong("SoLuongYeuThich").intValue() : 0;
                     int View = 0;
                     // Tạo đối tượng Product từ dữ liệu lấy được
-                    Product product = new Product(hinhAnhSP, tenSP, giaSP, warehouse, SoldOut, Love, View);
+                    Product product = new Product(hinhAnhSP, tenSP, giaSP, warehouse, SoldOut, Love, View, MaSP);
 
                     // Thêm đối tượng Product vào danh sách
                     productList.add(product);

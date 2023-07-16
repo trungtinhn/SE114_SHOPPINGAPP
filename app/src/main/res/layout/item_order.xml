@@ -49,8 +49,8 @@
 
     <LinearLayout
         android:id="@+id/linear2"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_width="311dp"
+        android:layout_height="43dp"
         android:layout_below="@+id/linear1"
         android:layout_marginLeft="100dp"
         android:layout_marginTop="-18dp">
@@ -59,8 +59,8 @@
             android:id="@+id/NUMBER_TEXT"
             android:layout_width="wrap_content"
             android:layout_height="32dp"
-            android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="25dp"
             android:text="Number: " />
 

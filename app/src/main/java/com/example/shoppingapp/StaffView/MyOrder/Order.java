@@ -3,6 +3,7 @@ package com.example.shoppingapp.StaffView.MyOrder;
 import java.util.Date;
 
 public class Order {
+    
     public void setTenNguoiMua(String tenNguoiMua) {
         TenNguoiMua = tenNguoiMua;
     }

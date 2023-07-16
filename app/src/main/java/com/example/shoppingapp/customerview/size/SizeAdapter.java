@@ -34,7 +34,9 @@ public class SizeAdapter extends RecyclerView.Adapter<SizeAdapter.SizeViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull SizeViewHolder holder, int position) {
-        String size = sizes.get(position);
+
+
+        final String size = sizes.get(position);
         holder.txtItemSize.setText(size);
 
         boolean isSelected = (selectedItem == position);

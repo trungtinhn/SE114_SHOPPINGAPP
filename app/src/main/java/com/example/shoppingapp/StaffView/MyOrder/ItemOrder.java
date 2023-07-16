@@ -2,9 +2,48 @@ package com.example.shoppingapp.StaffView.MyOrder;
 
 public class ItemOrder {
 
+    private String TenSP;
+
+    public String getHinhAnhSP() {
+        return HinhAnhSP;
+    }
+
+    public void setHinhAnhSP(String hinhAnhSP) {
+        HinhAnhSP = hinhAnhSP;
+    }
+
+    private String HinhAnhSP;
+    public int getGiaSP() {
+        return GiaSP;
+    }
+
+    public void setGiaSP(int giaSP) {
+        GiaSP = giaSP;
+    }
+
+    private int GiaSP;
     private String MaDH;
     private String MaMauSac;
     private String MaSP;
+    private String MaSize;
+    private int SoLuong;
+
+    public ItemOrder (String HinhAnhSP,String TenSP, String MaSP,int GiaSP, int SoLuong){
+        this.GiaSP = GiaSP;
+        this.HinhAnhSP = HinhAnhSP;
+        this.TenSP = TenSP;
+        this.MaSP = MaSP;
+        this.SoLuong = SoLuong;
+    }
+
+    public String getTenSP() {
+        return TenSP;
+    }
+
+    public void setTenSP(String tenSP) {
+        TenSP = tenSP;
+    }
+
 
     public String getMaSize() {
         return MaSize;
@@ -14,8 +53,7 @@ public class ItemOrder {
         MaSize = maSize;
     }
 
-    private String MaSize;
-    private int SoLuong;
+
     public String getMaDH() {
         return MaDH;
     }
