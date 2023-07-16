@@ -102,7 +102,7 @@
             android:exported="false" />
         <activity
             android:name=".customerview.activity.DetailProductActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".customerview.activity.TrendingActivity"
             android:exported="false" />
@@ -119,6 +119,16 @@
         <activity android:name=".StaffView.MyProduct.Activity.activity_MyProduct"
             android:exported="true"/>
         <activity android:name=".StaffView.MyOrder.Activity.activity_MyOrder"
+            android:exported="true"/>
+        <activity android:name=".StaffView.Categories.Activity.activity_add_new_category"
+            android:exported="true"/>
+        <activity android:name=".StaffView.Categories.Activity.activity_delete_categories"
+            android:exported="true"/>
+        <activity android:name=".StaffView.Categories.Activity.activity_details_category"
+            android:exported="true"/>
+        <activity android:name=".StaffView.DetailProduct.Activity.activity_detail_product"
+            android:exported="true"/>
+        <activity android:name=".StaffView.MyProduct.Activity.activity_add_new_product"
             android:exported="true"/>
     </application>
 

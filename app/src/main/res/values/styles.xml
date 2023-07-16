@@ -53,4 +53,12 @@
         <item name="android:textSize">24sp</item>
     </style>
 
+    <style name="RectangleStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">200dp</item>
+        <item name="android:layout_marginTop">200dp</item>
+        <item name="android:background">#FFFFFF</item>
+        <item name="android:elevation">4dp</item>
+    </style>
+
 </resources>

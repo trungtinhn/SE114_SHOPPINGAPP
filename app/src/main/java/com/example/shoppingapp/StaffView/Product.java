@@ -4,12 +4,22 @@ public class Product {
     private String name;
     private int price;
     private String avatar;
-    private int warehouse;
+    private int warehouse; //Tồn kho
     private Object imageUrl;
-    private int love;
-    private int sold;
-    private int views;
+    private int love;  //Yêu thích
+    private int sold; //Bán ra
+    private int views; //Số lượng người xem
 
+    public Product(String hinhAnhSP, String TenSP, int GiaSP, int warehouse, int sold, int Love, int View)
+    {
+        this.avatar = hinhAnhSP;
+        this.name = TenSP;
+        this.price = GiaSP;
+        this.warehouse = warehouse;
+        this.sold=  sold;
+        this.love = Love;
+        this.views = View;
+    }
     public Product(String hinhAnhSP, String tenSP, int giaSP) {
         avatar = hinhAnhSP;
         name = tenSP;

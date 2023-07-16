@@ -14,10 +14,10 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.shoppingapp.R;
+import com.example.shoppingapp.StaffView.Home.home_page;
 import com.example.shoppingapp.StaffView.MyOrder.Fragment.cancel_fragment;
 import com.example.shoppingapp.StaffView.MyOrder.Fragment.confirm_fragment;
 import com.example.shoppingapp.StaffView.MyOrder.Fragment.wait_fragment;
-import com.example.shoppingapp.StaffView.MyOrder.Home.activity_home;
 import com.example.shoppingapp.StaffView.adapter.delivered_fragment;
 import com.example.shoppingapp.StaffView.adapter.delivering_fragment;
 import com.google.android.material.tabs.TabLayout;
@@ -46,7 +46,7 @@ public class activity_MyOrder extends AppCompatActivity {
         back_to_Home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity_MyOrder.this, activity_home.class);
+                Intent intent = new Intent(activity_MyOrder.this, home_page.class);
                 startActivity(intent);
             }
         });

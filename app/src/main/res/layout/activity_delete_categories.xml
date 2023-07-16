@@ -43,7 +43,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/txtTredingNow"
+        android:id="@+id/delete_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Categories"
@@ -55,30 +55,20 @@
         android:layout_marginBottom="20dp"
         />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcvCategories"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txtTredingNow"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcvdeleteCategories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/delete_category"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        />
 
     <Button
-        android:id="@+id/btn_create_new_category"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="600dp"
-        android:backgroundTint="@color/orange"
-        android:fontFamily="@font/montserrat_medium"
-        android:text="ADD NEW CATEGORY"
-        android:textSize="12dp"></Button>
-    <Button
         android:id="@+id/btn_delete_category"
-        android:layout_width="150dp"
+        android:layout_width="200dp"
         android:layout_height="50dp"
-        android:layout_marginLeft="220dp"
+        android:layout_marginLeft="120dp"
         android:layout_marginTop="600dp"
         android:backgroundTint="@color/orange"
         android:fontFamily="@font/montserrat_medium"

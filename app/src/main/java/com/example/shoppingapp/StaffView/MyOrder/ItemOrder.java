@@ -2,38 +2,51 @@ package com.example.shoppingapp.StaffView.MyOrder;
 
 public class ItemOrder {
 
-    private String TenSP, HinhAnhSP;
-    private int SoLuong, Gia;
+    private String MaDH;
+    private String MaMauSac;
+    private String MaSP;
 
-    public void setHinhAnhSP(String hinhAnhSP) {
-        HinhAnhSP = hinhAnhSP;
+    public String getMaSize() {
+        return MaSize;
     }
 
-    public void setGia(int gia) {
-        Gia = gia;
+    public void setMaSize(String maSize) {
+        MaSize = maSize;
     }
 
-    public void setTenSP(String tenSP) {
-        TenSP = tenSP;
+    private String MaSize;
+    private int SoLuong;
+    public String getMaDH() {
+        return MaDH;
+    }
+
+    public void setMaDH(String maDH) {
+        MaDH = maDH;
+    }
+
+    public String getMaMauSac() {
+        return MaMauSac;
+    }
+
+    public void setMaMauSac(String maMauSac) {
+        MaMauSac = maMauSac;
+    }
+
+    public String getMaSP() {
+        return MaSP;
+    }
+
+    public void setMaSP(String maSP) {
+        MaSP = maSP;
+    }
+
+    public int getSoLuong() {
+        return SoLuong;
     }
 
     public void setSoLuong(int soLuong) {
         SoLuong = soLuong;
     }
 
-    public String getHinhAnhSP() {
-        return HinhAnhSP;
-    }
 
-    public String getTenSP() {
-        return TenSP;
-    }
-
-    public int getGia() {
-        return Gia;
-    }
-
-    public int getSoLuong() {
-        return SoLuong;
-    }
 }
