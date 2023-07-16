@@ -73,7 +73,7 @@ public class DetailProductActivity extends AppCompatActivity {
     private Long giaSP;
     private AlertDialog.Builder builder;
     private TextView txtSeeReview;
-    private String idGioHang;
+    private String idGioHang = null;
 
 
     @SuppressLint("MissingInflatedId")
@@ -197,7 +197,7 @@ public class DetailProductActivity extends AppCompatActivity {
             }
         });
 
-        if(idGioHang != null || !idGioHang.isEmpty()){
+        if(idGioHang != null){
             DocumentReference washingtonRef = firebaseFirestore.collection("GIOHANG").document(idGioHang);
 
 
