@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
     <LinearLayout
         android:id="@+id/headingProductDetail"
         android:layout_width="match_parent"
@@ -38,82 +37,74 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical">
-
-        <ImageView
-            android:id="@+id/image_product"
-            android:layout_width="126dp"
-            android:layout_height="149dp"
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/anhgiay1" />
-
+        android:gravity="center_horizontal"
+        android:background="@drawable/background_product_sliver">
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/txt_tensp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="Ten San Pham"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/txt_MauSac"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="Ten Danh Muc"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/txt_giaban"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="Gia Ban 200.000"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+            android:gravity="center_vertical"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/image_product"
+                android:layout_width="126dp"
+                android:layout_height="149dp"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/anhgiay1" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_marginLeft="20dp"
+                android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/btn_minus"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/minus" />
+                <TextView
+                    android:id="@+id/txt_tensp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Ten San Pham"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_MauSac"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Hồng"
+                    android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/txt_KichThuoc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="L"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/txt_soluong"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
                     android:text="10"
                     android:textSize="16sp" />
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="5dp"
-                    android:src="@drawable/plus" />
+                <TextView
+                    android:id="@+id/txt_giaban"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Gia Ban 200.000"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
             </LinearLayout>
+            <ImageView
+                android:id="@+id/image_next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:src="@drawable/right" />
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/btn_delete"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/delete" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -134,8 +125,8 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
             android:layout_marginRight="20dp"
-
             android:src="@drawable/right" />
     </LinearLayout>
 

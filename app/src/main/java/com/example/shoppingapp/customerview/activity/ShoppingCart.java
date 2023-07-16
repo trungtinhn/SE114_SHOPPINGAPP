@@ -1,5 +1,4 @@
 package com.example.shoppingapp.customerview.activity;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +10,7 @@ import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -33,7 +33,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 public class ShoppingCart extends AppCompatActivity {
     RecyclerView recyclerViewdata;
     List<com.example.shoppingapp.customerview.shoppingcart.ShoppingCart> dataCheck;
@@ -41,14 +40,13 @@ public class ShoppingCart extends AppCompatActivity {
     List<com.example.shoppingapp.customerview.shoppingcart.ShoppingCart> data;
     FirebaseFirestore db;
     ImageView backIcon;
-    RadioButton checktotal;
+    CheckBox checktotal;
     TextView Price, ButtonCheckOut;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_cart);
         dataCheck = new ArrayList<>();
-
         db = FirebaseFirestore.getInstance();
         recyclerViewdata = findViewById(R.id.RecyclerData);
         backIcon = findViewById(R.id.backIcon);
@@ -59,15 +57,6 @@ public class ShoppingCart extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         recyclerViewdata.setLayoutManager(linearLayoutManager);
         getDataCart();
-        ButtonCheckOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent t = new Intent(ShoppingCart.this, BuyNow.class);
-                startActivity(t);
-
-            }
-        });
         backIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,15 +65,49 @@ public class ShoppingCart extends AppCompatActivity {
             }
         });
         checktotal.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d("ERrrrrrrrrrrrrrrrr", String.valueOf(checktotal.isChecked()));
+                    if(checktotal.isChecked()){
+                        for(int i = 0; i < data.size(); i++){
+                            data.get(i).setCheck(true);
+                            shoppingAdapter.setData(data);
+                        }
+                    }
+                    else{
+                        for(int i = 0; i < data.size(); i++) {
+                            data.get(i).setCheck(false);
+                            shoppingAdapter.setData(data);
+                        }
+                    }
+                    SetToTal(data);
+                }
+            });
+
+        ButtonCheckOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checktotal.isChecked()){
-                    for(int i = 0; i < data.size(); i++){
-
+                String[] listmaGH = new String[data.size()];
+                int j = 0;
+                for(int i = 0; i < data.size(); i++){
+                    if(data.get(i).isCheck()){
+                        listmaGH[j] = data.get(i).getMaGH();
+                        Log.d("Errrrhfdddddddddddddddddddddd", data.get(i).getMaGH());
+                        j++;
                     }
                 }
+
+                    if(listmaGH[0] !=null){
+                        Intent t = new Intent(ShoppingCart.this, BuyNow.class);
+                        t.putExtra("ListMaGH", listmaGH);
+                        startActivity(t);
+                    }
+
+
+
             }
         });
+
     }
     private void getDataCart() {
         //get Data
@@ -147,9 +170,14 @@ public class ShoppingCart extends AppCompatActivity {
                                 com.example.shoppingapp.customerview.shoppingcart.ShoppingCart shoppingCart = data.get(position);
                                 data.get(position).setCheck(!shoppingCart.isCheck());
                                 shoppingAdapter.setData(data);
+                                boolean check = true;
+                                for(int i = 0; i < data.size(); i++){
+                                    if(!data.get(i).isCheck())
+                                        check = false;
+                                }
+                                checktotal.setChecked(check);
                                 SetToTal(data);
                             }
-
                         });
                         recyclerViewdata.setAdapter(shoppingAdapter);
                     }

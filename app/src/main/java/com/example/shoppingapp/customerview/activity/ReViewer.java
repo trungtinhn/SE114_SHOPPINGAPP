@@ -8,7 +8,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+
+import android.app.UiAutomation;
 import android.content.Intent;
+import android.media.Image;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,28 +40,36 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
 import java.util.Date;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+
 public class ReViewer extends AppCompatActivity {
     private TextView TongSoDanhGia, TrungBinh;
     private LinearLayout btn_addcomment;
 
+
     private ImageView backIcon;
     private RatingBar Rating;
+
 
 
     private  String maSP;
@@ -80,8 +92,10 @@ public class ReViewer extends AppCompatActivity {
     private RatingBar ratingStarUser;
 
     private EditText editReview;
+
     private ReviewDataAdapter reviewDataAdapter;
     private RecyclerView data_recyclerview;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +103,7 @@ public class ReViewer extends AppCompatActivity {
         setContentView(R.layout.activity_re_viewer);
         TongSoDanhGia = findViewById(R.id.txt_tongsodanhgia);
         backIcon = findViewById(R.id.backIcon);
+
        // btn_addcomment = findViewById(R.id.btn_;
         TrungBinh = findViewById(R.id.txt_trungbinh);
         Rating = findViewById(R.id.ratingBar);
@@ -101,7 +116,10 @@ public class ReViewer extends AppCompatActivity {
         btnaddReviewByUser = findViewById(R.id.btnaddReviewByUser);
         ratingStarUser = findViewById(R.id.ratingStarUser);
         editReview = findViewById(R.id.editReview);
+
         data_recyclerview = findViewById(R.id.data_recyclerview);
+
+
 
         Intent intent = getIntent();
         maSP = intent.getStringExtra("MaSP");
@@ -112,12 +130,15 @@ public class ReViewer extends AppCompatActivity {
         setImagePicker();
 
         setFirebaseUser();
+
         fetchDataReviewSanPham();
+
 
 
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         data_recyclerview.setLayoutManager(linearLayoutManager);
+
 
 
         backIcon.setOnClickListener(new View.OnClickListener() {
@@ -128,6 +149,7 @@ public class ReViewer extends AppCompatActivity {
             }
         });
     }
+
 
     private void fetchDataReviewSanPham() {
 
@@ -174,6 +196,7 @@ public class ReViewer extends AppCompatActivity {
                     }
                 });
     }
+
 
     private void setFirebaseUser() {
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -274,6 +297,7 @@ public class ReViewer extends AppCompatActivity {
                 if (cardAddReview.getVisibility() == View.GONE){
                     cardAddReview.setVisibility(View.VISIBLE);
                 }
+
             }
         });
 

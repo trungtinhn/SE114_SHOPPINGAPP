@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,12 +19,21 @@ import java.util.List;
 public class ProductCardAdapter extends RecyclerView.Adapter<ProductCardAdapter.ProductCardViewHolder>{
 
     List<ProductCard> mProductCard;
-    private IClickItemProductTrendingListener listener;
 
-    public void setData(List<ProductCard> list, IClickItemProductTrendingListener listener)
+    private OnItemClick onItemClick;
+
+    public void setOnItemClick(OnItemClick onItemClick) {
+        this.onItemClick = onItemClick;
+    }
+
+
+    public interface OnItemClick {
+        void onButtonItemClick(int position);
+    }
+
+    public void setData(List<ProductCard> list)
     {
         this.mProductCard = list;
-        this.listener = listener;
         notifyDataSetChanged();
     }
 
@@ -45,6 +55,14 @@ public class ProductCardAdapter extends RecyclerView.Adapter<ProductCardAdapter.
         Picasso.get().load(productCard.getImageResouce()).into(holder.imgProductCard);
         holder.txtNameProductCard.setText(productCard.getNameProduct());
         holder.txtPriceProductCard.setText(String.valueOf(productCard.getPriceProduct()));
+        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(onItemClick != null){
+                    onItemClick.onButtonItemClick(holder.getAdapterPosition());
+                }
+            }
+        });
     }
 
     @Override
@@ -57,13 +75,14 @@ public class ProductCardAdapter extends RecyclerView.Adapter<ProductCardAdapter.
 
         private ImageView imgProductCard;
         private TextView txtNameProductCard, txtPriceProductCard;
+        private RelativeLayout relativeLayout;
 
         public ProductCardViewHolder(@NonNull View itemView) {
             super(itemView);
-
             imgProductCard = itemView.findViewById(R.id.imgTrendingCard);
             txtNameProductCard = itemView.findViewById(R.id.txtNameTrendingCard);
             txtPriceProductCard = itemView.findViewById(R.id.txtPriceTrendingCard);
+            relativeLayout = itemView.findViewById(R.id.layout);
         }
     }
 }

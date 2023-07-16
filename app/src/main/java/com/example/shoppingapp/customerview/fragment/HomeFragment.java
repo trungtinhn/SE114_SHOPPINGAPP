@@ -1,5 +1,8 @@
 package com.example.shoppingapp.customerview.fragment;
 
+import android.content.Intent;
+import android.nfc.Tag;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,7 +18,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
+import com.example.shoppingapp.customerview.activity.CategoriesDetails;
+
 import com.example.shoppingapp.customerview.BottomNavigationCustomActivity;
+
 import com.example.shoppingapp.customerview.categories.Categories;
 import com.example.shoppingapp.customerview.categories.CategoriesAdapter;
 import com.example.shoppingapp.customerview.product.Product;
@@ -126,7 +132,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void setDataRcvProduct() {
-        listProduct = new ArrayList<>();
+
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext(), RecyclerView.HORIZONTAL, false);
         rcvProduct.setLayoutManager(linearLayoutManager);
@@ -141,6 +147,7 @@ public class HomeFragment extends Fragment {
                                             Log.w("Error", "listen:error", error);
                                             return;
                                         }
+                                        listProduct = new ArrayList<>();
                                         for(DocumentSnapshot documentSnapshot : value.getDocuments()){
                                             String masp = documentSnapshot.getString("MaSP");
                                             String name = documentSnapshot.getString("TenSP");
@@ -158,7 +165,6 @@ public class HomeFragment extends Fragment {
                                 });
         //Lay Du Lieu San Pham
     }
-
     private void onClickGoToDetailProduct(Product product) {
         bottomNavigationCustomActivity.gotoDetailProduct(product);
     }
@@ -180,21 +186,29 @@ public class HomeFragment extends Fragment {
                                     Log.w("Error", "listen:error", error);
                                     return;
                                 }
+                                listCategories = new ArrayList<>();
                                 for (DocumentSnapshot document : value.getDocuments()) {
                                     if (document.exists()) {
                                         String name = document.getString("TenDM");
                                         String anh = document.getString("AnhDM");
-                                        listCategories.add(new Categories(name,anh));
+                                        String maDM = document.getString("MaDM");
+                                        listCategories.add(new Categories(name,anh, maDM));
                                     } else {
                                         Log.d("Error", "No such document");
                                     }
                                 }
-
                                 categoriesAdapter.setData(listCategories);
+                                categoriesAdapter.setOnItemClick(new CategoriesAdapter.OnItemClick() {
+                                    @Override
+                                    public void onButtonItemClick(int position) {
+                                        Intent t = new Intent(bottomNavigationCustomActivity, CategoriesDetails.class);
+                                        t.putExtra("MaDM", listCategories.get(position).getMaDM());
+                                        t.putExtra("TenDM", listCategories.get(position).getName());
+                                        startActivity(t);
+                                    }
+                                });
                                 rcvCategories.setAdapter(categoriesAdapter);
                             }
                         });
     }
-
-
 }
