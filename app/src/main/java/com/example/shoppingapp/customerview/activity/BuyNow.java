@@ -1,5 +1,6 @@
 package com.example.shoppingapp.customerview.activity;
 
+import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -35,13 +36,23 @@ public class BuyNow extends AppCompatActivity {
     TextView TenSP, KichThuoc, MauSac, SoLuong, Price;
     ImageView imageProduct;
     ImageView NextProduct;
-    int i;
+    int j;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        i = 0;
+        j = 0;
         Intent intent = getIntent();
         if(intent != null){
-            myList = intent.getStringArrayExtra("ListMaGH");
+            if(intent.getStringArrayExtra("ListMaGH")!=null){
+                myList = new String[intent.getStringArrayExtra("ListMaGH").length];
+                myList = intent.getStringArrayExtra("ListMaGH");
+                Log.d("MaSanPhamNhanDuoc", myList[0]);
+                myData = new ArrayList<>();
+            }
+            if(intent.getStringExtra("MaDC") != null){
+                MaDC = intent.getStringExtra("MaDC");
+            }
+
+
         }
         db = FirebaseFirestore.getInstance();
         super.onCreate(savedInstanceState);
@@ -111,43 +122,49 @@ public class BuyNow extends AppCompatActivity {
         });
     }
     private void getDataProduct(){
-        for(int i = 0; i < myList.length; i++){
-            db.collection("GIOHANG")
-                    .whereEqualTo("MaGH",myList[i])
-                    .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                myData = new ArrayList<>();
-                                for (QueryDocumentSnapshot doc : task.getResult()) {
-                                    String TenSP = doc.getString("TenSP");
-                                    String Size = doc.getString("Size");
-                                    int SoLuong = doc.getLong("SoLuong").intValue();
-                                    List<String> Anh = (List<String>) doc.get("HinhAnhSP");
-                                    int GiaSP = doc.getLong("GiaSP").intValue();
-                                    int GiaTien = doc.getLong("GiaTien").intValue();
-                                    String MauSac = doc.getString("MauSac");
-                                    String MaGH = doc.getString("MaGH");
-                                    String MaSP = doc.getString("MaSP");
-                                    boolean check = false;
-                                    myData.add(new com.example.shoppingapp.customerview.shoppingcart.ShoppingCart(MaSP, MaGH, Anh.get(0), TenSP, GiaSP, SoLuong, GiaTien, Size, MauSac, check));
+        try{
+            if(myList != null){
+                for(int i = 0; i < myList.length; i++){
+                    Log.d("Ma GIo Hang HHHHHHHHHHHHHHHHHH", myList[i]);
+                    db.collection("GIOHANG")
+                            .whereEqualTo("MaGH",myList[i])
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        for (QueryDocumentSnapshot doc : task.getResult()) {
+                                            String TenSP = doc.getString("TenSP");
+                                            String Size = doc.getString("Size");
+                                            int SoLuong = doc.getLong("SoLuong").intValue();
+                                            List<String> Anh = (List<String>) doc.get("HinhAnhSP");
+                                            int GiaSP = doc.getLong("GiaSP").intValue();
+                                            int GiaTien = doc.getLong("GiaTien").intValue();
+                                            String MauSac = doc.getString("MauSac");
+                                            String MaGH = doc.getString("MaGH");
+                                            String MaSP = doc.getString("MaSP");
+                                            boolean check = false;
+                                            Log.d("Errrrrrrrrrr", Anh.get(0));
+                                            myData.add(new com.example.shoppingapp.customerview.shoppingcart.ShoppingCart(MaSP, MaGH, Anh.get(0), TenSP, GiaSP, SoLuong, GiaTien, Size, MauSac, check));
+                                        }
+
+                                        Picasso.get().load(myData.get(0).getDataImage()).into(imageProduct);
+                                        TenSP.setText(myData.get(0).getTenSanPham());
+                                        MauSac.setText(myData.get(0).getMauSac());
+                                        KichThuoc.setText(myData.get(0).getSize());
+                                        SoLuong.setText(String.valueOf("x"+myData.get(0).getSoLuong()));
+                                        Price.setText(String.valueOf(myData.get(0).getGiaTien()));
+
+                                    } else {
+                                        Log.d("Error", "Error getting documents: ", task.getException());
+                                    }
                                 }
+                            });
+                }
+            }
+        }catch (Exception e){
 
-                                Picasso.get().load(myData.get(0).getDataImage()).into(imageProduct);
-                                TenSP.setText(myData.get(0).getTenSanPham());
-                                MauSac.setText(myData.get(0).getMauSac());
-                                KichThuoc.setText(myData.get(0).getSize());
-                                SoLuong.setText(String.valueOf(myData.get(0).getSoLuong()));
-                                Price.setText(String.valueOf(myData.get(0).getGiaTien()));
-
-                            } else {
-                                Log.d("Error", "Error getting documents: ", task.getException());
-                            }
-                        }
-                    });
         }
-
 
     }
 }

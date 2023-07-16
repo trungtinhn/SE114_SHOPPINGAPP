@@ -88,17 +88,22 @@ public class ShoppingCart extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String[] listmaGH = new String[data.size()];
+                int j = 0;
                 for(int i = 0; i < data.size(); i++){
                     if(data.get(i).isCheck()){
-                        listmaGH[i] = data.get(i).getMaGH();
+                        listmaGH[j] = data.get(i).getMaGH();
                         Log.d("Errrrhfdddddddddddddddddddddd", data.get(i).getMaGH());
+                        j++;
                     }
                 }
-                if(listmaGH!=null){
-                    Intent t = new Intent(ShoppingCart.this, BuyNow.class);
-                    t.putExtra("ListMaGH", listmaGH);
-                    startActivity(t);
-                }
+
+                    if(listmaGH[0] !=null){
+                        Intent t = new Intent(ShoppingCart.this, BuyNow.class);
+                        t.putExtra("ListMaGH", listmaGH);
+                        startActivity(t);
+                    }
+
+
 
             }
         });
@@ -165,6 +170,12 @@ public class ShoppingCart extends AppCompatActivity {
                                 com.example.shoppingapp.customerview.shoppingcart.ShoppingCart shoppingCart = data.get(position);
                                 data.get(position).setCheck(!shoppingCart.isCheck());
                                 shoppingAdapter.setData(data);
+                                boolean check = true;
+                                for(int i = 0; i < data.size(); i++){
+                                    if(!data.get(i).isCheck())
+                                        check = false;
+                                }
+                                checktotal.setChecked(check);
                                 SetToTal(data);
                             }
                         });
