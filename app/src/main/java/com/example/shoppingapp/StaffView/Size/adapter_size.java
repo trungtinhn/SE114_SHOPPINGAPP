@@ -36,7 +36,7 @@ public class adapter_size extends RecyclerView.Adapter<adapter_size.SizeViewHold
     @NonNull
     @Override
     public SizeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_size, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_size_product, parent, false);
         return new SizeViewHolder(view);
     }
 
