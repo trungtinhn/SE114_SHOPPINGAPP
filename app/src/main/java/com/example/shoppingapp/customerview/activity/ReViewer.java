@@ -8,9 +8,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+
 import android.app.UiAutomation;
 import android.content.Intent;
 import android.media.Image;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,27 +40,38 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
+import java.util.Date;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
+
 
 public class ReViewer extends AppCompatActivity {
     private TextView TongSoDanhGia, TrungBinh;
     private LinearLayout btn_addcomment;
-    private RecyclerView DataComment;
+
+
     private ImageView backIcon;
     private RatingBar Rating;
-    private List<ReViewData> dataReview;
-    private ReviewDataAdapter dataAdapter;
+
+
+
     private  String maSP;
 
     private Button btn_addreview, btnaddReviewByUser;
@@ -80,13 +93,17 @@ public class ReViewer extends AppCompatActivity {
 
     private EditText editReview;
 
+    private ReviewDataAdapter reviewDataAdapter;
+    private RecyclerView data_recyclerview;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_re_viewer);
         TongSoDanhGia = findViewById(R.id.txt_tongsodanhgia);
         backIcon = findViewById(R.id.backIcon);
-        DataComment = findViewById(R.id.data_recyclerview);
+
        // btn_addcomment = findViewById(R.id.btn_;
         TrungBinh = findViewById(R.id.txt_trungbinh);
         Rating = findViewById(R.id.ratingBar);
@@ -100,8 +117,13 @@ public class ReViewer extends AppCompatActivity {
         ratingStarUser = findViewById(R.id.ratingStarUser);
         editReview = findViewById(R.id.editReview);
 
+        data_recyclerview = findViewById(R.id.data_recyclerview);
+
+
+
         Intent intent = getIntent();
         maSP = intent.getStringExtra("MaSP");
+
 
 
         setBtnAddReview();
@@ -109,25 +131,16 @@ public class ReViewer extends AppCompatActivity {
 
         setFirebaseUser();
 
+        fetchDataReviewSanPham();
 
 
-        dataReview = new ArrayList<>();
-        //add data
-        dataAdapter = new ReviewDataAdapter(this.getApplicationContext());
-        dataAdapter.setData(dataReview);
+
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-        DataComment.setLayoutManager(linearLayoutManager);
-        DataComment.setAdapter(dataAdapter);
+        data_recyclerview.setLayoutManager(linearLayoutManager);
 
 
-//        btn_addcomment.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //Intent t = new Intent(ReViewer.this, );
-//                //startActivity(t);
-//            }
-//        });
+
         backIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,6 +149,54 @@ public class ReViewer extends AppCompatActivity {
             }
         });
     }
+
+
+    private void fetchDataReviewSanPham() {
+
+        reviewDataAdapter = new ReviewDataAdapter(getApplicationContext());
+
+
+        firebaseFirestore.collection("DANHGIA")
+                .whereEqualTo("MaSP", maSP)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value,
+                                        @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Log.w("Listen failed.", e);
+                            return;
+                        }
+
+                        List<ReViewData> dataReview = new ArrayList<>();
+                        for (DocumentSnapshot doc : value.getDocuments()) {
+
+                            String avatar = doc.getString("Avatar");
+                            String name = doc.getString("Name");
+                            Timestamp timestamp = doc.getTimestamp("NgayDG");
+
+                            Date date = timestamp.toDate();
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                            String time = sdf.format(date);
+
+                            String content = doc.getString("NDDG");
+                            float rating = doc.getDouble("Rating").floatValue();
+                            String image = doc.getString("AnhDG");
+
+
+
+                            ReViewData reViewData = new ReViewData(avatar, name, time, rating, content, image);
+                            Log.d("name", reViewData.getTime());
+                            dataReview.add(reViewData);
+
+                        }
+
+                        reviewDataAdapter.setData(dataReview);
+                        data_recyclerview.setAdapter(reviewDataAdapter);
+
+                    }
+                });
+    }
+
 
     private void setFirebaseUser() {
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -236,6 +297,7 @@ public class ReViewer extends AppCompatActivity {
                 if (cardAddReview.getVisibility() == View.GONE){
                     cardAddReview.setVisibility(View.VISIBLE);
                 }
+
             }
         });
 

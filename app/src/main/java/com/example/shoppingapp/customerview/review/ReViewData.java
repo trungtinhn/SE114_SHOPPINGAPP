@@ -1,20 +1,29 @@
 package com.example.shoppingapp.customerview.review;
 
 public class ReViewData {
-    private int iavartar;
+
+    private String avatar;
     private String name;
     private String time;
-    private String danhgiatb;
-    private int idanhgiatb;
-    private String description;
-    private int imagecmt;
+    private float rating;
+    private String content;
+    private String image;
 
-    public int getIavartar() {
-        return iavartar;
+    public ReViewData(String avatar, String name, String time, float rating, String content, String image) {
+        this.avatar = avatar;
+        this.name = name;
+        this.time = time;
+        this.rating = rating;
+        this.content = content;
+        this.image = image;
     }
 
-    public void setIavartar(int iavartar) {
-        this.iavartar = iavartar;
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public String getName() {
@@ -33,35 +42,27 @@ public class ReViewData {
         this.time = time;
     }
 
-    public String getDanhgiatb() {
-        return danhgiatb;
+    public float getRating() {
+        return rating;
     }
 
-    public void setDanhgiatb(String danhgiatb) {
-        this.danhgiatb = danhgiatb;
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 
-    public String getDescription() {
-        return description;
+    public String getContent() {
+        return content;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public int getImagecmt() {
-        return imagecmt;
+    public String getImage() {
+        return image;
     }
 
-    public void setImagecmt(int imagecmt) {
-        this.imagecmt = imagecmt;
-    }
-
-    public int getIdanhgiatb() {
-        return idanhgiatb;
-    }
-
-    public void setIdanhgiatb(int idanhgiatb) {
-        this.idanhgiatb = idanhgiatb;
+    public void setImage(String image) {
+        this.image = image;
     }
 }
