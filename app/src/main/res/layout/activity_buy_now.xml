@@ -37,67 +37,73 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_product_sliver"
-        android:gravity="center_vertical">
-
-        <ImageView
-            android:id="@+id/image_product"
-            android:layout_width="126dp"
-            android:layout_height="149dp"
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/anhgiay1" />
-
+        android:gravity="center_horizontal"
+        android:background="@drawable/background_product_sliver">
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:orientation="vertical">
+            android:gravity="center_vertical"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/image_product"
+                android:layout_width="126dp"
+                android:layout_height="149dp"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/anhgiay1" />
 
-            <TextView
-                android:id="@+id/txt_tensp"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="Ten San Pham"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:layout_marginLeft="20dp"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/txt_MauSac"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="Hồng"
-                android:textSize="16sp" />
-            <TextView
-                android:id="@+id/txt_KichThuoc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="L"
-                android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/txt_tensp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Ten San Pham"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_MauSac"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Hồng"
+                    android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/txt_KichThuoc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="L"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/txt_soluong"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:text="10"
                     android:textSize="16sp" />
-            <TextView
-                android:id="@+id/txt_giaban"
+                <TextView
+                    android:id="@+id/txt_giaban"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Gia Ban 200.000"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <ImageView
+                android:id="@+id/image_next"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="Gia Ban 200.000"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:layout_marginLeft="40dp"
+                android:src="@drawable/right" />
         </LinearLayout>
-        <ImageView
-            android:id="@+id/image_next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:src="@drawable/right" />
+
 
     </LinearLayout>
 
