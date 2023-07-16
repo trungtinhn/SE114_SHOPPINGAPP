@@ -104,6 +104,7 @@ public class Register extends AppCompatActivity {
                                 // sending data to firebase
                                 reference.child("Users").child(email).child("Email").setValue(emailUTF);
                                 reference.child("Users").child(email).child("LoaiND").setValue("customer");
+                                reference.child("Users").child(email).child("LoaiND").setValue("onl");
                                 registerNewUser();
                             }
                         }
