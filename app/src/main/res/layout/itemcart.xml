@@ -14,12 +14,14 @@
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="40dp" />
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/image_product"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:scaleType="fitXY"
-        android:src="@drawable/anhgiay1" />
+        android:src="@drawable/anhgiay1"
+        app:shapeAppearance="@style/roundimageview"
+        />
     <LinearLayout
         android:layout_marginLeft="30dp"
         android:orientation="vertical"

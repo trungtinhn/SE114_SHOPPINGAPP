@@ -10,6 +10,7 @@ import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -39,7 +40,7 @@ public class ShoppingCart extends AppCompatActivity {
     List<com.example.shoppingapp.customerview.shoppingcart.ShoppingCart> data;
     FirebaseFirestore db;
     ImageView backIcon;
-    RadioButton checktotal;
+    CheckBox checktotal;
     TextView Price, ButtonCheckOut;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,13 +57,6 @@ public class ShoppingCart extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         recyclerViewdata.setLayoutManager(linearLayoutManager);
         getDataCart();
-        ButtonCheckOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent t = new Intent(ShoppingCart.this, BuyNow.class);
-                startActivity(t);
-            }
-        });
         backIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,11 +64,10 @@ public class ShoppingCart extends AppCompatActivity {
                 startActivity(t);
             }
         });
-        if(data != null){
-            checktotal.setOnClickListener(new View.OnClickListener() {
+        checktotal.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    checktotal.setChecked(!checktotal.isChecked());
+                    Log.d("ERrrrrrrrrrrrrrrrr", String.valueOf(checktotal.isChecked()));
                     if(checktotal.isChecked()){
                         for(int i = 0; i < data.size(); i++){
                             data.get(i).setCheck(true);
@@ -83,13 +76,33 @@ public class ShoppingCart extends AppCompatActivity {
                     }
                     else{
                         for(int i = 0; i < data.size(); i++) {
-                            data.get(i).setCheck(true);
+                            data.get(i).setCheck(false);
                             shoppingAdapter.setData(data);
                         }
                     }
+                    SetToTal(data);
                 }
             });
-        }
+
+        ButtonCheckOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String[] listmaGH = new String[data.size()];
+                for(int i = 0; i < data.size(); i++){
+                    if(data.get(i).isCheck()){
+                        listmaGH[i] = data.get(i).getMaGH();
+                        Log.d("Errrrhfdddddddddddddddddddddd", data.get(i).getMaGH());
+                    }
+                }
+                if(listmaGH!=null){
+                    Intent t = new Intent(ShoppingCart.this, BuyNow.class);
+                    t.putExtra("ListMaGH", listmaGH);
+                    startActivity(t);
+                }
+
+            }
+        });
+
     }
     private void getDataCart() {
         //get Data
