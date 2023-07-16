@@ -24,7 +24,6 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressV
         this.addressList = list;
         notifyDataSetChanged();
     }
-
     public void setCheckClick(OnCheckedChangeListener checkClick) {
         this.checkClick = checkClick;
     }
