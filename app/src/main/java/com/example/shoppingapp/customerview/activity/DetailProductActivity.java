@@ -3,12 +3,14 @@ package com.example.shoppingapp.customerview.activity;
 import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.customerview.BottomNavigationCustomActivity;
@@ -26,7 +29,11 @@ import com.example.shoppingapp.customerview.size.SizeAdapter;
 import com.example.shoppingapp.customerview.viewpagerimage.AutoScrollTask;
 import com.example.shoppingapp.customerview.viewpagerimage.ViewPagerImageAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -34,6 +41,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Timer;
@@ -59,6 +67,13 @@ public class DetailProductActivity extends AppCompatActivity {
     private ImageView btnAnHienMoTa;
     private ViewPager2 viewpagerImage;
     private List<String> imageUrls;
+    private FirebaseAuth firebaseAuth;
+    private TextView btnAddToCard;
+    private FirebaseUser firebaseUser;
+    private Long giaSP;
+    private AlertDialog.Builder builder;
+    private TextView txtSeeReview;
+    private String idGioHang = null;
 
 
     @SuppressLint("MissingInflatedId")
@@ -76,6 +91,13 @@ public class DetailProductActivity extends AppCompatActivity {
         txtMoTaSP = findViewById(R.id.txtMoTaSP);
         btnAnHienMoTa = findViewById(R.id.btnAnHienMoTa);
         viewpagerImage = findViewById(R.id.viewpagerImage);
+        btnAddToCard = findViewById(R.id.btnAddToCard);
+        txtSeeReview = findViewById(R.id.txtSeeReview);
+
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        Log.d("User",firebaseUser.getUid());
 
 
 
@@ -95,12 +117,106 @@ public class DetailProductActivity extends AppCompatActivity {
         setBtnUpDown();
         getProduct(maSP);
         setMoTaSP();
+        setAddToCard();
+        setDialog();
+        setBtnSeeReview();
 
         //txtProductNameDetail.setText(maSP);
 
 
 
         setOnClickBackICon();
+    }
+
+    private void setBtnSeeReview() {
+        txtSeeReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =  new Intent(DetailProductActivity.this, ReViewer.class );
+                intent.putExtra("MaSP", maSP);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void setDialog() {
+        builder = new AlertDialog.Builder(getApplicationContext());
+        builder.setTitle("Tiêu đề")
+                .setMessage("Nội dung của dialog")
+                .setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Xử lý sự kiện khi người dùng bấm nút đồng ý
+                    }
+                })
+                .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Xử lý sự kiện khi người dùng bấm nút hủy
+                    }
+                });
+    }
+
+
+    private void setAddToCard() {
+
+        btnAddToCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if((dataColor.isEmpty() || dataColor == null) || (dataSize.isEmpty() || dataSize == null)) return;
+                else {
+                    Map<String, Object> data = new HashMap<>();
+                    data.put("MaND", firebaseUser.getUid());
+                    data.put("MauSac", dataColor);
+                    data.put("Size", dataSize);
+                    data.put("HinhAnhSP", imageUrls);
+                    data.put("TenSP", txtProductNameDetail.getText());
+                    data.put("SoLuong", Integer.valueOf((String) txtSoLuong.getText()));
+                    data.put("GiaSP", giaSP);
+                    data.put("GiaTien", Integer.valueOf((String) txtPriceProductDetail.getText()));
+                    data.put("MaSP", maSP);
+
+                    firebaseFirestore.collection("GIOHANG")
+                            .add(data)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+                                    idGioHang = documentReference.getId();
+                                    Toast.makeText(getApplicationContext(), "Add to cart successfully!", Toast.LENGTH_LONG);
+                                    Intent intent = new Intent(DetailProductActivity.this, BottomNavigationCustomActivity.class);
+                                    startActivity(intent);
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "Error adding document", e);
+                                }
+                            });
+
+                }
+            }
+        });
+
+        if(idGioHang != null){
+            DocumentReference washingtonRef = firebaseFirestore.collection("GIOHANG").document(idGioHang);
+
+
+            washingtonRef
+                    .update("MaGH", idGioHang)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d(TAG, "DocumentSnapshot successfully updated!");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w(TAG, "Error updating document", e);
+                        }
+                    });
+
+        }
     }
 
     private void setMoTaSP() {
@@ -142,6 +258,7 @@ public class DetailProductActivity extends AppCompatActivity {
                 if (soLuong > 1){
                     soLuong--;
                     txtSoLuong.setText(String.valueOf(soLuong));
+                    txtPriceProductDetail.setText(String.valueOf(soLuong * giaSP));
                 }
             }
         });
@@ -152,6 +269,7 @@ public class DetailProductActivity extends AppCompatActivity {
                 int soLuong =  Integer.parseInt((String) txtSoLuong.getText());
                 soLuong++;
                 txtSoLuong.setText(String.valueOf(soLuong));
+                txtPriceProductDetail.setText(String.valueOf(soLuong * giaSP));
             }
         });
     }
@@ -181,10 +299,15 @@ public class DetailProductActivity extends AppCompatActivity {
                 if (snapshot != null && snapshot.exists()) {
                     Log.d(TAG, "Current data: " + snapshot.getData());
                     String tenSP = snapshot.getString("TenSP");
-                    Long giaSP = snapshot.getLong("GiaSP");
+                    giaSP = snapshot.getLong("GiaSP");
+
+                    int soLuong =  Integer.parseInt((String) txtSoLuong.getText());
+                    txtPriceProductDetail.setText(String.valueOf(soLuong * giaSP));
+
                     String moTaSP = snapshot.getString("MoTaSP");
                     txtProductNameDetail.setText(tenSP);
-                    txtPriceProductDetail.setText(String.valueOf(giaSP));
+                   // txtPriceProductDetail.setText(String.valueOf(giaSP));
+
                     txtMoTaSP.setText(moTaSP);
 
                     imageUrls = (List<String>) snapshot.get("HinhAnhSP");

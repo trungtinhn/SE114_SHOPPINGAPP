@@ -158,12 +158,13 @@
 
 
             <TextView
+                android:id="@+id/txtSeeReview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="italic"
                 android:text="See reviews"
                 android:layout_toRightOf="@id/starSating"
-
+                android:background="@drawable/item_selector"
                 android:textSize="20dp"
                 android:layout_marginLeft="-10dp"
                 android:layout_marginTop="5dp"

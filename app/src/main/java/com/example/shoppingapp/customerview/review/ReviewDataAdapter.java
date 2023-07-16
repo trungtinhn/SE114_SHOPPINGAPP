@@ -1,6 +1,7 @@
 package com.example.shoppingapp.customerview.review;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.shoppingapp.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -37,15 +40,16 @@ public class ReviewDataAdapter extends RecyclerView.Adapter<ReviewDataAdapter.Re
     @Override
     public void onBindViewHolder(@NonNull ReviewHolder holder, int position) {
         ReViewData reViewData = data.get(position);
-        if(reViewData != null) return;
+        if(reViewData == null) return;
 
-        holder.avatar.setImageResource(reViewData.getIavartar());
-        holder.name.setText(reViewData.getName());
-        holder.time.setText(reViewData.getTime());
-        holder.tb.setText(reViewData.getDanhgiatb());
-        holder.stardanhgia.setNumStars(reViewData.getIdanhgiatb());
-        holder.noidung.setText(reViewData.getDescription());
-        holder.product.setImageResource(reViewData.getImagecmt());
+        Picasso.get().load(reViewData.getAvatar()).into(holder.imageAvatar);
+        holder.txtName.setText(reViewData.getName());
+        holder.txtTime.setText(reViewData.getTime());
+        holder.txtContent.setText(reViewData.getContent());
+        holder.txtRating.setText(String.valueOf(reViewData.getRating()));
+        holder.rating.setRating(reViewData.getRating());
+        Picasso.get().load(reViewData.getImage()).into(holder.imageRating);
+        Log.d("Review", "111");
 
     }
 
@@ -56,19 +60,19 @@ public class ReviewDataAdapter extends RecyclerView.Adapter<ReviewDataAdapter.Re
     }
 
     public class ReviewHolder extends RecyclerView.ViewHolder{
-        private ImageView avatar, product;
-        private TextView name, time, tb, noidung;
-        private RatingBar stardanhgia;
+        private ImageView imageAvatar, imageRating;
+        private TextView txtName, txtTime, txtRating, txtContent;
+        private RatingBar rating;
 
         public ReviewHolder( @NonNull View item){
             super(item);
-            avatar = item.findViewById(R.id.image);
-            name = item.findViewById(R.id.txt_name);
-            time = item.findViewById(R.id.txt_ngay);
-            tb = item.findViewById(R.id.txt_trungbinh);
-            noidung = item.findViewById(R.id.text_noidung);
-            stardanhgia = item.findViewById(R.id.ratingBar);
-            product = item.findViewById(R.id.image_product);
+            imageAvatar = item.findViewById(R.id.imageAvatarReview);
+            txtName = item.findViewById(R.id.txtNameReview);
+            txtTime = item.findViewById(R.id.txtTimeReview);
+            txtRating = item.findViewById(R.id.txtRatingReview);
+            txtContent = item.findViewById(R.id.txtContentReview);
+            rating = item.findViewById(R.id.ratingReview);
+            imageRating = item.findViewById(R.id.imageRatingReview);
         }
     }
 }

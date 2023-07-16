@@ -10,6 +10,9 @@ public class User {
     // Các trường khác mà bạn muốn lưu trong Firestore
 
     // Tạo constructor và getter/setter
+    public User(){
+
+    }
     public User(String fullname, String email, String dayOfBirth, String phoneNumber, String MaND, String avatar, String diachi, String gioitinh)
     {
         this.fullName = fullname;
