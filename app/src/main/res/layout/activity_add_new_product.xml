@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/white"
+    tools:context=".StaffView.Categories.Activity.activity_add_new_category">
+
+    <RelativeLayout
+        android:id = "@+id/rll1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="30dp"
+            android:background="@color/white"
+            android:src="@drawable/back_arrow" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="28dp"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="Add new product"
+            android:textColor="@color/black" />
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_below="@+id/btn_back"
+            android:layout_width="match_parent"
+            android:layout_height="530dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp">
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:src="@drawable/add_category" />
+
+                    <TextView
+                        android:id="@+id/textViewAddMedia"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/imageView"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="30dp"
+                        android:text="Add pictures or videos" />
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/editTextCategoryName"
+                    style="@style/RectangleStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="120dp"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="Enter product name"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/decriptions"
+                    style="@style/RectangleStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_below="@+id/editTextCategoryName"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="Decriptions"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/prices"
+                    style="@style/RectangleStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/decriptions"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="Price"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:id="@+id/ln1"
+                    style="@style/RectangleStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_below="@+id/prices"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:fontFamily="@font/montserrat"
+                        android:paddingLeft="20dp"
+                        android:text="Choose Color"
+                        android:textSize="14sp" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/RCV_colorPicker"
+                        android:layout_width="match_parent"
+                        android:layout_height="90dp"
+                        android:paddingLeft="20dp"></androidx.recyclerview.widget.RecyclerView>
+
+                    <Button
+                        android:id="@+id/btn_add_new_color"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="125dp"
+                        android:backgroundTint="@color/orange"
+                        android:text="Add new color" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ln2"
+                    style="@style/RectangleStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_below="@+id/ln1"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:fontFamily="@font/montserrat"
+                        android:paddingLeft="20dp"
+                        android:text="Choose Size"
+                        android:textSize="14sp" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/RCV_sizePicker"
+                        android:layout_width="match_parent"
+                        android:layout_height="90dp"
+                        android:paddingLeft="20dp"></androidx.recyclerview.widget.RecyclerView>
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/delivery_fee"
+                    style="@style/RectangleStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/ln2"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="Delivery Fee"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/soluong"
+                    style="@style/RectangleStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/delivery_fee"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/montserrat"
+                    android:hint="Amount"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:id="@+id/ln3"
+                    style="@style/RectangleStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_below="@+id/soluong"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txt_category_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:fontFamily="@font/montserrat"
+                        android:paddingLeft="20dp"
+                        android:text="Choose Category"
+                        android:textSize="14sp" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/RCV_category_picker"
+                        android:layout_width="match_parent"
+                        android:layout_height="90dp"
+                        android:paddingLeft="20dp"></androidx.recyclerview.widget.RecyclerView>
+                </LinearLayout>
+            </RelativeLayout>
+        </ScrollView>
+    </RelativeLayout>
+    <Button
+        android:id="@+id/btn_add_new"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/rll1"
+        android:backgroundTint="@color/orange"
+        android:text="ADD NEW" />
+
+</RelativeLayout>

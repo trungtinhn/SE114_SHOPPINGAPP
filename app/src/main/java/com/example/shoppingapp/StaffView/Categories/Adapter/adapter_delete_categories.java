@@ -3,6 +3,8 @@ package com.example.shoppingapp.StaffView.Categories.Adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,35 +15,37 @@ import com.bumptech.glide.Glide;
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.StaffView.Categories.CategoryItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class adapter_categories extends RecyclerView.Adapter<adapter_categories.ViewHolder> {
+public class adapter_delete_categories extends RecyclerView.Adapter<adapter_delete_categories.ViewHolder> {
 
-    private static List<CategoryItem> categoryItemList;
-    private static OnItemClickListener onItemClickListener;
+    private List<CategoryItem> categoryItemList;
 
-    public interface OnItemClickListener {
-        void onItemClick(CategoryItem categoryItem);
+    public List<CategoryItem> getSelectedCategories() {
+        List<CategoryItem> selectedCategories = new ArrayList<>();
+        for (CategoryItem categoryItem : categoryItemList) {
+            if (categoryItem.isSelected()) {
+                selectedCategories.add(categoryItem);
+            }
+        }
+        return selectedCategories;
     }
-
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        this.onItemClickListener = listener;
-    }
-
-    public adapter_categories(List<CategoryItem> categoryItemList) {
+    public adapter_delete_categories(List<CategoryItem> categoryItemList) {
         this.categoryItemList = categoryItemList;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_listitem, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.categories_delete, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         CategoryItem categoryItem = categoryItemList.get(position);
+        holder.bind(categoryItem); // Thêm dòng này để ánh xạ dữ liệu vào ViewHolder
         holder.txtName.setText(categoryItem.getName());
         holder.txtQuantity.setText(String.valueOf(categoryItem.getQuantity()));
         Glide.with(holder.itemView.getContext())
@@ -58,22 +62,24 @@ public class adapter_categories extends RecyclerView.Adapter<adapter_categories.
         public ImageView imgItem;
         public TextView txtName;
         public TextView txtQuantity;
+        public CheckBox checkBox;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imgItem = itemView.findViewById(R.id.img_item_img);
             txtName = itemView.findViewById(R.id.txt_item_name);
             txtQuantity = itemView.findViewById(R.id.txt_item_quanity);
-            itemView.setOnClickListener(new View.OnClickListener() {
+            checkBox = itemView.findViewById(R.id.check);
+        }
+
+        public void bind(CategoryItem categoryItem) {
+            txtName.setText(categoryItem.getName());
+            txtQuantity.setText(String.valueOf(categoryItem.getQuantity()));
+            checkBox.setChecked(categoryItem.isSelected());
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
-                public void onClick(View v) {
-                    if (onItemClickListener != null) {
-                        int position = getAdapterPosition();
-                        if (position != RecyclerView.NO_POSITION) {
-                            CategoryItem clickedItem = categoryItemList.get(position);
-                            onItemClickListener.onItemClick(clickedItem);
-                        }
-                    }
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    categoryItem.setSelected(isChecked);
                 }
             });
         }

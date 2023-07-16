@@ -3,6 +3,7 @@ package com.example.shoppingapp.StaffView.Categories.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +22,9 @@ import java.util.List;
 
 public class activity_categories extends AppCompatActivity {
     private ImageButton back;
+
+    private Button btn;
+    private Button btn_delete_categories;
     private RecyclerView rcvCategories;
     private adapter_categories adapter;
     private List<CategoryItem> categoryItemList;
@@ -36,12 +40,51 @@ public class activity_categories extends AppCompatActivity {
         adapter = new adapter_categories(categoryItemList);
         rcvCategories.setLayoutManager(new LinearLayoutManager(this));
         rcvCategories.setAdapter(adapter);
-
+        btn = findViewById(R.id.btn_create_new_category);
+        btn_delete_categories = findViewById(R.id.btn_delete_category);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(activity_categories.this, home_page.class);
                 startActivity(intent);
+            }
+        });
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity_categories.this, activity_add_new_category.class);
+                startActivity(intent);
+            }
+        });
+        btn_delete_categories.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity_categories.this, activity_delete_categories.class);
+                startActivity(intent);
+            }
+        });
+
+        adapter.setOnItemClickListener(new adapter_categories.OnItemClickListener() {
+            @Override
+            public void onItemClick(CategoryItem categoryItem) {
+                // Xử lý sự kiện khi nhấp vào danh mục
+                String categoryName = categoryItem.getName(); // Lấy tên danh mục
+
+                // Tạo một truy vấn Firestore để lấy MaDM từ TenDM
+                FirebaseFirestore.getInstance().collection("DANHMUC")
+                        .whereEqualTo("TenDM", categoryName)
+                        .get()
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                                // Lấy MaDM từ kết quả truy vấn
+                                String categoryId = task.getResult().getDocuments().get(0).getId();
+
+                                // Chuyển sang màn hình hiển thị sản phẩm với categoryId
+                                Intent intent = new Intent(activity_categories.this, activity_details_category.class);
+                                intent.putExtra("MaDM", categoryId);
+                                startActivity(intent);
+                            }
+                        });
             }
         });
 

@@ -107,7 +107,6 @@ public class Register extends AppCompatActivity {
                                 registerNewUser();
                             }
                         }
-
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
 

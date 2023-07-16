@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +28,7 @@ public class activity_MyProduct extends AppCompatActivity {
 
     private ImageButton back_to_Home;
 
+    private Button addnew, hide, edit;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,15 @@ public class activity_MyProduct extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        addnew = findViewById(R.id.add_product);
+        addnew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity_MyProduct.this, activity_add_new_product.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
     private static class AdminOrderPagerAdapter extends FragmentPagerAdapter {

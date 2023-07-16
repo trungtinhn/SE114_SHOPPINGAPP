@@ -1,72 +1,124 @@
 package com.example.shoppingapp.StaffView.MyOrder;
 
-import java.util.List;
+import java.util.Date;
 
 public class Order {
-    public String AnhDaiDien, DiaChi,HoTen,ID,IdOrder,SoDT,Status;
-    public List<ItemOrder> itemOrderList;
-
-    public void setStatus(String status) {
-        Status = status;
+    public void setTenNguoiMua(String tenNguoiMua) {
+        TenNguoiMua = tenNguoiMua;
     }
 
-    public String getStatus() {
-        return Status;
+    public void setSDT(String SDT) {
+        this.SDT = SDT;
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
+    public void setMaDC(String maDC) {
+        MaDC = maDC;
     }
 
-    public String getID() {
-        return ID;
+    public void setMaDH(String maDH) {
+        MaDH = maDH;
     }
 
-    public void setHoTen(String hoTen) {
-        HoTen = hoTen;
+    public void setMaKM(String maKM) {
+        MaKM = maKM;
     }
 
-    public String getHoTen() {
-        return HoTen;
+    public void setPhuongThucTT(String phuongThucTT) {
+        PhuongThucTT = phuongThucTT;
     }
 
-    public List<ItemOrder> getItemOrderList() {
-        return itemOrderList;
+    public void setTrangThai(String trangThai) {
+        TrangThai = trangThai;
     }
 
-    public void setIdOrder(String idOrder) {
-        IdOrder = idOrder;
+    public void setGiamGia(int giamGia) {
+        GiamGia = giamGia;
     }
 
-    public String getAnhDaiDien() {
-        return AnhDaiDien;
+    public void setPhiVanChuyen(int phiVanChuyen) {
+        PhiVanChuyen = phiVanChuyen;
     }
 
-    public String getIdOrder() {
-        return IdOrder;
+    public void setTamTinh(int tamTinh) {
+        TamTinh = tamTinh;
     }
 
-    public String getDiaChi() {
-        return DiaChi;
+    public void setTongTien(int tongTien) {
+        TongTien = tongTien;
     }
 
-    public String getSoDT() {
-        return SoDT;
+    public void setDuKienGiaoHang(Date duKienGiaoHang) {
+        DuKienGiaoHang = duKienGiaoHang;
     }
 
-    public void setAnhDaiDien(String anhDaiDien) {
-        AnhDaiDien = anhDaiDien;
+    public void setNgayDatHang(Date ngayDatHang) {
+        NgayDatHang = ngayDatHang;
     }
 
-    public void setDiaChi(String diaChi) {
-        DiaChi = diaChi;
+    private String TenNguoiMua, SDT, MaDC, MaDH, MaKM, PhuongThucTT, TrangThai, maND;
+    private int GiamGia, PhiVanChuyen, TamTinh, TongTien;
+    private Date DuKienGiaoHang;
+    private Date NgayDatHang;
+
+    public void setMaND(String maND) {
+        this.maND = maND;
     }
 
-    public void setItemOrderList(List<ItemOrder> itemOrderList) {
-        this.itemOrderList = itemOrderList;
+    public String getMaND() {
+        return maND;
     }
 
-    public void setSoDT(String soDT) {
-        SoDT = soDT;
+    public int getGiamGia() {
+        return GiamGia;
     }
+
+    public int getPhiVanChuyen() {
+        return PhiVanChuyen;
+    }
+
+    public int getTamTinh() {
+        return TamTinh;
+    }
+
+    public int getTongTien() {
+        return TongTien;
+    }
+
+    public String getMaDC() {
+        return MaDC;
+    }
+
+    public String getMaDH() {
+        return MaDH;
+    }
+
+    public String getMaKM() {
+        return MaKM;
+    }
+
+    public String getPhuongThucTT() {
+        return PhuongThucTT;
+    }
+
+    public String getSDT() {
+        return SDT;
+    }
+
+    public String getTenNguoiMua() {
+        return TenNguoiMua;
+    }
+
+    public String getTrangThai() {
+        return TrangThai;
+    }
+
+    public Date getDuKienGiaoHang() {
+        return DuKienGiaoHang;
+    }
+
+    public Date getNgayDatHang() {
+        return NgayDatHang;
+    }
+
+
 }

@@ -24,7 +24,7 @@ import com.example.shoppingapp.StaffView.MyProduct.Adapter.My_inventory_Adapter;
 import java.util.ArrayList;
 
 
-public class out_of_stock_fragment extends Fragment {
+public class  out_of_stock_fragment extends Fragment {
 
     private String mParam1;
     private String mParam2;

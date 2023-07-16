@@ -1,46 +1,60 @@
 package com.example.shoppingapp.StaffView.MyOrder.Fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
-import com.example.shoppingapp.StaffView.MyOrder.Adapter.OrderListAdapter;
-import com.example.shoppingapp.StaffView.MyOrder.ItemOrder;
+import com.example.shoppingapp.StaffView.MyOrder.Adapter.adapter_order;
 import com.example.shoppingapp.StaffView.MyOrder.Order;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link cancel_fragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
 public class confirm_fragment extends Fragment {
 
-    private static final String ARG_CUSTOMER_ID = "ID";
-    private String mCustomerId;
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
 
-    private RecyclerView mOrderListRecyclerView;
-    private OrderListAdapter mOrderListAdapter;
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
+    private List<Order> orderList;
+    private adapter_order orderAdapter;
 
-    public static confirm_fragment newInstance(String customerId) {
+    public confirm_fragment() {
+        // Required empty public constructor
+    }
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment cancel_fragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static confirm_fragment newInstance(String param1, String param2) {
         confirm_fragment fragment = new confirm_fragment();
         Bundle args = new Bundle();
-        args.putString(ARG_CUSTOMER_ID, customerId);
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -49,78 +63,43 @@ public class confirm_fragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mCustomerId = getArguments().getString(ARG_CUSTOMER_ID);
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.list_item_for_screen_oder, container, false);
+        View view = inflater.inflate(R.layout.fragment_order_confirm, container, false);
 
-        TextView customerNameTextView = rootView.findViewById(R.id.tv_ordername);
-        TextView customerAddressTextView = rootView.findViewById(R.id.tv_orderID);
-        ImageView customerImageView = rootView.findViewById(R.id.img_avatar);
+        RecyclerView recyclerView = view.findViewById(R.id.RCV_confirm);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        // Truy xuất thông tin khách hàng từ Firebase database và hiển thị trên giao diện
+        // Kết nối tới Firestore
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference customerRef = db.collection("DONHANG");
-        customerRef.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                    // Xử lý dữ liệu cho từng tài liệu tại đây
-                    if (queryDocumentSnapshots.size() > 0) {
-                        documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
-                        Order customer = documentSnapshot.toObject(Order.class);
-                        customerNameTextView.setText(customer.getHoTen());
-                        customerAddressTextView.setText(customer.getDiaChi());
-                        // Load hình từ URL sử dụng Glide hoặc Picasso
-                    }
-                    String documentId = documentSnapshot.getId(); // Lấy ID của tài liệu
-                    Map<String, Object> data = documentSnapshot.getData(); // Lấy toàn bộ dữ liệu của tài liệu dưới dạng Map
+        //Truy van
+        // Truy vấn collection "DONHANG"
+        CollectionReference donHangRef = db.collection("DONHANG");
+        donHangRef.get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    // Xử lý kết quả truy vấn
+                    orderList = new ArrayList<>();
 
-                    // Ví dụ: Nếu bạn muốn lấy dữ liệu của một trường cụ thể, bạn có thể làm như sau:
-                    Object fieldValue = documentSnapshot.get("ID"); // Ở đây 'fieldName' là tên của trường mà bạn muốn lấy dữ liệu
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.e("OrderFragment", "Failed to read customer data", e);
-            }
-        });
-
-        mOrderListRecyclerView = rootView.findViewById(R.id.RCVcard_view);
-        mOrderListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mOrderListRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-        mOrderListAdapter = new OrderListAdapter();
-        mOrderListRecyclerView.setAdapter(mOrderListAdapter);
-
-        // Truy xuất danh sách các sản phẩm củaơn hàng từ Firebase database và hiển thị trên giao diện
-        CollectionReference orderRef = db.collection("DONHANG");  // Thay "orders" thành "DONHANG"
-
-        orderRef.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                List<ItemOrder> orderList = new ArrayList<>();
-                for (DocumentSnapshot snapshot : queryDocumentSnapshots) {
-                    ItemOrder order = snapshot.toObject(ItemOrder.class);
-                    if (order != null) {
+                    for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                        // Đọc dữ liệu từ documentSnapshot
+                        Order order = documentSnapshot.toObject(Order.class);
                         orderList.add(order);
                     }
-                }
-                    // Gán dữ liệu danh sách đơn hàng cho adapter
-                    mOrderListAdapter.setOrderList(orderList);
-                }
 
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Log.e("OrderFragment", "Failed to read order data", e);
-                }
-            });
+                    // Khởi tạo adapter và gán nó cho RecyclerView
+                    orderAdapter = new adapter_order(orderList);
+                    recyclerView.setAdapter(orderAdapter);
+                })
+                .addOnFailureListener(e -> {
+                    // Xử lý khi truy vấn thất bại
+                });
 
-        return rootView;
-        }
+        return view;
     }
+}

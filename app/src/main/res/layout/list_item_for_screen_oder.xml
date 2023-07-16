@@ -25,12 +25,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:orientation="horizontal">
-                <ImageView
-                    android:id="@+id/img_avatar"
+                <androidx.cardview.widget.CardView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/anh1"
-                    tools:ignore="MissingClass" />
+                    app:cardCornerRadius="40dp">
+
+                    <ImageView
+                        android:id="@+id/img_avatar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/anh1" />
+                </androidx.cardview.widget.CardView>
+
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -55,11 +62,20 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/ID_user"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="3dp"
+                            android:text="ID: "
+                            android:fontFamily="@font/montserrat_medium"
+                            android:textSize="12dp" />
+                        <TextView
                             android:id="@+id/tv_orderID"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="ID: 20320382"
-                            android:textSize="20dp" />
+                            android:fontFamily="@font/montserrat"
+                            android:text="123"
+                            android:textSize="12dp" />
 
                     </LinearLayout>
 
