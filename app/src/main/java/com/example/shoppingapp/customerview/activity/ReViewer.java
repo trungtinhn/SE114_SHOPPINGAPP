@@ -95,6 +95,8 @@ public class ReViewer extends AppCompatActivity {
 
     private ReviewDataAdapter reviewDataAdapter;
     private RecyclerView data_recyclerview;
+    private String avatarUri;
+    private String nameUser;
 
 
     @Override
@@ -175,7 +177,7 @@ public class ReViewer extends AppCompatActivity {
                             Timestamp timestamp = doc.getTimestamp("NgayDG");
 
                             Date date = timestamp.toDate();
-                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                             String time = sdf.format(date);
 
                             String content = doc.getString("NDDG");
@@ -189,6 +191,17 @@ public class ReViewer extends AppCompatActivity {
                             dataReview.add(reViewData);
 
                         }
+
+
+                        TongSoDanhGia.setText(String.valueOf(dataReview.size()));
+
+                        float sum = 0;
+
+                        for (ReViewData review : dataReview){
+                            sum += review.getRating();
+                        }
+
+                        TrungBinh.setText(String.valueOf(sum/dataReview.size()));
 
                         reviewDataAdapter.setData(dataReview);
                         data_recyclerview.setAdapter(reviewDataAdapter);
@@ -216,11 +229,11 @@ public class ReViewer extends AppCompatActivity {
                 }
 
                 if (snapshot != null && snapshot.exists()) {
-                    String avatar = snapshot.getString("avatar");
-                    String fullName = snapshot.getString("fullName");
+                    avatarUri = snapshot.getString("avatar");
+                    nameUser = snapshot.getString("fullName");
 
-                    Picasso.get().load(avatar).into(imageAvatar);
-                    txtNameUser.setText(fullName);
+                    Picasso.get().load(avatarUri).into(imageAvatar);
+                    txtNameUser.setText(nameUser);
 
                 } else {
                     Log.d("Current data", "null");
@@ -335,6 +348,8 @@ public class ReViewer extends AppCompatActivity {
             data.put("NDDG", editReview.getText().toString());
             data.put("NgayDG", currentTime);
             data.put("Rating", currentRating);
+            data.put("Avatar", avatarUri);
+            data.put("Name", nameUser);
 
 
             firebaseFirestore.collection("DANHGIA")
