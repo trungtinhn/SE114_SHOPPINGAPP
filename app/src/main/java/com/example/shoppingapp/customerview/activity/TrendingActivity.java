@@ -44,7 +44,6 @@ public class TrendingActivity extends AppCompatActivity {
 
         backICon = findViewById(R.id.backIcon);
         firebaseFirestore = FirebaseFirestore.getInstance();
-
         setRcvProductTrending();
         setOnClickBackIcon();
     }
@@ -56,15 +55,11 @@ public class TrendingActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
-
     private void setRcvProductTrending() {
         productCardAdapter = new ProductCardAdapter();
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
         rcvProductTrending.setLayoutManager(gridLayoutManager);
-
-
         firebaseFirestore.collection("SANPHAM")
                 .whereEqualTo("Trending",true)
                         .addSnapshotListener(new EventListener<QuerySnapshot>() {
