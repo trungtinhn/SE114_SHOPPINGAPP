@@ -18,11 +18,7 @@
         <activity
             android:name=".StaffView.activity.activity_chat_board"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Login.EditProfile"
@@ -43,13 +39,6 @@
         <activity
             android:name=".customerview.BottomNavigationCustomActivity"
             android:exported="true">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".StaffView.activity.activity_click_staff_check"
@@ -59,7 +48,13 @@
             android:enableOnBackInvokedCallback="true"
             android:exported="true"
             android:label="@string/title_activity_login"
-            android:theme="@style/Theme.ShoppingApp.NoActionBar" />
+            android:theme="@style/Theme.ShoppingApp.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <meta-data
             android:name="preloaded_fonts"
@@ -67,6 +62,9 @@
 
         <activity
             android:name=".Login.ForgotPassword"
+            android:exported="true" />
+        <activity
+            android:name=".StaffView.Home.home_page"
             android:exported="true" />
         <activity
             android:name=".StaffView.activity.activity_admin_control"

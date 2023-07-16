@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_marginTop="0dp"
-        android:background="#075e54"
+        android:background="@color/orange_600"
         android:id="@+id/toolbar">
 
         <RelativeLayout
@@ -24,7 +24,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="MyChatApp"
+                android:text="Chat"
                 android:textSize="20sp"
                 android:id="@+id/myapptext"
                 android:textStyle="bold"
@@ -45,10 +45,10 @@
         android:layout_height="?attr/actionBarSize"
         android:id="@+id/include"
         android:layout_below="@id/toolbar"
-        app:tabTextColor="#77a3a7"
+        app:tabTextColor="@color/yellow"
         app:tabSelectedTextColor="@color/white"
         app:tabIndicatorColor="@color/white"
-        android:backgroundTint="#075e54"
+        android:backgroundTint="@color/orange_600"
         app:tabIndicatorHeight="3dp"
         android:layout_marginTop="0dp"
         >
@@ -63,7 +63,7 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Status"
+            android:text="Online"
             android:id="@+id/status">
 
         </com.google.android.material.tabs.TabItem>

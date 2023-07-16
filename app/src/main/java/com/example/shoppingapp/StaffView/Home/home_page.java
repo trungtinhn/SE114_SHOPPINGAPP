@@ -42,6 +42,7 @@ public class home_page extends AppCompatActivity {
         // initialising all views through id defined above
         btn_my_product = findViewById(R.id.btn_my_product);
         btn_categories = findViewById(R.id.btn_categories);
+        btn_chat = findViewById(R.id.btn_chat);
         btn_myOrder = findViewById(R.id.btn_my_order);
         btn_Promotions = findViewById(R.id.btn_promotions);
         btn_financial_report = findViewById(R.id.btn_financial_report);
