@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.shoppingapp.R;
+import com.example.shoppingapp.customerview.message.Message;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -46,10 +47,17 @@ public class ReviewDataAdapter extends RecyclerView.Adapter<ReviewDataAdapter.Re
         holder.txtName.setText(reViewData.getName());
         holder.txtTime.setText(reViewData.getTime());
         holder.txtContent.setText(reViewData.getContent());
-        holder.txtRating.setText(String.valueOf(reViewData.getRating()));
+
         holder.rating.setRating(reViewData.getRating());
-        Picasso.get().load(reViewData.getImage()).into(holder.imageRating);
-        Log.d("Review", "111");
+
+        if (reViewData.getImage() == ""){
+            holder.imageRating.setVisibility(View.GONE);
+        } else{
+            Picasso.get().load(reViewData.getImage()).into(holder.imageRating);
+        }
+
+
+
 
     }
 
@@ -61,7 +69,7 @@ public class ReviewDataAdapter extends RecyclerView.Adapter<ReviewDataAdapter.Re
 
     public class ReviewHolder extends RecyclerView.ViewHolder{
         private ImageView imageAvatar, imageRating;
-        private TextView txtName, txtTime, txtRating, txtContent;
+        private TextView txtName, txtTime, txtContent;
         private RatingBar rating;
 
         public ReviewHolder( @NonNull View item){
@@ -69,7 +77,7 @@ public class ReviewDataAdapter extends RecyclerView.Adapter<ReviewDataAdapter.Re
             imageAvatar = item.findViewById(R.id.imageAvatarReview);
             txtName = item.findViewById(R.id.txtNameReview);
             txtTime = item.findViewById(R.id.txtTimeReview);
-            txtRating = item.findViewById(R.id.txtRatingReview);
+
             txtContent = item.findViewById(R.id.txtContentReview);
             rating = item.findViewById(R.id.ratingReview);
             imageRating = item.findViewById(R.id.imageRatingReview);
