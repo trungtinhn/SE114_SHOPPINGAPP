@@ -119,6 +119,10 @@
         <activity
             android:name=".StaffView.activity.activity_chartbar"
             android:exported="true" />
+        <activity android:name=".StaffView.MyProduct.Activity.activity_MyProduct"
+            android:exported="true"/>
+        <activity android:name=".StaffView.MyOrder.Activity.activity_MyOrder"
+            android:exported="true"/>
     </application>
 
 </manifest>
