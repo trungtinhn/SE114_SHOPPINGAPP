@@ -193,7 +193,6 @@ public class ShoppingCart extends AppCompatActivity {
                         if (!queryDocumentSnapshots.isEmpty()) {
                             DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
                             String docId = documentSnapshot.getId();
-
                             Map<String, Object> newData = new HashMap<>();
                             newData.put("SoLuong", shoppingCart.getSoLuong()+1);
                             newData.put("GiaTien", (shoppingCart.getSoLuong()+1)*shoppingCart.getGiaSP());

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,6 +37,7 @@ public class BuyNow extends AppCompatActivity {
     TextView TenSP, KichThuoc, MauSac, SoLuong, Price;
     ImageView imageProduct;
     ImageView NextProduct;
+    LinearLayout HaveDC, DontHaveDC;
     int j;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,19 +47,17 @@ public class BuyNow extends AppCompatActivity {
             if(intent.getStringArrayExtra("ListMaGH")!=null){
                 myList = new String[intent.getStringArrayExtra("ListMaGH").length];
                 myList = intent.getStringArrayExtra("ListMaGH");
-                Log.d("MaSanPhamNhanDuoc", myList[0]);
                 myData = new ArrayList<>();
             }
             if(intent.getStringExtra("MaDC") != null){
                 MaDC = intent.getStringExtra("MaDC");
             }
-
-
         }
         db = FirebaseFirestore.getInstance();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buy_now);
-
+        HaveDC = findViewById(R.id.layout_address);
+        DontHaveDC = findViewById(R.id.layout_not_address);
         imageProduct = findViewById(R.id.image_product);
         TenSP = findViewById(R.id.txt_tensp);
         MauSac = findViewById(R.id.txt_MauSac);
@@ -65,6 +65,13 @@ public class BuyNow extends AppCompatActivity {
         Price = findViewById(R.id.txt_giaban);
         SoLuong = findViewById(R.id.txt_soluong);
         NextProduct = findViewById(R.id.image_next);
+        if(MaDC == null){
+            HaveDC.setVisibility(View.GONE);
+        }
+        else{
+            DontHaveDC.setVisibility(View.GONE);
+        }
+        if(myList[1] == null) NextProduct.setVisibility(View.INVISIBLE);
 
         backbtn = findViewById(R.id.backIcon);
         Subtotal = findViewById(R.id.subtotal_text);
@@ -80,9 +87,19 @@ public class BuyNow extends AppCompatActivity {
         NextProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                j++;
+                if( j >= myData.size()){
+                    j = 0;
+                }
+                Picasso.get().load(myData.get(j).getDataImage()).into(imageProduct);
+                TenSP.setText(myData.get(j).getTenSanPham());
+                MauSac.setText(myData.get(j).getMauSac());
+                KichThuoc.setText(myData.get(j).getSize());
+                SoLuong.setText(String.valueOf("x"+myData.get(j).getSoLuong()));
+                Price.setText(String.valueOf(myData.get(j).getGiaTien()));
             }
         });
+
         ClickPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
