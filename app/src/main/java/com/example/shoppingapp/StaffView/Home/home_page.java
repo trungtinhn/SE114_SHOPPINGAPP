@@ -4,17 +4,36 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.shoppingapp.Login.User;
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.StaffView.Categories.Activity.activity_categories;
 import com.example.shoppingapp.StaffView.MyOrder.Activity.activity_MyOrder;
 import com.example.shoppingapp.StaffView.MyProduct.Activity.activity_MyProduct;
 import com.example.shoppingapp.StaffView.ViewShop.activity_viewshop;
+import com.example.shoppingapp.StaffView.activity.activity_chat_board;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.picasso.Picasso;
 
 public class home_page extends AppCompatActivity {
-    private Button btn_my_product, btn_myOrder, btn_Promotions, btn_financial_report, btn_manage_users, btn_categories, btn_view_shop;
+    private Button btn_my_product, btn_myOrder, btn_Promotions,
+            btn_chat, btn_financial_report, btn_manage_users, btn_categories, btn_view_shop;
+    FirebaseAuth firebaseAuth;
+    User user;
+    FirebaseFirestore firebaseFirestore;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -28,6 +47,38 @@ public class home_page extends AppCompatActivity {
         btn_financial_report = findViewById(R.id.btn_financial_report);
         btn_manage_users = findViewById(R.id.btn_manage_user);
         btn_view_shop = findViewById(R.id.btn_view_shop);
+
+        firebaseFirestore=FirebaseFirestore.getInstance();
+        firebaseAuth=FirebaseAuth.getInstance();
+        DocumentReference documentReference=firebaseFirestore.collection("NGUOIDUNG").document(firebaseAuth.getUid());
+        firebaseFirestore.collection("NGUOIDUNG").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                for(DocumentSnapshot d : task.getResult())
+                {
+                    if(d.getId().equals(firebaseAuth.getUid()))
+                    {
+                        user = d.toObject(User.class);
+                        ((TextView) findViewById(R.id.userName)).setText(user.getFullName());
+                        ((TextView) findViewById(R.id.userID)).setText(user.getMaND());
+                        String uri=user.getAvatar();
+                        try{
+                            if(uri.isEmpty())
+                            {
+                                Toast.makeText(getApplicationContext(),"null is recieved",Toast.LENGTH_SHORT).show();
+                            }
+                            else Picasso.get().load(uri).into((ImageView) findViewById(R.id.img_avt));
+                        }
+                        catch (Exception e)
+                        {
+
+                        }
+                        return;
+                    }
+                }
+
+            }
+        });
         btn_my_product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,6 +99,13 @@ public class home_page extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(home_page.this, activity_viewshop.class);
+                startActivity(intent);
+            }
+        });
+        btn_chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(home_page.this, activity_chat_board.class);
                 startActivity(intent);
             }
         });

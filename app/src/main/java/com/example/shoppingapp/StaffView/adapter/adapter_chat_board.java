@@ -52,10 +52,10 @@ public class adapter_chat_board extends RecyclerView.Adapter<adapter_chat_board.
                 holder.name.setText(user.getFullName());
             }
             catch (Exception e){}
-       try{
-                holder.email.setText(user.getEmail());
-            }
-            catch (Exception e){}
+//       try{
+//                holder.status.setText(user.getStatus());
+//            }
+//            catch (Exception e){}
        try{
                 holder.avt.setImageURI(Uri.parse(user.getAvatar()));
             }
@@ -76,13 +76,13 @@ public class adapter_chat_board extends RecyclerView.Adapter<adapter_chat_board.
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
-        private TextView name, email;
+        private TextView name, status;
         private ImageView avt;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.userName);
-            email = itemView.findViewById(R.id.userEmail);
-            avt = itemView.findViewById(R.id.userImg);
+            name = itemView.findViewById(R.id.nameofuser);
+            status = itemView.findViewById(R.id.statusofuser);
+            avt = itemView.findViewById(R.id.imageviewofuser);
         }
     }
 }

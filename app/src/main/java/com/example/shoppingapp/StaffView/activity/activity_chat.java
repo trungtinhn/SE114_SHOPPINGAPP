@@ -1,9 +1,9 @@
 package com.example.shoppingapp.StaffView.activity;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
@@ -27,6 +28,8 @@ public class activity_chat extends AppCompatActivity {
     DatabaseReference dtbSender, dtbReceiver;
     String senderRoom, receiveRoom;
     adapter_message adapterMessage;
+    // delete when change adapter message
+    ArrayList<message_object> arrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +41,7 @@ public class activity_chat extends AppCompatActivity {
         senderRoom = FirebaseAuth.getInstance().getUid() + receiverID;
         receiveRoom = receiverID + FirebaseAuth.getInstance().getUid();
 
-        adapterMessage = new adapter_message(this);
+        adapterMessage = new adapter_message(this, arrayList);
         binding.rcvMessage.setAdapter(adapterMessage);
         binding.rcvMessage.setLayoutManager(new LinearLayoutManager(this));
 
@@ -73,9 +76,10 @@ public class activity_chat extends AppCompatActivity {
 
     private void sendMessage(String message) {
         String messageID = UUID.randomUUID().toString();
+        Date date=new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         String currentTime = sdf.format(new Date());
-        message_object messageObject = new message_object(messageID,FirebaseAuth.getInstance().getUid(),message,currentTime);
+        message_object messageObject = new message_object(message,FirebaseAuth.getInstance().getUid(), date.getTime(),currentTime);
 
         adapterMessage.add(messageObject);
         dtbSender.child(messageID)

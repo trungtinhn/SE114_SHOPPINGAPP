@@ -25,11 +25,13 @@ import java.util.List;
 public class adapter_message extends RecyclerView.Adapter<adapter_message.MyViewHolder> {
     private Context context;
     private List<message_object> messageList;
+    int ITEM_SEND=1;
+    int ITEM_RECIEVE=2;
 
-    public adapter_message(Context context)
+    public adapter_message(Context context, ArrayList<message_object> messagesArrayList)
     {
         this.context = context;
-        this.messageList = new ArrayList<>();
+        this.messageList = messagesArrayList;
     }
 
     public void add(message_object messageObject){

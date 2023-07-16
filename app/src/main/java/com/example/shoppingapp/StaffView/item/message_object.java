@@ -2,9 +2,11 @@ package com.example.shoppingapp.StaffView.item;
 
 public class message_object {
     private String msgId, senderId, message, time;
+    long timestamp;
 
-    public message_object(String msgId, String senderId, String message, String time) {
-        this.msgId = msgId;
+    public message_object(){}
+    public message_object(String message, String senderId, long timestamp , String time) {
+        this.timestamp = timestamp;
         this.senderId = senderId;
         this.message = message;
         this.time = time;
