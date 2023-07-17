@@ -4,13 +4,23 @@ public class Product {
     private String name;
     private int price;
     private String avatar;
+
+    public String getMaSP() {
+        return MaSP;
+    }
+
+    public void setMaSP(String maSP) {
+        MaSP = maSP;
+    }
+
+    private String MaSP;
     private int warehouse; //Tồn kho
     private Object imageUrl;
     private int love;  //Yêu thích
     private int sold; //Bán ra
     private int views; //Số lượng người xem
 
-    public Product(String hinhAnhSP, String TenSP, int GiaSP, int warehouse, int sold, int Love, int View)
+    public Product(String hinhAnhSP, String TenSP, int GiaSP, int warehouse, int sold, int Love, int View, String MaSP)
     {
         this.avatar = hinhAnhSP;
         this.name = TenSP;
@@ -19,6 +29,7 @@ public class Product {
         this.sold=  sold;
         this.love = Love;
         this.views = View;
+        this.MaSP = MaSP;
     }
     public Product(String hinhAnhSP, String tenSP, int giaSP) {
         avatar = hinhAnhSP;
