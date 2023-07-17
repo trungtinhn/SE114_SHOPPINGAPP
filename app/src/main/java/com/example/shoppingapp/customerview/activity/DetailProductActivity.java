@@ -55,7 +55,7 @@ public class DetailProductActivity extends AppCompatActivity {
     private FirebaseFirestore firebaseFirestore;
     private RecyclerView revColor;
     private ColorAdapter colorAdapter;
-    private List<Colors> colors;
+    private List<String> colors;
     private  RecyclerView rcvSize;
     private SizeAdapter sizeAdapter;
     private List<String> sizes;
@@ -72,6 +72,7 @@ public class DetailProductActivity extends AppCompatActivity {
     private AlertDialog.Builder builder;
     private TextView txtSeeReview;
     private String idGioHang = null;
+    private List<Colors> mauSacs;
 
 
     @SuppressLint("MissingInflatedId")
@@ -233,7 +234,7 @@ public class DetailProductActivity extends AppCompatActivity {
         });
     }
 
-    public void onColorClick(String colorName, String colorCode) {
+    public void onColorClick(String colorName) {
         // Xử lý sự kiện khi màu được chọn
         // Dữ liệu màu tên và mã màu được truyền từ adapter qua activity
         dataColor = colorName;
@@ -275,7 +276,7 @@ public class DetailProductActivity extends AppCompatActivity {
 
     private void getProduct(String maSP){
 
-        colorAdapter = new ColorAdapter();
+
         colors = new ArrayList<>();
 
         sizeAdapter =  new SizeAdapter();
@@ -317,31 +318,85 @@ public class DetailProductActivity extends AppCompatActivity {
                     Timer timer = new Timer();
                     timer.schedule(autoScrollTask, 2000, 2000);
 
-                    List<Colors> mauSacs = new ArrayList<>();
-                    List<Map<String, Object>> colorMapList = (List<Map<String, Object>>) snapshot.get("MauSac");
-                    for (Map<String, Object> colorMap : colorMapList) {
-                        String maMau = (String) colorMap.get("MaMau");
-                        String tenMau = (String) colorMap.get("TenMau");
-                        String maMauSac = (String) colorMap.get("MaMauSac");
-                        Colors mauSac = new Colors(maMau, maMauSac, tenMau);
-                        mauSacs.add(mauSac);
-                    }
+//                    List<Colors> mauSacs = new ArrayList<>();
+//                    List<Map<String, Object>> colorMapList = (List<Map<String, Object>>) snapshot.get("MauSac");
+//                    for (Map<String, Object> colorMap : colorMapList) {
+//                        String maMau = (String) colorMap.get("MaMau");
+//                        String tenMau = (String) colorMap.get("TenMau");
+//                        String maMauSac = (String) colorMap.get("MaMauSac");
+//                        Colors mauSac = new Colors(maMau, maMauSac, tenMau);
+//                        mauSacs.add(mauSac);
+//                    }
 
                     sizes = (List<String>) snapshot.get("Size");
+                    colors = (List<String>) snapshot.get("MauSac");
 
-                    colorAdapter.setData(mauSacs, DetailProductActivity.this);
-                    revColor.setAdapter(colorAdapter);
+                    getSize(sizes);
+                    getMauSac(colors);
 
 
 
-                    sizeAdapter.setData(sizes, DetailProductActivity.this);
-                    rcvSize.setAdapter(sizeAdapter);
+//                    colorAdapter.setData(colors, DetailProductActivity.this);
+//                    revColor.setAdapter(colorAdapter);
+//
+//
+//
+//                    sizeAdapter.setData(sizes, DetailProductActivity.this);
+//                    rcvSize.setAdapter(sizeAdapter);
 
                 } else {
                     Log.d(TAG, "Current data: null");
                 }
             }
         });
+    }
+
+    private void getMauSac(List<String> colors) {
+        mauSacs = new ArrayList<>();
+        colorAdapter = new ColorAdapter();
+
+        Log.d("Mau", colors.getClass().toString());
+
+        for(String color: colors) {
+            final DocumentReference docRef = firebaseFirestore.collection("MAUSAC").document(color);
+            docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot snapshot,
+                                    @Nullable FirebaseFirestoreException e) {
+                    if (e != null) {
+                        Log.w(TAG, "Listen failed.", e);
+                        return;
+                    }
+
+                    if (snapshot != null && snapshot.exists()) {
+                        Log.d(TAG, "Current data: " + snapshot.getData());
+                        String maMau = (String) snapshot.get("MaMau");
+                        String tenMau = (String) snapshot.get("TenMau");
+                        String maMauSac = (String) snapshot.get("MaMauSac");
+                        Colors mauSac = new Colors(maMau, maMauSac, tenMau);
+
+
+                        mauSacs.add(mauSac);
+                        colorAdapter.setData(mauSacs, DetailProductActivity.this);
+                        revColor.setAdapter(colorAdapter);
+                    } else {
+                        Log.d(TAG, "Current data: null");
+                    }
+                }
+            });
+
+        }
+
+
+
+
+
+
+    }
+
+    private void getSize(List<String> sizes) {
+
+
     }
 
 

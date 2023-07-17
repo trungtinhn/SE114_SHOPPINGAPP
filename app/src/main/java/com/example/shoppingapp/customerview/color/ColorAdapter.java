@@ -41,6 +41,8 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorViewHol
 
         Colors color = mColor.get(position);
         if (color == null) return;
+
+
         holder.tenMau.setText(color.getTenMau());
         int mauSac = Color.parseColor(color.getMaMau());
         holder.maMau.setBackgroundColor(mauSac);
@@ -59,7 +61,7 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorViewHol
                 } else {
                     selectedItem = position; // Đánh dấu item được chọn
                     Colors color = mColor.get(position);
-                    detailProductActivity.onColorClick(color.getTenMau(), color.getMaMau());
+                    detailProductActivity.onColorClick(color.getTenMau());
                 }
                 notifyDataSetChanged(); // Cập nhật
             }
