@@ -384,19 +384,38 @@ public class DetailProductActivity extends AppCompatActivity {
                     }
                 }
             });
-
         }
-
-
-
-
-
-
     }
 
     private void getSize(List<String> sizes) {
+        List<String> listSize = new ArrayList<>();
+        sizeAdapter = new SizeAdapter();
 
+        for(String size: sizes) {
+            final DocumentReference docRef = firebaseFirestore.collection("SIZE").document(size);
+            docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot snapshot,
+                                    @Nullable FirebaseFirestoreException e) {
+                    if (e != null) {
+                        Log.w(TAG, "Listen failed.", e);
+                        return;
+                    }
 
+                    if (snapshot != null && snapshot.exists()) {
+                        Log.d(TAG, "Current data: " + snapshot.getData());
+
+                        String sizee = (String) snapshot.get("Size");
+                        listSize.add(sizee);
+
+                        sizeAdapter.setData(listSize, DetailProductActivity.this);
+                        rcvSize.setAdapter(sizeAdapter);
+                    } else {
+                        Log.d(TAG, "Current data: null");
+                    }
+                }
+            });
+        }
     }
 
 
