@@ -12,6 +12,7 @@ import com.example.shoppingapp.R;
 import com.example.shoppingapp.StaffView.MyOrder.ItemOrder;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,6 +75,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     @Override
     public int getItemCount() {
         return itemOrderList.size();
+    }
+    private String formatCurrency(int amount) {
+        DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
+        return decimalFormat.format(amount);
     }
 }
 

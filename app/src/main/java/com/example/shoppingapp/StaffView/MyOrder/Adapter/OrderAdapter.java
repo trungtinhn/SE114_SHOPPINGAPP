@@ -17,8 +17,10 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
     private List<Order> orderList;
@@ -30,12 +32,14 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         private RecyclerView recyclerViewProducts;
         private ProductAdapter productAdapter;
 
+        private TextView total;
         public ViewHolder(View itemView) {
             super(itemView);
             orderIdTextView = itemView.findViewById(R.id.tv_orderID);
             customerNameTextView = itemView.findViewById(R.id.tv_ordername);
             img_avatar = itemView.findViewById(R.id.img_avatar);
             recyclerViewProducts = itemView.findViewById(R.id.RCVcard_view);
+            total = itemView.findViewById(R.id.moneytotal);
         }
     }
 
@@ -53,10 +57,11 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Order order = orderList.get(position);
-
+        AtomicInteger totalMoney = new AtomicInteger(0);
         holder.orderIdTextView.setText(order.getMaDH());
         holder.customerNameTextView.setText(order.getTenNguoiMua());
-        holder.recyclerViewProducts.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(holder.itemView.getContext());
+        holder.recyclerViewProducts.setLayoutManager(layoutManager);
 
         // Truy vấn Firebase để lấy AnhDaiDien dựa trên maND
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -90,7 +95,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
                                     if (sanphamDocument.exists()) {
                                         String tenSP = sanphamDocument.getString("TenSP");
                                         String hinhAnhSP = null;
-                                        List<String> hinhAnhSPList = (List<String>) document.get("HinhAnhSP");
+                                        List<String> hinhAnhSPList = (List<String>) sanphamDocument.get("HinhAnhSP");
                                         if (hinhAnhSPList != null && !hinhAnhSPList.isEmpty()) {
                                             hinhAnhSP = hinhAnhSPList.get(0); // Lấy phần tử đầu tiên trong mảng
                                         }
@@ -98,14 +103,23 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
 
                                             // Xử lý khi giá trị `HinhAnhSP` là null hoặc mảng rỗng
                                         }
-                                        int GiaSP = document.getLong("GiaSP") != null ? Math.toIntExact(document.getLong("GiaSP")) : 0;
+                                        Long giaSPLong = sanphamDocument.getLong("GiaSP");
+                                        int GiaSP = giaSPLong != null ? Math.toIntExact(giaSPLong) : 0;
+
                                         ItemOrder itemOrder = new ItemOrder(hinhAnhSP, tenSP, maSP, GiaSP, number);
                                         itemOrderList.add(itemOrder);
+                                        // Cập nhật tổng tiền
+                                        int totalPrice = GiaSP * number;
+                                        totalMoney.addAndGet(totalPrice);
+                                        holder.total.setText(formatCurrency(totalMoney.get()));
+                                        // Đặt giá trị tổng tiền vào TextView
+
                                         // Tạo mới ProductAdapter và gán nó cho recyclerViewProducts
+                                        holder.productAdapter = new ProductAdapter(itemOrderList);
+                                        holder.recyclerViewProducts.setAdapter(holder.productAdapter);
 
                                     }
-                                    holder.productAdapter = new ProductAdapter(itemOrderList);
-                                    holder.recyclerViewProducts.setAdapter(holder.productAdapter);
+
 
                                 })
                                 .addOnFailureListener(e -> {
@@ -122,5 +136,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     @Override
     public int getItemCount() {
         return orderList.size();
+    }
+    private String formatCurrency(int amount) {
+        DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
+        return decimalFormat.format(amount);
     }
 }
