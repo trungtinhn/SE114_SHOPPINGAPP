@@ -144,6 +144,8 @@
             android:exported="true"/>
         <activity android:name=".Login.Successful"
             android:exported="true"/>
+        <activity android:name=".StaffView.MyOrder.Activity.activity_details_order"
+            android:exported="true"/>
     </application>
 
 </manifest>
