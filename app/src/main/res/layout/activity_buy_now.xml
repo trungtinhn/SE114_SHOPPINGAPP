@@ -238,7 +238,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="TrungTinh"
-                    android:textSize="19sp"
+                    android:textSize="15sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -256,7 +256,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="0704408389"
-                    android:textSize="16sp" />
+                    android:textSize="15sp" />
             </LinearLayout>
 
             <TextView
@@ -266,7 +266,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="TrungTinh"
-                android:textSize="16sp" />
+                android:textSize="15sp" />
             <TextView
                 android:layout_marginLeft="15dp"
                 android:id="@+id/txt_PX"
@@ -274,7 +274,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="Dinh Bo Linh"
-                android:textSize="16sp" />
+                android:textSize="15sp" />
         </LinearLayout>
         <CheckBox
             android:id="@+id/checkBox_payment1"

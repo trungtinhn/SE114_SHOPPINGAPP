@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
-import com.example.shoppingapp.StaffView.MyOrder.Adapter.OrderAdapter;
+import com.example.shoppingapp.StaffView.MyOrder.Adapter.CheckProductAdapter;
 import com.example.shoppingapp.StaffView.MyOrder.Order;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -24,7 +24,7 @@ import java.util.List;
  * Use the {@link cancel_fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class confirm_fragment extends Fragment {
+public class delivered_fragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,9 +35,9 @@ public class confirm_fragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private List<Order> orderList;
-    private OrderAdapter orderAdapter;
+    private CheckProductAdapter orderAdapter;
 
-    public confirm_fragment() {
+    public delivered_fragment() {
         // Required empty public constructor
     }
 
@@ -71,10 +71,10 @@ public class confirm_fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_order_confirm, container, false);
+        View view = inflater.inflate(R.layout.fragment_delivered, container, false);
 
 
-        RecyclerView recyclerView = view.findViewById(R.id.RCV_confirm);
+        RecyclerView recyclerView = view.findViewById(R.id.RCV_delivered);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         // Kết nối tới Firestore
@@ -82,7 +82,7 @@ public class confirm_fragment extends Fragment {
         //Truy van
         // Truy vấn collection "DONHANG"
         CollectionReference donHangRef = db.collection("DONHANG");
-        donHangRef.whereEqualTo("TrangThai", "Confirm").get()
+        donHangRef.whereEqualTo("TrangThai", "delivered").get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     // Xử lý kết quả truy vấn
                     orderList = new ArrayList<>();
@@ -94,7 +94,7 @@ public class confirm_fragment extends Fragment {
                     }
 
                     // Khởi tạo adapter và gán nó cho RecyclerView
-                    orderAdapter = new OrderAdapter(orderList);
+                    orderAdapter = new CheckProductAdapter(orderList);
                     orderAdapter.refresh();
                     recyclerView.setAdapter(orderAdapter);
                 })
@@ -104,4 +104,5 @@ public class confirm_fragment extends Fragment {
 
         return view;
     }
+
 }

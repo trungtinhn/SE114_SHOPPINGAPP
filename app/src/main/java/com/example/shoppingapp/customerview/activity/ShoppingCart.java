@@ -21,6 +21,7 @@ import com.example.shoppingapp.customerview.BottomNavigationCustomActivity;
 import com.example.shoppingapp.customerview.shoppingcart.ShoppingAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -34,6 +35,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 public class ShoppingCart extends AppCompatActivity {
+    FirebaseAuth firebaseAuth;
     RecyclerView recyclerViewdata;
     List<com.example.shoppingapp.customerview.shoppingcart.ShoppingCart> dataCheck;
     ShoppingAdapter shoppingAdapter;
@@ -47,6 +49,7 @@ public class ShoppingCart extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_cart);
         dataCheck = new ArrayList<>();
+        firebaseAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         recyclerViewdata = findViewById(R.id.RecyclerData);
         backIcon = findViewById(R.id.backIcon);
@@ -67,43 +70,47 @@ public class ShoppingCart extends AppCompatActivity {
         checktotal.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("ERrrrrrrrrrrrrrrrr", String.valueOf(checktotal.isChecked()));
                     if(checktotal.isChecked()){
                         for(int i = 0; i < data.size(); i++){
                             data.get(i).setCheck(true);
-                            shoppingAdapter.setData(data);
                         }
+                        shoppingAdapter.setData(data);
+                        SetToTal(data);
                     }
                     else{
                         for(int i = 0; i < data.size(); i++) {
                             data.get(i).setCheck(false);
-                            shoppingAdapter.setData(data);
                         }
+                        shoppingAdapter.setData(data);
+                        SetToTal(data);
                     }
-                    SetToTal(data);
                 }
             });
 
         ButtonCheckOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String[] listmaGH = new String[data.size()];
-                int j = 0;
-                for(int i = 0; i < data.size(); i++){
-                    if(data.get(i).isCheck()){
-                        listmaGH[j] = data.get(i).getMaGH();
-                        Log.d("Errrrhfdddddddddddddddddddddd", data.get(i).getMaGH());
-                        j++;
+                Log.d("Checkkkkkkkkkkk", String.valueOf(data.get(1).isCheck()));
+                try{
+                    String[] listmaGH = new String[data.size()];
+                    int j = 0;
+                    for(int i = 0; i < data.size(); i++){
+                        Log.d("Errrrrrrrrrrrrr", String.valueOf(data.get(i).isCheck() + "   "+data.get(i).getMaGH()));
+                        if(data.get(i).isCheck()){
+                            listmaGH[j] = data.get(i).getMaGH();
+                            j++;
+                            Log.d("Errrrrrrrrrrrrrrr", String.valueOf(j));
+                        }
                     }
-                }
-
                     if(listmaGH[0] !=null){
                         Intent t = new Intent(ShoppingCart.this, BuyNow.class);
                         t.putExtra("ListMaGH", listmaGH);
                         startActivity(t);
                     }
 
-
+                }catch (Exception e){
+                    Log.d("Errrrrrrrr", e.getMessage());
+                }
 
             }
         });
@@ -112,7 +119,7 @@ public class ShoppingCart extends AppCompatActivity {
     private void getDataCart() {
         //get Data
         db.collection("GIOHANG")
-                .whereEqualTo("MaND","ND001")
+                .whereEqualTo("MaND",firebaseAuth.getCurrentUser().getUid())
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException e) {

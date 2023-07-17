@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
+import com.example.shoppingapp.StaffView.MyOrder.ItemOrder;
 import com.example.shoppingapp.customerview.product.customer_interface.IClickItemProductListener;
 import com.squareup.picasso.Picasso;
 
@@ -21,6 +22,11 @@ public class ProductAdapter extends  RecyclerView.Adapter<ProductAdapter.Product
 
     private List<Product> mProducts;
     private IClickItemProductListener iClickItemProductListener;
+
+    public ProductAdapter() {
+
+    }
+
     public void setData(List<Product> list, IClickItemProductListener listener)
     {
         this.mProducts = list;
@@ -60,6 +66,9 @@ public class ProductAdapter extends  RecyclerView.Adapter<ProductAdapter.Product
             return mProducts.size();
         }
         return 0;
+    }
+
+    public void setItemOrderList(List<ItemOrder> itemOrderList) {
     }
 
     public class ProductViewHolder extends RecyclerView.ViewHolder{

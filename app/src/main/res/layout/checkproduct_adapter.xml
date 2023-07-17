@@ -19,7 +19,6 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -31,7 +30,7 @@
                     app:cardCornerRadius="40dp">
 
                     <ImageView
-                        android:id="@+id/img_avatar"
+                        android:id="@+id/img_ava"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
@@ -46,7 +45,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tv_ordername"
+                        android:id="@+id/ten"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -70,7 +69,7 @@
                             android:fontFamily="@font/montserrat_medium"
                             android:textSize="12dp" />
                         <TextView
-                            android:id="@+id/tv_orderID"
+                            android:id="@+id/maND"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/montserrat"
@@ -96,7 +95,7 @@
         </TextView>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/RCVcard_view"
+            android:id="@+id/RCV_details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -116,7 +115,7 @@
                 android:textColor="@android:color/black"
                 />
             <TextView
-                android:id="@+id/moneytotal"
+                android:id="@+id/money_total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/total"
@@ -125,7 +124,7 @@
                 android:textColor="@android:color/black"
                 android:layout_marginStart="150dp"/>
             <TextView
-                android:layout_toRightOf="@+id/moneytotal"
+                android:layout_toRightOf="@+id/money_total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="VND"
@@ -133,17 +132,33 @@
                 android:textColor="@android:color/black"
                 android:layout_marginStart="10dp"/>.
         </RelativeLayout>
-        <Button
-            android:id="@+id/btn_detail"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Detail"
-            android:backgroundTint="#FF931F"
-            android:layout_marginStart="260dp"
-            android:layout_marginTop="10dp"/>
-
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text = "ID Staff: "
+                android:layout_marginLeft="23dp"
+                android:fontFamily="@font/montserrat_medium"
+                android:textColor="@color/black"
+                android:textSize="14dp"
+                >
+            </TextView>
+            <TextView
+                android:id="@+id/getMaND"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text = "21522654"
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/black"
+                android:textSize="14dp"
+                />
+        </LinearLayout>
         <Button
-            android:id="@+id/confirm"
+            android:id="@+id/btn_confirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Confirm"

@@ -35,6 +35,7 @@ public class SizeAdapter extends RecyclerView.Adapter<SizeAdapter.SizeViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull SizeViewHolder holder, int position) {
+
         String size = sizes.get(position);
 
 

@@ -25,6 +25,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Base64;
 
@@ -36,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button button;
     private ImageButton btn_showpassword;
     public ProgressBar progressbar;
-
+    private User getStaff;
     private FirebaseAuth mAuth;
 
     private FirebaseDatabase firebaseDatabase;
@@ -55,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         LG_forgotPassword = (TextView)findViewById(R.id.forgot_password);
         btn_showpassword = findViewById(R.id.showPassword);
         LG_SignUpNow = (TextView)findViewById(R.id.SignUpNow);
-
+        getStaff = new User();
         // Set on Click Listener on Sign-in button
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +109,7 @@ public class LoginActivity extends AppCompatActivity {
                                                             Toast.LENGTH_SHORT).show();
                                                     // Chuyển người dùng đến màn hình admin
                                                     Intent adminIntent = new Intent(LoginActivity.this, home_page.class);
+
                                                     startActivity(adminIntent);
                                                     finish();
                                                     break;
@@ -121,6 +125,15 @@ public class LoginActivity extends AppCompatActivity {
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError databaseError) {
                                         // Xử lý lỗi nếu có
+                                    }
+                                });
+                                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                CollectionReference dbRef = db.collection("NGUOIDUNG");
+                                DocumentReference docRef = dbRef.document(emailhandle);
+                                docRef.get().addOnSuccessListener(documentSnapshot -> {
+                                    if (documentSnapshot.exists()) {
+                                        String User = documentSnapshot.getString("maND");
+                                        getStaff.setMaND(User);
                                     }
                                 });
                             } else if (!task.isSuccessful()) {

@@ -79,7 +79,8 @@
                 android:layout_marginHorizontal="15dp"
                 android:text="On sale"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:textStyle="bold|italic" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -134,10 +135,11 @@
                     android:id="@+id/txtTrending"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="30dp"
+                    android:layout_marginHorizontal="15dp"
                     android:text="Trending now"
                     android:textColor="@color/black"
                     android:textSize="20dp"
+                    android:textStyle="bold|italic"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -177,10 +179,11 @@
                     android:id="@+id/txtOrderCategories"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="30dp"
+                    android:layout_marginHorizontal="15dp"
                     android:text="Order Categories"
                     android:textColor="@color/black"
                     android:textSize="20dp"
+                    android:textStyle="bold|italic"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

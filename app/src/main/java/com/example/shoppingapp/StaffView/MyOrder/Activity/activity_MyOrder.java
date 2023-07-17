@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,9 +18,9 @@ import com.example.shoppingapp.R;
 import com.example.shoppingapp.StaffView.Home.home_page;
 import com.example.shoppingapp.StaffView.MyOrder.Fragment.cancel_fragment;
 import com.example.shoppingapp.StaffView.MyOrder.Fragment.confirm_fragment;
+import com.example.shoppingapp.StaffView.MyOrder.Fragment.delivered_fragment;
+import com.example.shoppingapp.StaffView.MyOrder.Fragment.delivering_fragment;
 import com.example.shoppingapp.StaffView.MyOrder.Fragment.wait_fragment;
-import com.example.shoppingapp.StaffView.adapter.delivered_fragment;
-import com.example.shoppingapp.StaffView.adapter.delivering_fragment;
 import com.google.android.material.tabs.TabLayout;
 
 public class activity_MyOrder extends AppCompatActivity {
@@ -28,6 +29,7 @@ public class activity_MyOrder extends AppCompatActivity {
     private TabLayout tabLayout;
 
     private ImageButton back_to_Home;
+    private Button detail;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -42,7 +44,9 @@ public class activity_MyOrder extends AppCompatActivity {
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
+
         back_to_Home = findViewById(R.id.imgbtn_back);
+
         back_to_Home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
