@@ -151,8 +151,9 @@ public class HomeFragment extends Fragment {
                                         for(DocumentSnapshot documentSnapshot : value.getDocuments()){
                                             String masp = documentSnapshot.getString("MaSP");
                                             String name = documentSnapshot.getString("TenSP");
+                                            Long giaSP = documentSnapshot.getLong("GiaSP");
                                             List<String> Anh = (List<String>) documentSnapshot.get("HinhAnhSP");
-                                            listProduct.add(new Product(Anh.get(0), name, masp));
+                                            listProduct.add(new Product(Anh.get(0), name, masp, giaSP));
                                         }
                                         productAdapter.setData(listProduct, new IClickItemProductListener() {
                                             @Override

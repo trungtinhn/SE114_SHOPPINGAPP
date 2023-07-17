@@ -5,7 +5,9 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:columnCount="2"
-    tools:ignore="MissingClass">
+    tools:ignore="MissingClass"
+    android:id="@+id/layout_product"
+    >
 
     <RelativeLayout
         android:layout_width="wrap_content"

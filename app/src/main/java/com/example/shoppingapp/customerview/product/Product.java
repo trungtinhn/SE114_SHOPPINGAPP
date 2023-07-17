@@ -6,9 +6,9 @@ public class Product implements Serializable {
     private String masp;
     private String resouceId;
     private String name;
-    private Integer price;
+    private Long price;
 
-    public Product(String resouceId, String name, String masp, Integer price) {
+    public Product(String resouceId, String name, String masp, Long price) {
         this.resouceId = resouceId;
         this.name = name;
         this.masp = masp;
@@ -45,11 +45,11 @@ public class Product implements Serializable {
         this.masp = masp;
     }
 
-    public Integer getPrice() {
+    public Long getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Long price) {
         this.price = price;
     }
 }
