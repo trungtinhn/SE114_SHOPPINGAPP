@@ -4,7 +4,6 @@
     android:layout_width="wrap_content"
     android:paddingHorizontal="10dp"
     android:layout_height="30dp"
-    android:layout_toRightOf="@id/txtSize"
     android:background="@color/Cararra"
     android:gravity="center"
     android:layout_marginLeft="10dp"
