@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ import com.example.shoppingapp.R;
 import com.example.shoppingapp.StaffView.Categories.Activity.activity_categories;
 import com.example.shoppingapp.StaffView.MyOrder.Activity.activity_MyOrder;
 import com.example.shoppingapp.StaffView.MyProduct.Activity.activity_MyProduct;
+import com.example.shoppingapp.StaffView.Promotions.Activity.activity_promotions;
 import com.example.shoppingapp.StaffView.ViewShop.activity_viewshop;
 import com.example.shoppingapp.StaffView.activity.activity_chat_board;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,9 +30,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 public class home_page extends AppCompatActivity {
-    private Button btn_my_product, btn_myOrder, btn_Promotions,
+    private Button btn_my_product, btn_myOrder,
             btn_chat, btn_financial_report, btn_manage_users, btn_categories, btn_view_shop;
     FirebaseAuth firebaseAuth;
+
+    private ImageButton btn_Promotions;
     User user;
     FirebaseFirestore firebaseFirestore;
 
@@ -48,7 +52,7 @@ public class home_page extends AppCompatActivity {
         btn_financial_report = findViewById(R.id.btn_financial_report);
         btn_manage_users = findViewById(R.id.btn_manage_user);
         btn_view_shop = findViewById(R.id.btn_view_shop);
-
+        btn_Promotions = findViewById(R.id.btn_promotions);
         firebaseFirestore=FirebaseFirestore.getInstance();
         firebaseAuth=FirebaseAuth.getInstance();
         DocumentReference documentReference=firebaseFirestore.collection("NGUOIDUNG").document(firebaseAuth.getUid());
@@ -116,6 +120,13 @@ public class home_page extends AppCompatActivity {
             public void onClick(View v)
             {
                 Intent intent = new Intent (home_page.this, activity_categories.class);
+                startActivity(intent);
+            }
+        });
+        btn_Promotions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(home_page.this, activity_promotions.class);
                 startActivity(intent);
             }
         });
