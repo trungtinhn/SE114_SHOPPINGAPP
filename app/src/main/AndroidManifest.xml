@@ -117,9 +117,6 @@
             android:name=".customerview.activity.TrendingActivity"
             android:exported="true" />
         <activity
-            android:name=".StaffView.activity.activity_chat"
-            android:exported="true"></activity>
-        <activity
             android:name=".StaffView.activity.activity_List_Product_And_Item"
             android:exported="true" />
         <activity

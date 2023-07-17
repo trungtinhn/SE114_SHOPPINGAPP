@@ -6,6 +6,7 @@ public class User {
     private String phoneNumber;
     private String dayOfBirth;
     private String MaND;
+    private String status = "onl";
     private  String avatar, diachi, gioitinh;
     // Các trường khác mà bạn muốn lưu trong Firestore
 
@@ -24,6 +25,14 @@ public class User {
         this.diachi = diachi;
         this.gioitinh = gioitinh;
 
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getDayOfBirth() {

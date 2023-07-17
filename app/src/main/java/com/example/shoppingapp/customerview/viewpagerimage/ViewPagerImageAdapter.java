@@ -54,7 +54,7 @@ public class ViewPagerImageAdapter extends RecyclerView.Adapter<ViewPagerImageAd
 }
 
 /*
-public class ViewPagerImageAdapter extends PagerAdapter {
+public class ViewPagerImageAdapter extends adapter_chat_board {
 
 
     private List<String> imageUrls;
