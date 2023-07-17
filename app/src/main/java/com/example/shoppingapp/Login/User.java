@@ -2,6 +2,16 @@ package com.example.shoppingapp.Login;
 
 public class User {
     private String fullName;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    private String status;
     private String email;
     private String phoneNumber;
     private String dayOfBirth;
@@ -14,7 +24,7 @@ public class User {
     public User(){
 
     }
-    public User(String fullname, String email, String dayOfBirth, String phoneNumber, String MaND, String avatar, String diachi, String gioitinh)
+    public User(String fullname, String email, String dayOfBirth, String phoneNumber, String MaND, String avatar, String diachi, String gioitinh, String Status)
     {
         this.fullName = fullname;
         this.email = email;
@@ -24,6 +34,7 @@ public class User {
         this.avatar = avatar;
         this.diachi = diachi;
         this.gioitinh = gioitinh;
+        this.status = Status;
 
     }
 
