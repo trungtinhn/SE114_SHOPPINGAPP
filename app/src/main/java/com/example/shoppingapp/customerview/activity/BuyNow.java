@@ -40,7 +40,7 @@ public class BuyNow extends AppCompatActivity {
     TextView TenSP, KichThuoc, MauSac, SoLuong, Price;
     ImageView imageProduct;
     ImageView NextProduct;
-    LinearLayout HaveDC, DontHaveDC;
+    LinearLayout HaveDC, DontHaveDC, KhuyenMai, NotKhuyenMai;
     //
     TextView Ten, SDT, Duong, DC;
     int j;
@@ -63,6 +63,7 @@ public class BuyNow extends AppCompatActivity {
         }
         db = FirebaseFirestore.getInstance();
         super.onCreate(savedInstanceState);
+        //
         setContentView(R.layout.activity_buy_now);
         HaveDC = findViewById(R.id.layout_address);
         DontHaveDC = findViewById(R.id.layout_not_address);
@@ -89,7 +90,10 @@ public class BuyNow extends AppCompatActivity {
         SDT = findViewById(R.id.txt_SDT);
         Duong = findViewById(R.id.txt_PX);
         DC = findViewById(R.id.txt_DC);
-
+        //
+        KhuyenMai = findViewById(R.id.layout_promotion);
+        NotKhuyenMai = findViewById(R.id.layout_not_promotion);
+        //
         if(MaDC == null){
             HaveDC.setVisibility(View.GONE);
         }
@@ -97,10 +101,18 @@ public class BuyNow extends AppCompatActivity {
             DontHaveDC.setVisibility(View.GONE);
             GetSetDataDC();
         }
+        //
         if(myList != null){
             if(myList[1] == null) NextProduct.setVisibility(View.INVISIBLE);
         }
-
+        //
+        if(MaGG == null){
+            KhuyenMai.setVisibility(View.GONE);
+        }
+        else{
+            NotKhuyenMai.setVisibility(View.GONE);
+            getDataGG();
+        }
 
 
         getDataProduct();
@@ -198,6 +210,7 @@ public class BuyNow extends AppCompatActivity {
                                         KichThuoc.setText(myData.get(0).getSize());
                                         SoLuong.setText(String.valueOf("x"+myData.get(0).getSoLuong()));
                                         Price.setText(String.valueOf(myData.get(0).getGiaTien()));
+                                        UpdatePrice();
                                     } else {
                                         Log.d("Error", "Error getting documents: ", task.getException());
                                     }
@@ -235,5 +248,11 @@ public class BuyNow extends AppCompatActivity {
                         }
                     }
                 });
+    }
+    private void UpdatePrice(){
+
+    }
+    private void getDataGG(){
+
     }
 }
