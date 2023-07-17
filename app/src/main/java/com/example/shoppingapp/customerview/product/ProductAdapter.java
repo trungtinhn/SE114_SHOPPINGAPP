@@ -3,6 +3,7 @@ package com.example.shoppingapp.customerview.product;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -30,7 +31,7 @@ public class ProductAdapter extends  RecyclerView.Adapter<ProductAdapter.Product
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product_card, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product, parent, false);
         return new ProductViewHolder(view);
     }
 
@@ -42,6 +43,7 @@ public class ProductAdapter extends  RecyclerView.Adapter<ProductAdapter.Product
         //holder.imgProduct.setImageResource(product.getResouceId());
         Picasso.get().load(product.getResouceId()).into(holder.imgProduct);
         holder.txtNameProduct.setText(product.getName());
+        holder.txtPriceProduct.setText(String.valueOf(product.getPrice()) + " VND");
 
         holder.layoutProduct.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,14 +65,15 @@ public class ProductAdapter extends  RecyclerView.Adapter<ProductAdapter.Product
     public class ProductViewHolder extends RecyclerView.ViewHolder{
 
         private ImageView imgProduct;
-        private TextView txtNameProduct;
-        private LinearLayout layoutProduct;
+        private TextView txtNameProduct, txtPriceProduct;
+        private GridLayout layoutProduct;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
-            imgProduct = itemView.findViewById(R.id.imgProduct);
-            txtNameProduct = itemView.findViewById(R.id.txtNameProduct);
-            layoutProduct = itemView.findViewById(R.id.layoutProduct);
+            imgProduct = itemView.findViewById(R.id.img_product_img);
+            txtNameProduct = itemView.findViewById(R.id.txt_product_name);
+            txtPriceProduct = itemView.findViewById(R.id.txt_product_price);
+            layoutProduct = itemView.findViewById(R.id.layout_product);
         }
     }
 }

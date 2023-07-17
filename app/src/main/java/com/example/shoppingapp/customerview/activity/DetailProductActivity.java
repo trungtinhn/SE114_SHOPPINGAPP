@@ -332,6 +332,8 @@ public class DetailProductActivity extends AppCompatActivity {
                     colorAdapter.setData(mauSacs, DetailProductActivity.this);
                     revColor.setAdapter(colorAdapter);
 
+
+
                     sizeAdapter.setData(sizes, DetailProductActivity.this);
                     rcvSize.setAdapter(sizeAdapter);
 

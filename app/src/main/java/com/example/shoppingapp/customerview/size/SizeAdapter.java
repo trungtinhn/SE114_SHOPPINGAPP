@@ -1,5 +1,6 @@
 package com.example.shoppingapp.customerview.size;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,13 +29,15 @@ public class SizeAdapter extends RecyclerView.Adapter<SizeAdapter.SizeViewHolder
     @NonNull
     @Override
     public SizeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_size_product, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_size, parent, false);
         return new SizeViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull SizeViewHolder holder, int position) {
         String size = sizes.get(position);
+
+
         holder.txtItemSize.setText(size);
 
         boolean isSelected = (selectedItem == position);
