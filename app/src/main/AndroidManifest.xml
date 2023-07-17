@@ -140,6 +140,10 @@
             android:exported="true"/>
         <activity android:name=".StaffView.MyOrder.Activity.activity_details_order"
             android:exported="true"/>
+        <activity android:name=".StaffView.Promotions.Activity.activity_promotions"
+            android:exported="true"/>
+        <activity android:name=".StaffView.Promotions.Activity.activity_add_new_promotions"
+            android:exported="true"/>
     </application>
 
 </manifest>

@@ -348,7 +348,7 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <androidx.appcompat.widget.AppCompatButton
+                    <ImageButton
                         android:id="@+id/btn_promotions"
                         android:layout_width="45dp"
                         android:layout_height="45dp"
