@@ -15,7 +15,9 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shoppingapp.R;
+import com.example.shoppingapp.customerview.shoppingcart.Address;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -26,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BuyNow extends AppCompatActivity {
+    List<Address> list;
     FirebaseFirestore db;
     ImageView backbtn;
     String MaDC;
@@ -33,10 +36,13 @@ public class BuyNow extends AppCompatActivity {
     String[] myList;
     List<com.example.shoppingapp.customerview.shoppingcart.ShoppingCart> myData;
     TextView Subtotal, Delivery, CheckOut, Total, ClickGiamGia, ClickAddress, ClickPayment;
+    //
     TextView TenSP, KichThuoc, MauSac, SoLuong, Price;
     ImageView imageProduct;
     ImageView NextProduct;
     LinearLayout HaveDC, DontHaveDC;
+    //
+    TextView Ten, SDT, Duong, DC;
     int j;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +66,7 @@ public class BuyNow extends AppCompatActivity {
         setContentView(R.layout.activity_buy_now);
         HaveDC = findViewById(R.id.layout_address);
         DontHaveDC = findViewById(R.id.layout_not_address);
+        //
         imageProduct = findViewById(R.id.image_product);
         TenSP = findViewById(R.id.txt_tensp);
         MauSac = findViewById(R.id.txt_MauSac);
@@ -67,18 +74,9 @@ public class BuyNow extends AppCompatActivity {
         Price = findViewById(R.id.txt_giaban);
         SoLuong = findViewById(R.id.txt_soluong);
         NextProduct = findViewById(R.id.image_next);
-        if(MaDC == null){
-            HaveDC.setVisibility(View.GONE);
-        }
-        else{
-            DontHaveDC.setVisibility(View.GONE);
-        }
-        if(myList != null){
-            if(myList[1] == null) NextProduct.setVisibility(View.INVISIBLE);
-        }
-
-
+        //
         backbtn = findViewById(R.id.backIcon);
+        //
         Subtotal = findViewById(R.id.subtotal_text);
         Delivery = findViewById(R.id.delivery_text);
         CheckOut = findViewById(R.id.btn_checkout);
@@ -86,6 +84,24 @@ public class BuyNow extends AppCompatActivity {
         ClickAddress = findViewById(R.id.click_address);
         ClickPayment = findViewById(R.id.click_payment);
         ClickPayment = findViewById(R.id.click_payment);
+        //
+        Ten = findViewById(R.id.txt_Ten);
+        SDT = findViewById(R.id.txt_SDT);
+        Duong = findViewById(R.id.txt_PX);
+        DC = findViewById(R.id.txt_DC);
+
+        if(MaDC == null){
+            HaveDC.setVisibility(View.GONE);
+        }
+        else{
+            DontHaveDC.setVisibility(View.GONE);
+            GetSetDataDC();
+        }
+        if(myList != null){
+            if(myList[1] == null) NextProduct.setVisibility(View.INVISIBLE);
+        }
+
+
 
         getDataProduct();
 
@@ -147,7 +163,6 @@ public class BuyNow extends AppCompatActivity {
             public void onClick(View v) {
                 Intent t = new Intent(BuyNow.this, DoneActivity.class);
                 startActivity(t);
-
             }
         });
     }
@@ -177,14 +192,12 @@ public class BuyNow extends AppCompatActivity {
                                             Log.d("Errrrrrrrrrr", Anh.get(0));
                                             myData.add(new com.example.shoppingapp.customerview.shoppingcart.ShoppingCart(MaSP, MaGH, Anh.get(0), TenSP, GiaSP, SoLuong, GiaTien, Size, MauSac, check));
                                         }
-
                                         Picasso.get().load(myData.get(0).getDataImage()).into(imageProduct);
                                         TenSP.setText(myData.get(0).getTenSanPham());
                                         MauSac.setText(myData.get(0).getMauSac());
                                         KichThuoc.setText(myData.get(0).getSize());
                                         SoLuong.setText(String.valueOf("x"+myData.get(0).getSoLuong()));
                                         Price.setText(String.valueOf(myData.get(0).getGiaTien()));
-
                                     } else {
                                         Log.d("Error", "Error getting documents: ", task.getException());
                                     }
@@ -195,6 +208,32 @@ public class BuyNow extends AppCompatActivity {
         }catch (Exception e){
 
         }
-
+    }
+    private void GetSetDataDC(){
+        db.collection("DIACHI")
+                .whereEqualTo("MaDC", MaDC)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            list = new ArrayList<>();
+                            for (QueryDocumentSnapshot doc : task.getResult()) {
+                                String MaDC = doc.getString("MaDC");
+                                String Name = doc.getString("TenNguoiMua");
+                                String SDT = doc.getString("SoDT");
+                                String DiaChi = doc.getString("DiaChi");
+                                String DCDetails = doc.getString("PhuongXa") + ", "
+                                        + doc.getString("QuanHuyen") + ", "
+                                        + doc.getString("TinhThanhPho");
+                                list.add(new Address(MaDC, Name, SDT, DiaChi, DCDetails, false));
+                            }
+                            Ten.setText(list.get(0).getName());
+                            SDT.setText(list.get(0).getSdt());
+                            Duong.setText(list.get(0).getPhuongXa());
+                            DC.setText(list.get(0).getDiaChi());
+                        }
+                    }
+                });
     }
 }
