@@ -5,6 +5,7 @@ import static android.content.ContentValues.TAG;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -37,6 +38,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -73,6 +76,9 @@ public class DetailProductActivity extends AppCompatActivity {
     private TextView txtSeeReview;
     private String idGioHang = null;
     private List<Colors> mauSacs;
+    private ImageView heartIcon;
+    private Boolean yeuThich;
+    private String maYT;
 
 
     @SuppressLint("MissingInflatedId")
@@ -92,6 +98,7 @@ public class DetailProductActivity extends AppCompatActivity {
         viewpagerImage = findViewById(R.id.viewpagerImage);
         btnAddToCard = findViewById(R.id.btnAddToCard);
         txtSeeReview = findViewById(R.id.txtSeeReview);
+        heartIcon = findViewById(R.id.heartIcon);
 
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -119,12 +126,124 @@ public class DetailProductActivity extends AppCompatActivity {
         setAddToCard();
         setDialog();
         setBtnSeeReview();
+        getYeuThich();
+        setYeuThich();
 
         //txtProductNameDetail.setText(maSP);
 
 
 
         setOnClickBackICon();
+    }
+
+    private void setYeuThich() {
+
+        heartIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (yeuThich){
+                    Log.d("Heart", "1");
+                    firebaseFirestore.collection("YEUTHICH").document(maYT)
+                            .delete()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "Error deleting document", e);
+                                }
+                            });
+                }else{
+                    Log.d("Heart", "2");
+                    Map<String, Object> data = new HashMap<>();
+                    data.put("MaND", firebaseUser.getUid());
+                    data.put("MaSP", maSP);
+
+                    firebaseFirestore.collection("YEUTHICH")
+                            .add(data)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+                                    maYT = documentReference.getId();
+                                    DocumentReference updateRef = firebaseFirestore.collection("YEUTHICH").document(documentReference.getId());
+                                    updateRef
+                                            .update("MaYT", documentReference.getId())
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.w(TAG, "Error updating document", e);
+                                                }
+                                            });
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "Error adding document", e);
+                                }
+                            });
+                }
+            }
+        });
+
+//        Map<String, Object> data = new HashMap<>();
+//        data.put("MaND", firebaseUser.getUid());
+//        data.put("MaSP", maSP);
+//
+//        firebaseFirestore.collection("cities")
+//                .add(data)
+//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                    @Override
+//                    public void onSuccess(DocumentReference documentReference) {
+//                        Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Log.w(TAG, "Error adding document", e);
+//                    }
+//                });
+    }
+
+    private void getYeuThich() {
+
+        firebaseFirestore.collection("YEUTHICH")
+                .whereEqualTo("MaND", firebaseUser.getUid()).whereEqualTo("MaSP", maSP)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value,
+                                        @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Log.w(TAG, "Listen failed.", e);
+                            return;
+                        }
+
+                        if (value.size() > 0){
+                            heartIcon.setImageDrawable(getResources().getDrawable(R.drawable.heart_red));
+                            yeuThich = true;
+                            for (QueryDocumentSnapshot doc : value) {
+                                maYT = doc.getString("MaYT");
+                            }
+
+                        }else {
+                            heartIcon.setImageDrawable(getResources().getDrawable(R.drawable.heart));
+                            yeuThich = false;
+                        }
+
+                    }
+                });
     }
 
     private void setBtnSeeReview() {

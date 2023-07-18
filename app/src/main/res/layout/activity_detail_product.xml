@@ -46,10 +46,11 @@
                 android:id="@+id/heartIcon"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/heart"
+
                 android:layout_toLeftOf="@id/cartIcon"
                 android:layout_centerVertical="true"
                 />
+
 
             <ImageView
                 android:id="@+id/cartIcon"
