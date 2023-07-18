@@ -14,8 +14,8 @@ public class activity_add_new_promotions extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.screen_promotions);
-        btn_back = findViewById(R.id.imgbtn_back);
+        setContentView(R.layout.activity_add_promotions);
+        btn_back = findViewById(R.id.btn_back);
 
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override

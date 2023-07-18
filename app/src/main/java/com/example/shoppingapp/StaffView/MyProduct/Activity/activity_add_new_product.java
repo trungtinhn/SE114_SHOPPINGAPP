@@ -168,6 +168,9 @@ public class activity_add_new_product extends AppCompatActivity {
 
                 // Tạo một HashMap để lưu các thuộc tính của sản phẩm
                 Map<String, Object> product = new HashMap<>();
+                // Lấy ID của document và gán cho MaSP
+                String MaSP = productRef.getId();
+                product.put("MaSP", MaSP);
                 product.put("TenSP", TenSP);
                 product.put("MoTaSP", MoTaSP);
                 product.put("GiaSP", GiaSP);
