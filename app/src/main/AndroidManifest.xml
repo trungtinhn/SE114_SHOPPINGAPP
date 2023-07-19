@@ -17,9 +17,7 @@
             android:exported="false" />
         <activity
             android:name=".StaffView.activity.activity_chat_board"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".Login.EditProfile"
             android:enableOnBackInvokedCallback="true"
@@ -38,8 +36,7 @@
             android:exported="true" />
         <activity
             android:name=".customerview.BottomNavigationCustomActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".StaffView.activity.activity_click_staff_check"
             android:exported="true" />
@@ -48,7 +45,7 @@
             android:enableOnBackInvokedCallback="true"
             android:exported="true"
             android:label="@string/title_activity_login"
-            android:theme="@style/Theme.ShoppingApp.NoActionBar" >
+            android:theme="@style/Theme.ShoppingApp.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -118,34 +115,46 @@
             android:exported="true" />
         <activity
             android:name=".StaffView.activity.activity_chat"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".StaffView.activity.activity_List_Product_And_Item"
             android:exported="true" />
         <activity
             android:name=".StaffView.activity.activity_chartbar"
             android:exported="true" />
-        <activity android:name=".StaffView.MyProduct.Activity.activity_MyProduct"
-            android:exported="true"/>
-        <activity android:name=".StaffView.MyOrder.Activity.activity_MyOrder"
-            android:exported="true"/>
-        <activity android:name=".StaffView.Categories.Activity.activity_categories"
-            android:exported="true">
-        </activity>
-        <activity android:name=".StaffView.DetailProduct.Activity.activity_detail_product"
-            android:exported="true"/>
-        <activity android:name=".StaffView.Categories.Activity.activity_details_category"
-            android:exported="true"/>
-        <activity android:name=".StaffView.Categories.Activity.activity_add_new_category"
-            android:exported="true"/>
-        <activity android:name=".StaffView.Categories.Activity.activity_delete_categories"
-            android:exported="true"/>
-        <activity android:name=".StaffView.ViewShop.activity_viewshop"
-            android:exported="true"/>
-        <activity android:name=".Login.Successful"
-            android:exported="true"/>
-        <activity android:name=".StaffView.MyOrder.Activity.activity_details_order"
-            android:exported="true"/>
+        <activity
+            android:name=".StaffView.MyProduct.Activity.activity_MyProduct"
+            android:exported="true" />
+        <activity
+            android:name=".StaffView.MyOrder.Activity.activity_MyOrder"
+            android:exported="true" />
+        <activity
+            android:name=".StaffView.Categories.Activity.activity_categories"
+            android:exported="true"></activity>
+        <activity
+            android:name=".StaffView.DetailProduct.Activity.activity_detail_product"
+            android:exported="true" />
+        <activity
+            android:name=".StaffView.Categories.Activity.activity_details_category"
+            android:exported="true" />
+        <activity
+            android:name=".StaffView.Categories.Activity.activity_add_new_category"
+            android:exported="true" />
+        <activity
+            android:name=".StaffView.Categories.Activity.activity_delete_categories"
+            android:exported="true" />
+        <activity android:name=".customerview.activity.PromotionActivity"
+            android:exported="true"
+            />
+        <activity
+            android:name=".StaffView.ViewShop.activity_viewshop"
+            android:exported="true" />
+        <activity
+            android:name=".Login.Successful"
+            android:exported="true" />
+        <activity
+            android:name=".StaffView.MyOrder.Activity.activity_details_order"
+            android:exported="true" />
     </application>
 
 </manifest>
