@@ -3,7 +3,6 @@
     android:orientation="horizontal"
     android:layout_marginTop="10dp"
     android:layout_width="350dp"
-    android:background="@drawable/background_product_sliver"
     android:gravity="center_vertical"
     android:layout_height="wrap_content">
     <RadioButton
@@ -11,10 +10,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <LinearLayout
+        android:background="@drawable/background_product_sliver"
         android:orientation="vertical"
-        android:layout_width="250dp"
+        android:layout_width="280dp"
         android:layout_height="wrap_content">
         <LinearLayout
+            android:layout_marginLeft="15dp"
             android:layout_width="wrap_content"
             android:orientation="horizontal"
             android:layout_height="wrap_content">
@@ -47,17 +48,20 @@
 
         <TextView
             android:id="@+id/txt_DC"
+            android:layout_marginLeft="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="TrungTinh"
             android:textSize="16sp" />
         <TextView
+            android:layout_marginLeft="15dp"
             android:id="@+id/txt_PX"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="Dinh Bo Linh"
+            android:layout_marginBottom="10dp"
             android:textSize="16sp" />
     </LinearLayout>
 

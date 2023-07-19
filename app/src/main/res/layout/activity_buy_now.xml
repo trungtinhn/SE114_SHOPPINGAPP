@@ -130,8 +130,8 @@
     <LinearLayout
         android:id="@+id/layout_not_promotion"
         android:layout_width="match_parent"
+        android:orientation="horizontal"
         android:layout_height="60dp">
-
         <TextView
             android:id="@+id/txt_giagia"
             android:layout_width="308dp"
@@ -147,18 +147,96 @@
             android:layout_weight="1"/>
 
     </LinearLayout>
+
     <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
         android:id="@+id/layout_promotion"
-        android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:gravity="center_vertical"
+        android:layout_height="90dp">
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:background="@drawable/background_categories"
+            android:layout_width="320dp"
+            android:layout_height="90dp">
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imagePromotion"
+                android:layout_width="70dp"
+                android:layout_marginLeft="10dp"
+                android:layout_height="70dp"
+                android:contentDescription="productcard"
+                android:scaleType="fitCenter"
+                android:src="@drawable/mauaodep"
+                app:shapeAppearanceOverlay="@style/roundimageview" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_height="wrap_content">
 
+                <TextView
+                    android:id="@+id/txtNamePromotion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Chương Trình Khuyến Mãi Lớn Nhất Năm"
+                    android:textColor="@color/black"
+                    android:textSize="12dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtDetailsPromotion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Giảm 15%"
+                    android:textColor="@color/black"
+                    android:textSize="13dp"
+                    android:textStyle="bold" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/txtStartPromotion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="18/07/2023"
+                        android:textColor="@color/black"
+                        android:textSize="15dp"
+                        android:textStyle="italic" />
+                    <TextView
+                        android:layout_marginLeft="2dp"
+                        android:layout_width="wrap_content"
+                        android:text="-"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/txtEndPromotion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:gravity="center"
+                        android:text="01/08/2023"
+                        android:textColor="@color/black"
+                        android:textSize="15dp"
+                        android:textStyle="italic" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
         <CheckBox
-            android:id="@+id/checkbox_voucher1"
+            android:id="@+id/checkBox_payment12"
             android:layout_width="match_parent"
+            android:checked="true"
+            android:enabled="false"
             android:layout_height="match_parent"
-            android:layout_weight="1"/>
-
+            android:layout_weight="1" />
     </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -221,7 +299,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/address" />
         <LinearLayout
-            android:background="@drawable/background_product_sliver"
+            android:background="@drawable/background_categories"
             android:orientation="vertical"
             android:layout_width="250dp"
             android:layout_margin="10dp"
@@ -347,6 +425,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Order Info"
+            android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -365,6 +444,28 @@
 
             <TextView
                 android:id="@+id/subtotal_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="20dp"
+                android:text="0"
+                android:textAlignment="textEnd"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Discount"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/discount_text"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginRight="20dp"
@@ -419,6 +520,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
         </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout

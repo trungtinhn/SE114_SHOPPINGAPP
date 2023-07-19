@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.customerview.shoppingcart.Address;
@@ -56,7 +57,10 @@ public class SaveAddress extends AppCompatActivity {
                 myList = intent.getStringArrayExtra("ListMaGH");
             }
             if(intent.getStringExtra("MaGG") != null){
-                MaGG = intent.getStringExtra(MaGG);
+                MaGG = intent.getStringExtra("MaGG");
+            }
+            if(intent.getStringExtra("MaDC") != null){
+                MaDC = intent.getStringExtra("MaDC");
             }
         }
         auth = FirebaseAuth.getInstance();
@@ -91,6 +95,9 @@ public class SaveAddress extends AppCompatActivity {
                 if(MaGG!=null){
                     t.putExtra("MaGG", MaGG);
                 }
+                if(MaDC!=null){
+                    t.putExtra("MaDC", MaDC );
+                }
                 startActivity(t);
             }
         });
@@ -109,8 +116,11 @@ public class SaveAddress extends AppCompatActivity {
                 }
                 if(MaDC!=null){
                     t.putExtra("MaDC", MaDC );
+                    startActivity(t);
                 }
-                startActivity(t);
+                else{
+                    Toast.makeText(SaveAddress.this, "Please choose One Address", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
