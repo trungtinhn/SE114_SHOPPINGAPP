@@ -59,6 +59,9 @@ public class SaveAddress extends AppCompatActivity {
             if(intent.getStringExtra("MaGG") != null){
                 MaGG = intent.getStringExtra("MaGG");
             }
+            if(intent.getStringExtra("MaDC") != null){
+                MaDC = intent.getStringExtra("MaDC");
+            }
         }
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();

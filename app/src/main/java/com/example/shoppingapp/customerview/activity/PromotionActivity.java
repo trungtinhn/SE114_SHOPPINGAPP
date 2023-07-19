@@ -63,6 +63,9 @@ public class PromotionActivity extends AppCompatActivity {
             if(intent.getStringExtra("MaDC") != null){
                 MaDC = intent.getStringExtra("MaDC");
             }
+            if(intent.getStringExtra("MaGG") != null){
+                MaGG = intent.getStringExtra("MaGG");
+            }
         }
 
         db = FirebaseFirestore.getInstance();

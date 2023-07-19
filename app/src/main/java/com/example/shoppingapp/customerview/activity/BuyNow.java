@@ -24,6 +24,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -35,15 +37,19 @@ import com.squareup.picasso.Picasso;
 import java.security.spec.ECField;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class BuyNow extends AppCompatActivity {
+    Integer TienTamTinh, GiamGia, VanChuyen, TongTien;
     Timestamp NgayBD1;
     Timestamp NgayKT1;
     List<Promotion> promotionList;
 
     List<Address> list;
     FirebaseFirestore db;
+    FirebaseAuth firebaseAuth;
     ImageView backbtn;
     String MaDC;
     String LoaiKhuyenMai;
@@ -86,6 +92,7 @@ public class BuyNow extends AppCompatActivity {
             }
         }
         db = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
         super.onCreate(savedInstanceState);
         //
         setContentView(R.layout.activity_buy_now);
@@ -205,8 +212,15 @@ public class BuyNow extends AppCompatActivity {
         CheckOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent t = new Intent(BuyNow.this, DoneActivity.class);
-                startActivity(t);
+//                if(MaDC == null && MaGG == null){
+//                    AddDatHang();
+//                    Intent t = new Intent(BuyNow.this, DoneActivity.class);
+//                    startActivity(t);
+//                }
+//                else{
+//
+//                }
+
             }
         });
     }
@@ -321,12 +335,20 @@ public class BuyNow extends AppCompatActivity {
             if( comparison1 > 0 && comparison2 < 0 && Sum >= DonToiThieuGia){
                 switch (LoaiKhuyenMai){
                     case "MienPhiVanChuyen":
+                        TienTamTinh = Sum;
+                        GiamGia = 0;
+                        VanChuyen = 0;
+                        TongTien = Sum;
                         Subtotal.setText(String.valueOf(Sum));
                         Discount.setText("0");
                         Delivery.setText("0");
                         Total.setText(String.valueOf(Sum));
                         break;
                     case "GiamGia":
+                        TienTamTinh = Sum;
+                        GiamGia =  Math.round(Sum*TiLeKM.intValue());
+                        VanChuyen = 20000;
+                        TongTien = Math.round(Sum - Sum*TiLeKM.intValue() + 20000);
                         Subtotal.setText(String.valueOf(Sum));
                         Discount.setText("-"+String.valueOf(Math.round(Sum*TiLeKM)));
                         Delivery.setText("20000");
@@ -344,6 +366,10 @@ public class BuyNow extends AppCompatActivity {
             Sum += myData.get(i).getGiaTien();
         }
         if(MaGG == null){
+            TienTamTinh = Sum;
+            GiamGia = 0;
+            VanChuyen = 20000;
+            TongTien = Sum + 20000;
             Subtotal.setText(String.valueOf(Sum));
             Discount.setText("0");
             Delivery.setText("20000");
@@ -384,6 +410,61 @@ public class BuyNow extends AppCompatActivity {
                         });
             }
         }catch (Exception e){
+
+        }
+
+    }
+    private void AddDatHang(){
+        Date currentTime = new Date();
+        Map<String, Object> donHangData = new HashMap<>();
+        donHangData.put("MaDC", MaDC);
+        donHangData.put("MaND", firebaseAuth.getCurrentUser().getUid());
+        donHangData.put("MaKM", MaGG);
+        donHangData.put("NgayDatHang", new Timestamp(currentTime));
+        donHangData.put("PhiVanChuyen", 20000);
+        donHangData.put("TenNguoiMua", list.get(0).getName());
+        donHangData.put("SDT", list.get(0).getSdt());
+        donHangData.put("TamTinh", TienTamTinh);
+        donHangData.put("GiamGia", GiamGia);
+        donHangData.put("TongTien", TongTien);
+        donHangData.put("PhuongThucTT", "CashPayment");
+        donHangData.put("TrangThai", "Confirm");
+
+        db.collection("DONHANG")
+                .add(donHangData)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        documentReference.update("MaDH", documentReference.getId());
+                        AddDatHang(documentReference.getId());
+                    }
+                });
+    }
+    private void AddDatHang(String MaDH){
+        for(int i = 0; i < myData.size(); i++){
+            Map<String, Object> datHangData = new HashMap<>();
+            datHangData.put("MaDH", MaDH);
+            datHangData.put("MaSP", myData.get(i).getMaSP());
+            datHangData.put("MauSac", myData.get(i).getMauSac());
+            datHangData.put("Size", myData.get(0).getSize());
+            datHangData.put("SoLuong", myData.get(0).getSoLuong());
+            datHangData.put("ThanhTien", myData.get(0).getGiaTien());
+            db.collection("DATHANG")
+                    .add(datHangData)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+
+                        }
+                    });
+            DocumentReference docRef = db.collection("GIOHANG").document(myData.get(0).getMaGH());
+            docRef.delete()
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d("Sucess", "Data deleted successfully");
+                        }
+                    });
 
         }
 
