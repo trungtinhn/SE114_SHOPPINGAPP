@@ -1,6 +1,7 @@
 package com.example.shoppingapp.customerview.promotion;
 
-import java.sql.Timestamp;
+
+import com.google.firebase.Timestamp;
 
 public class Promotion {
     private String MaKM;
@@ -12,8 +13,9 @@ public class Promotion {
     private String LoaiGiamGia;
     private Timestamp NgayBatDau;
     private Timestamp NgayKetThuc;
+    private boolean Check;
 
-    public Promotion(String maKM, String tenKM, Double tiLe, String hinhAnhKM, String chiTietKM, Integer donToiThieu, String loaiGiamGia, Timestamp ngayBatDau, Timestamp ngayKetThuc) {
+    public Promotion(String maKM, String tenKM, Double tiLe, String hinhAnhKM, String chiTietKM, Integer donToiThieu, String loaiGiamGia, Timestamp ngayBatDau, Timestamp ngayKetThuc, Boolean check) {
         MaKM = maKM;
         TenKM = tenKM;
         TiLe = tiLe;
@@ -23,6 +25,7 @@ public class Promotion {
         LoaiGiamGia = loaiGiamGia;
         NgayBatDau = ngayBatDau;
         NgayKetThuc = ngayKetThuc;
+        Check = check;
     }
 
 
@@ -96,5 +99,13 @@ public class Promotion {
 
     public void setNgayKetThuc(Timestamp ngayKetThuc) {
         NgayKetThuc = ngayKetThuc;
+    }
+
+    public boolean isCheck() {
+        return Check;
+    }
+
+    public void setCheck(boolean check) {
+        Check = check;
     }
 }
