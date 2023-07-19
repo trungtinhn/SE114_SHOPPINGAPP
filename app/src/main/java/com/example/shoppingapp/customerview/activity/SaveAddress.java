@@ -92,6 +92,9 @@ public class SaveAddress extends AppCompatActivity {
                 if(MaGG!=null){
                     t.putExtra("MaGG", MaGG);
                 }
+                if(MaDC!=null){
+                    t.putExtra("MaDC", MaDC );
+                }
                 startActivity(t);
             }
         });

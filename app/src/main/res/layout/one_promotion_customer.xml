@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="400dp"
+    android:layout_width="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="10dp"
     android:orientation="horizontal"
     android:id="@+id/layout"
     android:gravity="center_vertical"
-    android:layout_height="150dp">
-    <CheckBox
+    android:layout_height="130dp">
+    <RadioButton
         android:id="@+id/Check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
@@ -15,14 +15,14 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:background="@drawable/background_categories"
-        android:layout_width="wrap_content"
+        android:layout_width="350dp"
         android:layout_height="wrap_content">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imagePromotion"
-            android:layout_width="120dp"
+            android:layout_width="100dp"
             android:layout_marginLeft="10dp"
-            android:layout_height="130dp"
+            android:layout_height="100dp"
             android:contentDescription="productcard"
             android:scaleType="fitCenter"
             android:src="@drawable/mauaodep"
@@ -31,6 +31,7 @@
             android:orientation="vertical"
             android:gravity="center_horizontal"
             android:layout_width="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/txtNamePromotion"

@@ -3,6 +3,9 @@ package com.example.shoppingapp.customerview.promotion;
 
 import com.google.firebase.Timestamp;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Promotion {
     private String MaKM;
     private String TenKM;
@@ -85,16 +88,23 @@ public class Promotion {
         LoaiGiamGia = loaiGiamGia;
     }
 
-    public Timestamp getNgayBatDau() {
-        return NgayBatDau;
+    public String getNgayBatDau() {
+        Date date = NgayBatDau.toDate();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // Định dạng ngày tháng
+        String formattedDate = sdf.format(date);
+        return formattedDate;
     }
 
     public void setNgayBatDau(Timestamp ngayBatDau) {
         NgayBatDau = ngayBatDau;
     }
 
-    public Timestamp getNgayKetThuc() {
-        return NgayKetThuc;
+    public String getNgayKetThuc() {
+
+        Date date = NgayKetThuc.toDate();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // Định dạng ngày tháng
+        String formattedDate = sdf.format(date);
+        return formattedDate;
     }
 
     public void setNgayKetThuc(Timestamp ngayKetThuc) {

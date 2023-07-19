@@ -2,6 +2,7 @@ package com.example.shoppingapp.customerview.activity;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +51,9 @@ public class PromotionActivity extends AppCompatActivity {
         btn_done = findViewById(R.id.btn_save);
         recyclerView = findViewById(R.id.rcyPromotion);
 
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
         Intent intent = getIntent();
         if(intent != null){
             if(intent.getStringArrayExtra("ListMaGH")!=null){
@@ -73,6 +78,9 @@ public class PromotionActivity extends AppCompatActivity {
                 if(MaDC!=null){
                     t.putExtra("MaDC", MaDC);
                 }
+                if(MaGG!=null){
+                    t.putExtra("MaGG", MaGG );
+                }
                 startActivity(t);
             }
         });
@@ -87,11 +95,12 @@ public class PromotionActivity extends AppCompatActivity {
                 Intent t = new Intent(PromotionActivity.this, BuyNow.class);
                 t.putExtra("ListMaGH", myList);
                 if(MaDC!=null){
-                    t.putExtra("MaGG", MaDC);
+                    t.putExtra("MaDC", MaDC);
                 }
                 if(MaGG!=null){
-                    t.putExtra("MaDC", MaGG );
+                    t.putExtra("MaGG", MaGG );
                 }
+                Log.d("ErrrrrrrrrrrrrrrrrJdrotiuuuuuuuuuuu", MaGG);
                 startActivity(t);
             }
         });

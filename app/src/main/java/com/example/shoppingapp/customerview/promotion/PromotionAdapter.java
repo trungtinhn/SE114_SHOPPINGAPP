@@ -53,9 +53,18 @@ public class PromotionAdapter extends RecyclerView.Adapter<PromotionAdapter.Prom
         Picasso.get().load(promotion.getHinhAnhKM()).into(holder.imageView);
         holder.TenKM.setText(promotion.getTenKM());
         holder.DonToiThieu.setText(String.valueOf(promotion.getDonToiThieu()));
-        holder.NgayBD.setText(String.valueOf(promotion.getNgayBatDau().toString()));
-        holder.NgayKT.setText(String.valueOf(promotion.getNgayKetThuc().toString()));
+        holder.NgayBD.setText(promotion.getNgayBatDau());
+        holder.NgayKT.setText(promotion.getNgayKetThuc());
+        holder.check.setChecked(promotion.isCheck());
 
+        holder.check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(checkClick != null){
+                    checkClick.onCheckedChange(holder.getLayoutPosition());
+                }
+            }
+        });
 
     }
 
@@ -73,7 +82,7 @@ public class PromotionAdapter extends RecyclerView.Adapter<PromotionAdapter.Prom
         TextView TenKM;
         TextView NgayBD;
         TextView NgayKT;
-        CheckBox check;
+        RadioButton check;
         public PromotionViewHolder(@NonNull View view){
             super(view);
             imageView = view.findViewById(R.id.imagePromotion);
