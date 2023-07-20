@@ -78,6 +78,16 @@ public class PromotionStaff {
 
     private String TenKM, ChiTietKM, LoaiKhuyenMai, HinhAnhKM, MaKM;
     private long DonToiThieu;
+
+    public Boolean getSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(Boolean selected) {
+        isSelected = selected;
+    }
+
+    private Boolean isSelected;
     private  double TiLe;
     private Timestamp NgayBatDau, NgayKetThuc;
     public PromotionStaff(String tenKM, String chiTietKM, String loaiKhuyenMai, String hinhAnhKM, String maKM,
@@ -91,6 +101,19 @@ public class PromotionStaff {
         this.TiLe = tiLe;
         this.NgayBatDau = ngayBatDau;
         this.NgayKetThuc = ngayKetThuc;
+    }
+    public PromotionStaff(String tenKM, String chiTietKM, String loaiKhuyenMai, String hinhAnhKM, String maKM,
+                          long donToiThieu, double tiLe, Timestamp ngayBatDau, Timestamp ngayKetThuc, boolean isSelected){
+        this.ChiTietKM=  chiTietKM;
+        this.HinhAnhKM= hinhAnhKM;
+        this.TenKM = tenKM;
+        this.LoaiKhuyenMai = loaiKhuyenMai;
+        this.MaKM = maKM;
+        this.DonToiThieu = donToiThieu;
+        this.TiLe = tiLe;
+        this.NgayBatDau = ngayBatDau;
+        this.NgayKetThuc = ngayKetThuc;
+        this.isSelected = isSelected;
     }
 
 }

@@ -23,7 +23,7 @@ import java.util.List;
 
 public class activity_promotions extends AppCompatActivity {
     private ImageButton btn_back;
-    private Button btn_add_new;
+    private Button btn_add_new, btn_delete;
     private List<PromotionStaff> promotionList;
     private RecyclerView recyclerView;
     private PromotionAdapterStaff adapter;
@@ -38,10 +38,18 @@ public class activity_promotions extends AppCompatActivity {
         adapter = new PromotionAdapterStaff(promotionList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+        btn_delete = findViewById(R.id.btn_delete_promotion);
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(activity_promotions.this, home_page.class);
+                startActivity(intent);
+            }
+        });
+        btn_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity_promotions.this, activity_delete_promotion.class);
                 startActivity(intent);
             }
         });

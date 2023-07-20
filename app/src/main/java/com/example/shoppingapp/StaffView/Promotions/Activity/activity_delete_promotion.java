@@ -1,0 +1,118 @@
+package com.example.shoppingapp.StaffView.Promotions.Activity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.shoppingapp.R;
+import com.example.shoppingapp.StaffView.Promotions.Adapter.PromotionDeleteAdapterStaff;
+import com.example.shoppingapp.StaffView.Promotions.PromotionStaff;
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class activity_delete_promotion extends AppCompatActivity {
+    private ImageButton btn_back;
+    private Button btn_delete_promotion;
+    private List<PromotionStaff> promotionList;
+    private RecyclerView recyclerView;
+    private PromotionDeleteAdapterStaff adapter;
+    private FirebaseFirestore firestore;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.screen_delete_promotion);
+        btn_back = findViewById(R.id.imgbtn_back_delete);
+        recyclerView = findViewById(R.id.RCV_promotions_delete);
+        promotionList = new ArrayList<>();
+        adapter = new PromotionDeleteAdapterStaff(promotionList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+        firestore = FirebaseFirestore.getInstance();
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity_delete_promotion.this,activity_promotions.class);
+                startActivity(intent);
+            }
+        });
+        btn_delete_promotion = findViewById(R.id.btn_delete_promotion);
+        btn_delete_promotion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<PromotionStaff> selectedCategories = adapter.getSelectedCategories();
+                if (selectedCategories.isEmpty()) {
+                    Toast.makeText(activity_delete_promotion.this, "No categories selected", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                for (PromotionStaff categoryItem : selectedCategories) {
+                    deletePromotion(categoryItem);
+                }
+            }
+        });
+        // Lấy danh mục từ Firestore và cập nhật danh sách
+        FirebaseFirestore.getInstance().collection("KHUYENMAI")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            String hinhAnhKM = document.getString("HinhAnhKM");
+                            String ChitietKM = document.getString("ChiTietKM");
+                            String tenKM = document.getString("TenKM");
+                            String loaiKhuyenMai = document.getString("LoaiKhuyenMai");
+                            String maKM = document.getString("MaKM");
+                            long donToiThieu = document.getLong("DonToiThieu");
+                            double tiLe = document.getDouble("TiLe");
+                            Timestamp ngayBatDau = document.getTimestamp("NgayBatDau");
+                            Timestamp ngayKetThuc = document.getTimestamp("NgayKetThuc");
+                            Boolean check = false;
+                            PromotionStaff promotion = new PromotionStaff(tenKM, ChitietKM, loaiKhuyenMai, hinhAnhKM, maKM, donToiThieu, tiLe, ngayBatDau, ngayKetThuc, check);
+                            promotionList.add(promotion);
+                        }
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+
+
+
+    }
+    private void deletePromotion(PromotionStaff categoryItem) {
+        boolean check = categoryItem.getSelected();
+
+        if (check) {
+            String tenDMToDelete = categoryItem.getTenKM();
+
+            firestore.collection("KHUYENMAI")
+                    .whereEqualTo("TenKM", tenDMToDelete)
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                document.getReference().delete();
+                            }
+                            Toast.makeText(activity_delete_promotion.this, "Promotion deleted successfully", Toast.LENGTH_SHORT).show();
+                            adapter.notifyDataSetChanged();
+                            Intent intent = new Intent(activity_delete_promotion.this, activity_promotions.class);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(activity_delete_promotion.this, "Failed to delete category", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        } else {
+            Toast.makeText(activity_delete_promotion.this, "Cannot delete category with products, because this category have more than 2 products", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+}

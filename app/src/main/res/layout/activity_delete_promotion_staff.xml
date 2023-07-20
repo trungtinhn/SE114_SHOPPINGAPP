@@ -37,11 +37,11 @@
                 android:layout_marginTop="10dp"
                 android:elevation="200dp"
                 android:src="@drawable/anh1"
-                android:id="@+id/hinhanh_promotion"
+                android:id="@+id/hinhanh_promotion_delete"
                 app:cardCornerRadius="10dp"></ImageView>
 
             <TextView
-                android:id="@+id/chitietKhuyenmai"
+                android:id="@+id/chitietKhuyenmai_delete"
                 style="@style/Heading1"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
                 android:textColor="@color/black"></TextView>
 
             <TextView
-                android:id="@+id/tenKhuyenmai"
+                android:id="@+id/tenKhuyenmai_delete"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="150dp"
@@ -77,7 +77,7 @@
                     android:textColor="@color/black" />
 
                 <TextView
-                    android:id="@+id/Ngaybatdau"
+                    android:id="@+id/Ngaybatdau_delete"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="50dp"
@@ -102,7 +102,7 @@
                     android:textColor="@color/black" />
 
                 <TextView
-                    android:id="@+id/Ngayketthuc"
+                    android:id="@+id/Ngayketthuc_delete"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="70dp"
@@ -135,7 +135,14 @@
                 android:elevation="5dp" />
 
         </androidx.cardview.widget.CardView>
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:id="@+id/check_box_promotion"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="320dp"
+            android:layout_marginTop="100dp"
 
+            android:elevation="100dp"></CheckBox>
 
     </FrameLayout>
 
@@ -155,7 +162,7 @@
             android:text="Loai khuyen mai: " />
 
         <TextView
-            android:id="@+id/loaiKM"
+            android:id="@+id/loaiKM_delete"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="110dp"
@@ -181,7 +188,7 @@
             android:text="Available for orders minimum value:" />
 
         <TextView
-            android:id="@+id/miniOrder"
+            android:id="@+id/miniOrder_delete"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="130dp"

@@ -3,6 +3,8 @@ package com.example.shoppingapp.StaffView.Promotions.Adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,21 +16,32 @@ import com.example.shoppingapp.R;
 import com.example.shoppingapp.StaffView.Promotions.PromotionStaff;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class PromotionAdapterStaff extends RecyclerView.Adapter<PromotionAdapterStaff.PromotionViewHolder> {
+public class PromotionDeleteAdapterStaff extends RecyclerView.Adapter<PromotionDeleteAdapterStaff.PromotionViewHolder> {
     private List<PromotionStaff> promotionList;
 
-    public PromotionAdapterStaff(List<PromotionStaff> promotionList) {
+
+    public List<PromotionStaff> getSelectedCategories() {
+        List<PromotionStaff> selectedCategories = new ArrayList<>();
+        for (PromotionStaff categoryItem : promotionList) {
+            if (categoryItem.getSelected()) {
+                selectedCategories.add(categoryItem);
+            }
+        }
+        return selectedCategories;
+    }
+    public PromotionDeleteAdapterStaff(List<PromotionStaff> promotionList) {
         this.promotionList = promotionList;
     }
 
     @NonNull
     @Override
     public PromotionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_staff_promotion, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_delete_promotion_staff, parent, false);
         return new PromotionViewHolder(view);
     }
 
@@ -38,6 +51,12 @@ public class PromotionAdapterStaff extends RecyclerView.Adapter<PromotionAdapter
         holder.titleTextView.setText(promotion.getChiTietKM());
         holder.descriptionTextView.setText(promotion.getTenKM());
         holder.LoaiKM.setText(promotion.getLoaiKhuyenMai());
+        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                promotion.setSelected(isChecked);
+            }
+        });
         holder.dontoithieu.setText(String.valueOf(promotion.getDonToiThieu()) );
         // Chuyển đổi Timestamp thành Date
         Date startDate = promotion.getNgayBatDau().toDate();
@@ -74,15 +93,17 @@ public class PromotionAdapterStaff extends RecyclerView.Adapter<PromotionAdapter
         private TextView startDay, endDay;
         private TextView dontoithieu;
         private TextView LoaiKM;
+        private CheckBox checkBox;
         PromotionViewHolder(@NonNull View itemView) {
             super(itemView);
-            titleTextView = itemView.findViewById(R.id.chitietKhuyenmai);
-            descriptionTextView = itemView.findViewById(R.id.tenKhuyenmai);
-            pic_promotion=itemView.findViewById(R.id.hinhanh_promotion);
-            LoaiKM = itemView.findViewById(R.id.loaiKM);
-            dontoithieu = itemView.findViewById(R.id.miniOrder);
-            startDay = itemView.findViewById(R.id.Ngaybatdau);
-            endDay = itemView.findViewById(R.id.Ngayketthuc);
+            titleTextView = itemView.findViewById(R.id.chitietKhuyenmai_delete);
+            descriptionTextView = itemView.findViewById(R.id.tenKhuyenmai_delete);
+            pic_promotion=itemView.findViewById(R.id.hinhanh_promotion_delete);
+            LoaiKM = itemView.findViewById(R.id.loaiKM_delete);
+            dontoithieu = itemView.findViewById(R.id.miniOrder_delete);
+            startDay = itemView.findViewById(R.id.Ngaybatdau_delete);
+            endDay = itemView.findViewById(R.id.Ngayketthuc_delete);
+            checkBox = itemView.findViewById(R.id.check_box_promotion);
         }
     }
 }
