@@ -358,6 +358,14 @@ public class BuyNow extends AppCompatActivity {
             }
             else {
                 Toast.makeText(BuyNow.this, "Không thể áp dụng chương trình khuyến mãi", Toast.LENGTH_LONG).show();
+                TienTamTinh = Sum;
+                GiamGia = 0;
+                VanChuyen = 20000;
+                TongTien = Sum + 20000;
+                Subtotal.setText(String.valueOf(Sum));
+                Discount.setText("0");
+                Delivery.setText("20000");
+                Total.setText(String.valueOf(Sum + 20000));
             }
     }
     private void updatePriceNotKM(){

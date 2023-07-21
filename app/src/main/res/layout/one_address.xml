@@ -12,7 +12,7 @@
     <LinearLayout
         android:background="@drawable/background_product_sliver"
         android:orientation="vertical"
-        android:layout_width="280dp"
+        android:layout_width="260dp"
         android:layout_height="wrap_content">
         <LinearLayout
             android:layout_marginLeft="15dp"
