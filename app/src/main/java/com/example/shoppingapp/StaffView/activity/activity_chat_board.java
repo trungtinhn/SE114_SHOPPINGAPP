@@ -1,14 +1,18 @@
 package com.example.shoppingapp.StaffView.activity;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.shoppingapp.R;
-import com.example.shoppingapp.StaffView.adapter.adapter_chat_board;
+import com.example.shoppingapp.StaffView.Home.home_page;
+import com.example.shoppingapp.StaffView.adapter.adapter_chat_board_staff;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,8 +22,9 @@ public class activity_chat_board extends AppCompatActivity {
     TabLayout tabLayout;
     TabItem mchat,mcall,mstatus;
     ViewPager viewPager;
-    adapter_chat_board adapterchatboard;
+    adapter_chat_board_staff adapterchatboard;
     androidx.appcompat.widget.Toolbar mtoolbar;
+    Button btn_back;
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore;
 
@@ -44,8 +49,17 @@ public class activity_chat_board extends AppCompatActivity {
         mtoolbar.setOverflowIcon(drawable);
 
 
-        adapterchatboard =new adapter_chat_board(getSupportFragmentManager(),tabLayout.getTabCount());
+        adapterchatboard =new adapter_chat_board_staff(getSupportFragmentManager(),tabLayout.getTabCount(),this);
         viewPager.setAdapter(adapterchatboard);
+
+        btn_back = findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(activity_chat_board.this, home_page.class);
+                startActivity(intent);
+            }
+        });
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

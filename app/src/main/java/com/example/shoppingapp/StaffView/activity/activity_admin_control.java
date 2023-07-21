@@ -28,20 +28,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.shoppingapp.Login.User;
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.StaffView.adapter.adapter_admin_control;
-import com.example.shoppingapp.StaffView.item.admin_object;
 import com.example.shoppingapp.itf_RCV_list_item;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.StorageReference;
-
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
 
@@ -55,8 +55,9 @@ public class activity_admin_control extends AppCompatActivity implements itf_RCV
 
     RecyclerView RCV;
     Button btn_add;
-    ArrayList<admin_object> AdminList;
+    ArrayList<User> AdminList;
     adapter_admin_control adapterAdmin;
+    private FirebaseAuth firebaseAuth;
     SearchView searchView;
     FirebaseFirestore db;
     StorageReference storageReference;
@@ -67,6 +68,7 @@ public class activity_admin_control extends AppCompatActivity implements itf_RCV
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_staff_admin_control);
+        firebaseAuth = FirebaseAuth.getInstance();
 
         //setupAdminList();
 
@@ -90,7 +92,6 @@ public class activity_admin_control extends AppCompatActivity implements itf_RCV
             @Override
             public void onClick(View view) {
                 EventAdd();
-
             }
         });
         EventInitListener();
@@ -229,16 +230,16 @@ public class activity_admin_control extends AppCompatActivity implements itf_RCV
     private void EventInitListener() {
         progressDialog.setTitle("Loading data...");
         progressDialog.show();
-        db.collection("ADMIN").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("NGUOIDUNG").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 progressDialog.dismiss();
                 AdminList.clear();
                 for(DocumentSnapshot d : task.getResult())
                 {
-                    admin_object object = d.toObject(admin_object.class);
-                    object.setKey(d.getId());
-                    AdminList.add(object);
+                    User object = d.toObject(User.class);
+                    //object.setKey(d.getId());
+                    if(!object.getFullName().equals(firebaseAuth.getUid())) AdminList.add(object);
                     admin_count++;
                     adapterAdmin.notifyDataSetChanged();
                     if(progressDialog.isShowing())
@@ -260,8 +261,8 @@ public class activity_admin_control extends AppCompatActivity implements itf_RCV
     @Override
     public void onClick(int position) {
         Intent intent = new Intent(activity_admin_control.this, activity_admin_detail.class);
-        admin_object object = AdminList.get(position);
-        intent.putExtra("Data", object);
+        User object = AdminList.get(position);
+        intent.putExtra("Data", (CharSequence) object);
         intent.putExtra("Position", position);
         Bundle args = new Bundle();
         args.putSerializable("ArrayList",(Serializable) AdminList);

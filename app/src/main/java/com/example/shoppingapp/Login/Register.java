@@ -149,7 +149,7 @@ public class Register extends AppCompatActivity {
         String avatar = null;
         String diachi = null;
         String gioitinh = null;
-        String status = "onl";
+        String status = "Online";
         String userID;
         email = emailTextView.getText().toString();
         password = passwordTextView.getText().toString();
@@ -186,7 +186,8 @@ public class Register extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             FirebaseUser firebaseUser = mAuth.getCurrentUser();
                             String userID = task.getResult().getUser().getUid();
-                            User user = new User(fullname, email, dayofbirth,phonenumber, userID, avatar, diachi, gioitinh, status);
+                            User user = new User(fullname, email, dayofbirth,phonenumber, userID, avatar,
+                                    diachi, gioitinh, status,"customer");
                             FirebaseFirestore db = FirebaseFirestore.getInstance();
                             CollectionReference usersCollection = db.collection("NGUOIDUNG");
 

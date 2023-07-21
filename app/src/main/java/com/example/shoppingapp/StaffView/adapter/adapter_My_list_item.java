@@ -32,7 +32,6 @@ public class adapter_My_list_item extends RecyclerView.Adapter<adapter_My_list_i
         this.arrayList = arrayList;
         this.activity = activity;
 
-
     }
 
     @NonNull
@@ -58,8 +57,6 @@ public class adapter_My_list_item extends RecyclerView.Adapter<adapter_My_list_i
                 fragment_detail_list_item fragment = new fragment_detail_list_item(product);
                 act.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_view_item,
                         fragment).addToBackStack(null).commit();
-
-               // listener.onClick(product);
             }
         });
 

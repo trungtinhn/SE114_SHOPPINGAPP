@@ -13,8 +13,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.shoppingapp.Login.User;
 import com.example.shoppingapp.R;
-import com.example.shoppingapp.StaffView.item.admin_object;
 import com.example.shoppingapp.itf_RCV_list_item;
 
 import java.util.ArrayList;
@@ -22,9 +22,9 @@ import java.util.ArrayList;
 public class adapter_admin_control extends RecyclerView.Adapter<adapter_admin_control.list_admin_holder> implements Filterable {
     private itf_RCV_list_item itf_rcv_list_item;
     Context context;
-    ArrayList<admin_object> arrayList;
-    ArrayList<admin_object> arrayListOld;
-    public adapter_admin_control( Context context, ArrayList<admin_object> objects, itf_RCV_list_item itf_rcv_list_item) {
+    ArrayList<User> arrayList;
+    ArrayList<User> arrayListOld;
+    public adapter_admin_control( Context context, ArrayList<User> objects, itf_RCV_list_item itf_rcv_list_item) {
         this.arrayList = objects;
         this.context = context;
         this.arrayListOld = objects;
@@ -41,13 +41,13 @@ public class adapter_admin_control extends RecyclerView.Adapter<adapter_admin_co
 
     @Override
     public void onBindViewHolder(@NonNull list_admin_holder holder, int position) {
-        admin_object object = arrayList.get(position);
+        User object = arrayList.get(position);
         if(object == null)
         {
             return;
         }
 //        holder.ava.setImageResource(object.getAva());
-        holder.name.setText(object.getName());
+        holder.name.setText(object.getFullName());
         holder.status.setText(object.getStatus());
 
     }
@@ -64,21 +64,6 @@ public class adapter_admin_control extends RecyclerView.Adapter<adapter_admin_co
     }
 
 
-    //    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-//        View userView = convertView;
-//        if (convertView == null) {
-//            userView = LayoutInflater.from(context).inflate(R.layout.item_staff_admin_control,
-//                    parent, false);
-//        }
-//
-//        final admin_object user = getItem(position);
-//
-//        TextView name = userView.findViewById(R.id.txt_admin_name);
-//        name.setText(user.getName());
-//        ((TextView)userView.findViewById(R.id.txt_status)).setText(user.getStatus());
-//
-//        return userView;
-//    }
     public static class list_admin_holder extends RecyclerView.ViewHolder{
         private ImageView ava;
         private TextView name;
@@ -104,7 +89,7 @@ public class adapter_admin_control extends RecyclerView.Adapter<adapter_admin_co
              });
         }
     }
-    public void setData(ArrayList<admin_object> arrayList)
+    public void setData(ArrayList<User> arrayList)
     {
         this.arrayList=arrayList;
         notifyDataSetChanged();
@@ -120,13 +105,12 @@ public class adapter_admin_control extends RecyclerView.Adapter<adapter_admin_co
                     arrayList = arrayListOld;
                 }
                 else{
-                    ArrayList<admin_object> list = new ArrayList<>();
-                    for(admin_object object : arrayListOld){
-                        if(object.getName().toLowerCase().contains(search.toLowerCase())){
+                    ArrayList<User> list = new ArrayList<>();
+                    for(User object : arrayListOld){
+                        if(object.getFullName().toLowerCase().contains(search.toLowerCase())){
                             list.add(object);
                         }
                     }
-
                     arrayList = list;
                 }
 
@@ -137,7 +121,7 @@ public class adapter_admin_control extends RecyclerView.Adapter<adapter_admin_co
 
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                arrayList = (ArrayList<admin_object>) filterResults.values;
+                arrayList = (ArrayList<User>) filterResults.values;
                 notifyDataSetChanged();
             }
         };

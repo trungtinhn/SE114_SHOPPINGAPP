@@ -22,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.shoppingapp.Login.User;
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.StaffView.item.admin_object;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -38,7 +39,7 @@ import java.util.Map;
 
 public class activity_admin_detail extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     Button btn_edit, btn_remove;
-    admin_object object;
+    User object;
     int position;
     ProgressDialog progressDialog;
     ArrayList<admin_object> AdminList;
@@ -53,21 +54,21 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
         progressDialog.setCancelable(false);
 
         Intent intent = getIntent();
-        object = (admin_object) intent.getSerializableExtra("Data");
+        object = (User) intent.getSerializableExtra("Data");
         position = intent.getIntExtra("Position",0);
         Bundle args = intent.getBundleExtra("Bundle");
         AdminList = (ArrayList<admin_object>) args.getSerializable("ArrayList");
 
         db = FirebaseFirestore.getInstance();
         docRef = FirebaseFirestore.getInstance()
-                .collection("ADMIN").document(object.getKey());
-        ((TextView) findViewById(R.id.txt_admin_name)).setText(object.getName());
-        ((TextView) findViewById(R.id.txt_name)).setText(object.getName());
-        ((TextView) findViewById(R.id.txt_sex)).setText(object.getSex());
-        ((TextView) findViewById(R.id.txt_dob)).setText(object.getDob());
-        ((TextView) findViewById(R.id.txt_phone)).setText(object.getPhoneNum());
+                .collection("ADMIN").document(object.getMaND());
+        ((TextView) findViewById(R.id.txt_admin_name)).setText(object.getFullName());
+        ((TextView) findViewById(R.id.txt_name)).setText(object.getFullName());
+        ((TextView) findViewById(R.id.txt_sex)).setText(object.getGioitinh());
+        ((TextView) findViewById(R.id.txt_dob)).setText(object.getDayOfBirth());
+        ((TextView) findViewById(R.id.txt_phone)).setText(object.getPhoneNumber());
         ((TextView) findViewById(R.id.txt_mail)).setText(object.getEmail());
-        ((TextView) findViewById(R.id.txt_pass)).setText(object.getPass());
+        //((TextView) findViewById(R.id.txt_pass)).setText(());
 
         findViewById(R.id.btn_edit).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,13 +115,13 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
         edStatus.setAdapter(status);
         edStatus.setOnItemSelectedListener(this);
 
-        edName.setText(object.getName());
-        edStatus.setSelection(object.getStatusIndex());
-        edSex.setSelection(object.getSexIndex());
-        edDob.setText(object.getDob());
-        edPhone.setText(object.getPhoneNum());
-        edMail.setText(object.getEmail());
-        edPass.setText(object.getPass());
+//        edName.setText(object.getName());
+//        edStatus.setSelection(object.getStatusIndex());
+//        edSex.setSelection(object.getSexIndex());
+//        edDob.setText(object.getDob());
+//        edPhone.setText(object.getPhoneNum());
+//        edMail.setText(object.getEmail());
+//        edPass.setText(object.getPass());
 
         edDob.setOnClickListener(new View.OnClickListener() {
             @Override
