@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.StaffView.Home.home_page;
+import com.example.shoppingapp.StaffView.activity.activity_admin_control;
 import com.example.shoppingapp.customerview.BottomNavigationCustomActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -108,8 +109,10 @@ public class LoginActivity extends AppCompatActivity {
                                                     Toast.makeText(getApplicationContext(), "Login as admin",
                                                             Toast.LENGTH_SHORT).show();
                                                     // Chuyển người dùng đến màn hình admin
-                                                    Intent adminIntent = new Intent(LoginActivity.this, home_page.class);
-
+//                                                    Intent adminIntent = new Intent(LoginActivity.this, home_page.class);
+//                                                    User user = dataSnapshot.getValue(User.class);
+                                                    Intent adminIntent = new Intent(LoginActivity.this, activity_admin_control.class);
+//                                                    adminIntent.putExtra("Data", (Serializable) user);
                                                     startActivity(adminIntent);
                                                     finish();
                                                     break;

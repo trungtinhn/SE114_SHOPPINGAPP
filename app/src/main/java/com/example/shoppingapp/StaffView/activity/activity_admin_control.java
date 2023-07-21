@@ -16,6 +16,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.Spinner;
@@ -28,37 +29,41 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.shoppingapp.Login.User;
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.StaffView.adapter.adapter_admin_control;
-import com.example.shoppingapp.StaffView.item.admin_object;
 import com.example.shoppingapp.itf_RCV_list_item;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.StorageReference;
-
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
+import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class activity_admin_control extends AppCompatActivity implements itf_RCV_list_item, AdapterView.OnItemSelectedListener, Filterable {
 
     RecyclerView RCV;
     Button btn_add;
-    ArrayList<admin_object> AdminList;
+    ArrayList<User> StaffList;
     adapter_admin_control adapterAdmin;
+    private FirebaseAuth firebaseAuth;
     SearchView searchView;
-    FirebaseFirestore db;
+    User admin;
+    FirebaseFirestore firebaseFirestore;
     StorageReference storageReference;
     ProgressDialog progressDialog;
     private int admin_count;
@@ -67,11 +72,35 @@ public class activity_admin_control extends AppCompatActivity implements itf_RCV
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_staff_admin_control);
-
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
         //setupAdminList();
 
-        Intent intent = getIntent();
         admin_count = 0 ;
+
+        firebaseFirestore.collection("NGUOIDUNG").document(firebaseAuth.getUid()).
+                get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        admin = documentSnapshot.toObject(User.class);
+                        ((TextView) findViewById(R.id.adminName)).setText(admin.getFullName());
+                        ((TextView) findViewById(R.id.adminID)).setText(admin.getMaND());
+                        String uri=admin.getAvatar();
+                        try{
+                            if(uri.isEmpty())
+                            {
+                                Toast.makeText(getApplicationContext(),"null is recieved",Toast.LENGTH_SHORT).show();
+                            }
+                            else Picasso.get().load(uri).into((ImageView) findViewById(R.id.img_avt));
+                        }
+                        catch (Exception e)
+                        {
+
+                        }
+                        return;
+                    }
+                });
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Fetching Data...");
@@ -82,15 +111,14 @@ public class activity_admin_control extends AppCompatActivity implements itf_RCV
 
         RCV.setHasFixedSize(true);
         RCV.setLayoutManager(new LinearLayoutManager(this));
-        db = FirebaseFirestore.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
 
-        AdminList = new ArrayList<>();
-        adapterAdmin = new adapter_admin_control(this,AdminList,this);
+        StaffList = new ArrayList<>();
+        adapterAdmin = new adapter_admin_control(this, StaffList,this);
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 EventAdd();
-
             }
         });
         EventInitListener();
@@ -203,7 +231,7 @@ public class activity_admin_control extends AppCompatActivity implements itf_RCV
                 map.put("email",edMail.getText().toString());
                 map.put("pass",edPass.getText().toString());
 
-                db.collection("ADMIN").add(map)
+                firebaseFirestore.collection("ADMIN").add(map)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
@@ -229,16 +257,17 @@ public class activity_admin_control extends AppCompatActivity implements itf_RCV
     private void EventInitListener() {
         progressDialog.setTitle("Loading data...");
         progressDialog.show();
-        db.collection("ADMIN").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        firebaseFirestore.collection("NGUOIDUNG").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 progressDialog.dismiss();
-                AdminList.clear();
+                StaffList.clear();
                 for(DocumentSnapshot d : task.getResult())
                 {
-                    admin_object object = d.toObject(admin_object.class);
-                    object.setKey(d.getId());
-                    AdminList.add(object);
+                    User object = d.toObject(User.class);
+                    //object.setKey(d.getId());
+                    if(!Objects.requireNonNull(object).getMaND().equals(firebaseAuth.getUid())
+                            && Objects.equals(object.getLoaiND(), "Staff")) StaffList.add(object);
                     admin_count++;
                     adapterAdmin.notifyDataSetChanged();
                     if(progressDialog.isShowing())
@@ -260,11 +289,12 @@ public class activity_admin_control extends AppCompatActivity implements itf_RCV
     @Override
     public void onClick(int position) {
         Intent intent = new Intent(activity_admin_control.this, activity_admin_detail.class);
-        admin_object object = AdminList.get(position);
-        intent.putExtra("Data", object);
+        User object = StaffList.get(position);
+        intent.putExtra("Admin", (Serializable) admin);
+        intent.putExtra("Data", (Serializable) object);
         intent.putExtra("Position", position);
         Bundle args = new Bundle();
-        args.putSerializable("ArrayList",(Serializable) AdminList);
+        args.putSerializable("ArrayList",(Serializable) StaffList);
         intent.putExtra("Bundle",args);
         startActivity(intent);
     }

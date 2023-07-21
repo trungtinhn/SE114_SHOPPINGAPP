@@ -9,13 +9,15 @@ public class User {
 
     private String MaND;
     private  String avatar, diachi, gioitinh;
+    private String loaiND;
     // Các trường khác mà bạn muốn lưu trong Firestore
 
     // Tạo constructor và getter/setter
     public User(){
 
     }
-    public User(String fullname, String email, String dayOfBirth, String phoneNumber, String MaND, String avatar, String diachi, String gioitinh, String Status)
+    public User(String fullname, String email, String dayOfBirth, String phoneNumber,
+                String MaND, String avatar, String diachi, String gioitinh, String Status, String loaiND)
     {
         this.fullName = fullname;
         this.email = email;
@@ -26,7 +28,15 @@ public class User {
         this.diachi = diachi;
         this.gioitinh = gioitinh;
         this.status = Status;
+        this.loaiND = loaiND;
+    }
 
+    public String getLoaiND() {
+        return loaiND;
+    }
+
+    public void setLoaiND(String loaiND) {
+        this.loaiND = loaiND;
     }
 
     public String getStatus() {
