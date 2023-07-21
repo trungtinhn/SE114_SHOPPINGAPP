@@ -1,88 +1,46 @@
 package com.example.shoppingapp.StaffView.adapter;
 
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.shoppingapp.Login.User;
-import com.example.shoppingapp.R;
-import com.example.shoppingapp.StaffView.activity.activity_chat;
+import com.example.shoppingapp.StaffView.fragment.chat_fragment;
+import com.example.shoppingapp.StaffView.fragment.status_fragment;
 
-import java.util.ArrayList;
-import java.util.List;
+public class adapter_chat_board extends FragmentPagerAdapter {
 
-public class adapter_chat_board extends RecyclerView.Adapter<adapter_chat_board.MyViewHolder> {
-    private Context context;
-    private List<User> userList;
+    int tabcount;
 
-    public adapter_chat_board(Context context)
-    {
-        this.context = context;
-        this.userList = new ArrayList<>();
-    }
 
-    public void add(User user){
-        userList.add(user);
-        notifyDataSetChanged();
-    }
-    public void clear(){
-        userList.clear();
-        notifyDataSetChanged();
+
+
+    public adapter_chat_board(@NonNull FragmentManager fm, int behavior) {
+        super(fm, behavior);
+        tabcount=behavior;
+
     }
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat_user_row,parent,false);
-        return new MyViewHolder(view);
-    }
+    public Fragment getItem(int position) {
+        switch (position)
+        {
+            case 0:
+                return new chat_fragment();
 
-    @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        User user = userList.get(position);
-       try{
-                holder.name.setText(user.getFullName());
-            }
-            catch (Exception e){}
-//       try{
-//                holder.status.setText(user.getStatus());
-//            }
-//            catch (Exception e){}
-       try{
-                holder.avt.setImageURI(Uri.parse(user.getAvatar()));
-            }
-            catch (Exception e){}
-       holder.itemView.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               Intent intent = new Intent(context, activity_chat.class);
-               intent.putExtra("id",user.getMaND());
-               context.startActivity(intent);
-           }
-       });
-    }
+            case 1:
+                return new status_fragment();
 
-    @Override
-    public int getItemCount() {
-        return userList.size();
-    }
-
-    public class MyViewHolder extends RecyclerView.ViewHolder{
-        private TextView name, status;
-        private ImageView avt;
-        public MyViewHolder(@NonNull View itemView) {
-            super(itemView);
-            name = itemView.findViewById(R.id.nameofuser);
-            status = itemView.findViewById(R.id.statusofuser);
-            avt = itemView.findViewById(R.id.imageviewofuser);
+            default:
+                return null;
         }
+
+    }
+
+    @Override
+    public int getCount() {
+        return tabcount;
     }
 }
+

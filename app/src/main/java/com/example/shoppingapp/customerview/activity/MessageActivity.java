@@ -1,49 +1,75 @@
 package com.example.shoppingapp.customerview.activity;
 
-import android.annotation.SuppressLint;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.shoppingapp.R;
-import com.example.shoppingapp.customerview.message.Message;
-import com.example.shoppingapp.customerview.message.MessageAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.example.shoppingapp.StaffView.adapter.adapter_chat_board;
+import com.google.android.material.tabs.TabItem;
+import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MessageActivity extends AppCompatActivity {
 
-    RecyclerView rcvMessage;
-    List<Message> messageList;
-    MessageAdapter messageAdapter;
-    String receiverID;
+    TabLayout tabLayout;
+    TabItem mchat,mcall,mstatus;
+    ViewPager viewPager;
+    adapter_chat_board adapterchatboard;
+    androidx.appcompat.widget.Toolbar mtoolbar;
+    FirebaseAuth firebaseAuth;
+    FirebaseFirestore firebaseFirestore;
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_message);
+        setContentView(R.layout.activity_chat);
 
-        rcvMessage = findViewById(R.id.rcvMessage);
-        messageList = new ArrayList<>();
-        messageList.add(new Message(1, "Em chào anhh", "11:30"));
-        messageList.add(new Message(2, "Chào emmm", "11:30"));
-        messageList.add(new Message(1, "Anh cóa người yêu chưa ạ!", "11:30"));
-        messageList.add(new Message(2, "Chưa em nhé", "11:30"));
-        messageList.add(new Message(1, "Thế làm người yêu em nhé, em thích anh quá điiiii", "11:30"));
-        messageList.add(new Message(1, "<3", "11:30"));
-        messageList.add(new Message(2, "Oke em oi", "11:30"));
+        tabLayout=findViewById(R.id.include);
+        mchat=findViewById(R.id.chat);
+        mstatus=findViewById(R.id.status);
+        viewPager=findViewById(R.id.fragmentcontainer);
+
+        firebaseFirestore=FirebaseFirestore.getInstance();
+        firebaseAuth=FirebaseAuth.getInstance();
+
+        mtoolbar=findViewById(R.id.toolbar);
+        setSupportActionBar(mtoolbar);
 
 
-        messageAdapter = new MessageAdapter(this.getApplicationContext());
-        messageAdapter.setData(messageList);
+        Drawable drawable= ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_baseline_more_vert_24);
+        mtoolbar.setOverflowIcon(drawable);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-        rcvMessage.setLayoutManager(linearLayoutManager);
 
-        rcvMessage.setAdapter(messageAdapter);
+        adapterchatboard =new adapter_chat_board(getSupportFragmentManager(),tabLayout.getTabCount());
+        viewPager.setAdapter(adapterchatboard);
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+                if(tab.getPosition()==0 || tab.getPosition()==1|| tab.getPosition()==2)
+                {
+                    adapterchatboard.notifyDataSetChanged();
+                }
+            }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
     }
 }
