@@ -15,11 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.StaffView.MyProduct.Adapter.My_inventory_Adapter;
 import com.example.shoppingapp.StaffView.Product;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,24 +46,21 @@ public class my_inventory_fragment extends Fragment {
 
     private void loadProducts() {
         // Query the "SANPHAM" collection in Firebase
-        Query query = FirebaseDatabase.getInstance().getReference("SANPHAM");
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference sanphamRef = db.collection("SANPHAM");
 
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                productList.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Product product = snapshot.getValue(Product.class);
-                    productList.add(product);
-                }
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle database error
-                Toast.makeText(getContext(), "Failed to load products", Toast.LENGTH_SHORT).show();
-            }
-        });
+        sanphamRef.whereGreaterThan("SoLuongConLai", 0).get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    productList.clear();
+                    for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                        Product product = documentSnapshot.toObject(Product.class);
+                        productList.add(product);
+                    }
+                    adapter.notifyDataSetChanged();
+                })
+                .addOnFailureListener(e -> {
+                    // Handle failure
+                    Toast.makeText(getContext(), "Failed to load products", Toast.LENGTH_SHORT).show();
+                });
     }
 }
