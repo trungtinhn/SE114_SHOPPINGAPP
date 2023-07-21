@@ -149,6 +149,12 @@
             android:exported="true"/>
         <activity android:name=".StaffView.Promotions.Activity.activity_add_new_promotions"
             android:exported="true"/>
+        <activity android:name=".StaffView.MyProduct.Activity.activity_add_new_product"
+            android:exported="true"/>
+        <activity android:name=".StaffView.Promotions.Activity.activity_delete_promotion"
+            android:exported="true"/>
+        <activity android:name=".customerview.activity.Notification"
+            android:exported="true"/>
     </application>
 
 </manifest>

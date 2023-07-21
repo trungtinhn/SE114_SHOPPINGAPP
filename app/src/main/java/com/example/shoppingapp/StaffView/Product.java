@@ -4,7 +4,6 @@ public class Product {
     private String name;
     private int price;
     private String avatar;
-
     public String getMaSP() {
         return MaSP;
     }
@@ -36,7 +35,7 @@ public class Product {
         name = tenSP;
         price = giaSP;
     }
-
+    public Product(){}
     public String getName() {
         return name;
     }

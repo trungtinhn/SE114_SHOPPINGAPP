@@ -1,18 +1,19 @@
 package com.example.shoppingapp.customerview;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.MenuItem;
-
+import com.example.shoppingapp.R;
 import com.example.shoppingapp.customerview.activity.DetailProductActivity;
 import com.example.shoppingapp.customerview.activity.MessageActivity;
-import com.example.shoppingapp.R;
+import com.example.shoppingapp.customerview.activity.Notification;
 import com.example.shoppingapp.customerview.activity.SearchingActivity;
 import com.example.shoppingapp.customerview.activity.ShoppingCart;
 import com.example.shoppingapp.customerview.activity.TrendingActivity;
@@ -137,6 +138,11 @@ public class BottomNavigationCustomActivity extends AppCompatActivity{
     public void gotoTrendingActivity()
     {
         Intent intent = new Intent(BottomNavigationCustomActivity.this, TrendingActivity.class);
+        startActivity(intent);
+    }
+    public void gotoNotificationActivity()
+    {
+        Intent intent = new Intent(BottomNavigationCustomActivity.this, Notification.class);
         startActivity(intent);
     }
 

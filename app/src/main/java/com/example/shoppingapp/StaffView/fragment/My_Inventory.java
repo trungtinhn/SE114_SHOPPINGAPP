@@ -11,8 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
-import com.example.shoppingapp.StaffView.MyProduct.Adapter.My_inventory_Adapter;
 import com.example.shoppingapp.StaffView.item.product_object;
+import com.example.shoppingapp.customerview.fragment.Notification.Adapter.GeneralAdapter;
 
 import java.util.ArrayList;
 
@@ -30,7 +30,7 @@ public class My_Inventory extends Fragment {
 
     private RecyclerView recyclerView1;
     private ArrayList<product_object> arrayList= new ArrayList<>();
-    private My_inventory_Adapter adapter;
+    private GeneralAdapter adapter;
 
     public My_Inventory() {
         // Required empty public constructor
