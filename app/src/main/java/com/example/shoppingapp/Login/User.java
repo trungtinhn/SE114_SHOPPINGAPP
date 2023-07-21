@@ -2,7 +2,6 @@ package com.example.shoppingapp.Login;
 
 public class User {
     private String fullName;
-
     public String getStatus() {
         return status;
     }
@@ -15,7 +14,7 @@ public class User {
     private String email;
     private String phoneNumber;
     private String dayOfBirth;
-    private String Status;
+
     private String MaND;
     private  String avatar, diachi, gioitinh;
     // Các trường khác mà bạn muốn lưu trong Firestore
