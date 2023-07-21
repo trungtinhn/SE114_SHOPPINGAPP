@@ -11,9 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.shoppingapp.R;
 import com.example.shoppingapp.StaffView.Promotions.Adapter.PromotionDeleteAdapterStaff;
 import com.example.shoppingapp.StaffView.Promotions.PromotionStaff;
+import com.example.shoppingapp.R;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;

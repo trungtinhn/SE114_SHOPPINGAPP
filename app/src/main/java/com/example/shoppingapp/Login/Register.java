@@ -149,7 +149,7 @@ public class Register extends AppCompatActivity {
         String avatar = null;
         String diachi = null;
         String gioitinh = null;
-        String status = "onl";
+        String status = "Offline";
         String userID;
         email = emailTextView.getText().toString();
         password = passwordTextView.getText().toString();
