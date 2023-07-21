@@ -4,6 +4,16 @@ import com.google.firebase.Timestamp;
 
 public class PromotionStaff {
     public PromotionStaff(){}
+
+    public String getHinhanhTB() {
+        return hinhanhTB;
+    }
+
+    public void setHinhanhTB(String hinhanhTB) {
+        this.hinhanhTB = hinhanhTB;
+    }
+
+    private  String hinhanhTB;
     public String getTenKM() {
         return TenKM;
     }
@@ -103,7 +113,7 @@ public class PromotionStaff {
         this.NgayKetThuc = ngayKetThuc;
     }
     public PromotionStaff(String tenKM, String chiTietKM, String loaiKhuyenMai, String hinhAnhKM, String maKM,
-                          long donToiThieu, double tiLe, Timestamp ngayBatDau, Timestamp ngayKetThuc, boolean isSelected){
+                          long donToiThieu, double tiLe, Timestamp ngayBatDau, Timestamp ngayKetThuc, boolean isSelected, String hinhanhTB){
         this.ChiTietKM=  chiTietKM;
         this.HinhAnhKM= hinhAnhKM;
         this.TenKM = tenKM;
@@ -114,6 +124,7 @@ public class PromotionStaff {
         this.NgayBatDau = ngayBatDau;
         this.NgayKetThuc = ngayKetThuc;
         this.isSelected = isSelected;
+        this.hinhanhTB = hinhanhTB;
     }
 
 }

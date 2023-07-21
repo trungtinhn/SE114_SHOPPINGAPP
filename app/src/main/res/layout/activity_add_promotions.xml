@@ -325,6 +325,40 @@
                     android:textColor="@color/black"
                     android:textSize="13dp" />
             </FrameLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="100dp">
+                <View
+                    style="@style/RectangleStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_below="@id/view_tenKM"
+                    android:layout_marginTop="10dp"
+                    android:background="#FFFFFF"
+                    android:elevation="100dp" />
+
+                <TextView
+                    android:layout_width="332dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="23dp"
+                    android:elevation="200dp"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:text="Picture for Notification"
+                    android:textColor="@color/DarkBlue"
+                    android:textSize="16dp" />
+
+                <ImageView
+                    android:id="@+id/image_thongbao"
+                    android:layout_width="265dp"
+                    android:layout_height="80dp"
+                    android:layout_marginLeft="80dp"
+                    android:layout_marginTop="60dp"
+                    android:elevation="200dp"
+                    android:src="@drawable/add_category" />
+            </FrameLayout>
+
         </LinearLayout>
     </ScrollView>
         <Button

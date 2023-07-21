@@ -158,8 +158,9 @@ public class activity_add_new_product extends AppCompatActivity {
                 long SoLuongSP = Long.parseLong(SoLuongSPString);
                 long GiaSP = Long.parseLong(GiaSPString);
                 long PhiVanChuyen = Long.parseLong(PhiVanChuyenString);
-                long SoLuongConLai = 0;
+
                 long SoLuongDaBan = 0;
+                long SoLuongConLai = SoLuongSP - SoLuongDaBan;
                 long SoLuongYeuThich =0;
                 String TrangThai = "Inventory";
                 String Trending = "false";
@@ -187,7 +188,6 @@ public class activity_add_new_product extends AppCompatActivity {
                     public void onSuccess(List<String> imageUrls) {
                         // Thêm URL của hình ảnh vào thuộc tính của sản phẩm
                         product.put("HinhAnhSP", imageUrls);
-
                         // Thêm màu sắc được chọn vào thuộc tính của sản phẩm
                         List<String> selectedColors = colorAdapter.getSelectedColors();
                         product.put("MauSac", selectedColors);

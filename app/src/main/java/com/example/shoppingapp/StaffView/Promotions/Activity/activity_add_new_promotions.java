@@ -46,9 +46,14 @@ public class activity_add_new_promotions extends AppCompatActivity {
     private Timestamp start, end;
     private FirebaseFirestore db_khuyenmai;
     private Button btn_add_new;
-    private ImageView image_promotion;
+    private ImageView image_promotion, image_tb;
     private Uri imageUri; // Để lưu trữ đường dẫn hình ảnh đã chọn
     private String imageUrl;
+    private Uri image_tb_uri;
+    private String hinhanhTB;
+    private static final int REQUEST_CODE_PROMOTION_IMAGE = 1;
+    private static final int REQUEST_CODE_THONG_BAO_IMAGE = 2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +67,15 @@ public class activity_add_new_promotions extends AppCompatActivity {
         kind = findViewById(R.id.loaikhuyenmai);
         rate = findViewById(R.id.tile);
         db_khuyenmai = FirebaseFirestore.getInstance();
-
+        image_tb = findViewById(R.id.image_thongbao);
         start_day = findViewById(R.id.start);
         end_day = findViewById(R.id.end);
+        image_tb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ImagePicker.with(activity_add_new_promotions.this).crop().compress(1024).start(REQUEST_CODE_THONG_BAO_IMAGE);
+            }
+        });
         image_promotion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,7 +83,7 @@ public class activity_add_new_promotions extends AppCompatActivity {
                 ImagePicker.with(activity_add_new_promotions.this)
                         .crop()
                         .compress(1024) // Kích thước tối đa cho hình ảnh đã chọn (byte)
-                        .start();
+                        .start(REQUEST_CODE_PROMOTION_IMAGE);
             }
         });
 
@@ -157,19 +168,78 @@ public class activity_add_new_promotions extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == ImagePicker.REQUEST_CODE) {
-            // Lấy đường dẫn của hình ảnh đã chọn
-            imageUri = data.getData();
+        if (resultCode == RESULT_OK) {
+            if (requestCode == REQUEST_CODE_PROMOTION_IMAGE) {
+                imageUri = data.getData();
+                Glide.with(this)
+                        .load(imageUri)
+                        .into(image_promotion);
 
-            // Hiển thị hình ảnh đã chọn trong ImageView sử dụng Glide
-            Glide.with(this)
-                    .load(imageUri)
-                    .into(image_promotion);
+                // Gọi hàm uploadImageToFirebase() để tải ảnh khuyến mãi lên Firebase Storage
+                uploadImageToFirebase();
+            } else if (requestCode == REQUEST_CODE_THONG_BAO_IMAGE) {
+                image_tb_uri = data.getData();
+                Glide.with(this)
+                        .load(image_tb_uri)
+                        .into(image_tb);
 
-            // Gọi hàm uploadImageToFirebase() để tải ảnh lên Firebase Storage
-            uploadImageToFirebase();
+                // Gọi hàm uploadImageThongBaoToFirebase() để tải ảnh thông báo lên Firebase Storage
+                uploadImageThongBaoToFirebase();
+            }
         }
     }
+
+
+
+    private void uploadImageThongBaoToFirebase() {
+        if (image_tb_uri != null) {
+            // Tạo tên duy nhất cho hình ảnh thông báo (ví dụ: "thongbao_image_2023_07_20_15_30_45.jpg")
+            String fileName = "thongbao_image_" + System.currentTimeMillis() + ".jpg";
+
+            // Tham chiếu đến Firebase Storage
+            StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("ImageThongBao").child(fileName);
+
+            // Chuyển đổi hình ảnh thành mảng byte để tải lên
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), image_tb_uri);
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
+                byte[] imageData = baos.toByteArray();
+
+                // Tải lên hình ảnh thông báo lên Firebase Storage
+                UploadTask uploadTask = storageRef.putBytes(imageData);
+                uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // Lấy đường dẫn tới hình ảnh thông báo đã tải lên
+                        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri downloadUrl) {
+                                // Khi tải lên thành công, bạn có thể lưu đường dẫn downloadUrl vào biến hinhanhTB
+                                hinhanhTB = downloadUrl.toString();
+                                Log.d("UploadImage", "Image URL (ThongBao): " + hinhanhTB);
+
+                                // Tiếp tục với việc lưu thông tin khuyến mãi vào Firestore với imageUrl và hinhanhTB
+                                savePromotionDataToFirestore();
+                            }
+                        });
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Xử lý lỗi nếu tải lên thất bại
+                        Log.e("UploadImage", "Upload failed: " + e.getMessage()); // Log the upload failure for debugging
+                    }
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            // Hiển thị thông báo nếu chưa chọn ảnh thông báo
+            Toast.makeText(activity_add_new_promotions.this, "Vui lòng chọn ảnh thông báo", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     // Phương thức để tải lên hình ảnh lên Firebase Storage
     private void uploadImageToFirebase() {
@@ -275,6 +345,7 @@ public class activity_add_new_promotions extends AppCompatActivity {
         promotionData.put("NgayBatDau", start);
         promotionData.put("NgayKetThuc", end);
         promotionData.put("HinhAnhKM", imageUrl); // Lưu đường dẫn hình ảnh vào Firestore
+        promotionData.put("HinhAnhTB", hinhanhTB);
 
         // Thực hiện thêm dữ liệu vào collection "KHUYENMAI" trong Firestore
         db_khuyenmai.collection("KHUYENMAI")

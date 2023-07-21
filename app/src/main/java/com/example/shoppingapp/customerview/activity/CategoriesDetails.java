@@ -1,11 +1,5 @@
 package com.example.shoppingapp.customerview.activity;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,13 +7,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.customerview.BottomNavigationCustomActivity;
-import com.example.shoppingapp.customerview.categories.Categories;
-import com.example.shoppingapp.customerview.product.Product;
-import com.example.shoppingapp.customerview.product.customer_interface.IClickItemProductListener;
-import com.example.shoppingapp.customerview.product.ProductAdapter;
-import com.example.shoppingapp.customerview.product.ProductCard;
 import com.example.shoppingapp.customerview.product.ProductTrending;
 import com.example.shoppingapp.customerview.product.ProductTrendingAdapter;
 import com.google.firebase.firestore.DocumentSnapshot;

@@ -68,6 +68,7 @@ public class activity_delete_promotion extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             String hinhAnhKM = document.getString("HinhAnhKM");
+                            String hinhAnhTB = document.getString("HinhAnhTB");
                             String ChitietKM = document.getString("ChiTietKM");
                             String tenKM = document.getString("TenKM");
                             String loaiKhuyenMai = document.getString("LoaiKhuyenMai");
@@ -77,7 +78,7 @@ public class activity_delete_promotion extends AppCompatActivity {
                             Timestamp ngayBatDau = document.getTimestamp("NgayBatDau");
                             Timestamp ngayKetThuc = document.getTimestamp("NgayKetThuc");
                             Boolean check = false;
-                            PromotionStaff promotion = new PromotionStaff(tenKM, ChitietKM, loaiKhuyenMai, hinhAnhKM, maKM, donToiThieu, tiLe, ngayBatDau, ngayKetThuc, check);
+                            PromotionStaff promotion = new PromotionStaff(tenKM, ChitietKM, loaiKhuyenMai, hinhAnhKM, maKM, donToiThieu, tiLe, ngayBatDau, ngayKetThuc, check, hinhAnhTB);
                             promotionList.add(promotion);
                         }
                         adapter.notifyDataSetChanged();

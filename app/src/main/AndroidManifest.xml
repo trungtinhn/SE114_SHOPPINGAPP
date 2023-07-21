@@ -154,6 +154,8 @@
             android:exported="true"/>
         <activity android:name=".StaffView.Promotions.Activity.activity_delete_promotion"
             android:exported="true"/>
+        <activity android:name=".customerview.activity.Notification"
+            android:exported="true"/>
     </application>
 
 </manifest>
