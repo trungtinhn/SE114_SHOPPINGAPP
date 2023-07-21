@@ -35,6 +35,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 public class ShoppingCart extends AppCompatActivity {
+
+    ////
     FirebaseAuth firebaseAuth;
     RecyclerView recyclerViewdata;
     List<com.example.shoppingapp.customerview.shoppingcart.ShoppingCart> dataCheck;
