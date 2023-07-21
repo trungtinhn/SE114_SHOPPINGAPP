@@ -1,6 +1,7 @@
 package com.example.shoppingapp.StaffView.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.shoppingapp.Login.User;
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.itf_RCV_list_item;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -46,10 +48,19 @@ public class adapter_admin_control extends RecyclerView.Adapter<adapter_admin_co
         {
             return;
         }
-//        holder.ava.setImageResource(object.getAva());
-        holder.name.setText(object.getFullName());
-        holder.status.setText(object.getStatus());
+        String uri=object.getAvatar();
 
+        Picasso.get().load(uri).into(holder.ava);
+        if(object.getStatus().equals("Online"))
+        {
+            holder.status.setText(object.getStatus());
+            holder.status.setTextColor(Color.GREEN);
+        }
+        else
+        {
+            holder.status.setText(object.getStatus());
+        }
+        holder.name.setText(object.getFullName());
     }
 
     public long getItemId(int position) {
@@ -71,7 +82,7 @@ public class adapter_admin_control extends RecyclerView.Adapter<adapter_admin_co
         private LinearLayout layout;
         public list_admin_holder(@NonNull View itemView, itf_RCV_list_item itf_rcv_list_item) {
              super(itemView);
-             ava = itemView.findViewById(R.id.img_admin);
+             ava = itemView.findViewById(R.id.img_staff);
              name = itemView.findViewById(R.id.txt_admin_name);
              status = itemView.findViewById(R.id.txt_status);
              layout = itemView.findViewById(R.id.layout_admin);
