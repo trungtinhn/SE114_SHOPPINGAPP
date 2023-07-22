@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shoppingapp.Login.User;
@@ -20,13 +19,11 @@ import com.example.shoppingapp.StaffView.MyProduct.Activity.activity_MyProduct;
 import com.example.shoppingapp.StaffView.Home.Promotions.Activity.activity_promotions;
 import com.example.shoppingapp.StaffView.ViewShop.activity_viewshop;
 import com.example.shoppingapp.StaffView.activity.activity_chat_board;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 public class home_page extends AppCompatActivity {
@@ -56,32 +53,32 @@ public class home_page extends AppCompatActivity {
         firebaseFirestore=FirebaseFirestore.getInstance();
         firebaseAuth=FirebaseAuth.getInstance();
         DocumentReference documentReference=firebaseFirestore.collection("NGUOIDUNG").document(firebaseAuth.getUid());
-        firebaseFirestore.collection("NGUOIDUNG").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        firebaseFirestore.collection("NGUOIDUNG").document(firebaseAuth.getUid()).
+                get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                for(DocumentSnapshot d : task.getResult())
-                {
-                    if(d.getId().equals(firebaseAuth.getUid()))
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                user = documentSnapshot.toObject(User.class);
+                ((TextView) findViewById(R.id.userName)).setText(user.getFullName());
+                ((TextView) findViewById(R.id.userID)).setText(user.getMaND());
+                String uri=user.getAvatar();
+                try{
+                    if(uri.isEmpty())
                     {
-                        user = d.toObject(User.class);
-                        ((TextView) findViewById(R.id.userName)).setText(user.getFullName());
-                        ((TextView) findViewById(R.id.userID)).setText(user.getMaND());
-                        String uri=user.getAvatar();
-                        try{
-                            if(uri.isEmpty())
-                            {
-                                Toast.makeText(getApplicationContext(),"null is recieved",Toast.LENGTH_SHORT).show();
-                            }
-                            else Picasso.get().load(uri).into((ImageView) findViewById(R.id.img_avt));
-                        }
-                        catch (Exception e)
-                        {
-
-                        }
-                        return;
+                        Toast.makeText(getApplicationContext(),"null is recieved",Toast.LENGTH_SHORT).show();
                     }
+                    else Picasso.get().load(uri).into((ImageView) findViewById(R.id.img_avt));
                 }
+                catch (Exception e)
+                {
 
+                }
+                return;
+            }
+        });
+        firebaseFirestore.collection("NGUOIDUNG").document(firebaseAuth.getUid()).update("status","Online").addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(getApplicationContext(),"Now User is Online",Toast.LENGTH_SHORT).show();
             }
         });
         btn_my_product.setOnClickListener(new View.OnClickListener() {

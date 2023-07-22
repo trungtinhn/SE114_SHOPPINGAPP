@@ -83,20 +83,10 @@ public class activity_specificchat extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
         linearLayoutManager.setStackFromEnd(true);
         mmessagerecyclerview.setLayoutManager(linearLayoutManager);
-        messagesAdapter=new adapter_message(activity_specificchat.this,messagesArrayList);
-        mmessagerecyclerview.setAdapter(messagesAdapter);
 
         intent=getIntent();
 
         setSupportActionBar(mtoolbarofspecificchat);
-        mtoolbarofspecificchat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),"Toolbar is Clicked",Toast.LENGTH_SHORT).show();
-
-
-            }
-        });
 
         firebaseAuth=FirebaseAuth.getInstance();
         firebaseDatabase=FirebaseDatabase.getInstance();
@@ -132,15 +122,14 @@ public class activity_specificchat extends AppCompatActivity {
 
             }
         });
-
+        mmessagerecyclerview.setAdapter(messagesAdapter);
 
 
 
         mbackbuttonofspecificchat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(activity_specificchat.this, activity_chat_board.class);
-                startActivity(intent);
+                finish();
             }
         });
 
