@@ -1,17 +1,258 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".customerview.fragment.AccountFragment"
-    android:background="@color/design_default_color_primary_variant">
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Account"
-        android:layout_centerInParent="true"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/img_bg"
+            android:layout_width="match_parent"
+            android:layout_height="150sp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/rectangle_1" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/img_avt"
+            android:layout_width="97dp"
+            android:layout_height="98dp"
+            android:layout_marginTop="20dp"
+
+            android:src="@mipmap/ic_launcher_round"
+            app:layout_constraintEnd_toEndOf="@+id/img_bg"
+            app:layout_constraintHorizontal_bias="0.055"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/Circular" />
+
+        <TextView
+            android:id="@+id/user_ID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/montserrat_light"
+            android:text="123213244"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/img_bg"
+            app:layout_constraintStart_toEndOf="@+id/Txt_id"
+            app:layout_constraintTop_toBottomOf="@+id/user_name"
+            app:layout_constraintVertical_bias="0.017" />
+
+        <TextView
+            android:id="@+id/Txt_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/montserrat_light"
+            android:text="ID : "
+            android:textColor="#000000"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/img_bg"
+            app:layout_constraintStart_toEndOf="@+id/img_avt"
+            app:layout_constraintTop_toBottomOf="@+id/user_name"
+            app:layout_constraintVertical_bias="0.017" />
+
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="36dp"
+            android:fontFamily="@font/montserrat_light"
+            android:text="Lê Khánh Duy"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.025"
+            app:layout_constraintStart_toEndOf="@+id/img_avt"
+            app:layout_constraintTop_toTopOf="@+id/img_bg" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/constraintLayout"
+        android:layout_marginTop="36dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/l1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_behind_border"
+            android:clickable="true"
+            android:onClick="YourOderClick"
+           >
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="@+id/btn_your_oder"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_soldout" />
+
+            <TextView
+                android:id="@+id/btn_your_oder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="15dp"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@+id/imageView2"
+                android:backgroundTint="@android:color/white"
+                android:fontFamily="@font/montserrat_light"
+                android:gravity="left|center_vertical"
+                android:hint="Your Order                                                     >"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/l2"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/l1"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/background_behind_border"
+            android:clickable="true"
+            android:onClick="HelpCenterClick"
+
+            >
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/icon_message" />
+
+            <TextView
+                android:id="@+id/txt_Help_center"
+                android:layout_width="360dp"
+                android:layout_height="34dp"
+                android:layout_below="@+id/btn_your_oder"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@android:color/white"
+                android:fontFamily="@font/montserrat_light"
+                android:gravity="left|center_vertical"
+                android:hint="Help Center                                                   >"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/l2"
+            android:id="@+id/l3"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/background_behind_border"
+            android:clickable="true"
+            android:onClick="ProfileClick"
+
+            >
+        <ImageView
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/imageView4"
+            android:layout_width="32dp"
+            android:layout_height="35dp"
+            android:layout_below="@+id/imageView3"
+            android:layout_marginLeft="@+id/btn_Profile"
+            android:src="@drawable/user" />
+        <TextView
+            android:id="@+id/btn_Profile"
+            android:layout_width="360dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@android:color/white"
+            android:fontFamily="@font/montserrat_light"
+            android:gravity="left|center_vertical"
+            android:hint="Profile                                                             >"
+            android:textStyle="bold"
+            android:textSize="18dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/l3"
+            android:id="@+id/l4"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/background_behind_border"
+            android:clickable="true"
+            android:onClick="ChangePassClick"
+            >
+        <ImageView
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/imageView5"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/imageView4"
+            android:layout_marginLeft="@+id/btn_Profile"
+            android:src="@drawable/review" />
+        <TextView
+            android:layout_marginStart="10dp"
+            android:id="@+id/btn_Change_pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_Profile"
+            android:layout_marginTop="15dp"
+            android:backgroundTint="@android:color/white"
+            android:fontFamily="@font/montserrat_light"
+            android:gravity="left|center_vertical"
+            android:hint="Change Password                                      >"
+            android:textStyle="bold"
+            android:textSize="18dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:background="@drawable/background_behind_border"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/l4"
+            android:id="@+id/l5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:onClick="LogOutClick"
+            >
+        <TextView
+            android:id="@+id/btn_log_out"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:backgroundTint="@android:color/white"
+            android:fontFamily="@font/montserrat_light"
+            android:gravity="left|center_vertical"
+            android:hint="Log Out                                                                  >"
+            android:textStyle="bold"
+            android:textSize="18dp"/>
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </RelativeLayout>
