@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:orientation="vertical">
+
+        <ImageButton
+
+            android:id ="@+id/btnBackto_Profile"
+            android:layout_marginTop="30dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/white_background"
+            android:src="@drawable/back"
+            />
+
+        <TextView
+
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Full Name"
+            android:paddingLeft="5dp"
+            android:textSize="20dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+        <EditText
+            android:id="@+id/change_TextFullName"
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:background="@drawable/outline_black"
+            android:hint="Enter full name"
+            android:padding="10dp"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:layout_marginTop="15dp"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:layout_marginBottom="0dp"
+            android:text="Email"
+            android:textSize="20dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+        <EditText
+
+            android:id="@+id/change_TextEmail"
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:background="@drawable/outline_black"
+            android:hint="Enter email address"
+            android:padding="10dp"
+            android:inputType="textEmailAddress" />
+
+        <TextView
+            android:layout_marginTop="15dp"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:text="Phone Number"
+            android:textSize="20dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+        <EditText
+            android:id="@+id/change_TextPhone"
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:background="@drawable/outline_black"
+            android:hint="Enter phone number"
+            android:padding="10dp"
+            android:inputType="phone" />
+
+        <TextView
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Day of Birth"
+            android:paddingLeft="5dp"
+            android:textSize="20dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+        <EditText
+            android:id="@+id/change_TextDayOfBirth"
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:background="@drawable/outline_black"
+            android:padding="10dp"
+            android:hint="Select your date of birth"
+            android:inputType="none"/>
+
+        <Button
+            android:layout_marginTop="30dp"
+            android:id="@+id/buttonRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ACCEPT"
+            android:layout_marginBottom="30dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>
