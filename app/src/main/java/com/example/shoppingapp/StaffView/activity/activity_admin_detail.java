@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -22,14 +23,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.shoppingapp.Login.User;
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.StaffView.item.admin_object;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -38,11 +42,13 @@ import java.util.Map;
 
 public class activity_admin_detail extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     Button btn_edit, btn_remove;
-    admin_object object;
+    User object;
+    User admin;
     int position;
     ProgressDialog progressDialog;
     ArrayList<admin_object> AdminList;
     FirebaseFirestore db;
+    FirebaseAuth firebaseAuth;
     DocumentReference docRef;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,21 +59,51 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
         progressDialog.setCancelable(false);
 
         Intent intent = getIntent();
-        object = (admin_object) intent.getSerializableExtra("Data");
+        admin = (User) intent.getSerializableExtra("Admin");
+        object = (User) intent.getSerializableExtra("Data");
         position = intent.getIntExtra("Position",0);
         Bundle args = intent.getBundleExtra("Bundle");
         AdminList = (ArrayList<admin_object>) args.getSerializable("ArrayList");
 
         db = FirebaseFirestore.getInstance();
         docRef = FirebaseFirestore.getInstance()
-                .collection("ADMIN").document(object.getKey());
-        ((TextView) findViewById(R.id.txt_admin_name)).setText(object.getName());
-        ((TextView) findViewById(R.id.txt_name)).setText(object.getName());
-        ((TextView) findViewById(R.id.txt_sex)).setText(object.getSex());
-        ((TextView) findViewById(R.id.txt_dob)).setText(object.getDob());
-        ((TextView) findViewById(R.id.txt_phone)).setText(object.getPhoneNum());
+                .collection("NGUOIDUNG").document(object.getMaND());
+        ((TextView) findViewById(R.id.txt_admin_name)).setText(object.getFullName());
+        ((TextView) findViewById(R.id.txt_name)).setText(object.getFullName());
+        ((TextView) findViewById(R.id.txt_sex)).setText(object.getGioitinh());
+        ((TextView) findViewById(R.id.txt_dob)).setText(object.getDayOfBirth());
+        ((TextView) findViewById(R.id.txt_phone)).setText(object.getPhoneNumber());
         ((TextView) findViewById(R.id.txt_mail)).setText(object.getEmail());
-        ((TextView) findViewById(R.id.txt_pass)).setText(object.getPass());
+        ((TextView) findViewById(R.id.txt_location)).setText(object.getDiachi());
+        ((TextView) findViewById(R.id.txt_status)).setText(object.getStatus());
+        String uri=object.getAvatar();
+        try{
+            if(uri.isEmpty())
+            {
+                Toast.makeText(getApplicationContext(),"null is recieved",Toast.LENGTH_SHORT).show();
+            }
+            else Picasso.get().load(uri).into((ImageView) findViewById(R.id.img_staff));
+        }
+        catch (Exception e)
+        {
+
+        }
+
+        ((TextView) findViewById(R.id.adminName)).setText(admin.getFullName());
+        ((TextView) findViewById(R.id.adminID)).setText(admin.getMaND());
+        uri=admin.getAvatar();
+        try{
+            if(uri.isEmpty())
+            {
+                Toast.makeText(getApplicationContext(),"null is recieved",Toast.LENGTH_SHORT).show();
+            }
+            else Picasso.get().load(uri).into((ImageView) findViewById(R.id.img_avt));
+        }
+        catch (Exception e)
+        {
+
+        }
+        //((TextView) findViewById(R.id.txt_pass)).setText(());
 
         findViewById(R.id.btn_edit).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,13 +150,13 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
         edStatus.setAdapter(status);
         edStatus.setOnItemSelectedListener(this);
 
-        edName.setText(object.getName());
-        edStatus.setSelection(object.getStatusIndex());
-        edSex.setSelection(object.getSexIndex());
-        edDob.setText(object.getDob());
-        edPhone.setText(object.getPhoneNum());
-        edMail.setText(object.getEmail());
-        edPass.setText(object.getPass());
+//        edName.setText(object.getName());
+//        edStatus.setSelection(object.getStatusIndex());
+//        edSex.setSelection(object.getSexIndex());
+//        edDob.setText(object.getDob());
+//        edPhone.setText(object.getPhoneNum());
+//        edMail.setText(object.getEmail());
+//        edPass.setText(object.getPass());
 
         edDob.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,7 +198,7 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
-                                Toast.makeText(activity_admin_detail.this, "Success update the data", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(activity_admin_detail.this, "Success updating the data", Toast.LENGTH_SHORT).show();
                                 dialogPlus.dismiss();
                                 Intent intent = new Intent(activity_admin_detail.this,activity_admin_control.class);
                                 startActivity(intent);
@@ -182,11 +218,11 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
 
     }
     private void EventRemove(){
-        progressDialog.setTitle("Removing Admin...");
+        progressDialog.setTitle("Removing Staff...");
         progressDialog.show();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
-                .setTitle("Delete Admin")
+                .setTitle("Delete Staff")
                 .setMessage("Are you sure want to delete ?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
@@ -195,14 +231,14 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
                         docRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
-                                Toast.makeText(activity_admin_detail.this, "Deleted admin", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(activity_admin_detail.this, "Deleted Staff", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(activity_admin_detail.this,activity_admin_control.class);
                                 startActivity(intent);
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(activity_admin_detail.this, "Fail to delete the data", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(activity_admin_detail.this, "Fail to delete the staff", Toast.LENGTH_SHORT).show();
                             }
                         });
 

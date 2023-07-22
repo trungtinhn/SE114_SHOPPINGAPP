@@ -31,7 +31,7 @@
             android:paddingEnd="50dp">
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/adminName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat"
@@ -52,7 +52,7 @@
                     android:textColor="#000000" />
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/adminID"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserrat"
