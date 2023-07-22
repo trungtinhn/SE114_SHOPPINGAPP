@@ -36,6 +36,8 @@ public class confirm_fragment extends Fragment {
     private String mParam2;
     private List<Order> orderList;
     private OrderAdapter orderAdapter;
+    private int confirmProductCount = 0;
+    private OnProductCountChangeListener listener;
 
     public confirm_fragment() {
         // Required empty public constructor
@@ -59,6 +61,16 @@ public class confirm_fragment extends Fragment {
         return fragment;
     }
 
+    public void updateConfirmProductCount(int count) {
+        confirmProductCount = count;
+        if (listener != null) {
+            listener.onProductCountChanged(confirmProductCount);
+        }
+    }
+    // Thiết lập listener để giao tiếp với Activity
+    public void setOnProductCountChangeListener(OnProductCountChangeListener listener) {
+        this.listener = listener;
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +85,7 @@ public class confirm_fragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_order_confirm, container, false);
 
+
         RecyclerView recyclerView = view.findViewById(R.id.RCV_confirm);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -81,8 +94,8 @@ public class confirm_fragment extends Fragment {
         //Truy van
         // Truy vấn collection "DONHANG"
         CollectionReference donHangRef = db.collection("DONHANG");
-        donHangRef.get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
+        donHangRef.whereEqualTo("TrangThai", "Confirm")
+                .addSnapshotListener((queryDocumentSnapshots, e) -> {
                     // Xử lý kết quả truy vấn
                     orderList = new ArrayList<>();
 
@@ -94,12 +107,14 @@ public class confirm_fragment extends Fragment {
 
                     // Khởi tạo adapter và gán nó cho RecyclerView
                     orderAdapter = new OrderAdapter(orderList);
+                    orderAdapter.refresh();
                     recyclerView.setAdapter(orderAdapter);
-                })
-                .addOnFailureListener(e -> {
-                    // Xử lý khi truy vấn thất bại
                 });
 
         return view;
     }
+    public interface OnProductCountChangeListener {
+        void onProductCountChanged(int count);
+    }
 }
+
