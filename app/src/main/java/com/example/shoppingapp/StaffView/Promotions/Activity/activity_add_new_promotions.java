@@ -1,4 +1,4 @@
-package com.example.shoppingapp.StaffView.Home.Promotions.Activity;
+package com.example.shoppingapp.StaffView.Promotions.Activity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
