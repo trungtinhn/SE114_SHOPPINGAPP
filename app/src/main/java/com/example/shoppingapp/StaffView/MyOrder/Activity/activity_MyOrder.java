@@ -21,6 +21,7 @@ import com.example.shoppingapp.StaffView.MyOrder.Fragment.confirm_fragment;
 import com.example.shoppingapp.StaffView.MyOrder.Fragment.delivered_fragment;
 import com.example.shoppingapp.StaffView.MyOrder.Fragment.delivering_fragment;
 import com.example.shoppingapp.StaffView.MyOrder.Fragment.wait_fragment;
+import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.tabs.TabLayout;
 
 public class activity_MyOrder extends AppCompatActivity {
@@ -47,6 +48,7 @@ public class activity_MyOrder extends AppCompatActivity {
 
         back_to_Home = findViewById(R.id.imgbtn_back);
 
+        adapter.setupBadges(tabLayout);
         back_to_Home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,18 +58,39 @@ public class activity_MyOrder extends AppCompatActivity {
         });
 
     }
-    private static class AdminOrderPagerAdapter extends FragmentPagerAdapter {
+    private class AdminOrderPagerAdapter extends FragmentPagerAdapter {
         private static final int NUM_PAGES = 5;
-        private static final String[] TAB_TITLES = {"Confirm", "Wait", "Delivering", "Delivered", "Cancel"};
+        private BadgeDrawable[] badgeDrawables = new BadgeDrawable[NUM_PAGES];
+        private final String[] TAB_TITLES = {"Confirm", "Wait", "Delivering", "Delivered", "Cancel"};
 
+        private int confirmProductCount = 0;
         public AdminOrderPagerAdapter(FragmentManager fm) {
             super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        }
+        private void setupBadges(TabLayout tabLayout) {
+            for (int i = 0; i < NUM_PAGES; i++) {
+                TabLayout.Tab tab = tabLayout.getTabAt(i);
+                if (tab != null) {
+                    badgeDrawables[i] = tab.getOrCreateBadge();
+                    badgeDrawables[i].setBadgeGravity(BadgeDrawable.TOP_END);
+                    badgeDrawables[i].setMaxCharacterCount(3); // Điều chỉnh số ký tự tối đa cho giá trị badge
+                    updateBadgeValue(i, 0); // Khởi tạo giá trị ban đầu của badge là 0
+                }
+            }
+        }
+
+        // Phương thức để cập nhật giá trị trong badge tương ứng với từng trạng thái
+        public void updateBadgeValue(int position, int value) {
+            if (position >= 0 && position < NUM_PAGES) {
+                badgeDrawables[position].setNumber(value);
+            }
         }
 
         @Override
         public int getCount() {
             return NUM_PAGES;
         }
+
 
         @Override
         public Fragment getItem(int position) {
@@ -87,6 +110,8 @@ public class activity_MyOrder extends AppCompatActivity {
             }
         }
 
+
+        // Phương thức để cập nhật số lượng sản phẩm trong trạng thái "Confirm"
         @Nullable
         @Override
         public CharSequence getPageTitle(int position) {

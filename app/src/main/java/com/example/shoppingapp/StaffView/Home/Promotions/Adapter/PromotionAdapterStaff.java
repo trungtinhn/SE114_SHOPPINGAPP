@@ -1,4 +1,4 @@
-package com.example.shoppingapp.StaffView.Promotions.Adapter;
+package com.example.shoppingapp.StaffView.Home.Promotions.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.shoppingapp.StaffView.Promotions.PromotionStaff;
+import com.example.shoppingapp.StaffView.Home.Promotions.PromotionStaff;
 import com.example.shoppingapp.R;
 
 import java.text.SimpleDateFormat;

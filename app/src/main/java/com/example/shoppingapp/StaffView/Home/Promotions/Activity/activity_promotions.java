@@ -1,4 +1,4 @@
-package com.example.shoppingapp.StaffView.Promotions.Activity;
+package com.example.shoppingapp.StaffView.Home.Promotions.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.StaffView.Home.home_page;
-import com.example.shoppingapp.StaffView.Promotions.Adapter.PromotionAdapterStaff;
-import com.example.shoppingapp.StaffView.Promotions.PromotionStaff;
+import com.example.shoppingapp.StaffView.Home.Promotions.Adapter.PromotionAdapterStaff;
+import com.example.shoppingapp.StaffView.Home.Promotions.PromotionStaff;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;

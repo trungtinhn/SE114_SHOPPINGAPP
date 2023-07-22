@@ -83,9 +83,10 @@ public class wait_fragment extends Fragment {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         //Truy van
         // Truy vấn collection "DONHANG"
+
         CollectionReference donHangRef = db.collection("DONHANG");
-        donHangRef.whereEqualTo("TrangThai", "onwait").get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
+        donHangRef.whereEqualTo("TrangThai", "onwait")
+                .addSnapshotListener((queryDocumentSnapshots, e) -> {
                     // Xử lý kết quả truy vấn
                     orderList = new ArrayList<>();
 
@@ -97,14 +98,8 @@ public class wait_fragment extends Fragment {
 
                     // Khởi tạo adapter và gán nó cho RecyclerView
                     orderAdapter = new OrderAdapter(orderList);
-                    orderAdapter = new OrderAdapter(orderList, currentUserId);
-
                     orderAdapter.refresh();
                     recyclerView.setAdapter(orderAdapter);
-
-                })
-                .addOnFailureListener(e -> {
-                    // Xử lý khi truy vấn thất bại
                 });
 
         return view;

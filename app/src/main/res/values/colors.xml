@@ -24,5 +24,6 @@
     <color name="bluegray_100_4c">#4cd9d9d9</color>
     <color name="white_A700">#ffffff</color>
     <color name = "DarkBlue">#143F6B</color>
+    <color name="Red">#FF4848</color>
 
 </resources>

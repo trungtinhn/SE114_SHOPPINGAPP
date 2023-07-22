@@ -145,13 +145,13 @@
             android:exported="true"/>
         <activity android:name=".StaffView.MyOrder.Activity.activity_details_order"
             android:exported="true"/>
-        <activity android:name=".StaffView.Promotions.Activity.activity_promotions"
+        <activity android:name=".StaffView.Home.Promotions.Activity.activity_promotions"
             android:exported="true"/>
-        <activity android:name=".StaffView.Promotions.Activity.activity_add_new_promotions"
+        <activity android:name=".StaffView.Home.Promotions.Activity.activity_add_new_promotions"
             android:exported="true"/>
         <activity android:name=".StaffView.MyProduct.Activity.activity_add_new_product"
             android:exported="true"/>
-        <activity android:name=".StaffView.Promotions.Activity.activity_delete_promotion"
+        <activity android:name=".StaffView.Home.Promotions.Activity.activity_delete_promotion"
             android:exported="true"/>
         <activity android:name=".customerview.activity.Notification"
             android:exported="true"/>

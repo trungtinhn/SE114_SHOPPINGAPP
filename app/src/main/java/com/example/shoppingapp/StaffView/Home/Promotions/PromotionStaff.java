@@ -1,4 +1,4 @@
-package com.example.shoppingapp.StaffView.Promotions;
+package com.example.shoppingapp.StaffView.Home.Promotions;
 
 import com.google.firebase.Timestamp;
 
