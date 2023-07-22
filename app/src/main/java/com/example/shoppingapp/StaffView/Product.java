@@ -5,14 +5,14 @@ public class Product {
     private int price;
     private String avatar;
     public String getMaSP() {
-        return MaSP;
+        return maSP;
     }
 
     public void setMaSP(String maSP) {
-        MaSP = maSP;
+        maSP = maSP;
     }
 
-    private String MaSP;
+    private String maSP;
     private int warehouse; //Tồn kho
     private Object imageUrl;
     private int love;  //Yêu thích
@@ -28,7 +28,7 @@ public class Product {
         this.sold=  sold;
         this.love = Love;
         this.views = View;
-        this.MaSP = MaSP;
+        this.maSP = MaSP;
     }
     public Product(String hinhAnhSP, String tenSP, int giaSP) {
         avatar = hinhAnhSP;

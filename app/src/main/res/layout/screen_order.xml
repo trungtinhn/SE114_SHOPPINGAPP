@@ -31,18 +31,31 @@
             android:text="Order" />
 
     </LinearLayout>
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tab_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        app:tabMode="scrollable"
-        app:tabGravity="fill"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/ln_layout1"
+        android:layout_below="@id/linear1_order"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <!-- TabLayout -->
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:tabMode="scrollable"
+            app:tabGravity="fill"/>
+
+
+    </LinearLayout>
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tab_layout"/>
+        android:layout_below="@id/ln_layout1"/>
+
 
 </RelativeLayout>

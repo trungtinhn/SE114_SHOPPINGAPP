@@ -82,8 +82,8 @@ public class delivered_fragment extends Fragment {
         //Truy van
         // Truy vấn collection "DONHANG"
         CollectionReference donHangRef = db.collection("DONHANG");
-        donHangRef.whereEqualTo("TrangThai", "delivered").get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
+        donHangRef.whereEqualTo("TrangThai", "delivered")
+                .addSnapshotListener((queryDocumentSnapshots, e) -> {
                     // Xử lý kết quả truy vấn
                     orderList = new ArrayList<>();
 
@@ -97,9 +97,6 @@ public class delivered_fragment extends Fragment {
                     orderAdapter = new CheckProductAdapter(orderList);
                     orderAdapter.refresh();
                     recyclerView.setAdapter(orderAdapter);
-                })
-                .addOnFailureListener(e -> {
-                    // Xử lý khi truy vấn thất bại
                 });
 
         return view;
