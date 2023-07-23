@@ -52,6 +52,7 @@ public class CheckProductAdapter_customer extends RecyclerView.Adapter<CheckProd
             recyclerViewProducts = itemView.findViewById(R.id.RCV_details_customer);
             total = itemView.findViewById(R.id.money_total_customer);
             getMaStaff = itemView.findViewById(R.id.getMaND_customer);
+
         }
     }
     public CheckProductAdapter_customer.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -73,50 +74,7 @@ public class CheckProductAdapter_customer extends RecyclerView.Adapter<CheckProd
         holder.customerNameTextView.setText(order.getTenNguoiMua());
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(holder.itemView.getContext());
         holder.recyclerViewProducts.setLayoutManager(layoutManager);
-        holder.Confirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String maDH = orderList.get(receive).getMaDH();
-                FirebaseFirestore db_confirm = FirebaseFirestore.getInstance();
-                CollectionReference donHangRef = db_confirm.collection("DONHANG");
-                DocumentReference docRef = donHangRef.document(maDH);
 
-                docRef.get().addOnSuccessListener(documentSnapshot -> {
-                    if (documentSnapshot.exists()) {
-                        String trangThai = documentSnapshot.getString("TrangThai");
-                        if (trangThai != null) {
-                            String newTrangThai;
-                            if (trangThai.equals("Confirm")) {
-                                newTrangThai = "onwait";
-                            } else if (trangThai.equals("onwait")) {
-                                newTrangThai = "delivering";
-                            } else if (trangThai.equals("delivering")) {
-                                newTrangThai = "delivered";
-                            } else {
-                                return;
-                            }
-                            docRef.update("TrangThai", newTrangThai)
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()) {
-                                                // Cập nhật thành công
-                                                Toast.makeText(v.getContext(), "Trạng thái đã được cập nhật", Toast.LENGTH_SHORT).show();
-                                                refresh();
-                                            } else {
-                                                // Cập nhật thất bại
-                                                Toast.makeText(v.getContext(), "Cập nhật trạng thái thất bại", Toast.LENGTH_SHORT).show();
-                                            }
-                                        }
-                                    });
-
-                        }
-                    } else {
-                        Toast.makeText(v.getContext(), "Document does not exist", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
 
         // Truy vấn Firebase để lấy AnhDaiDien dựa trên maND
         FirebaseFirestore db = FirebaseFirestore.getInstance();

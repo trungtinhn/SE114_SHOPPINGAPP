@@ -142,7 +142,7 @@ public class OrderActivity extends AppCompatActivity {
                                 return;
                             }
 
-                            updateBadgeValue(1, value.size());
+                            updateBadgeValue(2, value.size());
                         }
                     });
 
@@ -159,7 +159,7 @@ public class OrderActivity extends AppCompatActivity {
                                 return;
                             }
 
-                            updateBadgeValue(1, value.size());
+                            updateBadgeValue(3, value.size());
                         }
                     });
 
@@ -176,7 +176,7 @@ public class OrderActivity extends AppCompatActivity {
                                 return;
                             }
 
-                            updateBadgeValue(1, value.size());
+                            updateBadgeValue(4, value.size());
                         }
                     });
 
