@@ -223,8 +223,8 @@ public class BuyNow extends AppCompatActivity {
             public void onClick(View v) {
                 if(MaDC != null && MaGG != null){
                     AddDatHang();
-//                    Intent t = new Intent(BuyNow.this, DoneActivity.class);
-//                    startActivity(t);
+                    Intent t = new Intent(BuyNow.this, DoneActivity.class);
+                    startActivity(t);
                 }
                 else{
                     Toast.makeText(BuyNow.this,"Vui Lòng Chọn Đầy Đủ Thông Tin", Toast.LENGTH_LONG).show();
