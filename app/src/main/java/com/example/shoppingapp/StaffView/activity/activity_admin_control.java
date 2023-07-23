@@ -1,12 +1,15 @@
 package com.example.shoppingapp.StaffView.activity;
 
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,7 +20,7 @@ import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -29,34 +32,52 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.shoppingapp.Login.User;
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.StaffView.adapter.adapter_admin_control;
 import com.example.shoppingapp.itf_RCV_list_item;
+import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
 import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 
 public class activity_admin_control extends AppCompatActivity implements itf_RCV_list_item, AdapterView.OnItemSelectedListener, Filterable {
 
     RecyclerView RCV;
+    private static int PICK_IMAGE=123;
+    private Uri Staff_imagepath;
+    private String imagePath;
+    private ImageView ivImg;
+    DatabaseReference reference = FirebaseDatabase.getInstance().
+            getReferenceFromUrl("https://se114-df58a-default-rtdb.firebaseio.com/");
+
     Button btn_add;
     ArrayList<User> StaffList;
     adapter_admin_control adapterAdmin;
@@ -64,16 +85,23 @@ public class activity_admin_control extends AppCompatActivity implements itf_RCV
     SearchView searchView;
     User admin;
     FirebaseFirestore firebaseFirestore;
+    FirebaseStorage firebaseStorage;
+    FirebaseDatabase firebaseDatabase;
     StorageReference storageReference;
     ProgressDialog progressDialog;
     private int admin_count;
+    private String ImageUrl;
+    static private FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_staff_admin_control);
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseStorage = FirebaseStorage.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = firebaseDatabase.getReference();
         //setupAdminList();
 
         admin_count = 0 ;
@@ -121,8 +149,20 @@ public class activity_admin_control extends AppCompatActivity implements itf_RCV
                 EventAdd();
             }
         });
+
         EventInitListener();
         RCV.setAdapter(adapterAdmin);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                EventInitListener();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
         searchView = findViewById(R.id.searchView);
@@ -144,36 +184,32 @@ public class activity_admin_control extends AppCompatActivity implements itf_RCV
 
     }
 
-    private void EventAdd()
-    {
-        DialogPlus dialogPlus = DialogPlus.newDialog( this)
+    private void EventAdd() {
+
+        DialogPlus dialogPlus = DialogPlus.newDialog(this)
                 .setGravity(Gravity.CENTER)
                 .setContentHolder(new ViewHolder(R.layout.activity_admin_add))
                 .setExpanded(false)
                 .create();
 
-        View holderView = (LinearLayout) dialogPlus.getHolderView();
+        View holderView = (ScrollView) dialogPlus.getHolderView();
 
         EditText edName = holderView.findViewById(R.id.txt_name);
         Spinner edSex = holderView.findViewById(R.id.txt_sex);
-        Spinner edStatus = holderView.findViewById(R.id.txt_status);
+        EditText edAddr = holderView.findViewById(R.id.txt_address);
         TextView edDob = holderView.findViewById(R.id.txt_dob);
         EditText edPhone = holderView.findViewById(R.id.txt_phone);
         EditText edMail = holderView.findViewById(R.id.txt_mail);
         EditText edPass = holderView.findViewById(R.id.txt_pass);
+        EditText edPass_2 = holderView.findViewById(R.id.txt_pass_2);
+        ivImg = holderView.findViewById(R.id.img_imageView);
         Button btnUpdate = holderView.findViewById(R.id.btn_update);
 
-        ArrayAdapter<CharSequence> gender = ArrayAdapter.createFromResource(this,R.array.gender,
+        ArrayAdapter<CharSequence> gender = ArrayAdapter.createFromResource(this, R.array.gender,
                 R.layout.spinner_item);
         gender.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         edSex.setAdapter(gender);
         edSex.setOnItemSelectedListener(this);
-
-        ArrayAdapter<CharSequence> status = ArrayAdapter.createFromResource(this,R.array.status,
-                R.layout.spinner_item);
-        status.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        edStatus.setAdapter(status);
-        edStatus.setOnItemSelectedListener(this);
 
         edDob.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -197,63 +233,185 @@ public class activity_admin_control extends AppCompatActivity implements itf_RCV
                 datePickerDialog.show();
             }
         });
+        ivImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ImagePicker.Companion.with(activity_admin_control.this)
+                        .crop()  // optionally enable image cropping
+                        .start();
+            }
+        });
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(TextUtils.isEmpty(edName.getText().toString())) {
+                if (TextUtils.isEmpty(edName.getText().toString())) {
                     edName.setError("Please fill name!");
                     return;
                 }
-                if(TextUtils.isEmpty(edDob.getText().toString())){
+                if (TextUtils.isEmpty(edAddr.getText().toString())) {
+                    edAddr.setError("Please fill Address!");
+                    return;
+                }
+                if (TextUtils.isEmpty(edPass_2.getText().toString())) {
+                    edPass_2.setError("Please re-enter your pass!");
+                    return;
+                }
+                if (TextUtils.isEmpty(edDob.getText().toString())) {
                     edDob.setError("Please fill date of birth!");
                     return;
                 }
-                if(TextUtils.isEmpty(edPhone.getText().toString())){
+                if (TextUtils.isEmpty(edPhone.getText().toString())) {
                     edPhone.setError("Please fill phone!");
                     return;
                 }
-                if(TextUtils.isEmpty(edMail.getText().toString())){
+                if (TextUtils.isEmpty(edMail.getText().toString())) {
                     edMail.setError("Please fill mail!");
                     return;
                 }
-                if(TextUtils.isEmpty(edPass.getText().toString())) {
+                if (TextUtils.isEmpty(edPass.getText().toString())) {
                     edPass.setError("Please fill password!");
                     return;
                 }
-                Map<String, Object> map = new HashMap<>();
-                map.put("ID",String.valueOf(admin_count));
-                map.put("name",edName.getText().toString());
-                map.put("sex",edSex.getSelectedItem().toString());
-                map.put("dob",edDob.getText().toString());
-                map.put("status",edStatus.getSelectedItem().toString());
-                map.put("phoneNum",edPhone.getText().toString());
-                map.put("email",edMail.getText().toString());
-                map.put("pass",edPass.getText().toString());
+                if (edPass.getText().toString().length() < 6) {
+                    Toast.makeText(activity_admin_control.this, "Password must be at least 6 characters!",
+                            Toast.LENGTH_SHORT).show();
+                }
+                if (!edPass.getText().toString().equals(edPass_2.getText().toString())) {
+                    edPass_2.setError("Your password is not matching!");
+                    return;
+                }
+                final String emailUTF = edMail.getText().toString();
+                String password = edPass.getText().toString();
+                String fullname = edName.getText().toString();
+                String sex = edSex.getSelectedItem().toString();
+                String dayofbirth = edDob.getText().toString();
+                String phonenumber = edPhone.getText().toString();
+                String diachi = edAddr.getText().toString();
+                String status = "Offline";
 
-                firebaseFirestore.collection("ADMIN").add(map)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                Toast.makeText(activity_admin_control.this, "Success add the data", Toast.LENGTH_SHORT).show();
-                                dialogPlus.dismiss();
-                                EventInitListener();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                dialogPlus.dismiss();
-                                Toast.makeText(activity_admin_control.this, "Fail to add the data", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+
+                final String email = Base64.getEncoder().encodeToString(emailUTF.getBytes());
+                reference.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.hasChild(email)) {
+                            Toast.makeText(activity_admin_control.this, "Email has already registered, try another Email", Toast.LENGTH_SHORT).show();
+                        } else {
+                            // sending data to firebase
+                            firebaseAuth
+                                    .createUserWithEmailAndPassword(emailUTF, password)
+                                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
+                                        @Override
+                                        public void onComplete(@NonNull Task<AuthResult> task)
+                                        {
+                                            if (task.isSuccessful()) {
+                                                sendImgToStorage(Staff_imagepath);
+                                                reference.child("Users").child(email).child("Email").setValue(emailUTF);
+                                                reference.child("Users").child(email).child("LoaiND").setValue("Staff");
+                                                String userID = task.getResult().getUser().getUid();
+                                                User user = new User(fullname, emailUTF, dayofbirth,phonenumber, userID, ImageUrl,
+                                                        diachi, sex, status,"Staff");
+                                                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                                CollectionReference usersCollection = db.collection("NGUOIDUNG");
+
+
+                                                usersCollection.document(userID).set(user)
+                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void aVoid) {
+                                                                Toast.makeText(activity_admin_control.this, "Success to register new staff", Toast.LENGTH_SHORT).show();
+                                                                firebaseAuth.updateCurrentUser(firebaseUser);
+                                                                adapterAdmin.notifyDataSetChanged();
+                                                                EventInitListener();
+                                                                dialogPlus.dismiss();
+                                                                Toast.makeText(activity_admin_control.this, firebaseAuth.getUid(), Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        })
+                                                        .addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+                                                                dialogPlus.dismiss();
+                                                                Toast.makeText(activity_admin_control.this, "Failed to register new staff", Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        });
+                                                dialogPlus.dismiss();
+                                            }
+                                            else {
+
+                                                // Registration failed
+                                                Toast.makeText(
+                                                                getApplicationContext(),
+                                                                "Adding failed!!"
+                                                                        + " Please try again later",
+                                                                Toast.LENGTH_LONG)
+                                                        .show();
+                                                DeleteOldImg(ImageUrl);
+                                                // hide the progress bar
+                                            }
+
+                                        }
+                                    });
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                            return;
+                    }
+                });
+
             }
         });
-
         dialogPlus.show();
-
     }
 
+    private void DeleteOldImg(String deleteImg){
+        if(deleteImg != null ){
+            StorageReference oldImageRef = firebaseStorage.getReferenceFromUrl(deleteImg);
+            oldImageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    // File deleted successfully
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Uh-oh, an error occurred
+                }
+            });
+        }
+    }
+    private void sendImgToStorage(Uri imageUri){
+        StorageReference storageRef = firebaseStorage.getReference();
 
+        String imagePath = "ImageUser/" + UUID.randomUUID().toString() + ".jpg";
+        StorageReference imageRef = storageRef.child(imagePath);
+
+
+        imageRef.putFile(imageUri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri downloadUri) {
+                                Log.d("ImageURI: ", downloadUri.toString());
+                                ImageUrl = downloadUri.toString();
+
+                            }
+                        });
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Tải ảnh thất bại
+                    }
+                });
+
+    }
     private void EventInitListener() {
         progressDialog.setTitle("Loading data...");
         progressDialog.show();
@@ -265,15 +423,13 @@ public class activity_admin_control extends AppCompatActivity implements itf_RCV
                 for(DocumentSnapshot d : task.getResult())
                 {
                     User object = d.toObject(User.class);
-                    //object.setKey(d.getId());
-                    if(!Objects.requireNonNull(object).getMaND().equals(firebaseAuth.getUid())
-                            && Objects.equals(object.getLoaiND(), "Staff")) StaffList.add(object);
+                    if(Objects.equals(object.getLoaiND(), "Staff")) StaffList.add(object);
                     admin_count++;
-                    adapterAdmin.notifyDataSetChanged();
-                    if(progressDialog.isShowing())
-                    {
-                        progressDialog.dismiss();
-                    }
+                }
+                adapterAdmin.notifyDataSetChanged();
+                if(progressDialog.isShowing())
+                {
+                    progressDialog.dismiss();
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -289,21 +445,27 @@ public class activity_admin_control extends AppCompatActivity implements itf_RCV
     @Override
     public void onClick(int position) {
         Intent intent = new Intent(activity_admin_control.this, activity_admin_detail.class);
-        User object = StaffList.get(position);
-        intent.putExtra("Admin", (Serializable) admin);
-        intent.putExtra("Data", (Serializable) object);
+        final User object = StaffList.get(position);
+        intent.putExtra("Admin", admin);
+        intent.putExtra("Data",  object);
         intent.putExtra("Position", position);
         Bundle args = new Bundle();
         args.putSerializable("ArrayList",(Serializable) StaffList);
         intent.putExtra("Bundle",args);
         startActivity(intent);
     }
-
     @Override
-    public Filter getFilter() {
-        return null;
-    }
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
+        if (resultCode == Activity.RESULT_OK && requestCode == ImagePicker.REQUEST_CODE) {
+            // Lấy đường dẫn hình ảnh được chọn
+            imagePath = data.getStringExtra(ImagePicker.EXTRA_FILE_PATH);
+            Glide.with(this).load(imagePath).into(ivImg);
+            Staff_imagepath = data.getData();
+            // Sử dụng đường dẫn hình ảnh để hiển thị hoặc xử lý theo nhu cầu của bạn
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
@@ -313,4 +475,10 @@ public class activity_admin_control extends AppCompatActivity implements itf_RCV
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
+
+    @Override
+    public Filter getFilter() {
+        return null;
+    }
 }
+

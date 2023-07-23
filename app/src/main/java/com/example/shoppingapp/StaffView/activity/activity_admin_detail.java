@@ -1,10 +1,12 @@
 package com.example.shoppingapp.StaffView.activity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -14,7 +16,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,22 +25,26 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.example.shoppingapp.Login.User;
 import com.example.shoppingapp.R;
-import com.example.shoppingapp.StaffView.item.admin_object;
+import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class activity_admin_detail extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     Button btn_edit, btn_remove;
@@ -46,10 +52,17 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
     User admin;
     int position;
     ProgressDialog progressDialog;
-    ArrayList<admin_object> AdminList;
+    //ArrayList<User> AdminList;
     FirebaseFirestore db;
     FirebaseAuth firebaseAuth;
+    FirebaseStorage firebaseStorage;
     DocumentReference docRef;
+    StorageReference storageReference;
+    private String imagePath;
+    private ImageView edImg;
+    private String ImageUrl;
+    private String oldImageUrl;
+    private Uri Staff_imagepath;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,9 +76,10 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
         object = (User) intent.getSerializableExtra("Data");
         position = intent.getIntExtra("Position",0);
         Bundle args = intent.getBundleExtra("Bundle");
-        AdminList = (ArrayList<admin_object>) args.getSerializable("ArrayList");
+        //AdminList = (ArrayList<User>) args.getSerializable("ArrayList");
 
         db = FirebaseFirestore.getInstance();
+        firebaseStorage = FirebaseStorage.getInstance();
         docRef = FirebaseFirestore.getInstance()
                 .collection("NGUOIDUNG").document(object.getMaND());
         ((TextView) findViewById(R.id.txt_admin_name)).setText(object.getFullName());
@@ -76,22 +90,23 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
         ((TextView) findViewById(R.id.txt_mail)).setText(object.getEmail());
         ((TextView) findViewById(R.id.txt_location)).setText(object.getDiachi());
         ((TextView) findViewById(R.id.txt_status)).setText(object.getStatus());
-        String uri=object.getAvatar();
+        ImageUrl = object.getAvatar();
         try{
-            if(uri.isEmpty())
-            {
-                Toast.makeText(getApplicationContext(),"null is recieved",Toast.LENGTH_SHORT).show();
+            if(ImageUrl.isEmpty()) {}
+            else {
+                Picasso.get().load(ImageUrl).into((ImageView) findViewById(R.id.img_staff));
+                storageReference = firebaseStorage.getReferenceFromUrl(ImageUrl);
             }
-            else Picasso.get().load(uri).into((ImageView) findViewById(R.id.img_staff));
         }
         catch (Exception e)
         {
 
         }
+        oldImageUrl = ImageUrl;
 
         ((TextView) findViewById(R.id.adminName)).setText(admin.getFullName());
         ((TextView) findViewById(R.id.adminID)).setText(admin.getMaND());
-        uri=admin.getAvatar();
+        String uri=admin.getAvatar();
         try{
             if(uri.isEmpty())
             {
@@ -127,15 +142,14 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
                 .setExpanded(false)
                 .create();
 
-        View holderView = (LinearLayout) dialogPlus.getHolderView();
+        View holderView = (ScrollView) dialogPlus.getHolderView();
 
+        edImg = holderView.findViewById(R.id.img_imageView);
         EditText edName = holderView.findViewById(R.id.txt_name);
         Spinner edSex = holderView.findViewById(R.id.txt_sex);
         TextView edDob = holderView.findViewById(R.id.txt_dob);
         EditText edPhone = holderView.findViewById(R.id.txt_phone);
-        EditText edMail = holderView.findViewById(R.id.txt_mail);
-        Spinner edStatus = holderView.findViewById(R.id.txt_status);
-        EditText edPass = holderView.findViewById(R.id.txt_pass);
+        EditText edAddr = holderView.findViewById(R.id.txt_address);
         Button btnUpdate = holderView.findViewById(R.id.btn_update);
 
         ArrayAdapter<CharSequence> gender = ArrayAdapter.createFromResource(this,R.array.gender,
@@ -144,19 +158,40 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
         edSex.setAdapter(gender);
         edSex.setOnItemSelectedListener(this);
 
-        ArrayAdapter<CharSequence> status = ArrayAdapter.createFromResource(this,R.array.status,
-                R.layout.spinner_item);
-        status.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        edStatus.setAdapter(status);
-        edStatus.setOnItemSelectedListener(this);
 
-//        edName.setText(object.getName());
-//        edStatus.setSelection(object.getStatusIndex());
-//        edSex.setSelection(object.getSexIndex());
-//        edDob.setText(object.getDob());
-//        edPhone.setText(object.getPhoneNum());
-//        edMail.setText(object.getEmail());
-//        edPass.setText(object.getPass());
+        edName.setText(object.getFullName());
+        String gt = object.getGioitinh();
+        try{
+            if(gt.isEmpty()) edSex.setSelection(0);
+            else if(gt.equals("Male")) edSex.setSelection(1);
+            else if(gt.equals("Female")) edSex.setSelection(2);
+        }
+        catch (Exception e){
+
+        }
+        edAddr.setText(object.getDiachi());
+        edDob.setText(object.getDayOfBirth());
+        edPhone.setText(object.getPhoneNumber());
+        try{
+            if(ImageUrl.isEmpty())
+            {
+                Toast.makeText(getApplicationContext(),"null is recieved",Toast.LENGTH_SHORT).show();
+            }
+            else Picasso.get().load(ImageUrl).into(edImg);
+        }
+        catch (Exception e)
+        {
+
+        }
+
+        edImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ImagePicker.Companion.with(activity_admin_detail.this)
+                        .crop()  // optionally enable image cropping
+                        .start();
+            }
+        });
 
         edDob.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,14 +220,14 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                updateImgInStorage(Staff_imagepath);
                 Map<String, Object> map = new HashMap<>();
-                map.put("name",edName.getText().toString());
-                map.put("sex",edSex.getSelectedItem().toString());
-                map.put("status",edStatus.getSelectedItem().toString());
-                map.put("dob",edDob.getText().toString());
-                map.put("phoneNum",edPhone.getText().toString());
-                map.put("email",edMail.getText().toString());
-                map.put("pass",edPass.getText().toString());
+                map.put("fullName",edName.getText().toString());
+                map.put("gioitinh",edSex.getSelectedItem().toString());
+                map.put("dayOfBirth",edDob.getText().toString());
+                map.put("phoneNumber",edPhone.getText().toString());
+                map.put("diachi",edAddr.getText().toString());
+                map.put("avatar",Staff_imagepath.toString());
 
                 docRef.update(map)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -200,6 +235,7 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
                             public void onSuccess(Void unused) {
                                 Toast.makeText(activity_admin_detail.this, "Success updating the data", Toast.LENGTH_SHORT).show();
                                 dialogPlus.dismiss();
+                                DeleteOldImg(oldImageUrl);
                                 Intent intent = new Intent(activity_admin_detail.this,activity_admin_control.class);
                                 startActivity(intent);
                             }
@@ -209,6 +245,7 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
                             public void onFailure(@NonNull Exception e) {
                                 dialogPlus.dismiss();
                                 Toast.makeText(activity_admin_detail.this, "Fail to update the data", Toast.LENGTH_SHORT).show();
+                                DeleteOldImg(ImageUrl);
                             }
                         });
             }
@@ -252,6 +289,60 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
                 });
         builder.show();
 
+    }
+    private void DeleteOldImg(String deleteImg){
+        if(deleteImg != null ){
+            StorageReference oldImageRef = firebaseStorage.getReferenceFromUrl(deleteImg);
+            oldImageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    // File deleted successfully
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Uh-oh, an error occurred
+                }
+            });
+        }
+    }
+    private void updateImgInStorage(Uri imageUri){
+        StorageReference storageRef = firebaseStorage.getReference();
+
+        String imagePath = "ImageUser/" + UUID.randomUUID().toString() + ".jpg";
+        StorageReference imageRef = storageRef.child(imagePath);
+
+        imageRef.putFile(imageUri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri downloadUri) {
+                                ImageUrl = downloadUri.toString();
+                            }
+                        });
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(activity_admin_detail.this, "Fail to send image to firebase", Toast.LENGTH_LONG).show();
+                        // Tải ảnh thất bại
+                    }
+                });
+
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        if (resultCode == Activity.RESULT_OK && requestCode == ImagePicker.REQUEST_CODE) {
+            // Lấy đường dẫn hình ảnh được chọn
+            imagePath = data.getStringExtra(ImagePicker.EXTRA_FILE_PATH);
+            Glide.with(this).load(imagePath).into(edImg);
+            Staff_imagepath = data.getData();
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
