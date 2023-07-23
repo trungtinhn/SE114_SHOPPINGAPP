@@ -147,6 +147,7 @@
                 android:numStars="5"
                 android:rating="3"
                 android:progressTint="@color/orange"
+                android:isIndicator="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
                 android:scaleX=".8"

@@ -259,6 +259,7 @@
                 app:cornerRadius="30dp"
                 android:backgroundTint="@color/lavender"
                 android:layout_marginHorizontal="0dp"
+                android:visibility="gone"
                 />
         </LinearLayout>
     </RelativeLayout>
