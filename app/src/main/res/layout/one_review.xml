@@ -57,6 +57,7 @@
                 android:id="@+id/ratingReview"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
+                android:progressTint="@color/orange"
                 android:numStars="5"
                 android:scaleX="0.5"
                 android:scaleY="0.5"
