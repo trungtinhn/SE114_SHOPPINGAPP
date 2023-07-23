@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -84,7 +85,9 @@ public class OrderAdapter_Customer extends RecyclerView.Adapter<OrderAdapter_Cus
     @Override
     public void onBindViewHolder(@NonNull OrderAdapter_Customer.ViewHolder holder, int position) {
         Order order = orderList.get(position);
+
         int receive = position;
+
         AtomicInteger totalMoney = new AtomicInteger(0);
         userID = FirebaseAuth.getInstance().getUid();
         holder.orderIdTextView.setText(order.getMaDH());
@@ -120,8 +123,11 @@ public class OrderAdapter_Customer extends RecyclerView.Adapter<OrderAdapter_Cus
 
         // Truy vấn Firebase để lấy AnhDaiDien dựa trên maND
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
         CollectionReference usersRef = db.collection("NGUOIDUNG");
-        usersRef.document(order.getMaND()).get()
+        usersRef.document(firebaseUser.getUid()).get()
                 .addOnSuccessListener(documentSnapshot -> {
                     if (documentSnapshot.exists()) {
                         String anhDaiDien = documentSnapshot.getString("avatar");

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.example.shoppingapp.R;
+import com.example.shoppingapp.customerview.BottomNavigationCustomActivity;
 import com.example.shoppingapp.customerview.activity.OrderActivity;
 
 
@@ -20,6 +21,7 @@ public class AccountFragment extends Fragment {
     private LinearLayout Changepass;
     private LinearLayout Help;
     private LinearLayout Profile;
+    private BottomNavigationCustomActivity bottomNavigationCustomActivity;
 
 
     public AccountFragment() {
@@ -44,18 +46,21 @@ public class AccountFragment extends Fragment {
         Changepass = view.findViewById(R.id.l4);
         Help = view.findViewById(R.id.l2);
         Profile = view.findViewById(R.id.l3);
-        // Inflate the layout for this fragment
-//        YourOrder.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(, AccountFragment.class);
-//                startActivity(intent);
-//            }
-//        });
-//        return view;
-//    }
+        bottomNavigationCustomActivity = (BottomNavigationCustomActivity) getActivity();
 
+
+        setOnClick();
 
         return view;
+    }
+
+    private void setOnClick() {
+
+        YourOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomNavigationCustomActivity.gotoOrderActivity();
+            }
+        });
     }
 }

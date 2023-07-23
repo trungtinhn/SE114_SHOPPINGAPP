@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.example.shoppingapp.R;
+import com.example.shoppingapp.customerview.BottomNavigationCustomActivity;
 import com.example.shoppingapp.customerview.fragment.AccountFragment;
 import com.example.shoppingapp.customerview.fragment.My_Order_fragment.cancel_fragment_Customer;
 import com.example.shoppingapp.customerview.fragment.My_Order_fragment.confirm_fragment_Customer;
@@ -23,6 +24,12 @@ import com.example.shoppingapp.customerview.fragment.My_Order_fragment.deliverin
 import com.example.shoppingapp.customerview.fragment.My_Order_fragment.wait_fragment_Customer;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class OrderActivity extends AppCompatActivity {
 
@@ -52,7 +59,7 @@ public class OrderActivity extends AppCompatActivity {
         back_to_Home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(OrderActivity.this, AccountFragment.class);
+                Intent intent = new Intent(OrderActivity.this, BottomNavigationCustomActivity.class);
                 startActivity(intent);
             }
         });
@@ -78,9 +85,104 @@ public class OrderActivity extends AppCompatActivity {
                     badgeDrawables[i].setBadgeGravity(BadgeDrawable.TOP_END);
                     badgeDrawables[i].setMaxCharacterCount(3); // Điều chỉnh số ký tự tối đa cho giá trị badge
                     updateBadgeValue(i, 0); // Khởi tạo giá trị ban đầu của badge là 0
+                    setBadges();
                 }
             }
         }
+
+        private void setBadges() {
+            FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
+            // Badge Confirm
+            firebaseFirestore.collection("DONHANG")
+                    .whereEqualTo("MaND", firebaseUser.getUid())
+                    .whereEqualTo("TrangThai", "Confirm")
+                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot value,
+                                            @Nullable FirebaseFirestoreException e) {
+                            if (e != null) {
+
+                                return;
+                            }
+
+                            updateBadgeValue(0, value.size());
+                        }
+                    });
+
+            // Badge Wait
+            firebaseFirestore.collection("DONHANG")
+                    .whereEqualTo("MaND", firebaseUser.getUid())
+                    .whereEqualTo("TrangThai", "Wait")
+                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot value,
+                                            @Nullable FirebaseFirestoreException e) {
+                            if (e != null) {
+
+                                return;
+                            }
+
+                            updateBadgeValue(1, value.size());
+                        }
+                    });
+
+            // Badge Delivering
+            firebaseFirestore.collection("DONHANG")
+                    .whereEqualTo("MaND", firebaseUser.getUid())
+                    .whereEqualTo("TrangThai", "Delivering")
+                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot value,
+                                            @Nullable FirebaseFirestoreException e) {
+                            if (e != null) {
+
+                                return;
+                            }
+
+                            updateBadgeValue(2, value.size());
+                        }
+                    });
+
+            //Badge Delivered
+            firebaseFirestore.collection("DONHANG")
+                    .whereEqualTo("MaND", firebaseUser.getUid())
+                    .whereEqualTo("TrangThai", "Delivered")
+                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot value,
+                                            @Nullable FirebaseFirestoreException e) {
+                            if (e != null) {
+
+                                return;
+                            }
+
+                            updateBadgeValue(3, value.size());
+                        }
+                    });
+
+            // Badge Cancel
+            firebaseFirestore.collection("DONHANG")
+                    .whereEqualTo("MaND", firebaseUser.getUid())
+                    .whereEqualTo("TrangThai", "Cancel")
+                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot value,
+                                            @Nullable FirebaseFirestoreException e) {
+                            if (e != null) {
+
+                                return;
+                            }
+
+                            updateBadgeValue(4, value.size());
+                        }
+                    });
+
+
+        }
+
 
         // Phương thức để cập nhật giá trị trong badge tương ứng với từng trạng thái
         public void updateBadgeValue(int position, int value) {
