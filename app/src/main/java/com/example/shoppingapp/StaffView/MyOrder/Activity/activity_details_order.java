@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
-import com.example.shoppingapp.StaffView.MyOrder.Adapter.ProductAdapter;
+import com.example.shoppingapp.StaffView.MyOrder.Fragment.Adapter.ProductAdapter;
 import com.example.shoppingapp.StaffView.MyOrder.ItemOrder;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;

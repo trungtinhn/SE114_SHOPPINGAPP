@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
-import com.example.shoppingapp.StaffView.MyOrder.Adapter.CheckProductAdapter;
+import com.example.shoppingapp.StaffView.MyOrder.Fragment.Adapter.CheckProductAdapter;
 import com.example.shoppingapp.StaffView.MyOrder.Order;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -36,6 +36,7 @@ public class cancel_fragment extends Fragment {
     private String mParam2;
     private List<Order> orderList;
     private CheckProductAdapter orderAdapter;
+    private RecyclerView recyclerView;
 
     public cancel_fragment() {
         // Required empty public constructor
@@ -74,7 +75,7 @@ public class cancel_fragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_cancel, container, false);
 
 
-        RecyclerView recyclerView = view.findViewById(R.id.RCV_cancel);
+        recyclerView = view.findViewById(R.id.RCV_cancel);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         // Kết nối tới Firestore
@@ -101,5 +102,13 @@ public class cancel_fragment extends Fragment {
 
         return view;
     }
+    public int getSize() {
+        if (recyclerView.getAdapter() != null) {
+            return recyclerView.getAdapter().getItemCount();
+        } else {
+            return 0;
+        }
+    }
+
 
 }
