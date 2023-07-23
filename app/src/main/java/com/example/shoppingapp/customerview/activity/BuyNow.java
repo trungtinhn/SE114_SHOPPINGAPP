@@ -223,8 +223,8 @@ public class BuyNow extends AppCompatActivity {
             public void onClick(View v) {
                 if(MaDC != null && MaGG != null){
                     AddDatHang();
-//                    Intent t = new Intent(BuyNow.this, DoneActivity.class);
-//                    startActivity(t);
+                    Intent t = new Intent(BuyNow.this, DoneActivity.class);
+                    startActivity(t);
                 }
                 else{
                     Toast.makeText(BuyNow.this,"Vui Lòng Chọn Đầy Đủ Thông Tin", Toast.LENGTH_LONG).show();
@@ -484,12 +484,12 @@ public class BuyNow extends AppCompatActivity {
                         }
                     });
             Log.d("ERrrrrrkkkkkkkkkkkkrrrrrrrrrrrr",myData.get(i).getMaGH() );
-            DocumentReference docRef = db.collection("GIOHANG").document(myData.get(i).getMaGH());
-            docRef.delete()
+            DocumentReference docReff = db.collection("GIOHANG").document(myData.get(i).getMaGH());
+            docReff.delete()
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Log.d("Sucess", "Data deleted successfully");
+                            Log.d("Sucess", "Xoa thanh cong GIOHANG");
                         }
                     });
 

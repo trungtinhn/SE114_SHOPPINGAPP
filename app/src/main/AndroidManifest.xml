@@ -76,7 +76,8 @@
             android:exported="true" />
         <activity
             android:name=".customerview.activity.CategoriesDetails"
-            android:exported="false" />
+            android:theme="@style/Theme.ShoppingApp"
+            android:exported="true" />
         <activity
             android:name=".customerview.activity.DoneActivity"
             android:exported="false" />
@@ -109,9 +110,11 @@
             android:exported="false" />
         <activity
             android:name=".customerview.activity.DetailProductActivity"
-            android:exported="false" />
+            android:theme="@style/Theme.ShoppingApp"
+            android:exported="true" />
         <activity
             android:name=".customerview.activity.TrendingActivity"
+            android:theme="@style/Theme.ShoppingApp"
             android:exported="true" />
         <activity
             android:name=".customerview.activity.PromotionActivity"
