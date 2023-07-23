@@ -146,11 +146,11 @@
                 android:layout_height="wrap_content"
                 android:numStars="5"
                 android:rating="3"
-                android:progressTint="@color/yellow"
+                android:progressTint="@color/orange"
+                android:isIndicator="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
                 android:scaleX=".8"
-
                 android:scaleY=".8"
                 android:transformPivotX="0dp"
                 android:transformPivotY="0dp"
