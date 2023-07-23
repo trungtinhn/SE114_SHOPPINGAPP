@@ -197,7 +197,8 @@ public class HomeFragment extends Fragment {
                             }
                         }
 
-                        ViewPagerImageAdapter imageAdapter = new ViewPagerImageAdapter(getContext(), imagePro);
+                        ViewPagerPromotionAdapter imageAdapter = new ViewPagerPromotionAdapter(getContext());
+                        imageAdapter.setData(imagePro);
                         viewPager2.setAdapter(imageAdapter);
 
                         TimerTask autoScrollTask = new AutoScrollTask(viewPager2);
