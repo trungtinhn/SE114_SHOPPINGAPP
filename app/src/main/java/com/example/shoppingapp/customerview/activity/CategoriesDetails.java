@@ -70,11 +70,19 @@ public class CategoriesDetails extends AppCompatActivity {
 
 
         getDataCategories();
+        SoLuongShoppingCart();
 
         backICon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CategoriesDetails.this, BottomNavigationCustomActivity.class );
+                startActivity(intent);
+            }
+        });
+        shoppingCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CategoriesDetails.this, ShoppingCart.class );
                 startActivity(intent);
             }
         });
@@ -128,7 +136,7 @@ public class CategoriesDetails extends AppCompatActivity {
                                 dataGiohang.add(ma);
                             }
                         }
-                        BadgeDrawable badgeDrawable = BadgeDrawable.create(getApplicationContext());
+                        BadgeDrawable badgeDrawable = BadgeDrawable.create(CategoriesDetails.this);
                         badgeDrawable.setNumber(dataGiohang.size());
 
                         BadgeUtils.attachBadgeDrawable(badgeDrawable, shoppingCart, null);

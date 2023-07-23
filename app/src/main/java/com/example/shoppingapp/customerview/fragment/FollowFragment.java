@@ -3,6 +3,7 @@ package com.example.shoppingapp.customerview.fragment;
 import static android.content.ContentValues.TAG;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -78,6 +79,9 @@ public class FollowFragment extends Fragment {
 
         getFirebase();
         setFollow();
+        SoLuongShoppingCart();
+        setOnClickShoppingCart();
+
 
         return view;
     }
@@ -93,7 +97,14 @@ public class FollowFragment extends Fragment {
     private void onClickGoToDetailProduct(Product product) {
         bottomNavigationCustomActivity.gotoDetailProduct(product);
     }
-
+    private void setOnClickShoppingCart() {
+        shoppingCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomNavigationCustomActivity.gotoDetail();
+            }
+        });
+    }
     private void setFollow() {
         productAdapter = new ProductAdapter();
 
