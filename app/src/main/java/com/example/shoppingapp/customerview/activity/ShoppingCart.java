@@ -92,7 +92,7 @@ public class ShoppingCart extends AppCompatActivity {
         ButtonCheckOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("Checkkkkkkkkkkk", String.valueOf(data.get(1).isCheck()));
+
                 try{
                     String[] listmaGH = new String[data.size()];
                     int j = 0;

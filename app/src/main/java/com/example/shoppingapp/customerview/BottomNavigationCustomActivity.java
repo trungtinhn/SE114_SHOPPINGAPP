@@ -14,6 +14,7 @@ import com.example.shoppingapp.R;
 import com.example.shoppingapp.customerview.activity.DetailProductActivity;
 import com.example.shoppingapp.customerview.activity.MessageActivity;
 import com.example.shoppingapp.customerview.activity.Notification;
+import com.example.shoppingapp.customerview.activity.OrderActivity;
 import com.example.shoppingapp.customerview.activity.SearchingActivity;
 import com.example.shoppingapp.customerview.activity.ShoppingCart;
 import com.example.shoppingapp.customerview.activity.TrendingActivity;
@@ -143,6 +144,11 @@ public class BottomNavigationCustomActivity extends AppCompatActivity{
     public void gotoNotificationActivity()
     {
         Intent intent = new Intent(BottomNavigationCustomActivity.this, Notification.class);
+        startActivity(intent);
+    }
+
+    public void gotoOrderActivity(){
+        Intent intent = new Intent(BottomNavigationCustomActivity.this, OrderActivity.class);
         startActivity(intent);
     }
 

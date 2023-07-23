@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.example.shoppingapp.R;
+import com.example.shoppingapp.customerview.BottomNavigationCustomActivity;
 import com.example.shoppingapp.customerview.fragment.AccountFragment;
 import com.example.shoppingapp.customerview.fragment.My_Order_fragment.cancel_fragment_Customer;
 import com.example.shoppingapp.customerview.fragment.My_Order_fragment.confirm_fragment_Customer;
@@ -52,7 +53,7 @@ public class OrderActivity extends AppCompatActivity {
         back_to_Home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(OrderActivity.this, AccountFragment.class);
+                Intent intent = new Intent(OrderActivity.this, BottomNavigationCustomActivity.class);
                 startActivity(intent);
             }
         });
