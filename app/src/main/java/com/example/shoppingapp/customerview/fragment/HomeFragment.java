@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.OptIn;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,6 +31,8 @@ import com.example.shoppingapp.customerview.product.ProductAdapter;
 import com.example.shoppingapp.customerview.product.customer_interface.IClickItemProductListener;
 import com.example.shoppingapp.customerview.viewpagerimage.AutoScrollTask;
 import com.example.shoppingapp.customerview.viewpagerimage.ViewPagerImageAdapter;
+import com.google.android.material.badge.BadgeDrawable;
+import com.google.android.material.badge.BadgeUtils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -42,8 +45,9 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
+@OptIn(markerClass = com.google.android.material.badge.ExperimentalBadgeUtils.class)
 public class HomeFragment extends Fragment {
+    private List<String> dataGiohang;
     private ViewPager2 viewPager2;
 
     private FirebaseAuth firebaseAuth;
@@ -97,6 +101,7 @@ public class HomeFragment extends Fragment {
         setOnClickEditSearch();
         setOnCLickChatbtn();
         getDataPromotion();
+        SoLuongShoppingCart();
 
         setOnClickShoppingCart();
         // Inflate the layout for this fragment
@@ -245,5 +250,30 @@ public class HomeFragment extends Fragment {
                                 rcvCategories.setAdapter(categoriesAdapter);
                             }
                         });
+    }
+    private void SoLuongShoppingCart(){
+        firebaseFirestore.collection("GIOHANG")
+                .whereEqualTo("MaND", firebaseAuth.getCurrentUser().getUid())
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if (error != null) {
+                            Log.w("Error", "listen:error", error);
+                            return;
+                        }
+                        dataGiohang = new ArrayList<>();
+                        for(DocumentSnapshot doc: value.getDocuments()){
+                            if(doc.exists()){
+                                String ma = doc.getString("MaGH");
+                                dataGiohang.add(ma);
+                            }
+                        }
+                        BadgeDrawable badgeDrawable = BadgeDrawable.create(getContext());
+                        badgeDrawable.setNumber(dataGiohang.size());
+
+                        BadgeUtils.attachBadgeDrawable(badgeDrawable, shoppingCart, null);
+                    }
+                });
+
     }
 }

@@ -9,9 +9,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.OptIn;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +23,8 @@ import com.example.shoppingapp.customerview.BottomNavigationCustomActivity;
 import com.example.shoppingapp.customerview.product.Product;
 import com.example.shoppingapp.customerview.product.ProductAdapter;
 import com.example.shoppingapp.customerview.product.customer_interface.IClickItemProductListener;
+import com.google.android.material.badge.BadgeDrawable;
+import com.google.android.material.badge.BadgeUtils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -34,8 +38,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@OptIn(markerClass = com.google.android.material.badge.ExperimentalBadgeUtils.class)
 public class FollowFragment extends Fragment {
+    private List<String> dataGiohang;
+    private ImageView shoppingCart;
 
     private RecyclerView rcvFollow;
     private TextView btnEmpty;
@@ -64,6 +70,7 @@ public class FollowFragment extends Fragment {
         rcvFollow = view.findViewById(R.id.rcvFollow);
         btnEmpty = view.findViewById(R.id.btnEmpty);
         layoutEmpty = view.findViewById(R.id.layoutEmpty);
+        shoppingCart = view.findViewById(R.id.ShoppingCart);
         bottomNavigationCustomActivity = (BottomNavigationCustomActivity) getActivity();
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
@@ -150,5 +157,30 @@ public class FollowFragment extends Fragment {
 
                     }
                 });
+    }
+    private void SoLuongShoppingCart(){
+        firebaseFirestore.collection("GIOHANG")
+                .whereEqualTo("MaND", firebaseAuth.getCurrentUser().getUid())
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@androidx.annotation.Nullable QuerySnapshot value, @androidx.annotation.Nullable FirebaseFirestoreException error) {
+                        if (error != null) {
+                            Log.w("Error", "listen:error", error);
+                            return;
+                        }
+                        dataGiohang = new ArrayList<>();
+                        for(DocumentSnapshot doc: value.getDocuments()){
+                            if(doc.exists()){
+                                String ma = doc.getString("MaGH");
+                                dataGiohang.add(ma);
+                            }
+                        }
+                        BadgeDrawable badgeDrawable = BadgeDrawable.create(getContext());
+                        badgeDrawable.setNumber(dataGiohang.size());
+
+                        BadgeUtils.attachBadgeDrawable(badgeDrawable, shoppingCart, null);
+                    }
+                });
+
     }
 }
