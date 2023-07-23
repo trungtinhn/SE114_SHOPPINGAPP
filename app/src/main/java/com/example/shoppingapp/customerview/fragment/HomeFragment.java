@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.customerview.activity.CategoriesDetails;
@@ -27,6 +28,8 @@ import com.example.shoppingapp.customerview.categories.CategoriesAdapter;
 import com.example.shoppingapp.customerview.product.Product;
 import com.example.shoppingapp.customerview.product.ProductAdapter;
 import com.example.shoppingapp.customerview.product.customer_interface.IClickItemProductListener;
+import com.example.shoppingapp.customerview.viewpagerimage.AutoScrollTask;
+import com.example.shoppingapp.customerview.viewpagerimage.ViewPagerImageAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -36,9 +39,12 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class HomeFragment extends Fragment {
+    private ViewPager2 viewPager2;
 
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
@@ -57,6 +63,7 @@ public class HomeFragment extends Fragment {
     private EditText editSearch;
     private ImageView chatBtn;
     private  ImageView shoppingCart;
+    private List<String> imagePro;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,6 +82,7 @@ public class HomeFragment extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
 
+        viewPager2 = view.findViewById(R.id.viewpagerImage);
         rcvProduct = view.findViewById(R.id.rcvProduct);
         rcvCategories = view.findViewById(R.id.rcvCategories);
         txtSeeall = view.findViewById(R.id.txtSeeall);
@@ -88,6 +96,7 @@ public class HomeFragment extends Fragment {
         setOnClicktxtSeeall();
         setOnClickEditSearch();
         setOnCLickChatbtn();
+        getDataPromotion();
 
         setOnClickShoppingCart();
         // Inflate the layout for this fragment
@@ -170,11 +179,35 @@ public class HomeFragment extends Fragment {
         bottomNavigationCustomActivity.gotoDetailProduct(product);
     }
 
+    private void getDataPromotion(){
+        firebaseFirestore.collection("KHUYENMAI")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if (error != null) {
+                            Log.w("Error", "listen:error", error);
+                            return;
+                        }
+                        imagePro = new ArrayList<>();
+                        for (DocumentSnapshot doc : value.getDocuments()){
+                            if(doc.exists()){
+                                String image = doc.getString("HinhAnhTB");
+                                Log.d("Ma Khuyen Mai", image);
+                                imagePro.add(image);
+                            }
+                        }
 
+                        ViewPagerImageAdapter imageAdapter = new ViewPagerImageAdapter(getContext(), imagePro);
+                        viewPager2.setAdapter(imageAdapter);
+
+                        TimerTask autoScrollTask = new AutoScrollTask(viewPager2);
+                        Timer timer = new Timer();
+                        timer.schedule(autoScrollTask, 2000, 2000);
+                    }
+                });
+    }
     private void setDataRcvCategories() {
 
-
-        listCategories = new ArrayList<>();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext(), RecyclerView.VERTICAL, false);
         rcvCategories.setLayoutManager(linearLayoutManager);
         categoriesAdapter = new CategoriesAdapter();
