@@ -1,6 +1,8 @@
 package com.example.shoppingapp.Login;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private String fullName;
     private String status;
     private String email;
