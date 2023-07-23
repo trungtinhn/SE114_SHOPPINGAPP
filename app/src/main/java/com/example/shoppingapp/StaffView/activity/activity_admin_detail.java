@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -220,14 +221,15 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                updateImgInStorage(Staff_imagepath);
+
                 Map<String, Object> map = new HashMap<>();
                 map.put("fullName",edName.getText().toString());
                 map.put("gioitinh",edSex.getSelectedItem().toString());
                 map.put("dayOfBirth",edDob.getText().toString());
                 map.put("phoneNumber",edPhone.getText().toString());
                 map.put("diachi",edAddr.getText().toString());
-                map.put("avatar",Staff_imagepath.toString());
+                Log.d("HInh Anh Da LUUUU", ImageUrl);
+                map.put("avatar",ImageUrl);
 
                 docRef.update(map)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -319,6 +321,7 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
                         imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri downloadUri) {
+                                Log.d("ImageURI: ", downloadUri.toString());
                                 ImageUrl = downloadUri.toString();
                             }
                         });
@@ -340,7 +343,8 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
             // Lấy đường dẫn hình ảnh được chọn
             imagePath = data.getStringExtra(ImagePicker.EXTRA_FILE_PATH);
             Glide.with(this).load(imagePath).into(edImg);
-            Staff_imagepath = data.getData();
+
+            updateImgInStorage(data.getData());
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
