@@ -21,6 +21,7 @@ import com.example.shoppingapp.customerview.promotion.Promotion;
 import com.example.shoppingapp.customerview.promotion.PromotionAdapter;
 import com.example.shoppingapp.customerview.shoppingcart.Address;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
@@ -36,6 +37,7 @@ import com.squareup.picasso.Picasso;
 
 import java.security.spec.ECField;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -138,7 +140,14 @@ public class BuyNow extends AppCompatActivity {
 
         //
         if(myList != null){
-            if(myList[1] == null) NextProduct.setVisibility(View.INVISIBLE);
+            if(myList.length > 1){
+                if(myList[1] == null){
+                    NextProduct.setVisibility(View.INVISIBLE);
+                }
+            }
+            else {
+                NextProduct.setVisibility(View.INVISIBLE);
+            }
         }
         //
 
@@ -212,14 +221,14 @@ public class BuyNow extends AppCompatActivity {
         CheckOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if(MaDC == null && MaGG == null){
-//                    AddDatHang();
+                if(MaDC != null && MaGG != null){
+                    AddDatHang();
 //                    Intent t = new Intent(BuyNow.this, DoneActivity.class);
 //                    startActivity(t);
-//                }
-//                else{
-//
-//                }
+                }
+                else{
+                    Toast.makeText(BuyNow.this,"Vui Lòng Chọn Đầy Đủ Thông Tin", Toast.LENGTH_LONG).show();
+                }
 
             }
         });
@@ -424,6 +433,14 @@ public class BuyNow extends AppCompatActivity {
     }
     private void AddDatHang(){
         Date currentTime = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentTime);
+
+        calendar.add(Calendar.DAY_OF_YEAR, 5);
+
+        Date nexttime = calendar.getTime();
+
+
         Map<String, Object> donHangData = new HashMap<>();
         donHangData.put("MaDC", MaDC);
         donHangData.put("MaND", firebaseAuth.getCurrentUser().getUid());
@@ -432,6 +449,7 @@ public class BuyNow extends AppCompatActivity {
         donHangData.put("PhiVanChuyen", 20000);
         donHangData.put("TenNguoiMua", list.get(0).getName());
         donHangData.put("SDT", list.get(0).getSdt());
+        donHangData.put("DuKienGiaoHang", new Timestamp(nexttime));
         donHangData.put("TamTinh", TienTamTinh);
         donHangData.put("GiamGia", GiamGia);
         donHangData.put("TongTien", TongTien);
@@ -454,18 +472,19 @@ public class BuyNow extends AppCompatActivity {
             datHangData.put("MaDH", MaDH);
             datHangData.put("MaSP", myData.get(i).getMaSP());
             datHangData.put("MauSac", myData.get(i).getMauSac());
-            datHangData.put("Size", myData.get(0).getSize());
-            datHangData.put("SoLuong", myData.get(0).getSoLuong());
-            datHangData.put("ThanhTien", myData.get(0).getGiaTien());
+            datHangData.put("Size", myData.get(i).getSize());
+            datHangData.put("SoLuong", myData.get(i).getSoLuong());
+            datHangData.put("ThanhTien", myData.get(i).getGiaTien());
             db.collection("DATHANG")
                     .add(datHangData)
                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
-
+                            Log.d("Sucess", "Data deleted successfully");
                         }
                     });
-            DocumentReference docRef = db.collection("GIOHANG").document(myData.get(0).getMaGH());
+            Log.d("ERrrrrrkkkkkkkkkkkkrrrrrrrrrrrr",myData.get(i).getMaGH() );
+            DocumentReference docRef = db.collection("GIOHANG").document(myData.get(i).getMaGH());
             docRef.delete()
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
@@ -474,6 +493,33 @@ public class BuyNow extends AppCompatActivity {
                         }
                     });
 
+            int SoLuong = myData.get(i).getSoLuong();
+            db.collection("SANPHAM")
+                    .whereEqualTo("MaSP", myData.get(i).getMaSP())
+                    .get()
+                            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                @Override
+                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                    if (!queryDocumentSnapshots.isEmpty()) {
+                                        DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
+                                        String docId = documentSnapshot.getId();
+                                        int SoLuongDaBan = documentSnapshot.getLong("SoLuongDaBan").intValue();
+                                        int SoLuongConLai = documentSnapshot.getLong("SoLuongConLai").intValue();
+                                        Map<String, Object> newData = new HashMap<>();
+                                        newData.put("SoLuongDaBan", SoLuongDaBan + SoLuong);
+                                        newData.put("SoLuongConLai", SoLuongConLai - SoLuong);
+                                        DocumentReference docRef = db.collection("SANPHAM").document(docId);
+                                        docRef.update(newData)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+                                                        Log.d("Access", "SoLuong updated successfully");
+                                                    }
+                                                });
+
+                                    }
+                                }
+                            });
         }
 
     }
