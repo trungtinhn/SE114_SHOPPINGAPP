@@ -92,16 +92,13 @@ public class ShoppingCart extends AppCompatActivity {
         ButtonCheckOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 try{
                     String[] listmaGH = new String[data.size()];
                     int j = 0;
                     for(int i = 0; i < data.size(); i++){
-                        Log.d("Errrrrrrrrrrrrr", String.valueOf(data.get(i).isCheck() + "   "+data.get(i).getMaGH()));
                         if(data.get(i).isCheck()){
                             listmaGH[j] = data.get(i).getMaGH();
                             j++;
-                            Log.d("Errrrrrrrrrrrrrrr", String.valueOf(j));
                         }
                     }
                     if(listmaGH[0] !=null){
