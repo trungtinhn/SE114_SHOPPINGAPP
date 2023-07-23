@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
-import com.example.shoppingapp.StaffView.MyOrder.Adapter.CheckProductAdapter;
+import com.example.shoppingapp.StaffView.MyOrder.Fragment.Adapter.CheckProductAdapter;
 import com.example.shoppingapp.StaffView.MyOrder.Order;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -101,5 +101,4 @@ public class delivering_fragment extends Fragment {
 
         return view;
     }
-
 }

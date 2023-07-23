@@ -1,5 +1,6 @@
-package com.example.shoppingapp.StaffView.MyOrder.Adapter;
+package com.example.shoppingapp.StaffView.MyOrder.Fragment.Adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +13,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.shoppingapp.Login.User;
 import com.example.shoppingapp.R;
+import com.example.shoppingapp.StaffView.MyOrder.Activity.activity_details_order;
 import com.example.shoppingapp.StaffView.MyOrder.ItemOrder;
 import com.example.shoppingapp.StaffView.MyOrder.Order;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -25,11 +30,15 @@ import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class CheckProductAdapter extends RecyclerView.Adapter<CheckProductAdapter.ViewHolder> {
+public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
     private List<Order> orderList;
+    private String userID;
+    private User user;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView orderIdTextView;
@@ -37,46 +46,63 @@ public class CheckProductAdapter extends RecyclerView.Adapter<CheckProductAdapte
         private ImageView img_avatar;
         private RecyclerView recyclerViewProducts;
         private ProductAdapter productAdapter;
-        private TextView getMaStaff;
-        private Button Confirm;
-        private TextView total;
 
+        private TextView total;
+        private Button button;
+        private Button confirm;
         public ViewHolder(View itemView) {
             super(itemView);
-            orderIdTextView = itemView.findViewById(R.id.maND);
-            customerNameTextView = itemView.findViewById(R.id.ten);
-            img_avatar = itemView.findViewById(R.id.img_ava);
-            recyclerViewProducts = itemView.findViewById(R.id.RCV_details);
-            total = itemView.findViewById(R.id.money_total);
-            getMaStaff = itemView.findViewById(R.id.getMaND);
-            Confirm = itemView.findViewById(R.id.btn_confirm);
+            orderIdTextView = itemView.findViewById(R.id.tv_orderID);
+            customerNameTextView = itemView.findViewById(R.id.tv_ordername);
+            img_avatar = itemView.findViewById(R.id.img_avatar);
+            recyclerViewProducts = itemView.findViewById(R.id.RCVcard_view);
+            total = itemView.findViewById(R.id.moneytotal);
+            button = itemView.findViewById(R.id.btn_detail);
+            confirm = itemView.findViewById(R.id.confirm);
         }
     }
 
 
-    public CheckProductAdapter(List<Order> orderList) {
+    public OrderAdapter(List<Order> orderList) {
         this.orderList = orderList;
+    }
+    public List<Order> getOrderList() {
+        return orderList;
+    }
+    public OrderAdapter(List<Order> orderList, String userID) {
+        this.orderList = orderList;
+        this.userID = userID;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.checkproduct_adapter, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_for_screen_oder, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
 
         return viewHolder;
     }
+
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Order order = orderList.get(position);
         int receive = position;
         AtomicInteger totalMoney = new AtomicInteger(0);
-
         holder.orderIdTextView.setText(order.getMaDH());
         holder.customerNameTextView.setText(order.getTenNguoiMua());
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(holder.itemView.getContext());
         holder.recyclerViewProducts.setLayoutManager(layoutManager);
-        holder.Confirm.setOnClickListener(new View.OnClickListener() {
+        holder.button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String maDH = orderList.get(receive).getMaDH();
+                // Chuyển sang activity mới
+                Intent intent = new Intent(v.getContext(), activity_details_order.class);
+                intent.putExtra("MaDH", maDH);
+                v.getContext().startActivity(intent);
+            }
+        });
+        holder.confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String maDH = orderList.get(receive).getMaDH();
@@ -114,12 +140,41 @@ public class CheckProductAdapter extends RecyclerView.Adapter<CheckProductAdapte
                                     });
 
                         }
+                        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+                        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+                        DocumentReference documentReference=firebaseFirestore.collection("NGUOIDUNG").document(firebaseAuth.getUid());
+                        String maND = firebaseAuth.getUid();
+                        Timestamp timestamp = Timestamp.now();
+                        Map<String, Object> xacNhanDonHang = new HashMap<>();
+                        xacNhanDonHang.put("MaDH", maDH);
+                        xacNhanDonHang.put("MaND", maND);
+                        xacNhanDonHang.put("NgayGioBamNutConfirm", timestamp);
+                        xacNhanDonHang.put("TrangThai", trangThai); // Lưu giá trị TrangThai
+                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                        CollectionReference xacNhanDonHangRef = db.collection("XACNHANDONHANG");
+                        if (trangThai.equals("Confirm") || trangThai.equals("onwait")) {
+                            xacNhanDonHangRef.add(xacNhanDonHang)
+                                    .addOnSuccessListener(documentReference1 -> {
+                                        // Tạo tài liệu thành công
+                                        String xacNhanDonHangId = documentReference1.getId();
+                                        // Thực hiện các thao tác khác nếu cần
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        // Tạo tài liệu thất bại
+                                        // Xử lý lỗi nếu cần
+                                    });
+                        }
                     } else {
                         Toast.makeText(v.getContext(), "Document does not exist", Toast.LENGTH_SHORT).show();
                     }
                 });
+
+
+
+
             }
         });
+
 
         // Truy vấn Firebase để lấy AnhDaiDien dựa trên maND
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -134,21 +189,7 @@ public class CheckProductAdapter extends RecyclerView.Adapter<CheckProductAdapte
                 .addOnFailureListener(e -> {
                     // Xử lý khi truy vấn thất bại
                 });
-        FirebaseFirestore db_xacnhan = FirebaseFirestore.getInstance();
-        CollectionReference xacnhanRef = db_xacnhan.collection("XACNHANDONHANG");
-        xacnhanRef.whereEqualTo("MaDH", order.getMaDH())
-                .get()
-                .addOnSuccessListener(querySnapshot -> {
-                    for (DocumentSnapshot document : querySnapshot.getDocuments()) {
-                        String maND = document.getString("MaND");
-                        if (maND != null) {
-                            holder.getMaStaff.setText(maND);
-                        }
-                    }
-                })
-                .addOnFailureListener(e -> {
-                    // Xử lý khi truy vấn thất bại
-                });
+
         FirebaseFirestore db_con = FirebaseFirestore.getInstance();
         CollectionReference dathangRef = db_con.collection("DATHANG");
         dathangRef.whereEqualTo("MaDH", order.getMaDH())
@@ -213,4 +254,5 @@ public class CheckProductAdapter extends RecyclerView.Adapter<CheckProductAdapte
     public void refresh() {
         notifyDataSetChanged();
     }
+
 }
