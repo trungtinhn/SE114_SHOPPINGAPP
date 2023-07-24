@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -22,7 +24,7 @@ import com.example.shoppingapp.StaffView.MyProduct.Fragment.onwait_fragment;
 import com.example.shoppingapp.StaffView.MyProduct.Fragment.out_of_stock_fragment;
 import com.google.android.material.tabs.TabLayout;
 
-public class activity_MyProduct extends AppCompatActivity {
+public class activity_MyProduct extends AppCompatActivity implements Filterable {
 
     private ViewPager viewPager;
     private TabLayout tabLayout;
@@ -68,6 +70,12 @@ public class activity_MyProduct extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public Filter getFilter() {
+        return null;
+    }
+
     private static class AdminOrderPagerAdapter extends FragmentPagerAdapter {
         private static final int NUM_PAGES = 3;
         private static final String[] TAB_TITLES = {"My Inventory", "Out Of Stocks", "On Wait"};
