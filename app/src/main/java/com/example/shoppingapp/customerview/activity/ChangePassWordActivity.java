@@ -1,8 +1,10 @@
 package com.example.shoppingapp.customerview.activity;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.shoppingapp.Login.Capcha;
 import com.example.shoppingapp.Login.ForgotPassword;
+import com.example.shoppingapp.Login.LoginActivity;
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.customerview.BottomNavigationCustomActivity;
 import com.example.shoppingapp.customerview.fragment.AccountFragment;
@@ -46,6 +49,7 @@ public class ChangePassWordActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ChangePassWordActivity.this, BottomNavigationCustomActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -66,19 +70,32 @@ public class ChangePassWordActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(ChangePassWordActivity.this,
-                                            "Reset password email sent",
-                                            Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(ChangePassWordActivity.this, Capcha.class);
-                                    startActivity(intent);
-                                    finish();
+                                    showSuccessDialog();
                                 } else {
                                     Toast.makeText(ChangePassWordActivity.this,
                                             "Error sending reset password email",
                                             Toast.LENGTH_SHORT).show();
                                 }
                             }
+                            private void showSuccessDialog() {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(ChangePassWordActivity.this);
+                                builder.setTitle("Success");
+                                builder.setMessage("Reset password email sent. Please check your Email and Reset your password");
+                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // Chuyển hướng đến LoginActivity
+                                        Intent intent = new Intent(ChangePassWordActivity.this, LoginActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                });
+
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
+                            }
                         });
+
             }
         });
 
