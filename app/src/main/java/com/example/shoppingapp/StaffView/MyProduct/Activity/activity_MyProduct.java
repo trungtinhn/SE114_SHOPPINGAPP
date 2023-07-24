@@ -32,7 +32,6 @@ public class activity_MyProduct extends AppCompatActivity {
     private Button addnew, hide, edit, search;
     private TextView tv_MyProduct;
     private SearchView searchView;
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
