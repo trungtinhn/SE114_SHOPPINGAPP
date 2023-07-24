@@ -93,12 +93,6 @@ public class home_page extends AppCompatActivity {
                 return;
             }
         });
-        firebaseFirestore.collection("NGUOIDUNG").document(firebaseAuth.getUid()).update("status","Online").addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Toast.makeText(getApplicationContext(),"Now User is Online",Toast.LENGTH_SHORT).show();
-            }
-        });
         btn_my_product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
