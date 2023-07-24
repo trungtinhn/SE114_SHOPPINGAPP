@@ -29,7 +29,8 @@ public class activity_details_order_customer extends AppCompatActivity {
 
     private ImageView back;
     private List<ItemOrder> itemOrderList;
-    private TextView TenNguoiMua, TenND, MaND, SDT, Diachi;
+    private TextView TenNguoiMua, TenND, MaND, SoDT, Diachi;
+    private TextView txtGiaTriDonHang, txtGiamGia, txtPhiVanChuyen, txtTongTien;
 
     private RecyclerView recyclerViewProducts;
     private ProductAdapter_customer productAdapter;
@@ -49,6 +50,14 @@ public class activity_details_order_customer extends AppCompatActivity {
         img_avatar = findViewById(R.id.img_avatar);
         Diachi = findViewById(R.id.diachi_chitiet_customer);
         recyclerViewProducts = findViewById(R.id.list_sanpham_customer);
+        SoDT = findViewById(R.id.soDT_customer);
+        TenND = findViewById(R.id.tenND_customer);
+
+        txtGiaTriDonHang = findViewById(R.id.giatridonhang_customer);
+        txtGiamGia = findViewById(R.id.discount_customer);
+        txtPhiVanChuyen = findViewById(R.id.phiVanChuyen_customer);
+        txtTongTien = findViewById(R.id.TongTien_customer);
+
         itemOrderList = new ArrayList<>();
 
 
@@ -60,29 +69,38 @@ public class activity_details_order_customer extends AppCompatActivity {
             }
         });
         String maDH = getIntent().getStringExtra("MaDH");
-        FirebaseFirestore db_donhang = FirebaseFirestore.getInstance();
-        FirebaseFirestore db_nguoidung = FirebaseFirestore.getInstance();
-        FirebaseFirestore db_khuyenmai = FirebaseFirestore.getInstance();
-        FirebaseFirestore db_diachi = FirebaseFirestore.getInstance();
-        FirebaseFirestore db_dathang = FirebaseFirestore.getInstance();
-        FirebaseFirestore db_sanpham = FirebaseFirestore.getInstance();
-        CollectionReference donHangRef = db_donhang.collection("DONHANG");
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+
+        CollectionReference donHangRef = firebaseFirestore.collection("DONHANG");
         DocumentReference docRef = donHangRef.document(maDH);
 
         // Truy vấn dữ liệu từ Firebase
         docRef.get()
                 .addOnSuccessListener(documentSnapshot -> {
                     if (documentSnapshot.exists()) {
+
                         String tenNguoiMua = documentSnapshot.getString("TenNguoiMua");
-                        TenNguoiMua.setText(tenNguoiMua);
+
+                        TenND.setText(tenNguoiMua);
                         String maND = documentSnapshot.getString("MaND");
                         MaND.setText(maND);
                         String MaDC = documentSnapshot.getString("MaDC");
 
                         String MaDH = documentSnapshot.getString("MaDH");
 
+                        Long giaTriDonHang = documentSnapshot.getLong("TamTinh");
+                        Long giamGia = documentSnapshot.getLong("GiamGia");
+                        Long phiVanChuyen = documentSnapshot.getLong("PhiVanChuyen");
+                        Long tongTien = documentSnapshot.getLong("TongTien");
+
+                        txtGiaTriDonHang.setText(giaTriDonHang + "");
+                        txtGiamGia.setText(giamGia + "");
+                        txtPhiVanChuyen.setText(phiVanChuyen + "");
+                        txtTongTien.setText(tongTien + "");
+
+
                         // Từ đây, xuất ra nhiều collection khác
-                        CollectionReference nguoidung = db_nguoidung.collection("NGUOIDUNG");
+                        CollectionReference nguoidung = firebaseFirestore.collection("NGUOIDUNG");
                         DocumentReference nguoidungref = nguoidung.document(maND);
                         nguoidungref.get().addOnCompleteListener(nguoidungdocument->{
                             if(nguoidungdocument.getResult().exists())
@@ -91,7 +109,8 @@ public class activity_details_order_customer extends AppCompatActivity {
                                 Picasso.get().load(anhDaiDien).into(img_avatar);
                             }
                         });
-                        CollectionReference diachi = db_diachi.collection("DIACHI");
+
+                        CollectionReference diachi = firebaseFirestore.collection("DIACHI");
                         DocumentReference diachiRef = diachi.document(MaDC);
                         diachiRef.get().addOnCompleteListener(diachiDocument -> {
                             if(diachiDocument.getResult().exists())
@@ -102,11 +121,17 @@ public class activity_details_order_customer extends AppCompatActivity {
                                 String tinhTP = diachiDocument.getResult().getString("TinhThanhPho");
                                 String DiaChi = tenduong + ", " + phuongxa + ", " + quanhuyen + ", " + tinhTP;
                                 Diachi.setText(DiaChi);
+
+                                String soDT = diachiDocument.getResult().getString("SoDT");
+                                SoDT.setText(soDT);
+
+                                String tenNguoiNhan = diachiDocument.getResult().getString("TenNguoiMua");
+                                TenNguoiMua.setText(tenNguoiNhan);
                             }
                         });
 
 
-                        CollectionReference dathangRef = db_dathang.collection("DATHANG");
+                        CollectionReference dathangRef = firebaseFirestore.collection("DATHANG");
                         dathangRef.whereEqualTo("MaDH", MaDH)
                                 .get()
                                 .addOnSuccessListener(querySnapshot -> {
@@ -117,7 +142,7 @@ public class activity_details_order_customer extends AppCompatActivity {
                                         int number = document.getLong("SoLuong") != null ? Math.toIntExact(document.getLong("SoLuong")) : 0;
 
                                         // Truy vấn Firebase để lấy thông tin sản phẩm từ MaSP
-                                        CollectionReference sanphamRef = db_dathang.collection("SANPHAM");
+                                        CollectionReference sanphamRef = firebaseFirestore.collection("SANPHAM");
                                         sanphamRef.document(maSP).get()
                                                 .addOnSuccessListener(sanphamDocument -> {
                                                     if (sanphamDocument.exists()) {

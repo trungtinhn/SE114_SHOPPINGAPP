@@ -309,6 +309,23 @@ public class DetailProductActivity extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
                                     Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+
+                                    DocumentReference updateRef = firebaseFirestore.collection("GIOHANG").document(documentReference.getId());
+                                    updateRef
+                                            .update("MaGH", documentReference.getId())
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.w(TAG, "Error updating document", e);
+                                                }
+                                            });
+
                                     idGioHang = documentReference.getId();
                                     Toast.makeText(getApplicationContext(), "Add to cart successfully!", Toast.LENGTH_LONG);
                                     Intent intent = new Intent(DetailProductActivity.this, BottomNavigationCustomActivity.class);
