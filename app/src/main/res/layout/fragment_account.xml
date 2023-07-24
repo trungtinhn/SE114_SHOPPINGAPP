@@ -92,9 +92,9 @@
                 android:layout_marginStart="10dp"
                 android:layout_toEndOf="@+id/imageView2"
                 android:backgroundTint="@android:color/white"
-                android:fontFamily="@font/montserrat_light"
-                android:gravity="left|center_vertical"
-                android:hint="Your Order                                                 >"
+                android:fontFamily="@font/montserrat_semibold"
+                android:textColor="#000000"
+                android:hint="Your Order                                                   >"
                 android:textSize="18dp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -125,9 +125,10 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:backgroundTint="@android:color/white"
-                android:fontFamily="@font/montserrat_light"
+                android:fontFamily="@font/montserrat_semibold"
+                android:textColor="#000000"
                 android:gravity="left|center_vertical"
-                android:hint="Help Center                                               >"
+                android:hint="Help Center                                                 >"
                 android:textSize="18dp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -156,9 +157,10 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:backgroundTint="@android:color/white"
-                android:fontFamily="@font/montserrat_light"
+                android:fontFamily="@font/montserrat_semibold"
+                android:textColor="#000000"
                 android:gravity="left|center_vertical"
-                android:hint="Profile                                                          >"
+                android:hint="Profile                                                            >"
                 android:textStyle="bold"
                 android:textSize="18dp"/>
         </LinearLayout>
@@ -186,9 +188,10 @@
                 android:layout_below="@+id/btn_Profile"
                 android:layout_marginTop="15dp"
                 android:backgroundTint="@android:color/white"
-                android:fontFamily="@font/montserrat_light"
+                android:fontFamily="@font/montserrat_semibold"
+                android:textColor="#000000"
                 android:gravity="left|center_vertical"
-                android:hint="Change Password                                  >"
+                android:hint="Change Password                                   >"
                 android:textStyle="bold"
                 android:textSize="18dp"/>
         </LinearLayout>
@@ -209,9 +212,9 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="10dp"
                 android:backgroundTint="@android:color/white"
-                android:fontFamily="@font/montserrat_light"
+                android:fontFamily="@font/montserrat_semibold"
                 android:gravity="left|center_vertical"
-                android:hint="Log Out                                                                  >"
+                android:hint="Log Out                                                                     >"
                 android:textStyle="bold"
                 android:textSize="18dp"/>
         </LinearLayout>
