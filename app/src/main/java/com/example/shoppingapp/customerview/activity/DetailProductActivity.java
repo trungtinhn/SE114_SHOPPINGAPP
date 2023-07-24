@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -83,6 +84,7 @@ public class DetailProductActivity extends AppCompatActivity {
     private ImageView heartIcon;
     private Boolean yeuThich;
     private String maYT;
+    private RatingBar starRating;
 
 
     @SuppressLint("MissingInflatedId")
@@ -105,6 +107,7 @@ public class DetailProductActivity extends AppCompatActivity {
         heartIcon = findViewById(R.id.heartIcon);
         shoppingCart = findViewById(R.id.cartIcon);
         btnBuyNow = findViewById(R.id.btnBuyNow);
+        starRating = findViewById(R.id.starRating);
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
@@ -135,6 +138,7 @@ public class DetailProductActivity extends AppCompatActivity {
         getYeuThich();
         setYeuThich();
         SoLuongShoppingCart();
+        getStarRating();
         //txtProductNameDetail.setText(maSP);
 
 
@@ -148,6 +152,34 @@ public class DetailProductActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void getStarRating() {
+        firebaseFirestore.collection("DANHGIA")
+                .whereEqualTo("MaSP", maSP)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value,
+                                        @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Log.w(TAG, "Listen failed.", e);
+                            return;
+                        }
+
+                        if (value.size() == 0) {
+                            starRating.setRating(5);
+                            return;
+                        }
+
+                        Long sum = Long.valueOf(0);
+                        for (QueryDocumentSnapshot doc : value) {
+                            sum += doc.getLong("Rating");
+                        }
+
+                        starRating.setRating(sum/value.size());
+                    }
+                });
+
     }
 
     private void setBuyNow() {
