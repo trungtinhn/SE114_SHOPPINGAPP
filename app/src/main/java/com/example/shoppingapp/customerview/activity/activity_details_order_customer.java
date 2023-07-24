@@ -46,7 +46,7 @@ public class activity_details_order_customer extends AppCompatActivity {
         back = findViewById(R.id.back_customer);
         TenNguoiMua = findViewById(R.id.tennguoimua_customer);
         MaND  = findViewById(R.id.maND_customer);
-        img_avatar = findViewById(R.id.img_avatar_customer);
+        img_avatar = findViewById(R.id.img_avatar);
         Diachi = findViewById(R.id.diachi_chitiet_customer);
         recyclerViewProducts = findViewById(R.id.list_sanpham_customer);
         itemOrderList = new ArrayList<>();
@@ -75,7 +75,7 @@ public class activity_details_order_customer extends AppCompatActivity {
                     if (documentSnapshot.exists()) {
                         String tenNguoiMua = documentSnapshot.getString("TenNguoiMua");
                         TenNguoiMua.setText(tenNguoiMua);
-                        String maND = documentSnapshot.getString("maND");
+                        String maND = documentSnapshot.getString("MaND");
                         MaND.setText(maND);
                         String MaDC = documentSnapshot.getString("MaDC");
 

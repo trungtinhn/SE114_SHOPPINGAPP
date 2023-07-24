@@ -68,8 +68,7 @@ public class AccountFragment extends Fragment {
         txtFullName = view.findViewById(R.id.user_name);
         imgAvt = view.findViewById(R.id.img_avt_account);
         // Inflate the layout for this fragment
-        setOnClickYourOrder();
-        setOnClickProfile();
+
         setOnCLickHelp();
         setOnClickChangePass();
         setOnClickLogOut();
@@ -97,22 +96,8 @@ public class AccountFragment extends Fragment {
         return view;
     }
 
-    private void setOnClickYourOrder() {
-        YourOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bottomNavigationCustomActivity.gotoYourOrder();
-            }
-        });
-    }
-    private void setOnClickProfile() {
-        Profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bottomNavigationCustomActivity.gotoProfile();
-            }
-        });
-    }
+
+
     private void setOnCLickHelp() {
         Help.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,6 +120,9 @@ public class AccountFragment extends Fragment {
             public void onClick(View v) {
                 bottomNavigationCustomActivity.gotoLogOut();
 
+            }
+        });
+    }
 
     private void setOnClick() {
 
