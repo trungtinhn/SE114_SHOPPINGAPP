@@ -17,6 +17,7 @@ import java.util.List;
 
 public class adapter_color extends RecyclerView.Adapter<adapter_color.ColorViewHolder> {
     private List<Color> colorList;
+    private OnColorCheckedChangeListener onColorCheckedChangeListener;
     public List<String> getSelectedColors() {
         List<String> selectedColors = new ArrayList<>();
         for (Color color : colorList) {
@@ -26,8 +27,6 @@ public class adapter_color extends RecyclerView.Adapter<adapter_color.ColorViewH
         }
         return selectedColors;
     }
-
-    private OnColorCheckedChangeListener onColorCheckedChangeListener;
 
     public adapter_color(List<Color> colorList) {
         this.colorList = colorList;

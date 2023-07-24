@@ -56,17 +56,17 @@ public class Order {
         NgayDatHang = ngayDatHang;
     }
 
-    private String TenNguoiMua, SDT, MaDC, MaDH, MaKM, PhuongThucTT, TrangThai, maND;
+    private String TenNguoiMua, SDT, MaDC, MaDH, MaKM, PhuongThucTT, TrangThai, MaND;
     private int GiamGia, PhiVanChuyen, TamTinh, TongTien;
     private Date DuKienGiaoHang;
     private Date NgayDatHang;
 
     public void setMaND(String maND) {
-        this.maND = maND;
+        this.MaND = maND;
     }
 
     public String getMaND() {
-        return maND;
+        return MaND;
     }
 
     public int getGiamGia() {

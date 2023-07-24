@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
-import com.example.shoppingapp.StaffView.MyOrder.Fragment.Adapter.OrderAdapter;
+import com.example.shoppingapp.StaffView.MyOrder.Adapter.OrderAdapter;
 import com.example.shoppingapp.StaffView.MyOrder.Order;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -86,7 +86,7 @@ public class wait_fragment extends Fragment {
         // Truy vấn collection "DONHANG"
 
         CollectionReference donHangRef = db.collection("DONHANG");
-        donHangRef.whereEqualTo("TrangThai", "onwait")
+        donHangRef.whereEqualTo("TrangThai", "Wait")
                 .addSnapshotListener((queryDocumentSnapshots, e) -> {
                     // Xử lý kết quả truy vấn
                     orderList = new ArrayList<>();

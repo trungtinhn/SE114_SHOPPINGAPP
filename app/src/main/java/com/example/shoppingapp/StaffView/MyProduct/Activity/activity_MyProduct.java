@@ -1,6 +1,5 @@
 package com.example.shoppingapp.StaffView.MyProduct.Activity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -31,10 +30,10 @@ public class activity_MyProduct extends AppCompatActivity implements Filterable 
 
     private Button back_to_Home;
 
+
     private Button addnew, hide, edit, search;
     private TextView tv_MyProduct;
     private SearchView searchView;
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,9 +65,6 @@ public class activity_MyProduct extends AppCompatActivity implements Filterable 
                 startActivity(intent);
             }
         });
-
-
-
     }
 
     @Override
@@ -98,7 +94,6 @@ public class activity_MyProduct extends AppCompatActivity implements Filterable 
                     return new out_of_stock_fragment();
                 case 2:
                     return new onwait_fragment();
-
                 default:
                     throw new IllegalStateException("Invalid position: " + position);
             }
@@ -109,8 +104,6 @@ public class activity_MyProduct extends AppCompatActivity implements Filterable 
         public CharSequence getPageTitle(int position) {
             return TAB_TITLES[position];
         }
-
     }
-
 
 }

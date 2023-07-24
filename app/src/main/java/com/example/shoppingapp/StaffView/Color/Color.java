@@ -1,8 +1,6 @@
 package com.example.shoppingapp.StaffView.Color;
 
 public class Color {
-
-
     private String colorName;
     private String MaMau;
     private String colorCode;
@@ -14,8 +12,15 @@ public class Color {
         this.MaMau = MaMau;
         this.checked = checked;
     }
-
-
+    public Color(String colorName, String colorCode, String MaMau) {
+        this.colorName = colorName;
+        this.colorCode = colorCode;
+        this.MaMau = MaMau;
+    }
+    public Color(String colorName)
+    {
+        this.colorName = colorName;
+    }
 
     public String getColorName() {
         return colorName;
