@@ -3,6 +3,8 @@ package com.example.shoppingapp.StaffView.Categories.Adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,12 +15,46 @@ import com.bumptech.glide.Glide;
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.StaffView.Categories.CategoryItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class adapter_categories extends RecyclerView.Adapter<adapter_categories.ViewHolder> {
+public class adapter_categories extends RecyclerView.Adapter<adapter_categories.ViewHolder> implements Filterable {
 
     private static List<CategoryItem> categoryItemList;
+    private List<CategoryItem> oldcategoryItemList;
     private static OnItemClickListener onItemClickListener;
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String search = charSequence.toString();
+                if(search.isEmpty()){
+                    categoryItemList = oldcategoryItemList;
+                }
+                else{
+                    List<CategoryItem> list = new ArrayList<>();
+                    for(CategoryItem object : oldcategoryItemList){
+                        if(object.getName().toLowerCase().contains(search.toLowerCase())){
+                            list.add(object);
+                        }
+                    }
+                    categoryItemList = list;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = categoryItemList;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                categoryItemList = (ArrayList<CategoryItem>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
 
     public interface OnItemClickListener {
         void onItemClick(CategoryItem categoryItem);
@@ -30,6 +66,7 @@ public class adapter_categories extends RecyclerView.Adapter<adapter_categories.
 
     public adapter_categories(List<CategoryItem> categoryItemList) {
         this.categoryItemList = categoryItemList;
+        this.oldcategoryItemList = categoryItemList;
     }
 
     @NonNull

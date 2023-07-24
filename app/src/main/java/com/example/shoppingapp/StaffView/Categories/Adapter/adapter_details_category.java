@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,15 +20,18 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class adapter_details_category extends RecyclerView.Adapter<adapter_details_category.ProductsViewHolder> {
+public class adapter_details_category extends RecyclerView.Adapter<adapter_details_category.ProductsViewHolder> implements Filterable {
     private List<Product> productList;
+    private List<Product> oldProductList;
     private Context context;
     private String categoryId;
 
     public adapter_details_category(List<Product> productList, String categoryId) {
         this.productList = productList;
+        this.oldProductList = productList;
         this.categoryId = categoryId;
         loadDataFromFirestore();
     }
@@ -81,6 +86,38 @@ public class adapter_details_category extends RecyclerView.Adapter<adapter_detai
     @Override
     public int getItemCount() {
         return productList.size();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String search = charSequence.toString();
+                if(search.isEmpty()){
+                    productList = oldProductList;
+                }
+                else{
+                    ArrayList<Product> list = new ArrayList<>();
+                    for(Product object : oldProductList){
+                        if(object.getName().toLowerCase().contains(search.toLowerCase())){
+                            list.add(object);
+                        }
+                    }
+                    productList = list;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = productList;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                productList = (ArrayList<Product>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
     public class ProductsViewHolder extends RecyclerView.ViewHolder {

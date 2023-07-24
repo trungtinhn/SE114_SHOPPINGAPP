@@ -17,9 +17,7 @@
             android:exported="false" />
         <activity
             android:name=".StaffView.activity.activity_chat_board"
-            android:exported="true">
-
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".Login.EditProfile"
             android:enableOnBackInvokedCallback="true"
@@ -38,8 +36,7 @@
             android:exported="true" />
         <activity
             android:name=".customerview.BottomNavigationCustomActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".StaffView.activity.activity_click_staff_check"
             android:exported="true" />
@@ -48,7 +45,7 @@
             android:enableOnBackInvokedCallback="true"
             android:exported="true"
             android:label="@string/title_activity_login"
-            android:theme="@style/Theme.ShoppingApp.NoActionBar" >
+            android:theme="@style/Theme.ShoppingApp.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -79,7 +76,8 @@
             android:exported="true" />
         <activity
             android:name=".customerview.activity.CategoriesDetails"
-            android:exported="false" />
+            android:theme="@style/Theme.ShoppingApp"
+            android:exported="true" />
         <activity
             android:name=".customerview.activity.DoneActivity"
             android:exported="false" />
@@ -112,12 +110,16 @@
             android:exported="false" />
         <activity
             android:name=".customerview.activity.DetailProductActivity"
-            android:exported="false" />
+            android:theme="@style/Theme.ShoppingApp"
+            android:exported="true" />
         <activity
             android:name=".customerview.activity.TrendingActivity"
+            android:theme="@style/Theme.ShoppingApp"
             android:exported="true" />
-        <activity android:name=".customerview.activity.PromotionActivity"
-            android:exported="true"/>
+        <activity
+            android:name=".customerview.activity.PromotionActivity"
+            android:exported="true" />
+
         <activity
             android:name=".StaffView.activity.activity_List_Product_And_Item"
             android:exported="true" />
@@ -159,6 +161,7 @@
             android:exported="true"/>
         <activity android:name=".StaffView.MyProduct.Activity.activity_edit_product"
             android:exported="true"/>
+
     </application>
 
 </manifest>

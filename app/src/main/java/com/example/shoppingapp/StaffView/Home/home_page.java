@@ -19,6 +19,7 @@ import com.example.shoppingapp.StaffView.MyOrder.Activity.activity_MyOrder;
 import com.example.shoppingapp.StaffView.MyProduct.Activity.activity_MyProduct;
 import com.example.shoppingapp.StaffView.Promotions.Activity.activity_promotions;
 import com.example.shoppingapp.StaffView.ViewShop.activity_viewshop;
+import com.example.shoppingapp.StaffView.activity.activity_admin_control;
 import com.example.shoppingapp.StaffView.activity.activity_chat_board;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,7 +29,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 public class home_page extends AppCompatActivity {
-    private Button btn_my_product, btn_myOrder,
+    private Button btn_my_product, btn_myOrder, btn_setting,
             btn_chat, btn_financial_report, btn_manage_users, btn_categories, btn_view_shop;
     FirebaseAuth firebaseAuth;
 
@@ -45,6 +46,7 @@ public class home_page extends AppCompatActivity {
         // initialising all views through id defined above
         btn_my_product = findViewById(R.id.btn_my_product);
         btn_categories = findViewById(R.id.btn_categories);
+        btn_setting = findViewById(R.id.btn_setting);
         btn_chat = findViewById(R.id.btn_chat);
         btn_myOrder = findViewById(R.id.btn_my_order);
         btn_Promotions = findViewById(R.id.btn_promotions);
@@ -83,6 +85,10 @@ public class home_page extends AppCompatActivity {
                 catch (Exception e)
                 {
 
+                }
+                if(user.getLoaiND().equals("Staff")) {
+                    btn_manage_users.setVisibility(View.GONE);
+                    findViewById(R.id.txt_manage_user).setVisibility(View.GONE);
                 }
                 return;
             }
@@ -136,6 +142,13 @@ public class home_page extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(home_page.this, activity_promotions.class);
+                startActivity(intent);
+            }
+        });
+        btn_manage_users.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(home_page.this, activity_admin_control.class);
                 startActivity(intent);
             }
         });

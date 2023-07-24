@@ -50,7 +50,7 @@ public class ReviewDataAdapter extends RecyclerView.Adapter<ReviewDataAdapter.Re
 
         holder.rating.setRating(reViewData.getRating());
 
-        if (reViewData.getImage() == ""){
+        if (reViewData.getImage() == null){
             holder.imageRating.setVisibility(View.GONE);
         } else{
             Picasso.get().load(reViewData.getImage()).into(holder.imageRating);

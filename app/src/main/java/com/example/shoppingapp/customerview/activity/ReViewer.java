@@ -1,5 +1,7 @@
 package com.example.shoppingapp.customerview.activity;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -97,6 +99,7 @@ public class ReViewer extends AppCompatActivity {
     private RecyclerView data_recyclerview;
     private String avatarUri;
     private String nameUser;
+    private Boolean allowReview = false;
 
 
     @Override
@@ -131,9 +134,11 @@ public class ReViewer extends AppCompatActivity {
         setBtnAddReview();
         setImagePicker();
 
+
         setFirebaseUser();
 
         fetchDataReviewSanPham();
+        checkAllowReview();
 
 
 
@@ -150,6 +155,52 @@ public class ReViewer extends AppCompatActivity {
 //                startActivity(t);
             }
         });
+    }
+
+    private void checkAllowReview() {
+        firebaseFirestore.collection("DONHANG")
+                .whereEqualTo("maND", firebaseUser.getUid())
+
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value,
+                                        @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Log.w(TAG, "Listen failed.", e);
+                            return;
+                        }
+
+                        List<String> dataMaDH = new ArrayList<>();
+                        for (QueryDocumentSnapshot doc : value) {
+                            Log.d("Test.", "111" );
+                            dataMaDH.add(doc.getString("MaDH"));
+                        }
+
+                        for (String maDH : dataMaDH){
+
+
+
+                            firebaseFirestore.collection("DATHANG")
+                                    .whereEqualTo("MaDH", maDH)
+                                    .whereEqualTo("MaSP", maSP)
+                                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onEvent(@Nullable QuerySnapshot value,
+                                                            @Nullable FirebaseFirestoreException e) {
+
+                                            if (value.size() > 0){
+                                                btn_addreview.setVisibility(View.VISIBLE);
+                                                return;
+                                            }
+                                        }
+                                    });
+                        }
+
+                    }
+                });
+
+
+
     }
 
 
