@@ -154,58 +154,67 @@ public class DetailProductActivity extends AppCompatActivity {
         btnBuyNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if((dataColor.isEmpty() || dataColor == null) || (dataSize.isEmpty() || dataSize == null)) return;
-                else {
-                    Map<String, Object> data = new HashMap<>();
-                    data.put("MaND", firebaseUser.getUid());
-                    data.put("MauSac", dataColor);
-                    data.put("Size", dataSize);
-                    data.put("HinhAnhSP", imageUrls);
-                    data.put("TenSP", txtProductNameDetail.getText());
-                    data.put("SoLuong", Integer.valueOf((String) txtSoLuong.getText()));
-                    data.put("GiaSP", giaSP);
-                    data.put("GiaTien", Integer.valueOf((String) txtPriceProductDetail.getText()));
-                    data.put("MaSP", maSP);
+                try {
+                    if((dataColor.isEmpty() || dataColor == null) || (dataSize.isEmpty() || dataSize == null)) return;
+                    else {
+                        Map<String, Object> data = new HashMap<>();
+                        data.put("MaND", firebaseUser.getUid());
+                        data.put("MauSac", dataColor);
+                        data.put("Size", dataSize);
+                        data.put("HinhAnhSP", imageUrls);
+                        data.put("TenSP", txtProductNameDetail.getText());
+                        data.put("SoLuong", Integer.valueOf((String) txtSoLuong.getText()));
+                        data.put("GiaSP", giaSP);
+                        data.put("GiaTien", Integer.valueOf((String) txtPriceProductDetail.getText()));
+                        data.put("MaSP", maSP);
 
-                    firebaseFirestore.collection("GIOHANG")
-                            .add(data)
-                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+                        firebaseFirestore.collection("GIOHANG")
+                                .add(data)
+                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                    @Override
+                                    public void onSuccess(DocumentReference documentReference) {
+                                        Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
 
-                                    DocumentReference updateRef = firebaseFirestore.collection("GIOHANG").document(documentReference.getId());
-                                    updateRef
-                                            .update("MaGH", documentReference.getId())
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void aVoid) {
-                                                    Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                        DocumentReference updateRef = firebaseFirestore.collection("GIOHANG").document(documentReference.getId());
+                                        updateRef
+                                                .update("MaGH", documentReference.getId())
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        Log.d(TAG, "DocumentSnapshot successfully updated!");
 
-                                                    // Intent BuyNow
-                                                }
-                                            })
-                                            .addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    Log.w(TAG, "Error updating document", e);
-                                                }
-                                            });
+                                                        String[] listmaGH = new String[1];
+                                                        listmaGH[0] = documentReference.getId();
+                                                        Intent t = new Intent(DetailProductActivity.this, BuyNow.class);
+                                                        t.putExtra("ListMaGH", listmaGH);
+                                                        startActivity(t);
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Log.w(TAG, "Error updating document", e);
+                                                    }
+                                                });
 
-                                    idGioHang = documentReference.getId();
+                                        idGioHang = documentReference.getId();
 //                                    Toast.makeText(getApplicationContext(), "Add to cart successfully!", Toast.LENGTH_LONG);
 //                                    Intent intent = new Intent(DetailProductActivity.this, BottomNavigationCustomActivity.class);
 //                                    startActivity(intent);
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.w(TAG, "Error adding document", e);
-                                }
-                            });
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w(TAG, "Error adding document", e);
+                                    }
+                                });
 
+                    }
+                }catch (Exception ex){
+                    Toast.makeText(DetailProductActivity.this, "Please choose all", Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
     }
@@ -353,57 +362,62 @@ public class DetailProductActivity extends AppCompatActivity {
         btnAddToCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if((dataColor.isEmpty() || dataColor == null) || (dataSize.isEmpty() || dataSize == null)) return;
-                else {
-                    Map<String, Object> data = new HashMap<>();
-                    data.put("MaND", firebaseUser.getUid());
-                    data.put("MauSac", dataColor);
-                    data.put("Size", dataSize);
-                    data.put("HinhAnhSP", imageUrls);
-                    data.put("TenSP", txtProductNameDetail.getText());
-                    data.put("SoLuong", Integer.valueOf((String) txtSoLuong.getText()));
-                    data.put("GiaSP", giaSP);
-                    data.put("GiaTien", Integer.valueOf((String) txtPriceProductDetail.getText()));
-                    data.put("MaSP", maSP);
+                try {
+                    if((dataColor.isEmpty() || dataColor == null) || (dataSize.isEmpty() || dataSize == null)) return;
+                    else {
+                        Map<String, Object> data = new HashMap<>();
+                        data.put("MaND", firebaseUser.getUid());
+                        data.put("MauSac", dataColor);
+                        data.put("Size", dataSize);
+                        data.put("HinhAnhSP", imageUrls);
+                        data.put("TenSP", txtProductNameDetail.getText());
+                        data.put("SoLuong", Integer.valueOf((String) txtSoLuong.getText()));
+                        data.put("GiaSP", giaSP);
+                        data.put("GiaTien", Integer.valueOf((String) txtPriceProductDetail.getText()));
+                        data.put("MaSP", maSP);
 
-                    firebaseFirestore.collection("GIOHANG")
-                            .add(data)
-                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+                        firebaseFirestore.collection("GIOHANG")
+                                .add(data)
+                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                    @Override
+                                    public void onSuccess(DocumentReference documentReference) {
+                                        Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
 
-                                    DocumentReference updateRef = firebaseFirestore.collection("GIOHANG").document(documentReference.getId());
-                                    updateRef
-                                            .update("MaGH", documentReference.getId())
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void aVoid) {
-                                                    Log.d(TAG, "DocumentSnapshot successfully updated!");
-                                                    Toast.makeText(getApplicationContext(), "Add to cart successfully!", Toast.LENGTH_LONG);
-                                                    Intent intent = new Intent(DetailProductActivity.this, BottomNavigationCustomActivity.class);
-                                                    startActivity(intent);
-                                                }
-                                            })
-                                            .addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    Log.w(TAG, "Error updating document", e);
-                                                }
-                                            });
+                                        DocumentReference updateRef = firebaseFirestore.collection("GIOHANG").document(documentReference.getId());
+                                        updateRef
+                                                .update("MaGH", documentReference.getId())
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                                        Toast.makeText(getApplicationContext(), "Add to cart successfully!", Toast.LENGTH_LONG);
+                                                        Intent intent = new Intent(DetailProductActivity.this, BottomNavigationCustomActivity.class);
+                                                        startActivity(intent);
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Log.w(TAG, "Error updating document", e);
+                                                    }
+                                                });
 
-                                    idGioHang = documentReference.getId();
+                                        idGioHang = documentReference.getId();
 
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.w(TAG, "Error adding document", e);
-                                }
-                            });
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w(TAG, "Error adding document", e);
+                                    }
+                                });
 
+                    }
+                }catch (Exception ex){
+                    Toast.makeText(DetailProductActivity.this, "Please choose all", Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
 
