@@ -8,51 +8,52 @@
     android:background="@color/white"
     tools:context=".customerview.activity.CategoriesDetails">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <RelativeLayout
+        android:id="@+id/layoutHeading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
         <ImageView
             android:id="@+id/backIcon"
             android:layout_width="30dp"
-            android:layout_marginLeft="10dp"
             android:layout_height="30dp"
-            android:src="@drawable/back"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:layout_gravity="center"
-            />
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/navigation_back_arrow" />
 
-        <EditText
-            android:id="@+id/editSearch"
-            android:layout_width="300dp"
+        <SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginVertical="10dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/search_background"
-            android:drawableStart="@drawable/searchicon"
-            android:drawablePadding="12dp"
-            android:hint="Search product"
-            android:maxLength="20"
-            android:paddingStart="12dp" />
-
+            android:layout_marginEnd="1dp"
+            android:layout_toStartOf="@+id/ShoppingCart"
+            android:layout_toEndOf="@+id/backIcon"
+            android:iconifiedByDefault="false"
+            android:queryHint="Search product" />
 
 
         <ImageView
             android:id="@+id/ShoppingCart"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="10dp"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
             android:background="@drawable/background_icon"
+            android:backgroundTint="@color/white"
             android:padding="5dp"
-            app:srcCompat='@drawable/shoppingcarticon'
+            android:layout_marginVertical="10dp"
+            app:srcCompat='@drawable/ic_shopping_cart'
 
             />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/txtNameCategori"

@@ -1,9 +1,15 @@
 package com.example.shoppingapp.StaffView.MyProduct.Fragment;
 
+import static android.content.Context.SEARCH_SERVICE;
+
+import android.app.SearchManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,10 +27,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.List;
 
-public class my_inventory_fragment extends Fragment {
+public class my_inventory_fragment extends Fragment implements Filterable {
 
     private RecyclerView recyclerView;
     private My_inventory_Adapter adapter;
+    private SearchView searchView;
     private List<Product> productList;
 
     @Nullable
@@ -33,14 +40,31 @@ public class my_inventory_fragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_my_inventory, container, false);
 
         recyclerView = view.findViewById(R.id.RCV_My_inventory);
+        searchView = view.findViewById(R.id.searchView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         productList = new ArrayList<>();
         adapter = new My_inventory_Adapter(productList, getContext());
         recyclerView.setAdapter(adapter);
         loadProductsFromFirestore();
+        SearchTrending();
         return view;
     }
-
+    private void SearchTrending(){
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(SEARCH_SERVICE);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                adapter.getFilter().filter(s);
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String s) {
+                adapter.getFilter().filter(s);
+                return false;
+            }
+        });
+    }
     private void loadProductsFromFirestore() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference sanphamRef = db.collection("SANPHAM");
@@ -105,5 +129,10 @@ public class my_inventory_fragment extends Fragment {
                     }
                     adapter.notifyDataSetChanged();
                 });
+    }
+
+    @Override
+    public Filter getFilter() {
+        return null;
     }
 }

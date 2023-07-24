@@ -1,12 +1,14 @@
 package com.example.shoppingapp.customerview.activity;
 
-import static java.security.AccessController.getContext;
-
+import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -31,7 +33,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 @OptIn(markerClass = com.google.android.material.badge.ExperimentalBadgeUtils.class)
-public class CategoriesDetails extends AppCompatActivity {
+public class CategoriesDetails extends AppCompatActivity implements Filterable {
     private List<String> dataGiohang;
     private FirebaseFirestore db;
     private FirebaseAuth firebaseAuth;
@@ -41,6 +43,7 @@ public class CategoriesDetails extends AppCompatActivity {
     private ProductTrendingAdapter productAdapter;
     TextView textView;
     private String TenDM, MaDM;
+    SearchView searchView;
     ImageView backICon, shoppingCart;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +61,7 @@ public class CategoriesDetails extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         recyclerView = findViewById(R.id.rcvProduct);
+        searchView = findViewById(R.id.searchView);
         backICon = findViewById(R.id.backIcon);
         textView = findViewById(R.id.txtNameCategori);
         shoppingCart = findViewById(R.id.ShoppingCart);
@@ -68,15 +72,14 @@ public class CategoriesDetails extends AppCompatActivity {
 
         textView.setText(TenDM);
 
-
+        SearchCategory();
         getDataCategories();
         SoLuongShoppingCart();
 
         backICon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CategoriesDetails.this, BottomNavigationCustomActivity.class );
-                startActivity(intent);
+                finish();
             }
         });
         shoppingCart.setOnClickListener(new View.OnClickListener() {
@@ -87,6 +90,24 @@ public class CategoriesDetails extends AppCompatActivity {
             }
         });
     }
+
+    private void SearchCategory(){
+        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                productAdapter.getFilter().filter(s);
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String s) {
+                productAdapter.getFilter().filter(s);
+                return false;
+            }
+        });
+    }
+
     private void getDataCategories(){
         db.collection("SANPHAM")
                 .whereEqualTo("MaDM", MaDM)
@@ -143,5 +164,10 @@ public class CategoriesDetails extends AppCompatActivity {
                     }
                 });
 
+    }
+
+    @Override
+    public Filter getFilter() {
+        return null;
     }
 }

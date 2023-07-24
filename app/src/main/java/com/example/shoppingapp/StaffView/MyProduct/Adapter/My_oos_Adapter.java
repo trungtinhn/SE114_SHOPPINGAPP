@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,16 +17,19 @@ import com.example.shoppingapp.R;
 import com.example.shoppingapp.StaffView.Product;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class My_oos_Adapter extends RecyclerView.Adapter<My_oos_Adapter.ProductsViewHolder> {
+public class My_oos_Adapter extends RecyclerView.Adapter<My_oos_Adapter.ProductsViewHolder> implements Filterable {
 
     private List<Product> productList;
+    private List<Product> productListOld;
     private Context context;
 
     public My_oos_Adapter(List<Product> productList, Context context) {
         this.context = context;
         this.productList = productList;
+        this.productListOld = productList;
     }
 
     @NonNull
@@ -43,13 +48,45 @@ public class My_oos_Adapter extends RecyclerView.Adapter<My_oos_Adapter.Products
         holder.warehouse.setText(String.valueOf(product.getWarehouse()));
         holder.Love.setText(String.valueOf(product.getLove()));
         holder.View.setText(String.valueOf(product.getViews()));
-        Picasso.get().load(R.drawable.add).into(holder.add);
+        Picasso.get().load(R.drawable.ic_add_circle).into(holder.add);
         Picasso.get().load(product.getAvatar()).into(holder.ava);
     }
 
     @Override
     public int getItemCount() {
         return productList.size();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String search = charSequence.toString();
+                if(search.isEmpty()){
+                    productList = productListOld;
+                }
+                else{
+                    ArrayList<Product> list = new ArrayList<>();
+                    for(Product object : productListOld){
+                        if(object.getName().toLowerCase().contains(search.toLowerCase())){
+                            list.add(object);
+                        }
+                    }
+                    productList = list;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = productList;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                productList = (ArrayList<Product>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
     public class ProductsViewHolder extends RecyclerView.ViewHolder {

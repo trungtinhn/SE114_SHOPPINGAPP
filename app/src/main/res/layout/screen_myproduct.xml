@@ -4,8 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/linear1"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -13,49 +14,23 @@
             android:id="@+id/imgbtn_back"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
             android:layout_marginStart="21dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:layout_marginEnd="10dp"
             android:background="@drawable/navigation_back_arrow"
             android:contentDescription="null" />
 
         <TextView
             android:id="@+id/My_product"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="170dp"
-            android:layout_toEndOf="@+id/imgbtn_back"
+            android:layout_marginTop="15dp"
             android:fontFamily="@font/montserrat"
             android:text="My Product"
             android:textColor="@color/black"
             android:textSize="20dp" />
-
-        <SearchView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:id="@+id/search_view"
-            android:visibility="gone"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="13dp"
-            android:layout_marginEnd="37dp"
-            android:layout_toEndOf="@+id/imgbtn_back" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_search"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="35dp"
-            android:background="@drawable/search" />
-    </RelativeLayout>
+    </LinearLayout>
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
@@ -64,26 +39,15 @@
         android:layout_below="@+id/linear1"
         tools:ignore="MissingConstraints"
         app:tabMode="auto"
-        app:tabSelectedTextColor="#FF931F"
-        />
+        app:tabSelectedTextColor="#FF931F" />
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="535dp"
+        android:layout_height="match_parent"
         android:layout_below="@+id/tabLayout">
     </androidx.viewpager.widget.ViewPager>
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:contentDescription="null"
-        android:layout_below="@+id/linear1"
-        android:layout_marginTop="550dp"
-        tools:ignore="MissingConstraints"
-        app:tabMode="auto"
-        app:tabSelectedTextColor="#FF931F"
-        />
+
     <Button
         android:id="@+id/add_product"
         android:layout_width="199dp"
@@ -91,7 +55,7 @@
         android:paddingVertical="10dp"
         android:layout_below="@+id/viewpager"
         android:layout_marginStart="115dp"
-        android:layout_marginTop="-30dp"
+        android:layout_marginTop="-90dp"
         android:layout_marginEnd="110dp"
         android:layout_marginBottom="8dp"
         android:backgroundTint="#FF931F"

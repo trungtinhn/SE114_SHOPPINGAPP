@@ -3,6 +3,8 @@ package com.example.shoppingapp.customerview.product;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -11,19 +13,53 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
-import com.example.shoppingapp.customerview.product.customer_interface.IClickItemProductTrendingListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ProductCardAdapter extends RecyclerView.Adapter<ProductCardAdapter.ProductCardViewHolder>{
+public class ProductCardAdapter extends RecyclerView.Adapter<ProductCardAdapter.ProductCardViewHolder> implements Filterable {
 
     List<ProductCard> mProductCard;
+    List<ProductCard> mProductCardOld;
+
 
     private OnItemClick onItemClick;
 
     public void setOnItemClick(OnItemClick onItemClick) {
         this.onItemClick = onItemClick;
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String search = charSequence.toString();
+                if(search.isEmpty()){
+                    mProductCard = mProductCardOld;
+                }
+                else{
+                    ArrayList<ProductCard> list = new ArrayList<>();
+                    for(ProductCard object : mProductCardOld){
+                        if(object.getNameProduct().toLowerCase().contains(search.toLowerCase())){
+                            list.add(object);
+                        }
+                    }
+                    mProductCard = list;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = mProductCard;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                mProductCard = (ArrayList<ProductCard>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
 
@@ -34,6 +70,7 @@ public class ProductCardAdapter extends RecyclerView.Adapter<ProductCardAdapter.
     public void setData(List<ProductCard> list)
     {
         this.mProductCard = list;
+        this.mProductCardOld =list;
         notifyDataSetChanged();
     }
 

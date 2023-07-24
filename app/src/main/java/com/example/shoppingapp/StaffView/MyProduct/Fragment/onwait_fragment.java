@@ -1,5 +1,7 @@
 package com.example.shoppingapp.StaffView.MyProduct.Fragment;
 
+import static android.view.View.GONE;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -31,7 +33,7 @@ public class onwait_fragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my_inventory, container, false);
-
+        view.findViewById(R.id.searchView).setVisibility(GONE);
         recyclerView = view.findViewById(R.id.RCV_My_inventory);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         productList = new ArrayList<>();

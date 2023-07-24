@@ -5,9 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Filter;
-import android.widget.Filterable;
-import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,7 +20,7 @@ import com.example.shoppingapp.StaffView.MyProduct.Fragment.onwait_fragment;
 import com.example.shoppingapp.StaffView.MyProduct.Fragment.out_of_stock_fragment;
 import com.google.android.material.tabs.TabLayout;
 
-public class activity_MyProduct extends AppCompatActivity implements Filterable {
+public class activity_MyProduct extends AppCompatActivity {
 
     private ViewPager viewPager;
     private TabLayout tabLayout;
@@ -31,9 +28,8 @@ public class activity_MyProduct extends AppCompatActivity implements Filterable 
     private Button back_to_Home;
 
 
-    private Button addnew, hide, edit, search;
+    private Button addnew, hide, edit;
     private TextView tv_MyProduct;
-    private SearchView searchView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,10 +41,8 @@ public class activity_MyProduct extends AppCompatActivity implements Filterable 
         tabLayout.setupWithViewPager(viewPager);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
-        search = findViewById(R.id.btn_search);
         back_to_Home = findViewById(R.id.imgbtn_back);
         addnew = findViewById(R.id.add_product);
-        searchView = findViewById(R.id.searchView);
         tv_MyProduct = findViewById(R.id.My_product);
 
         back_to_Home.setOnClickListener(new View.OnClickListener() {
@@ -65,11 +59,6 @@ public class activity_MyProduct extends AppCompatActivity implements Filterable 
                 startActivity(intent);
             }
         });
-    }
-
-    @Override
-    public Filter getFilter() {
-        return null;
     }
 
     private static class AdminOrderPagerAdapter extends FragmentPagerAdapter {

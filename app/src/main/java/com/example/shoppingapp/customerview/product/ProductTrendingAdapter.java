@@ -4,8 +4,9 @@ package com.example.shoppingapp.customerview.product;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -13,19 +14,51 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
-import com.example.shoppingapp.customerview.categories.CategoriesAdapter;
-import com.example.shoppingapp.customerview.product.customer_interface.IClickItemProductListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ProductTrendingAdapter extends  RecyclerView.Adapter<ProductTrendingAdapter.ProductViewHolder>{
+public class ProductTrendingAdapter extends  RecyclerView.Adapter<ProductTrendingAdapter.ProductViewHolder> implements Filterable {
 
     private List<ProductTrending> mProducts;
+    private List<ProductTrending> mProductsOld;
     private OnItemClick onItemClick;
 
     public void setOnItemClick(OnItemClick onItemClick) {
         this.onItemClick = onItemClick;
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String search = charSequence.toString();
+                if(search.isEmpty()){
+                    mProducts = mProductsOld;
+                }
+                else{
+                    ArrayList<ProductTrending> list = new ArrayList<>();
+                    for(ProductTrending object : mProductsOld){
+                        if(object.getName().toLowerCase().contains(search.toLowerCase())){
+                            list.add(object);
+                        }
+                    }
+                    mProducts = list;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = mProducts;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                mProducts = (ArrayList<ProductTrending>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
     public interface OnItemClick {
@@ -34,6 +67,7 @@ public class ProductTrendingAdapter extends  RecyclerView.Adapter<ProductTrendin
     public void setData(List<ProductTrending> list)
     {
         this.mProducts = list;
+        this.mProductsOld = list;
         notifyDataSetChanged();
     }
 

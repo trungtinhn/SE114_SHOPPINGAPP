@@ -78,4 +78,5 @@ public class out_of_stock_fragment extends Fragment {
         super.onResume();
         loadProductsFromFirestore();
     }
+
 }

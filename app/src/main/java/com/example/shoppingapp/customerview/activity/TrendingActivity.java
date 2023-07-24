@@ -1,10 +1,14 @@
 package com.example.shoppingapp.customerview.activity;
 
+import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.SearchView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.OptIn;
@@ -13,10 +17,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
-import com.example.shoppingapp.customerview.BottomNavigationCustomActivity;
 import com.example.shoppingapp.customerview.product.ProductCard;
 import com.example.shoppingapp.customerview.product.ProductCardAdapter;
-import com.example.shoppingapp.customerview.product.customer_interface.IClickItemProductTrendingListener;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.badge.BadgeUtils;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,12 +31,13 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 @OptIn(markerClass = com.google.android.material.badge.ExperimentalBadgeUtils.class)
-public class TrendingActivity extends AppCompatActivity {
+public class TrendingActivity extends AppCompatActivity implements Filterable {
     private List<String> dataGiohang;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
 
     private RecyclerView rcvProductTrending;
+    SearchView searchView;
 
     ProductCardAdapter productCardAdapter;
     List<ProductCard> mTrendingCard;
@@ -47,15 +50,16 @@ public class TrendingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_trending);
 
         rcvProductTrending = findViewById(R.id.rcvProductTrending);
-
+        searchView = findViewById(R.id.searchView);
         backICon = findViewById(R.id.backIcon);
         shoppingCart = findViewById(R.id.ShoppingCart);
+        productCardAdapter = new ProductCardAdapter();
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         setRcvProductTrending();
         setOnClickBackIcon();
         SoLuongShoppingCart();
-
+        SearchTrending();
         shoppingCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,17 +68,31 @@ public class TrendingActivity extends AppCompatActivity {
             }
         });
     }
+    private void SearchTrending(){
+        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                productCardAdapter.getFilter().filter(s);
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String s) {
+                productCardAdapter.getFilter().filter(s);
+                return false;
+            }
+        });
+    }
     private void setOnClickBackIcon() {
         backICon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TrendingActivity.this, BottomNavigationCustomActivity.class );
-                startActivity(intent);
+               finish();
             }
         });
     }
     private void setRcvProductTrending() {
-        productCardAdapter = new ProductCardAdapter();
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
         rcvProductTrending.setLayoutManager(gridLayoutManager);
         firebaseFirestore.collection("SANPHAM")
@@ -133,5 +151,10 @@ public class TrendingActivity extends AppCompatActivity {
                     }
                 });
 
+    }
+
+    @Override
+    public Filter getFilter() {
+        return null;
     }
 }
