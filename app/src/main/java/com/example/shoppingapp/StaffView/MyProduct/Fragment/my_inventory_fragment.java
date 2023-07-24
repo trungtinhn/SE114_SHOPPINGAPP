@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class my_inventory_fragment extends Fragment {
+
     private RecyclerView recyclerView;
     private My_inventory_Adapter adapter;
     private List<Product> productList;
@@ -37,30 +37,73 @@ public class my_inventory_fragment extends Fragment {
         productList = new ArrayList<>();
         adapter = new My_inventory_Adapter(productList, getContext());
         recyclerView.setAdapter(adapter);
-
-        // Load products from Firebase
-        loadProducts();
-
+        loadProductsFromFirestore();
         return view;
     }
 
-    private void loadProducts() {
-        // Query the "SANPHAM" collection in Firebase
+    private void loadProductsFromFirestore() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference sanphamRef = db.collection("SANPHAM");
+        sanphamRef.whereEqualTo("TrangThai", "Inventory")
+                .whereGreaterThan("SoLuongConLai", 0)
+                .addSnapshotListener((queryDocumentSnapshots, e) -> {
+                    if (e != null) {
+                        // Xử lý lỗi nếu cần thiết
+                        return;
+                    }
 
-        sanphamRef.whereGreaterThan("SoLuongConLai", 0).get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
                     productList.clear();
-                    for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                        Product product = documentSnapshot.toObject(Product.class);
-                        productList.add(product);
+                    for (DocumentSnapshot document : queryDocumentSnapshots) {
+                        String tenSP = document.getString("TenSP");
+                        String maSP = document.getString("MaSP");
+                        String moTaSP = document.getString("MoTaSP");
+                        List<String> color = (List<String>) document.get("MauSac");
+                        List<String> size = (List<String>) document.get("Size");
+                        int price = document.getLong("GiaSP") != null ? document.getLong("GiaSP").intValue() : 0;
+                        int warehouse = document.getLong("SoLuongConLai") != null ? document.getLong("SoLuongConLai").intValue() : 0;
+                        int sold = document.getLong("SoLuongDaBan") != null ? document.getLong("SoLuongDaBan").intValue() : 0;
+                        int love = document.getLong("SoLuongYeuThich") != null ? document.getLong("SoLuongYeuThich").intValue() : 0;
+                        int view = document.getLong("SoLuongXem") != null ? document.getLong("SoLuongXem").intValue() : 0;
+
+                        // Kiểm tra xem trường "HinhAnhSP" có dữ liệu không
+                        if (document.contains("HinhAnhSP")) {
+                            Object hinhAnhSPValue = document.get("HinhAnhSP");
+
+                            // Kiểm tra nếu giá trị là một List<String>
+                            if (hinhAnhSPValue instanceof List) {
+                                List<String> hinhAnhSPList = (List<String>) hinhAnhSPValue;
+                                // Lấy địa chỉ ảnh đầu tiên trong mảng
+                                String hinhAnhSP = hinhAnhSPList != null && !hinhAnhSPList.isEmpty() ? hinhAnhSPList.get(0) : "";
+                                // Tạo đối tượng Product và thiết lập các thuộc tính
+                                Product product = new Product(hinhAnhSP, tenSP, price, warehouse, sold, love, view, maSP);
+                                product.setMoTaSP(moTaSP);
+                                product.setSize(size);
+                                product.setMauSac(color);
+
+                                // Thêm đối tượng Product vào danh sách
+                                productList.add(product);
+                            } else if (hinhAnhSPValue instanceof String) {
+                                // Xử lý khi giá trị là một String
+                                String hinhAnhSP = (String) hinhAnhSPValue;
+                                // Tạo đối tượng Product và thiết lập các thuộc tính
+                                Product product = new Product(hinhAnhSP, tenSP, price, warehouse, sold, love, view, maSP);
+                                product.setMoTaSP(moTaSP);
+                                product.setSize(size);
+                                product.setMauSac(color);
+
+                                // Thêm đối tượng Product vào danh sách
+                                productList.add(product);
+                            } else {
+                                // Xử lý trường hợp giá trị không phải là List<String> hoặc String
+                                // Nếu trường "HinhAnhSP" có giá trị khác kiểu List<String> hoặc String,
+                                // bạn có thể xử lý tại đây theo ý muốn.
+                            }
+                        } else {
+                            // Xử lý trường hợp không có dữ liệu trong trường "HinhAnhSP"
+                            // Nếu không có giá trị hoặc giá trị là null, bạn có thể xử lý tại đây theo ý muốn.
+                        }
                     }
                     adapter.notifyDataSetChanged();
-                })
-                .addOnFailureListener(e -> {
-                    // Handle failure
-                    Toast.makeText(getContext(), "Failed to load products", Toast.LENGTH_SHORT).show();
                 });
     }
 }

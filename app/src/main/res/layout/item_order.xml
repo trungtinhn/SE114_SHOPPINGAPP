@@ -6,10 +6,10 @@
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="50dp"
+        android:layout_width="70dp"
         android:id = "@+id/cardview"
-        android:layout_height="50dp"
-        android:layout_marginLeft="20dp"
+        android:layout_height="70dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         app:cardCornerRadius="10dp">
 
@@ -41,38 +41,71 @@
 
         <TextView
             android:id="@+id/product_price"
-            android:layout_width="match_parent"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat"
             android:text="139.999đ"
             android:textSize="14dp" />
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linear2"
+            android:layout_width="311dp"
+            android:layout_height="43dp"
+            android:layout_below="@+id/linear1"
+            android:layout_marginTop="-21dp">
+            <TextView
+                android:id="@+id/NUMBER_TEXT"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="25dp"
+                android:text="Number: " />
+            <TextView
+                android:id="@+id/number_of_product"
+                android:layout_width="40dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="25dp"
+                android:text="1" />
+            <TextView
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:textSize="14dp"
+                android:layout_marginBottom="5dp"
+                android:text="Color: "/>
+            <TextView
+                android:id="@+id/color_product"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:textSize="14dp"
+                android:layout_marginBottom="5dp"
+                android:text="Color: "/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linear3"
+            android:layout_width="220dp"
+            android:layout_height="43dp"
+            android:layout_marginLeft="97dp"
+            android:layout_below="@+id/linear1"
+            android:layout_marginTop="-20dp">
 
-    <LinearLayout
-        android:id="@+id/linear2"
-        android:layout_width="311dp"
-        android:layout_height="43dp"
-        android:layout_below="@+id/linear1"
-        android:layout_marginLeft="72dp"
-        android:layout_marginTop="-18dp">
-
-        <TextView
-            android:id="@+id/NUMBER_TEXT"
-            android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="25dp"
-            android:text="Number: " />
-
-        <TextView
-            android:id="@+id/number_of_product"
-            android:layout_width="40dp"
-            android:layout_height="32dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="25dp"
-            android:text="1" />
-
+            <TextView
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:textSize="14dp"
+                android:layout_marginBottom="5dp"
+                android:text="Size: "/>
+            <TextView
+                android:id="@+id/size_product"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:textSize="14dp"
+                android:layout_marginBottom="5dp"
+                android:text="Color: "/>
+        </LinearLayout>
     </LinearLayout>
 
 

@@ -75,7 +75,7 @@ public class activity_MyOrder extends AppCompatActivity {
                 });
         FirebaseFirestore db_onwait = FirebaseFirestore.getInstance();
         CollectionReference onwaitRef = db_onwait.collection("DONHANG");
-        onwaitRef.whereEqualTo("TrangThai", "onwait")
+        onwaitRef.whereEqualTo("TrangThai", "Wait")
                 .addSnapshotListener((queryDocumentSnapshots, e) ->{
                     if (e != null) {
                         // Handle the error here if necessary.
@@ -91,7 +91,7 @@ public class activity_MyOrder extends AppCompatActivity {
                 });
         FirebaseFirestore db_delivering = FirebaseFirestore.getInstance();
         CollectionReference deliveringRef = db_delivering.collection("DONHANG");
-        deliveringRef.whereEqualTo("TrangThai", "delivering")
+        deliveringRef.whereEqualTo("TrangThai", "Delivering")
                 .addSnapshotListener((queryDocumentSnapshots, e) ->{
                     if (e != null) {
                         // Handle the error here if necessary.
@@ -106,7 +106,7 @@ public class activity_MyOrder extends AppCompatActivity {
                 });
         FirebaseFirestore db_delivered = FirebaseFirestore.getInstance();
         CollectionReference deliveredRef = db_delivered.collection("DONHANG");
-        deliveredRef.whereEqualTo("TrangThai", "delivered")
+        deliveredRef.whereEqualTo("TrangThai", "Delivered")
                 .addSnapshotListener((queryDocumentSnapshots, e) ->{
                     if (e != null) {
                         // Handle the error here if necessary.

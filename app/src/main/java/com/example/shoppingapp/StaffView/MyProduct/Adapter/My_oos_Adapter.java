@@ -13,60 +13,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.StaffView.Product;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class My_oos_Adapter extends RecyclerView.Adapter<My_oos_Adapter.ProductsViewHolder> {
+
     private List<Product> productList;
     private Context context;
 
     public My_oos_Adapter(List<Product> productList, Context context) {
         this.context = context;
-        this.productList = new ArrayList<>();
-        loadDataFromFirestore();
-    }
-
-    private void loadDataFromFirestore() {
-        CollectionReference sanphamRef = FirebaseFirestore.getInstance().collection("SANPHAM");
-
-        sanphamRef.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                productList.clear();
-
-                for (DocumentSnapshot document : task.getResult()) {
-                    // Lấy các trường dữ liệu từ document
-                    // Lấy mảng địa chỉ ảnh
-                    List<String> hinhAnhSPList = (List<String>) document.get("HinhAnhSP");
-
-                    // Lấy địa chỉ ảnh đầu tiên trong mảng
-                    String hinhAnhSP = hinhAnhSPList != null && !hinhAnhSPList.isEmpty() ? hinhAnhSPList.get(0) : "";
-                    String tenSP = document.getString("TenSP");
-                    String MaSP  =  document.getString("MaSP");
-                    int giaSP = document.getLong("GiaSP") != null ? document.getLong("GiaSP").intValue() : 0;
-                    int warehouse = document.getLong("SoLuongConLai") != null ? document.getLong("SoLuongConLai").intValue() : 0;
-
-                    int SoldOut = document.getLong("SoLuongDaBan") != null ? document.getLong("SoLuongDaBan").intValue() : 0;
-                    int Love = document.getLong("SoLuongYeuThich") != null ? document.getLong("SoLuongYeuThich").intValue() : 0;
-                    int View = 0;
-                    // Tạo đối tượng Product từ dữ liệu lấy được
-                    Product product = new Product(hinhAnhSP, tenSP, giaSP, warehouse, SoldOut, Love, View, MaSP);
-
-                    // Thêm đối tượng Product vào danh sách
-                    productList.add(product);
-                }
-
-                notifyDataSetChanged();
-            } else {
-                // Xử lý khi không thành công
-                Exception exception = task.getException();
-                // ...
-            }
-        });
+        this.productList = productList;
     }
 
     @NonNull
@@ -85,6 +43,7 @@ public class My_oos_Adapter extends RecyclerView.Adapter<My_oos_Adapter.Products
         holder.warehouse.setText(String.valueOf(product.getWarehouse()));
         holder.Love.setText(String.valueOf(product.getLove()));
         holder.View.setText(String.valueOf(product.getViews()));
+        Picasso.get().load(R.drawable.add).into(holder.add);
         Picasso.get().load(product.getAvatar()).into(holder.ava);
     }
 
@@ -95,21 +54,21 @@ public class My_oos_Adapter extends RecyclerView.Adapter<My_oos_Adapter.Products
 
     public class ProductsViewHolder extends RecyclerView.ViewHolder {
         private TextView name, price;
-        private ImageView ava;
+        private ImageView ava, add;
         private Button H, Edit;
         private TextView warehouse, soldOut, Love, View;
 
         public ProductsViewHolder(@NonNull View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.product_name);
-            price = itemView.findViewById(R.id.product_price);
-            ava = itemView.findViewById(R.id.id_avatar);
-            warehouse= itemView.findViewById(R.id.idware);
-            soldOut = itemView.findViewById(R.id.idsold);
-            Love = itemView.findViewById(R.id.idlove);
-            View = itemView.findViewById(R.id.idviews);
-            H = itemView.findViewById(R.id.button2);
-            Edit = itemView.findViewById(R.id.button3);
+            name = itemView.findViewById(R.id.product_name_add);
+            price = itemView.findViewById(R.id.product_price_add);
+            ava = itemView.findViewById(R.id.id_avatar_add);
+            warehouse= itemView.findViewById(R.id.idware_add);
+            soldOut = itemView.findViewById(R.id.idsold_add);
+            Love = itemView.findViewById(R.id.idlove_add);
+            View = itemView.findViewById(R.id.idviews_add);
+            Edit = itemView.findViewById(R.id.btn_edit_add);
+            add = itemView.findViewById(R.id.imgView_add_more);
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.example.shoppingapp.StaffView.MyProduct.Activity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -28,6 +27,7 @@ public class activity_MyProduct extends AppCompatActivity {
     private TabLayout tabLayout;
 
     private Button back_to_Home;
+
 
     private Button addnew, hide, edit, search;
     private TextView tv_MyProduct;
@@ -64,9 +64,6 @@ public class activity_MyProduct extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
     }
     private static class AdminOrderPagerAdapter extends FragmentPagerAdapter {
         private static final int NUM_PAGES = 3;
@@ -90,7 +87,6 @@ public class activity_MyProduct extends AppCompatActivity {
                     return new out_of_stock_fragment();
                 case 2:
                     return new onwait_fragment();
-
                 default:
                     throw new IllegalStateException("Invalid position: " + position);
             }
@@ -101,8 +97,6 @@ public class activity_MyProduct extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return TAB_TITLES[position];
         }
-
     }
-
 
 }

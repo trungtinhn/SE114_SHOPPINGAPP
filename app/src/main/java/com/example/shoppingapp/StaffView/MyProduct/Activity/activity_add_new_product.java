@@ -67,6 +67,7 @@ public class activity_add_new_product extends AppCompatActivity {
     private CheckBox check_color, check_size, check_category;
     private static final int REQUEST_IMAGE_PICK = 1;
     private FirebaseFirestore firestore;
+    private ImageView btn_add_new_color;
     private StorageReference storageReference;
     public activity_add_new_product() {
     }
@@ -77,7 +78,14 @@ public class activity_add_new_product extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_product);
 
-
+        btn_add_new_color = findViewById(R.id.imgView_add_new_color);
+        btn_add_new_color.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity_add_new_product.this, activity_add_new_color.class);
+                startActivity(intent);
+            }
+        });
         db_size = FirebaseFirestore.getInstance();
         db_color = FirebaseFirestore.getInstance();
         db_category = FirebaseFirestore.getInstance();

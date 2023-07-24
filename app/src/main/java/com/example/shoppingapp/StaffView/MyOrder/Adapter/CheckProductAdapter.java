@@ -1,4 +1,4 @@
-package com.example.shoppingapp.StaffView.MyOrder.Fragment.Adapter;
+package com.example.shoppingapp.StaffView.MyOrder.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -90,11 +90,11 @@ public class CheckProductAdapter extends RecyclerView.Adapter<CheckProductAdapte
                         if (trangThai != null) {
                             String newTrangThai;
                             if (trangThai.equals("Confirm")) {
-                                newTrangThai = "onwait";
-                            } else if (trangThai.equals("onwait")) {
-                                newTrangThai = "delivering";
-                            } else if (trangThai.equals("delivering")) {
-                                newTrangThai = "delivered";
+                                newTrangThai = "Wait";
+                            } else if (trangThai.equals("Wait")) {
+                                newTrangThai = "Delivering";
+                            } else if (trangThai.equals("Delivering")) {
+                                newTrangThai = "Delivered";
                             } else {
                                 return;
                             }

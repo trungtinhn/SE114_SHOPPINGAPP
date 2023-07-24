@@ -1,6 +1,9 @@
 package com.example.shoppingapp.StaffView;
 
-public class Product {
+import java.util.List;
+
+public class Product  {
+    private String MoTaSP;
     private String name;
     private int price;
     private String avatar;
@@ -9,7 +12,7 @@ public class Product {
     }
 
     public void setMaSP(String maSP) {
-        maSP = maSP;
+        this.maSP = maSP;
     }
 
     private String maSP;
@@ -19,6 +22,15 @@ public class Product {
     private int sold; //Bán ra
     private int views; //Số lượng người xem
 
+    public List<String> getMauSac() {
+        return MauSac;
+    }
+
+    public void setMauSac(List<String> mauSac) {
+        MauSac = mauSac;
+    }
+
+    private List<String> MauSac;
     public Product(String hinhAnhSP, String TenSP, int GiaSP, int warehouse, int sold, int Love, int View, String MaSP)
     {
         this.avatar = hinhAnhSP;
@@ -35,6 +47,16 @@ public class Product {
         name = tenSP;
         price = giaSP;
     }
+
+    public List<String> getSize() {
+        return Size;
+    }
+
+    public void setSize(List<String> size) {
+        Size = size;
+    }
+
+    private List<String> Size;
     public Product(){}
     public String getName() {
         return name;
@@ -99,4 +121,13 @@ public class Product {
     public void setViews(int views) {
         this.views = views;
     }
+
+    public String getMoTaSP() {
+        return MoTaSP;
+    }
+
+    public void setMoTaSP(String moTaSP) {
+        MoTaSP = moTaSP;
+    }
+
 }
