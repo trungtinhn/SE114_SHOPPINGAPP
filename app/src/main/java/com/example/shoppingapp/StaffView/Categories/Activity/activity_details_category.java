@@ -1,9 +1,13 @@
 package com.example.shoppingapp.StaffView.Categories.Activity;
 
+import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
+import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -16,12 +20,13 @@ import com.example.shoppingapp.StaffView.Product;
 import java.util.ArrayList;
 import java.util.List;
 
-public class activity_details_category extends AppCompatActivity {
+public class activity_details_category extends AppCompatActivity implements Filterable {
     private RecyclerView recyclerView;
     private adapter_details_category adapter;
     private List<Product> productList;
 
-    private ImageButton button;
+    private Button button;
+    private SearchView searchView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,5 +49,26 @@ public class activity_details_category extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
+        searchView = findViewById(R.id.searchView);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                adapter.getFilter().filter(s);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                adapter.getFilter().filter(s);
+                return false;
+            }
+        });
+    }
+
+    @Override
+    public Filter getFilter() {
+        return null;
     }
 }

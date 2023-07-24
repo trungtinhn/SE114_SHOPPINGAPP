@@ -1,19 +1,16 @@
 package com.example.shoppingapp.customerview.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.customerview.BottomNavigationCustomActivity;
-import com.example.shoppingapp.customerview.activity.OrderActivity;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -101,7 +98,7 @@ public class AccountFragment extends Fragment {
         YourOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bottomNavigationCustomActivity.gotoYourOrder();
+                //bottomNavigationCustomActivity.gotoYourOrder();
             }
         });
     }
@@ -109,7 +106,7 @@ public class AccountFragment extends Fragment {
         Profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bottomNavigationCustomActivity.gotoProfile();
+                //bottomNavigationCustomActivity.gotoProfile();
             }
         });
     }
@@ -134,6 +131,9 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 bottomNavigationCustomActivity.gotoLogOut();
+            }
+        });
+    }
 
 
     private void setOnClick() {

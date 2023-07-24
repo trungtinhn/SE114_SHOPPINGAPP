@@ -6,7 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.SearchView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -26,9 +27,11 @@ public class activity_MyProduct extends AppCompatActivity {
     private ViewPager viewPager;
     private TabLayout tabLayout;
 
-    private ImageButton back_to_Home;
+    private Button back_to_Home;
 
-    private Button addnew, hide, edit;
+    private Button addnew, hide, edit, search;
+    private TextView tv_MyProduct;
+    private SearchView searchView;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +44,12 @@ public class activity_MyProduct extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
-
+        search = findViewById(R.id.btn_search);
         back_to_Home = findViewById(R.id.imgbtn_back);
+        addnew = findViewById(R.id.add_product);
+        searchView = findViewById(R.id.searchView);
+        tv_MyProduct = findViewById(R.id.My_product);
+
         back_to_Home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,7 +57,6 @@ public class activity_MyProduct extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        addnew = findViewById(R.id.add_product);
         addnew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,6 +64,7 @@ public class activity_MyProduct extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
 
 
     }

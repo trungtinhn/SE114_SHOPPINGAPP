@@ -24,8 +24,9 @@
             android:layout_marginVertical="10dp"
             android:layout_toLeftOf="@id/chatBtn"
             android:layout_marginLeft="10dp"
+            android:fontFamily="@font/montserrat"
             android:background="@drawable/search_background"
-            android:drawableStart="@drawable/searchicon"
+            android:drawableStart="@drawable/search"
             android:drawablePadding="12dp"
             android:hint="Search product"
             android:maxLength="20"
@@ -41,7 +42,7 @@
             android:background="@drawable/background_icon"
             android:layout_marginVertical="10dp"
             android:padding="5dp"
-            app:srcCompat='@drawable/chat' />
+            app:srcCompat='@drawable/icon_message' />
 
         <ImageView
             android:id="@+id/ShoppingCart"
@@ -53,9 +54,7 @@
             android:background="@drawable/background_icon"
             android:padding="5dp"
             android:layout_marginVertical="10dp"
-            app:srcCompat='@drawable/shoppingcarticon'
-
-            />
+            app:srcCompat='@drawable/ic_shopping_cart' />
 
     </RelativeLayout>
 
@@ -74,13 +73,14 @@
 
             <TextView
                 android:id="@+id/txtOnSale"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
                 android:text="On sale"
                 android:textColor="@color/black"
                 android:textSize="20dp"
-                android:textStyle="bold|italic" />
+                android:fontFamily="@font/montserrat_medium"
+                android:textStyle="italic" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewpagerImage"
@@ -103,7 +103,8 @@
                     android:text="Trending now"
                     android:textColor="@color/black"
                     android:textSize="20dp"
-                    android:textStyle="bold|italic"
+                    android:textStyle="italic"
+                    android:fontFamily="@font/montserrat_medium"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -113,6 +114,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="See all"
+                    android:fontFamily="@font/montserrat"
                     android:layout_marginEnd="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -145,9 +147,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="15dp"
                     android:text="Order Categories"
+                    android:fontFamily="@font/montserrat_medium"
                     android:textColor="@color/black"
                     android:textSize="20dp"
-                    android:textStyle="bold|italic"
+                    android:textStyle="italic"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -157,6 +160,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Explore now"
+                    android:fontFamily="@font/montserrat"
                     android:layout_marginEnd="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

@@ -109,10 +109,7 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
         ((TextView) findViewById(R.id.adminID)).setText(admin.getMaND());
         String uri=admin.getAvatar();
         try{
-            if(uri.isEmpty())
-            {
-                Toast.makeText(getApplicationContext(),"null is recieved",Toast.LENGTH_SHORT).show();
-            }
+            if(uri.isEmpty()) {}
             else Picasso.get().load(uri).into((ImageView) findViewById(R.id.img_avt));
         }
         catch (Exception e)
@@ -134,6 +131,13 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
                 EventRemove();
             }
         });
+        findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(activity_admin_detail.this, activity_admin_control.class);
+                startActivity(intent);
+            }
+        });
     }
     private void EventEdit()
     {
@@ -152,6 +156,8 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
         EditText edPhone = holderView.findViewById(R.id.txt_phone);
         EditText edAddr = holderView.findViewById(R.id.txt_address);
         Button btnUpdate = holderView.findViewById(R.id.btn_update);
+        Button btnCancel = holderView.findViewById(R.id.btn_cancel);
+
 
         ArrayAdapter<CharSequence> gender = ArrayAdapter.createFromResource(this,R.array.gender,
                 R.layout.spinner_item);
@@ -184,7 +190,12 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
         {
 
         }
-
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogPlus.dismiss();
+            }
+        });
         edImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -228,7 +239,6 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
                 map.put("dayOfBirth",edDob.getText().toString());
                 map.put("phoneNumber",edPhone.getText().toString());
                 map.put("diachi",edAddr.getText().toString());
-                Log.d("HInh Anh Da LUUUU", ImageUrl);
                 map.put("avatar",ImageUrl);
 
                 docRef.update(map)
@@ -237,7 +247,7 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
                             public void onSuccess(Void unused) {
                                 Toast.makeText(activity_admin_detail.this, "Success updating the data", Toast.LENGTH_SHORT).show();
                                 dialogPlus.dismiss();
-                                DeleteOldImg(oldImageUrl);
+                                if(!ImageUrl.equals(oldImageUrl)) DeleteOldImg(oldImageUrl);
                                 Intent intent = new Intent(activity_admin_detail.this,activity_admin_control.class);
                                 startActivity(intent);
                             }
@@ -247,7 +257,7 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
                             public void onFailure(@NonNull Exception e) {
                                 dialogPlus.dismiss();
                                 Toast.makeText(activity_admin_detail.this, "Fail to update the data", Toast.LENGTH_SHORT).show();
-                                DeleteOldImg(ImageUrl);
+                                if(!ImageUrl.equals(oldImageUrl)) DeleteOldImg(ImageUrl);
                             }
                         });
             }
@@ -293,22 +303,28 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
 
     }
     private void DeleteOldImg(String deleteImg){
+        progressDialog.setTitle("Updating...");
+        progressDialog.show();
         if(deleteImg != null ){
             StorageReference oldImageRef = firebaseStorage.getReferenceFromUrl(deleteImg);
             oldImageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
+                    progressDialog.dismiss();
                     // File deleted successfully
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
+                    progressDialog.dismiss();
                     // Uh-oh, an error occurred
                 }
             });
         }
     }
     private void updateImgInStorage(Uri imageUri){
+        progressDialog.setTitle("Updating...");
+        progressDialog.show();
         StorageReference storageRef = firebaseStorage.getReference();
 
         String imagePath = "ImageUser/" + UUID.randomUUID().toString() + ".jpg";
@@ -323,6 +339,7 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
                             public void onSuccess(Uri downloadUri) {
                                 Log.d("ImageURI: ", downloadUri.toString());
                                 ImageUrl = downloadUri.toString();
+                                progressDialog.dismiss();
                             }
                         });
                     }
@@ -330,6 +347,7 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        progressDialog.dismiss();
                         Toast.makeText(activity_admin_detail.this, "Fail to send image to firebase", Toast.LENGTH_LONG).show();
                         // Tải ảnh thất bại
                     }
