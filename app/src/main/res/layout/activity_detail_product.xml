@@ -143,7 +143,7 @@
             >
 
             <RatingBar
-                android:id="@+id/starSating"
+                android:id="@+id/starRating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:numStars="5"
@@ -166,7 +166,7 @@
                 android:layout_height="wrap_content"
                 android:textStyle="italic"
                 android:text="See reviews"
-                android:layout_toRightOf="@id/starSating"
+                android:layout_toRightOf="@id/starRating"
                 android:background="@drawable/item_selector"
                 android:textSize="20dp"
                 android:layout_marginLeft="-10dp"
