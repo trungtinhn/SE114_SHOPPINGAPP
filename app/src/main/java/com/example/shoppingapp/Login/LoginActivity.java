@@ -112,7 +112,6 @@ public class LoginActivity extends AppCompatActivity {
 //                                                    Intent adminIntent = new Intent(LoginActivity.this, home_page.class);
 //                                                    User user = dataSnapshot.getValue(User.class);
                                                     Intent adminIntent = new Intent(LoginActivity.this, activity_admin_control.class);
-//                                                    adminIntent.putExtra("Data", (Serializable) user);
                                                     startActivity(adminIntent);
                                                     finish();
                                                     break;
