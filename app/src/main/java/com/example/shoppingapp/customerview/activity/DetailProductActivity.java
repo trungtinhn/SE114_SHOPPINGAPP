@@ -73,6 +73,7 @@ public class DetailProductActivity extends AppCompatActivity {
     private List<String> imageUrls;
     private FirebaseAuth firebaseAuth;
     private TextView btnAddToCard;
+    private TextView btnBuyNow;
     private FirebaseUser firebaseUser;
     private Long giaSP;
     private AlertDialog.Builder builder;
@@ -103,6 +104,7 @@ public class DetailProductActivity extends AppCompatActivity {
         txtSeeReview = findViewById(R.id.txtSeeReview);
         heartIcon = findViewById(R.id.heartIcon);
         shoppingCart = findViewById(R.id.cartIcon);
+        btnBuyNow = findViewById(R.id.btnBuyNow);
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
@@ -127,6 +129,7 @@ public class DetailProductActivity extends AppCompatActivity {
         getProduct(maSP);
         setMoTaSP();
         setAddToCard();
+        setBuyNow();
         setDialog();
         setBtnSeeReview();
         getYeuThich();
@@ -143,6 +146,66 @@ public class DetailProductActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(DetailProductActivity.this, ShoppingCart.class );
                 startActivity(intent);
+            }
+        });
+    }
+
+    private void setBuyNow() {
+        btnBuyNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if((dataColor.isEmpty() || dataColor == null) || (dataSize.isEmpty() || dataSize == null)) return;
+                else {
+                    Map<String, Object> data = new HashMap<>();
+                    data.put("MaND", firebaseUser.getUid());
+                    data.put("MauSac", dataColor);
+                    data.put("Size", dataSize);
+                    data.put("HinhAnhSP", imageUrls);
+                    data.put("TenSP", txtProductNameDetail.getText());
+                    data.put("SoLuong", Integer.valueOf((String) txtSoLuong.getText()));
+                    data.put("GiaSP", giaSP);
+                    data.put("GiaTien", Integer.valueOf((String) txtPriceProductDetail.getText()));
+                    data.put("MaSP", maSP);
+
+                    firebaseFirestore.collection("GIOHANG")
+                            .add(data)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+
+                                    DocumentReference updateRef = firebaseFirestore.collection("GIOHANG").document(documentReference.getId());
+                                    updateRef
+                                            .update("MaGH", documentReference.getId())
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Log.d(TAG, "DocumentSnapshot successfully updated!");
+
+                                                    // Intent BuyNow
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.w(TAG, "Error updating document", e);
+                                                }
+                                            });
+
+                                    idGioHang = documentReference.getId();
+//                                    Toast.makeText(getApplicationContext(), "Add to cart successfully!", Toast.LENGTH_LONG);
+//                                    Intent intent = new Intent(DetailProductActivity.this, BottomNavigationCustomActivity.class);
+//                                    startActivity(intent);
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "Error adding document", e);
+                                }
+                            });
+
+                }
             }
         });
     }
@@ -317,6 +380,9 @@ public class DetailProductActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
                                                     Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                                    Toast.makeText(getApplicationContext(), "Add to cart successfully!", Toast.LENGTH_LONG);
+                                                    Intent intent = new Intent(DetailProductActivity.this, BottomNavigationCustomActivity.class);
+                                                    startActivity(intent);
                                                 }
                                             })
                                             .addOnFailureListener(new OnFailureListener() {
@@ -327,9 +393,7 @@ public class DetailProductActivity extends AppCompatActivity {
                                             });
 
                                     idGioHang = documentReference.getId();
-                                    Toast.makeText(getApplicationContext(), "Add to cart successfully!", Toast.LENGTH_LONG);
-                                    Intent intent = new Intent(DetailProductActivity.this, BottomNavigationCustomActivity.class);
-                                    startActivity(intent);
+
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
@@ -343,26 +407,6 @@ public class DetailProductActivity extends AppCompatActivity {
             }
         });
 
-        if(idGioHang != null){
-            DocumentReference washingtonRef = firebaseFirestore.collection("GIOHANG").document(idGioHang);
-
-
-            washingtonRef
-                    .update("MaGH", idGioHang)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Log.d(TAG, "DocumentSnapshot successfully updated!");
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.w(TAG, "Error updating document", e);
-                        }
-                    });
-
-        }
     }
 
     private void setMoTaSP() {
