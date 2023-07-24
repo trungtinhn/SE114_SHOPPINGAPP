@@ -1,17 +1,22 @@
 package com.example.shoppingapp.customerview.fragment;
 
 import static android.content.ContentValues.TAG;
+import static android.content.Context.SEARCH_SERVICE;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
+import android.app.ProgressDialog;
+import android.app.SearchManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.OptIn;
@@ -40,18 +45,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @OptIn(markerClass = com.google.android.material.badge.ExperimentalBadgeUtils.class)
-public class FollowFragment extends Fragment {
+public class FollowFragment extends Fragment implements Filterable {
     private List<String> dataGiohang;
-    private ImageView shoppingCart;
-
+    private ImageView shoppingCart, chatBtn;
     private RecyclerView rcvFollow;
     private TextView btnEmpty;
+    private SearchView searchView;
     private RelativeLayout layoutEmpty;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private ProductAdapter productAdapter;
-
+    ProgressDialog progressDialog;
     private BottomNavigationCustomActivity bottomNavigationCustomActivity;
 
 
@@ -67,21 +72,41 @@ public class FollowFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_follow, container, false);
-
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Fetching Data...");
+        progressDialog.show();
         rcvFollow = view.findViewById(R.id.rcvFollow);
         btnEmpty = view.findViewById(R.id.btnEmpty);
         layoutEmpty = view.findViewById(R.id.layoutEmpty);
         shoppingCart = view.findViewById(R.id.ShoppingCart);
+        searchView = view.findViewById(R.id.searchView);
+        chatBtn = view.findViewById(R.id.chatBtn);
         bottomNavigationCustomActivity = (BottomNavigationCustomActivity) getActivity();
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         rcvFollow.setLayoutManager(gridLayoutManager);
 
+        setOnCLickChatbtn();
         getFirebase();
         setFollow();
         SoLuongShoppingCart();
         setOnClickShoppingCart();
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(SEARCH_SERVICE);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                productAdapter.getFilter().filter(s);
+                return false;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String s) {
+                productAdapter.getFilter().filter(s);
+                return false;
+            }
+        });
 
         return view;
     }
@@ -93,6 +118,15 @@ public class FollowFragment extends Fragment {
         firebaseUser = firebaseAuth.getCurrentUser();
 
     }
+    private void setOnCLickChatbtn() {
+        chatBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomNavigationCustomActivity.gotoMessageActivity();
+            }
+        });
+    }
+
 
     private void onClickGoToDetailProduct(Product product) {
         bottomNavigationCustomActivity.gotoDetailProduct(product);
@@ -125,12 +159,8 @@ public class FollowFragment extends Fragment {
                             layoutEmpty.setVisibility(View.VISIBLE);
                         }else {
                             layoutEmpty.setVisibility(View.GONE);
-
-
                             for (QueryDocumentSnapshot doc : value) {
                                 String maSP = doc.getString("MaSP");
-
-
                                 final DocumentReference docRef = firebaseFirestore.collection("SANPHAM").document(maSP);
                                 docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                                     @Override
@@ -164,10 +194,9 @@ public class FollowFragment extends Fragment {
                             }
 
                         }
-
-
                     }
                 });
+        progressDialog.dismiss();
     }
     private void SoLuongShoppingCart(){
         firebaseFirestore.collection("GIOHANG")
@@ -193,5 +222,10 @@ public class FollowFragment extends Fragment {
                     }
                 });
 
+    }
+
+    @Override
+    public Filter getFilter() {
+        return null;
     }
 }

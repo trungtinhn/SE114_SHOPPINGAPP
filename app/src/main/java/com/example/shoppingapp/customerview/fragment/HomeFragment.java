@@ -1,8 +1,6 @@
 package com.example.shoppingapp.customerview.fragment;
 
 import android.content.Intent;
-import android.nfc.Tag;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,17 +18,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.shoppingapp.R;
-import com.example.shoppingapp.customerview.activity.CategoriesDetails;
-
 import com.example.shoppingapp.customerview.BottomNavigationCustomActivity;
-
+import com.example.shoppingapp.customerview.activity.CategoriesDetails;
 import com.example.shoppingapp.customerview.categories.Categories;
 import com.example.shoppingapp.customerview.categories.CategoriesAdapter;
 import com.example.shoppingapp.customerview.product.Product;
 import com.example.shoppingapp.customerview.product.ProductAdapter;
 import com.example.shoppingapp.customerview.product.customer_interface.IClickItemProductListener;
 import com.example.shoppingapp.customerview.viewpagerimage.AutoScrollTask;
-import com.example.shoppingapp.customerview.viewpagerimage.ViewPagerImageAdapter;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.badge.BadgeUtils;
 import com.google.firebase.auth.FirebaseAuth;
@@ -93,7 +88,6 @@ public class HomeFragment extends Fragment {
         editSearch = view.findViewById(R.id.editSearch);
         chatBtn = view.findViewById(R.id.chatBtn);
         shoppingCart = view.findViewById(R.id.ShoppingCart);
-
 
         setDataRcvProduct();
         setDataRcvCategories();

@@ -11,24 +11,23 @@
     <RelativeLayout
         android:id="@+id/layoutHeading"
         android:layout_width="match_parent"
-
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/editSearch"
+        <SearchView
+            android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_alignParentStart="true"
             android:layout_marginVertical="10dp"
-            android:layout_toLeftOf="@id/chatBtn"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/search_background"
-            android:drawableStart="@drawable/searchicon"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="1dp"
+            android:layout_toStartOf="@+id/chatBtn"
             android:drawablePadding="12dp"
-            android:hint="Search product"
+            android:iconifiedByDefault="false"
             android:maxLength="20"
-            android:paddingStart="12dp" />
+            android:queryHint="Search product" />
 
         <ImageView
             android:id="@+id/chatBtn"
@@ -38,21 +37,23 @@
             android:layout_gravity="center"
             android:layout_marginHorizontal="10dp"
             android:background="@drawable/background_icon"
+            android:backgroundTint="@color/white"
             android:layout_marginVertical="10dp"
             android:padding="5dp"
-            app:srcCompat='@drawable/chat' />
+            app:srcCompat='@drawable/icon_message' />
 
         <ImageView
             android:id="@+id/ShoppingCart"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"
+            android:layout_marginEnd="10dp"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
             android:background="@drawable/background_icon"
+            android:backgroundTint="@color/white"
             android:padding="5dp"
             android:layout_marginVertical="10dp"
-            app:srcCompat='@drawable/shoppingcarticon'
+            app:srcCompat='@drawable/ic_shopping_cart'
 
             />
 
