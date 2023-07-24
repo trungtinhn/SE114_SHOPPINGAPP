@@ -1,6 +1,5 @@
 package com.example.shoppingapp.customerview.activity;
 
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +10,6 @@ import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.shoppingapp.R;
-import com.example.shoppingapp.customerview.BottomNavigationCustomActivity;
 import com.example.shoppingapp.StaffView.adapter.adapter_chat_board_customer;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
@@ -56,8 +54,9 @@ public class MessageActivity extends AppCompatActivity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MessageActivity.this, BottomNavigationCustomActivity.class);
-                startActivity(intent);
+                finish();
+//                Intent intent=new Intent(MessageActivity.this, BottomNavigationCustomActivity.class);
+//                startActivity(intent);
             }
         });
 

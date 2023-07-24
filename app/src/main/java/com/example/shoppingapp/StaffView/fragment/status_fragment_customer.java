@@ -88,7 +88,7 @@ public class status_fragment_customer extends Fragment implements AdapterView.On
                 {
                     User object = d.toObject(User.class);
                     if(!object.getMaND().equals(firebaseAuth.getUid())
-                            && object.getLoaiND().equals("customer")
+                            && !object.getLoaiND().equals("customer")
                             && object.getStatus().equals("Online")) userArrayList.add(object);
                     adapterChatFragment.notifyDataSetChanged();
                     if(progressDialog.isShowing())

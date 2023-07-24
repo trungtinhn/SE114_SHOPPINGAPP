@@ -11,8 +11,8 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/imgbtn_back"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginStart="21dp"
@@ -24,7 +24,7 @@
         <TextView
             android:id="@+id/My_product"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginStart="24dp"
             android:layout_marginTop="20dp"
@@ -33,7 +33,7 @@
             android:fontFamily="@font/montserrat"
             android:text="My Product"
             android:textColor="@color/black"
-            android:textSize="23dp" />
+            android:textSize="20dp" />
 
         <SearchView
             android:layout_width="match_parent"

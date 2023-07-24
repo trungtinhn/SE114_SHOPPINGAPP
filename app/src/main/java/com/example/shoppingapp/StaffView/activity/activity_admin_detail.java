@@ -194,6 +194,7 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
             @Override
             public void onClick(View view) {
                 dialogPlus.dismiss();
+                if(!ImageUrl.equals(oldImageUrl)) DeleteOldImg(ImageUrl);
             }
         });
         edImg.setOnClickListener(new View.OnClickListener() {
@@ -303,7 +304,7 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
 
     }
     private void DeleteOldImg(String deleteImg){
-        progressDialog.setTitle("Updating...");
+        progressDialog.setTitle("Waiting...");
         progressDialog.show();
         if(deleteImg != null ){
             StorageReference oldImageRef = firebaseStorage.getReferenceFromUrl(deleteImg);
