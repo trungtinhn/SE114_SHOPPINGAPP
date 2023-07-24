@@ -65,8 +65,7 @@ public class ShoppingCart extends AppCompatActivity {
         backIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent t = new Intent(ShoppingCart.this, BottomNavigationCustomActivity.class);
-                startActivity(t);
+               finish();
             }
         });
         checktotal.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +93,7 @@ public class ShoppingCart extends AppCompatActivity {
             public void onClick(View v) {
                 try{
                     String[] listmaGH = new String[data.size()];
+                    Log.d("Errrrrrrrr", String.valueOf(listmaGH.length));
                     int j = 0;
                     for(int i = 0; i < data.size(); i++){
                         if(data.get(i).isCheck()){
@@ -106,11 +106,9 @@ public class ShoppingCart extends AppCompatActivity {
                         t.putExtra("ListMaGH", listmaGH);
                         startActivity(t);
                     }
-
                 }catch (Exception e){
                     Log.d("Errrrrrrrr", e.getMessage());
                 }
-
             }
         });
 
