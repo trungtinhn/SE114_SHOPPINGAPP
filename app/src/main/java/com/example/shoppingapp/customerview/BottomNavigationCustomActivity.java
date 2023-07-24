@@ -1,16 +1,20 @@
 package com.example.shoppingapp.customerview;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.shoppingapp.Login.LoginActivity;
 import com.example.shoppingapp.R;
+import com.example.shoppingapp.customerview.activity.ChangePassWordActivity;
 import com.example.shoppingapp.customerview.activity.DetailProductActivity;
 import com.example.shoppingapp.customerview.activity.MessageActivity;
 import com.example.shoppingapp.customerview.activity.Notification;
@@ -22,6 +26,7 @@ import com.example.shoppingapp.customerview.fragment.HomeFragment;
 import com.example.shoppingapp.customerview.fragment.ViewPagerAdapter;
 import com.example.shoppingapp.customerview.product.Product;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class BottomNavigationCustomActivity extends AppCompatActivity{
 
@@ -147,9 +152,55 @@ public class BottomNavigationCustomActivity extends AppCompatActivity{
         startActivity(intent);
     }
 
+
+
+
+    public void gotoCLickHelp() {
+        Intent intent = new Intent(BottomNavigationCustomActivity.this, MessageActivity.class);
+        startActivity(intent);
+    }
+
+    public void gotoChangePass() {
+        Intent intent = new Intent(BottomNavigationCustomActivity.this, ChangePassWordActivity.class);
+        startActivity(intent);
+    }
+    private void showLogoutConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Xác nhận đăng xuất");
+        builder.setMessage("Bạn có chắc chắn muốn đăng xuất không?");
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                performLogout();
+            }
+        });
+
+        builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        builder.create().show();
+    }
+    private void performLogout() {
+
+        FirebaseAuth.getInstance().signOut();
+
+        Intent intent = new Intent(BottomNavigationCustomActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+    public void gotoLogOut() {
+        showLogoutConfirmationDialog();
+    }
+
     public void gotoOrderActivity(){
         Intent intent = new Intent(BottomNavigationCustomActivity.this, OrderActivity.class);
         startActivity(intent);
     }
+
 
 }
