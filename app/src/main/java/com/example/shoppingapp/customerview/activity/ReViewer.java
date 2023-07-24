@@ -139,7 +139,7 @@ public class ReViewer extends AppCompatActivity {
 
         fetchDataReviewSanPham();
         checkAllowReview();
-
+        setBackIcon();
 
 
 
@@ -148,11 +148,14 @@ public class ReViewer extends AppCompatActivity {
 
 
 
+
+    }
+
+    private void setBackIcon() {
         backIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent t = new Intent(ReViewer.this, DetailProductActivity.class);
-//                startActivity(t);
+                finish();
             }
         });
     }
@@ -220,6 +223,13 @@ public class ReViewer extends AppCompatActivity {
                             return;
                         }
 
+                        if (value.size() == 0){
+                            TongSoDanhGia.setText("0");
+                            TrungBinh.setText("5.0");
+                            Rating.setRating(5);
+                            return;
+                        }
+
                         List<ReViewData> dataReview = new ArrayList<>();
                         for (DocumentSnapshot doc : value.getDocuments()) {
 
@@ -253,6 +263,7 @@ public class ReViewer extends AppCompatActivity {
                         }
 
                         TrungBinh.setText(String.valueOf(sum/dataReview.size()));
+                        Rating.setRating(sum/dataReview.size());
 
                         reviewDataAdapter.setData(dataReview);
                         data_recyclerview.setAdapter(reviewDataAdapter);
