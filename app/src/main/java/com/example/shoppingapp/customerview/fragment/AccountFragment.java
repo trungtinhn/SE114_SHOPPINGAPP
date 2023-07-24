@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.customerview.BottomNavigationCustomActivity;
@@ -18,6 +19,7 @@ import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
@@ -74,18 +76,26 @@ public class AccountFragment extends Fragment {
             String userID = currentUser.getUid();
 
             FirebaseFirestore db = FirebaseFirestore.getInstance();
-            CollectionReference usersRef = db.collection("NGUOIDUNG");
-            usersRef.document(userID).get()
-                    .addOnSuccessListener(documentSnapshot -> {
-                        if (documentSnapshot.exists()) {
-                            String fullName = documentSnapshot.getString("fullName");
-                            String avatarURL = documentSnapshot.getString("avatar");
-                            txtFullName.setText(fullName);
-                            Picasso.get().load(avatarURL).into(imgAvt);
-                        }
-                    })
-                    .addOnFailureListener(e -> {
-                    });
+            DocumentReference userRef = db.collection("NGUOIDUNG").document(userID);
+
+            userRef.addSnapshotListener((documentSnapshot, e) -> {
+                if (e != null) {
+                    Toast.makeText(getContext(), "Không thể lấy dữ liệu từ Firestore. Vui lòng thử lại sau!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (documentSnapshot != null && documentSnapshot.exists()) {
+                    // Lấy thông tin người dùng từ Firestore
+                    String fullName = documentSnapshot.getString("fullName");
+                    String avatarURL = documentSnapshot.getString("avatar");
+                    txtFullName.setText(fullName);
+                    int width = 200;
+                    int height = 200;
+                    Picasso.get().load(avatarURL).resize(width, height).into(imgAvt);
+                } else {
+                    // Xử lý khi tài liệu không tồn tại hoặc bị xóa
+                }
+            });
         }
 
         return view;
