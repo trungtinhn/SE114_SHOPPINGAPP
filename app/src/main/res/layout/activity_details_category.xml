@@ -16,26 +16,24 @@
         app:layout_constraintTop_toTopOf="parent">
 
 
-        <ImageButton
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/backIcon"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@drawable/back"
+            android:background="@drawable/navigation_back_arrow"
             android:layout_gravity="center"
             android:layout_marginLeft="20dp"
-            android:background= "@color/white"
             />
 
-        <EditText
-            android:id="@+id/editSearch"
-            android:layout_width="300dp"
+        <SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_marginEnd="30dp"
             android:layout_height="40dp"
             android:layout_marginVertical="10dp"
-            android:layout_marginLeft="30dp"
-            android:background="@drawable/search_background"
-            android:drawableStart="@drawable/searchicon"
             android:drawablePadding="12dp"
-            android:hint="Search product"
+            android:queryHint="Search Product"
+            android:iconifiedByDefault="false"
             android:maxLength="20"
             android:paddingStart="12dp" />
 
@@ -47,9 +45,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Category / Details"
+        android:fontFamily="@font/montserrat_medium"
         android:layout_below="@id/linearLayout"
         android:textColor="@color/black"
-        android:textSize="14dp"
+        android:textSize="16dp"
         android:textStyle="bold"
         android:layout_marginLeft="20dp"
         android:layout_marginBottom="20dp"

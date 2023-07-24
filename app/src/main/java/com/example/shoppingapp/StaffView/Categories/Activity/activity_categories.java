@@ -1,10 +1,13 @@
 package com.example.shoppingapp.StaffView.Categories.Activity;
 
+import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.Filter;
+import android.widget.Filterable;
+import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,13 +23,14 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class activity_categories extends AppCompatActivity {
-    private ImageButton back;
+public class activity_categories extends AppCompatActivity implements Filterable {
+    private Button back;
 
     private Button btn;
     private Button btn_delete_categories;
     private RecyclerView rcvCategories;
     private adapter_categories adapter;
+    private SearchView searchView;
     private List<CategoryItem> categoryItemList;
 
     @Override
@@ -103,5 +107,27 @@ public class activity_categories extends AppCompatActivity {
                         adapter.notifyDataSetChanged();
                     }
                 });
+
+        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
+        searchView = findViewById(R.id.searchView);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                adapter.getFilter().filter(s);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                adapter.getFilter().filter(s);
+                return false;
+            }
+        });
+    }
+
+    @Override
+    public Filter getFilter() {
+        return null;
     }
 }

@@ -35,6 +35,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.shoppingapp.Login.User;
 import com.example.shoppingapp.R;
+import com.example.shoppingapp.StaffView.Home.home_page;
 import com.example.shoppingapp.StaffView.adapter.adapter_admin_control;
 import com.example.shoppingapp.itf_RCV_list_item;
 import com.github.dhaval2404.imagepicker.ImagePicker;
@@ -140,7 +141,17 @@ public class activity_admin_control extends AppCompatActivity implements itf_RCV
         RCV.setHasFixedSize(true);
         RCV.setLayoutManager(new LinearLayoutManager(this));
         firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseDatabase.getReference().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                EventInitListener();
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         StaffList = new ArrayList<>();
         adapterAdmin = new adapter_admin_control(this, StaffList,this);
         btn_add.setOnClickListener(new View.OnClickListener() {
@@ -163,7 +174,13 @@ public class activity_admin_control extends AppCompatActivity implements itf_RCV
 
             }
         });
-
+        findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(activity_admin_control.this, home_page.class);
+                startActivity(intent);
+            }
+        });
         SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
         searchView = findViewById(R.id.searchView);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
@@ -307,7 +324,6 @@ public class activity_admin_control extends AppCompatActivity implements itf_RCV
                                         public void onComplete(@NonNull Task<AuthResult> task)
                                         {
                                             if (task.isSuccessful()) {
-                                                sendImgToStorage(Staff_imagepath);
                                                 reference.child("Users").child(email).child("Email").setValue(emailUTF);
                                                 reference.child("Users").child(email).child("LoaiND").setValue("Staff");
                                                 String userID = task.getResult().getUser().getUid();
@@ -334,6 +350,7 @@ public class activity_admin_control extends AppCompatActivity implements itf_RCV
                                                             public void onFailure(@NonNull Exception e) {
                                                                 dialogPlus.dismiss();
                                                                 Toast.makeText(activity_admin_control.this, "Failed to register new staff", Toast.LENGTH_SHORT).show();
+                                                                DeleteOldImg(ImageUrl);
                                                             }
                                                         });
                                                 dialogPlus.dismiss();
@@ -461,6 +478,7 @@ public class activity_admin_control extends AppCompatActivity implements itf_RCV
             // Lấy đường dẫn hình ảnh được chọn
             imagePath = data.getStringExtra(ImagePicker.EXTRA_FILE_PATH);
             Glide.with(this).load(imagePath).into(ivImg);
+            sendImgToStorage(data.getData());
             Staff_imagepath = data.getData();
             // Sử dụng đường dẫn hình ảnh để hiển thị hoặc xử lý theo nhu cầu của bạn
         }
