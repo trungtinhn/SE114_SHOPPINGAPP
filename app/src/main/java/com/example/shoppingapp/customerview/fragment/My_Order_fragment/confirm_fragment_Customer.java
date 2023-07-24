@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.StaffView.MyOrder.Order;
 import com.example.shoppingapp.customerview.fragment.My_Order_fragment.Adapter.OrderAdapter_Customer;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -20,42 +22,25 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link confirm_fragment_Customer#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class confirm_fragment_Customer extends Fragment {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
     private List<Order> orderList;
     private OrderAdapter_Customer orderAdapter;
     private int confirmProductCount = 0;
     private confirm_fragment_Customer.OnProductCountChangeListener listener;
+    private FirebaseFirestore firebaseFirestore;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
 
     public confirm_fragment_Customer() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment cancel_fragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static confirm_fragment_Customer newInstance(String param1, String param2) {
         confirm_fragment_Customer fragment = new confirm_fragment_Customer();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -73,10 +58,7 @@ public class confirm_fragment_Customer extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
@@ -84,6 +66,9 @@ public class confirm_fragment_Customer extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_confirm__customer, container, false);
 
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
 
         RecyclerView recyclerView = view.findViewById(R.id.RCV_confirm_Customer);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -94,6 +79,7 @@ public class confirm_fragment_Customer extends Fragment {
         // Truy vấn collection "DONHANG"
         CollectionReference donHangRef = db.collection("DONHANG");
         donHangRef.whereEqualTo("TrangThai", "Confirm")
+                .whereEqualTo("MaND", firebaseUser.getUid())
                 .addSnapshotListener((queryDocumentSnapshots, e) -> {
                     // Xử lý kết quả truy vấn
                     orderList = new ArrayList<>();

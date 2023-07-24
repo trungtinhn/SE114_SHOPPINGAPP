@@ -152,16 +152,8 @@ public class BottomNavigationCustomActivity extends AppCompatActivity{
         startActivity(intent);
     }
 
-//    public void gotoYourOrder() {
-//        Intent intent = new Intent(BottomNavigationCustomActivity.this, OrderActivity.class);
-//      //  intent.putExtra("MaSP", product.getMasp());
-//        startActivity(intent);
-//    }
 
-//    public void gotoProfile() {
-//        Intent intent = new Intent(BottomNavigationCustomActivity.this, DetailProductActivity.class);
-//        startActivity(intent);
-//    }
+
 
     public void gotoCLickHelp() {
         Intent intent = new Intent(BottomNavigationCustomActivity.this, MessageActivity.class);
@@ -204,4 +196,11 @@ public class BottomNavigationCustomActivity extends AppCompatActivity{
     public void gotoLogOut() {
         showLogoutConfirmationDialog();
     }
+
+    public void gotoOrderActivity(){
+        Intent intent = new Intent(BottomNavigationCustomActivity.this, OrderActivity.class);
+        startActivity(intent);
+    }
+
+
 }

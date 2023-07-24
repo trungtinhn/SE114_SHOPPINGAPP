@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.OptIn;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -31,6 +32,8 @@ import com.example.shoppingapp.customerview.viewpagerimage.AutoScrollTask;
 import com.example.shoppingapp.customerview.viewpagerimage.ViewPagerImageAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.badge.BadgeDrawable;
+import com.google.android.material.badge.BadgeUtils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -47,10 +50,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
-
+@OptIn(markerClass = com.google.android.material.badge.ExperimentalBadgeUtils.class)
 public class DetailProductActivity extends AppCompatActivity {
+    private List<String> dataGiohang;
 
-    private ImageView backIcon;
+    private ImageView backIcon, shoppingCart;
     private Product product;
     private TextView txtProductNameDetail;
     private TextView txtPriceProductDetail;
@@ -99,7 +103,7 @@ public class DetailProductActivity extends AppCompatActivity {
         btnAddToCard = findViewById(R.id.btnAddToCard);
         txtSeeReview = findViewById(R.id.txtSeeReview);
         heartIcon = findViewById(R.id.heartIcon);
-
+        shoppingCart = findViewById(R.id.cartIcon);
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
@@ -128,12 +132,20 @@ public class DetailProductActivity extends AppCompatActivity {
         setBtnSeeReview();
         getYeuThich();
         setYeuThich();
-
+        SoLuongShoppingCart();
         //txtProductNameDetail.setText(maSP);
 
 
 
         setOnClickBackICon();
+
+        shoppingCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetailProductActivity.this, ShoppingCart.class );
+                startActivity(intent);
+            }
+        });
     }
 
     private void setYeuThich() {
@@ -547,5 +559,30 @@ public class DetailProductActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+    private void SoLuongShoppingCart(){
+        firebaseFirestore.collection("GIOHANG")
+                .whereEqualTo("MaND", firebaseAuth.getCurrentUser().getUid())
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if (error != null) {
+                            Log.w("Error", "listen:error", error);
+                            return;
+                        }
+                        dataGiohang = new ArrayList<>();
+                        for(DocumentSnapshot doc: value.getDocuments()){
+                            if(doc.exists()){
+                                String ma = doc.getString("MaGH");
+                                dataGiohang.add(ma);
+                            }
+                        }
+                        BadgeDrawable badgeDrawable = BadgeDrawable.create(DetailProductActivity.this);
+                        badgeDrawable.setNumber(dataGiohang.size());
+
+                        BadgeUtils.attachBadgeDrawable(badgeDrawable, shoppingCart, null);
+                    }
+                });
+
     }
 }

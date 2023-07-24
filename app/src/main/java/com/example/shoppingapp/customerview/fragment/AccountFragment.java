@@ -29,10 +29,12 @@ public class AccountFragment extends Fragment {
     private LinearLayout Changepass;
     private LinearLayout Help;
     private LinearLayout Profile;
+
     private  LinearLayout Logout;
     private TextView txtFullName, txtUserID;
     private BottomNavigationCustomActivity bottomNavigationCustomActivity;
     private ShapeableImageView imgAvt;
+
 
     public AccountFragment() {
         // Required empty public constructor
@@ -61,6 +63,7 @@ public class AccountFragment extends Fragment {
         Changepass = view.findViewById(R.id.l4);
         Help = view.findViewById(R.id.l2);
         Profile = view.findViewById(R.id.l3);
+
         Logout = view.findViewById(R.id.l5);
         txtFullName = view.findViewById(R.id.user_name);
         imgAvt = view.findViewById(R.id.img_avt_account);
@@ -88,8 +91,12 @@ public class AccountFragment extends Fragment {
                     });
         }
 
+
+        setOnClick();
+
         return view;
     }
+
     private void setOnClickYourOrder() {
         YourOrder.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,6 +134,15 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 bottomNavigationCustomActivity.gotoLogOut();
+
+
+    private void setOnClick() {
+
+        YourOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomNavigationCustomActivity.gotoOrderActivity();
+
             }
         });
     }
