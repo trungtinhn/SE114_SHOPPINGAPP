@@ -3,9 +3,10 @@ package com.example.shoppingapp.customerview.product;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.GridLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,11 +17,13 @@ import com.example.shoppingapp.StaffView.MyOrder.ItemOrder;
 import com.example.shoppingapp.customerview.product.customer_interface.IClickItemProductListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ProductAdapter extends  RecyclerView.Adapter<ProductAdapter.ProductViewHolder>{
+public class ProductAdapter extends  RecyclerView.Adapter<ProductAdapter.ProductViewHolder> implements Filterable {
 
     private List<Product> mProducts;
+    private List<Product> mProductsOld;
     private IClickItemProductListener iClickItemProductListener;
 
     public ProductAdapter() {
@@ -30,6 +33,7 @@ public class ProductAdapter extends  RecyclerView.Adapter<ProductAdapter.Product
     public void setData(List<Product> list, IClickItemProductListener listener)
     {
         this.mProducts = list;
+        this.mProductsOld = list;
         this.iClickItemProductListener = listener;
         notifyDataSetChanged();
     }
@@ -69,6 +73,38 @@ public class ProductAdapter extends  RecyclerView.Adapter<ProductAdapter.Product
     }
 
     public void setItemOrderList(List<ItemOrder> itemOrderList) {
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String search = charSequence.toString();
+                if(search.isEmpty()){
+                    mProducts = mProductsOld;
+                }
+                else{
+                    ArrayList<Product> list = new ArrayList<>();
+                    for(Product object : mProductsOld){
+                        if(object.getName().toLowerCase().contains(search.toLowerCase())){
+                            list.add(object);
+                        }
+                    }
+                    mProducts = list;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = mProducts;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                mProducts = (ArrayList<Product>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
     public class ProductViewHolder extends RecyclerView.ViewHolder{
