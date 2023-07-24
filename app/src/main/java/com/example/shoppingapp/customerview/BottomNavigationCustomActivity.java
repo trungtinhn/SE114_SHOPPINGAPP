@@ -19,6 +19,7 @@ import com.example.shoppingapp.customerview.activity.DetailProductActivity;
 import com.example.shoppingapp.customerview.activity.MessageActivity;
 import com.example.shoppingapp.customerview.activity.Notification;
 import com.example.shoppingapp.customerview.activity.OrderActivity;
+import com.example.shoppingapp.customerview.activity.ProfileActivity;
 import com.example.shoppingapp.customerview.activity.SearchingActivity;
 import com.example.shoppingapp.customerview.activity.ShoppingCart;
 import com.example.shoppingapp.customerview.activity.TrendingActivity;
@@ -152,16 +153,16 @@ public class BottomNavigationCustomActivity extends AppCompatActivity{
         startActivity(intent);
     }
 
-//    public void gotoYourOrder() {
-//        Intent intent = new Intent(BottomNavigationCustomActivity.this, OrderActivity.class);
-//      //  intent.putExtra("MaSP", product.getMasp());
-//        startActivity(intent);
-//    }
+    public void gotoYourOrder() {
+        Intent intent = new Intent(BottomNavigationCustomActivity.this, OrderActivity.class);
+      //  intent.putExtra("MaSP", product.getMasp());
+        startActivity(intent);
+    }
 
-//    public void gotoProfile() {
-//        Intent intent = new Intent(BottomNavigationCustomActivity.this, DetailProductActivity.class);
-//        startActivity(intent);
-//    }
+    public void gotoProfile() {
+        Intent intent = new Intent(BottomNavigationCustomActivity.this, ProfileActivity.class);
+        startActivity(intent);
+    }
 
     public void gotoCLickHelp() {
         Intent intent = new Intent(BottomNavigationCustomActivity.this, MessageActivity.class);
@@ -175,9 +176,9 @@ public class BottomNavigationCustomActivity extends AppCompatActivity{
     private void showLogoutConfirmationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Xác nhận đăng xuất");
-        builder.setMessage("Bạn có chắc chắn muốn đăng xuất không?");
+        builder.setMessage("Are you sure you want to sign out?");
 
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 performLogout();
