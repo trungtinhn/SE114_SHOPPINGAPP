@@ -134,8 +134,7 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
         findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(activity_admin_detail.this, activity_admin_control.class);
-                startActivity(intent);
+                finish();
             }
         });
     }

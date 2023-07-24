@@ -505,5 +505,6 @@ public class activity_admin_control extends AppCompatActivity implements itf_RCV
     public Filter getFilter() {
         return null;
     }
+
 }
 
