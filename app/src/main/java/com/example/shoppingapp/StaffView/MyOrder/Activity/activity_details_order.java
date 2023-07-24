@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
-import com.example.shoppingapp.StaffView.MyOrder.Fragment.Adapter.ProductAdapter;
+import com.example.shoppingapp.StaffView.MyOrder.Adapter.ProductAdapter;
 import com.example.shoppingapp.StaffView.MyOrder.ItemOrder;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -68,11 +68,11 @@ public class activity_details_order extends AppCompatActivity {
                         if (trangThai != null) {
                             String newTrangThai;
                             if (trangThai.equals("Confirm")) {
-                                newTrangThai = "onwait";
-                            } else if (trangThai.equals("onwait")) {
-                                newTrangThai = "delivering";
-                            } else if (trangThai.equals("delivering")) {
-                                newTrangThai = "delivered";
+                                newTrangThai = "Wait";
+                            } else if (trangThai.equals("Wait")) {
+                                newTrangThai = "Delivering";
+                            } else if (trangThai.equals("Delivering")) {
+                                newTrangThai = "Delivered";
                             } else {
                                 // Trạng thái không hợp lệ, không cần cập nhật
                                 return;
@@ -111,12 +111,12 @@ public class activity_details_order extends AppCompatActivity {
         DocumentReference docRef = donHangRef.document(maDH);
 
         // Truy vấn dữ liệu từ Firebase
-        docRef.get()
-                .addOnSuccessListener(documentSnapshot -> {
+        docRef
+                .addSnapshotListener((documentSnapshot,e) -> {
                     if (documentSnapshot.exists()) {
                         String tenNguoiMua = documentSnapshot.getString("TenNguoiMua");
                         TenNguoiMua.setText(tenNguoiMua);
-                        String maND = documentSnapshot.getString("maND");
+                        String maND = documentSnapshot.getString("MaND");
                         MaND.setText(maND);
                         String MaDC = documentSnapshot.getString("MaDC");
 
@@ -185,21 +185,13 @@ public class activity_details_order extends AppCompatActivity {
                                                         recyclerViewProducts.setLayoutManager(new GridLayoutManager(this, 1));
 
                                                     }
-                                                })
-                                                .addOnFailureListener(e -> {
-                                                    // Xử lý khi truy vấn thất bại
                                                 });
                                     }
-                                })
-                                .addOnFailureListener(e -> {
-                                    // Xử lý khi truy vấn thất bại
                                 });
+
                     } else {
                         // Dữ liệu không tồn tại
                     }
-                })
-                .addOnFailureListener(e -> {
-                    // Xử lý khi truy vấn thất bại
                 });
     }
 

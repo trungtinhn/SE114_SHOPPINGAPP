@@ -1,4 +1,4 @@
-package com.example.shoppingapp.StaffView.MyOrder.Fragment.Adapter;
+package com.example.shoppingapp.StaffView.MyOrder.Adapter;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -116,11 +116,11 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
                         if (trangThai != null) {
                             String newTrangThai;
                             if (trangThai.equals("Confirm")) {
-                                newTrangThai = "onwait";
-                            } else if (trangThai.equals("onwait")) {
-                                newTrangThai = "delivering";
-                            } else if (trangThai.equals("delivering")) {
-                                newTrangThai = "delivered";
+                                newTrangThai = "Wait";
+                            } else if (trangThai.equals("Wait")) {
+                                newTrangThai = "Delivering";
+                            } else if (trangThai.equals("Delivering")) {
+                                newTrangThai = "Delivered";
                             } else {
                                 return;
                             }
@@ -143,16 +143,16 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
                         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
                         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
                         DocumentReference documentReference=firebaseFirestore.collection("NGUOIDUNG").document(firebaseAuth.getUid());
-                        String maND = firebaseAuth.getUid();
+                        String MaND = firebaseAuth.getUid();
                         Timestamp timestamp = Timestamp.now();
                         Map<String, Object> xacNhanDonHang = new HashMap<>();
                         xacNhanDonHang.put("MaDH", maDH);
-                        xacNhanDonHang.put("MaND", maND);
+                        xacNhanDonHang.put("MaND", MaND);
                         xacNhanDonHang.put("NgayGioBamNutConfirm", timestamp);
                         xacNhanDonHang.put("TrangThai", trangThai); // Lưu giá trị TrangThai
                         FirebaseFirestore db = FirebaseFirestore.getInstance();
                         CollectionReference xacNhanDonHangRef = db.collection("XACNHANDONHANG");
-                        if (trangThai.equals("Confirm") || trangThai.equals("onwait")) {
+                        if (trangThai.equals("Confirm") || trangThai.equals("Wait")) {
                             xacNhanDonHangRef.add(xacNhanDonHang)
                                     .addOnSuccessListener(documentReference1 -> {
                                         // Tạo tài liệu thành công

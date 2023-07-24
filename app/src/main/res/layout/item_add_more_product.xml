@@ -14,7 +14,7 @@
         android:layout_height="100dp"
         app:cardCornerRadius="20dp">
         <ImageView
-            android:id="@+id/id_avatar"
+            android:id="@+id/id_avatar_add"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:scaleType="centerCrop"
@@ -32,27 +32,34 @@
         >
 
         <TextView
-            android:id="@+id/product_name"
+            android:id="@+id/product_name_add"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:text="T-Shirt Black Blank -VSD343545D - New Elevent"
             android:textSize="16dp"
             />
 
-        <TextView
-            android:id="@+id/product_price"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:text="139.999đ" />
-        <ImageView
-            android:layout_width="20dp"
-            android:id="@+id/imgView_add_more"
-            android:layout_height="20dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="200dp"
-            android:src ="@drawable/add">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/product_price_add"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="139.999đ" />
 
-        </ImageView>
+            <ImageView
+                android:id="@+id/imgView_add_more"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_toRightOf="@+id/product_name"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/add">
+            </ImageView>
+        </LinearLayout>
+
+
     </LinearLayout>
 
     <LinearLayout
@@ -80,7 +87,7 @@
             android:layout_marginBottom="25dp"
             android:text="Ware House: " />
         <TextView
-            android:id="@+id/idware"
+            android:id="@+id/idware_add"
             android:layout_width="40dp"
             android:layout_height="32dp"
             android:layout_marginTop="20dp"
@@ -108,7 +115,7 @@
             android:layout_marginBottom="25dp"
             android:text="Sold Out:" />
         <TextView
-            android:id="@+id/idsold"
+            android:id="@+id/idsold_add"
             android:layout_width="40dp"
             android:layout_height="32dp"
             android:layout_marginTop="20dp"
@@ -142,7 +149,7 @@
             android:layout_marginBottom="25dp"
             android:text="Love: " />
         <TextView
-            android:id="@+id/idlove"
+            android:id="@+id/idlove_add"
             android:layout_width="40dp"
             android:layout_height="32dp"
             android:layout_marginTop="20dp"
@@ -171,7 +178,7 @@
             android:layout_marginBottom="25dp"
             android:text="View:" />
         <TextView
-            android:id="@+id/idviews"
+            android:id="@+id/idviews_add"
             android:layout_width="40dp"
             android:layout_height="32dp"
             android:layout_marginTop="20dp"
@@ -188,24 +195,11 @@
         android:orientation="vertical"
         >
         <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hide"
-            android:layout_marginLeft="80dp"
-            android:backgroundTint="#FF931F"
-            />
-
-        <Button
-            android:id="@+id/button3"
-            android:layout_marginLeft="70dp"
-            android:layout_toRightOf="@+id/button2"
+            android:id="@+id/btn_edit_add"
+            android:layout_marginLeft="165dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="#FF931F"
             android:text="Edit" />
     </RelativeLayout>
-
-
-
 </RelativeLayout>

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
-import com.example.shoppingapp.StaffView.MyOrder.Fragment.Adapter.CheckProductAdapter;
+import com.example.shoppingapp.StaffView.MyOrder.Adapter.CheckProductAdapter;
 import com.example.shoppingapp.StaffView.MyOrder.Order;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -83,7 +83,7 @@ public class cancel_fragment extends Fragment {
         //Truy van
         // Truy vấn collection "DONHANG"
         CollectionReference donHangRef = db.collection("DONHANG");
-        donHangRef.whereEqualTo("TrangThai", "cancel")
+        donHangRef.whereEqualTo("TrangThai", "Cancel")
                 .addSnapshotListener((queryDocumentSnapshots, e) -> {
                     // Xử lý kết quả truy vấn
                     orderList = new ArrayList<>();

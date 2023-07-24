@@ -155,6 +155,10 @@
             android:exported="true"/>
         <activity android:name=".customerview.activity.Notification"
             android:exported="true"/>
+        <activity android:name=".StaffView.MyProduct.Activity.activity_add_new_color"
+            android:exported="true"/>
+        <activity android:name=".StaffView.MyProduct.Activity.activity_edit_product"
+            android:exported="true"/>
     </application>
 
 </manifest>

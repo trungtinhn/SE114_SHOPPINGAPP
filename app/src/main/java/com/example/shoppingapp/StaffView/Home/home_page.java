@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.shoppingapp.Login.LoginActivity;
 import com.example.shoppingapp.Login.User;
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.StaffView.Categories.Activity.activity_categories;
@@ -31,6 +32,7 @@ public class home_page extends AppCompatActivity {
             btn_chat, btn_financial_report, btn_manage_users, btn_categories, btn_view_shop;
     FirebaseAuth firebaseAuth;
 
+    private Button btn_logout;
     private ImageButton btn_Promotions;
     User user;
     FirebaseFirestore firebaseFirestore;
@@ -50,6 +52,16 @@ public class home_page extends AppCompatActivity {
         btn_manage_users = findViewById(R.id.btn_manage_user);
         btn_view_shop = findViewById(R.id.btn_view_shop);
         btn_Promotions = findViewById(R.id.btn_promotions);
+        btn_logout = findViewById(R.id.btn_logout);
+        btn_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(home_page.this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish();
+            }
+        });
         firebaseFirestore=FirebaseFirestore.getInstance();
         firebaseAuth=FirebaseAuth.getInstance();
         DocumentReference documentReference=firebaseFirestore.collection("NGUOIDUNG").document(firebaseAuth.getUid());
