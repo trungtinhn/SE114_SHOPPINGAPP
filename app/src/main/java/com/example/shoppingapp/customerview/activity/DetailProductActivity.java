@@ -5,7 +5,6 @@ import static android.content.ContentValues.TAG;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -250,7 +249,7 @@ public class DetailProductActivity extends AppCompatActivity {
                             }
 
                         }else {
-                            heartIcon.setImageDrawable(getResources().getDrawable(R.drawable.heart));
+                            heartIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_favorite));
                             yeuThich = false;
                         }
 

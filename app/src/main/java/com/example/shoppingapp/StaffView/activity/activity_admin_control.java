@@ -35,7 +35,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.shoppingapp.Login.User;
 import com.example.shoppingapp.R;
-import com.example.shoppingapp.StaffView.Home.home_page;
 import com.example.shoppingapp.StaffView.adapter.adapter_admin_control;
 import com.example.shoppingapp.itf_RCV_list_item;
 import com.github.dhaval2404.imagepicker.ImagePicker;
@@ -177,8 +176,9 @@ public class activity_admin_control extends AppCompatActivity implements itf_RCV
         findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(activity_admin_control.this, home_page.class);
-                startActivity(intent);
+                finish();
+//                Intent intent = new Intent(activity_admin_control.this, home_page.class);
+//                startActivity(intent);
             }
         });
         SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
@@ -385,22 +385,28 @@ public class activity_admin_control extends AppCompatActivity implements itf_RCV
     }
 
     private void DeleteOldImg(String deleteImg){
+        progressDialog.setTitle("Updating...");
+        progressDialog.show();
         if(deleteImg != null ){
             StorageReference oldImageRef = firebaseStorage.getReferenceFromUrl(deleteImg);
             oldImageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
+                    progressDialog.dismiss();
                     // File deleted successfully
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
+                    progressDialog.dismiss();
                     // Uh-oh, an error occurred
                 }
             });
         }
     }
     private void sendImgToStorage(Uri imageUri){
+        progressDialog.setTitle("Storing...");
+        progressDialog.show();
         StorageReference storageRef = firebaseStorage.getReference();
 
         String imagePath = "ImageUser/" + UUID.randomUUID().toString() + ".jpg";
@@ -416,7 +422,7 @@ public class activity_admin_control extends AppCompatActivity implements itf_RCV
                             public void onSuccess(Uri downloadUri) {
                                 Log.d("ImageURI: ", downloadUri.toString());
                                 ImageUrl = downloadUri.toString();
-
+                                progressDialog.dismiss();
                             }
                         });
                     }
@@ -424,6 +430,7 @@ public class activity_admin_control extends AppCompatActivity implements itf_RCV
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        progressDialog.dismiss();
                         // Tải ảnh thất bại
                     }
                 });

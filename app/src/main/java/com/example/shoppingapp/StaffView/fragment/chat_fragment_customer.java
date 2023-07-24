@@ -108,7 +108,7 @@ public class chat_fragment_customer extends Fragment implements AdapterView.OnIt
                 {
                     User object = d.toObject(User.class);
                     if(!object.getMaND().equals(firebaseAuth.getUid())
-                            && object.getLoaiND().equals("customer")) userArrayList.add(object);
+                            && !object.getLoaiND().equals("customer")) userArrayList.add(object);
                     adapterChatFragment.notifyDataSetChanged();
                     if(progressDialog.isShowing())
                     {

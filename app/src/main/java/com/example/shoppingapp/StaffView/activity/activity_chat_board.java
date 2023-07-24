@@ -1,6 +1,5 @@
 package com.example.shoppingapp.StaffView.activity;
 
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +10,6 @@ import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.shoppingapp.R;
-import com.example.shoppingapp.StaffView.Home.home_page;
 import com.example.shoppingapp.StaffView.adapter.adapter_chat_board_staff;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
@@ -20,7 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class activity_chat_board extends AppCompatActivity {
     TabLayout tabLayout;
-    TabItem mchat,mcall,mstatus;
+    TabItem mchat,mstatus;
     ViewPager viewPager;
     adapter_chat_board_staff adapterchatboard;
     androidx.appcompat.widget.Toolbar mtoolbar;
@@ -56,8 +54,9 @@ public class activity_chat_board extends AppCompatActivity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(activity_chat_board.this, home_page.class);
-                startActivity(intent);
+                finish();
+//                Intent intent=new Intent(activity_chat_board.this, home_page.class);
+//                startActivity(intent);
             }
         });
 
