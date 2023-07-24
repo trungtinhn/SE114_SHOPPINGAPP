@@ -20,6 +20,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.customerview.BottomNavigationCustomActivity;
 import com.example.shoppingapp.customerview.activity.CategoriesDetails;
+import com.example.shoppingapp.customerview.activity.SearchingActivity;
 import com.example.shoppingapp.customerview.categories.Categories;
 import com.example.shoppingapp.customerview.categories.CategoriesAdapter;
 import com.example.shoppingapp.customerview.product.Product;
@@ -96,6 +97,8 @@ public class HomeFragment extends Fragment {
         setOnCLickChatbtn();
         getDataPromotion();
         SoLuongShoppingCart();
+
+
 
         setOnClickShoppingCart();
         // Inflate the layout for this fragment
