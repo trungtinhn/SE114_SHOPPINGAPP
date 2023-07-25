@@ -26,7 +26,6 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
@@ -34,52 +33,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class OrderAdapter_Customer extends RecyclerView.Adapter<OrderAdapter_Customer.ViewHolder> {
+public class OrderCancelAdapter_Customer extends RecyclerView.Adapter<OrderCancelAdapter_Customer.ViewHolder> {
     private List<Order> orderList;
     private String userID;
     private User user;
 
-
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView orderIdTextView;
-        public TextView customerNameTextView;
-        private ImageView img_avatar;
-        private RecyclerView recyclerViewProducts;
-        private ProductAdapter productAdapter;
-
-        private TextView total;
-        private Button button;
-        private Button cancel;
-        public ViewHolder(View itemView) {
-            super(itemView);
-            orderIdTextView = itemView.findViewById(R.id.tv_orderID_customer);
-            customerNameTextView = itemView.findViewById(R.id.tv_ordername_customer);
-            img_avatar = itemView.findViewById(R.id.img_avatar_customer);
-            recyclerViewProducts = itemView.findViewById(R.id.RCVcard_view_customer);
-            total = itemView.findViewById(R.id.moneytotal_customer);
-            button = itemView.findViewById(R.id.btn_detail_customer);
-            cancel = itemView.findViewById(R.id.confirm_customer);
-        }
-    }
-
-
-    public OrderAdapter_Customer(List<Order> orderList) {
+    public OrderCancelAdapter_Customer(List<Order> orderList) {
         this.orderList = orderList;
     }
-    public OrderAdapter_Customer(List<Order> orderList, String userID) {
+    public OrderCancelAdapter_Customer(List<Order> orderList, String userID) {
         this.orderList = orderList;
         this.userID = userID;
     }
 
     @NonNull
     @Override
-    public OrderAdapter_Customer.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_for_screen_oder_customer, parent, false);
-        OrderAdapter_Customer.ViewHolder viewHolder = new OrderAdapter_Customer.ViewHolder(view);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_for_screen_oder_cancel_customer, parent, false);
+        OrderCancelAdapter_Customer.ViewHolder viewHolder = new OrderCancelAdapter_Customer.ViewHolder(view);
         return viewHolder;
     }
+
     @Override
-    public void onBindViewHolder(@NonNull OrderAdapter_Customer.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Order order = orderList.get(position);
 
         int receive = position;
@@ -108,7 +84,7 @@ public class OrderAdapter_Customer extends RecyclerView.Adapter<OrderAdapter_Cus
                 DocumentReference washingtonRef = db.collection("DONHANG").document(maDH);
 
                 washingtonRef
-                        .update("TrangThai", "Cancel")
+                        .update("TrangThai", "Confirm")
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
@@ -208,4 +184,28 @@ public class OrderAdapter_Customer extends RecyclerView.Adapter<OrderAdapter_Cus
     public int getItemCount() {
         return orderList.size();
     }
+
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView orderIdTextView;
+        public TextView customerNameTextView;
+        private ImageView img_avatar;
+        private RecyclerView recyclerViewProducts;
+        private ProductAdapter productAdapter;
+
+        private TextView total;
+        private Button button;
+        private Button cancel;
+        public ViewHolder(View itemView) {
+            super(itemView);
+            orderIdTextView = itemView.findViewById(R.id.tv_orderID_customer);
+            customerNameTextView = itemView.findViewById(R.id.tv_ordername_customer);
+            img_avatar = itemView.findViewById(R.id.img_avatar_customer);
+            recyclerViewProducts = itemView.findViewById(R.id.RCVcard_view_customer);
+            total = itemView.findViewById(R.id.moneytotal_customer);
+            button = itemView.findViewById(R.id.btn_detail_customer);
+            cancel = itemView.findViewById(R.id.confirm_customer);
+        }
+    }
+
 }

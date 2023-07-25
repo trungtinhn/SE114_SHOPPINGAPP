@@ -64,8 +64,7 @@ public class activity_details_order_customer extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                startActivity(intent);
+                finish();
             }
         });
         String maDH = getIntent().getStringExtra("MaDH");
