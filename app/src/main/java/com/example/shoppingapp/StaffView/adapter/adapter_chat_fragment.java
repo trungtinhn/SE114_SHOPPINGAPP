@@ -67,6 +67,7 @@ public class adapter_chat_fragment extends RecyclerView.Adapter<adapter_chat_fra
                 intent.putExtra("name",firebasemodel.getFullName());
                 intent.putExtra("receiveruid",firebasemodel.getMaND());
                 intent.putExtra("imageuri",firebasemodel.getAvatar());
+                intent.putExtra("type",firebasemodel.getLoaiND());
                 view.getContext().startActivity(intent);
             }
         });
