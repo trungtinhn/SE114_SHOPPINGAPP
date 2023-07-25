@@ -162,6 +162,7 @@ public class DetailProductActivity extends AppCompatActivity {
                     public void onEvent(@Nullable QuerySnapshot value,
                                         @Nullable FirebaseFirestoreException e) {
                         if (e != null) {
+
                             Log.w(TAG, "Listen failed.", e);
                             return;
                         }

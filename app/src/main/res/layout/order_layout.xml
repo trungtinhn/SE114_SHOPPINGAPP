@@ -7,30 +7,36 @@
     <LinearLayout
         android:id="@+id/linear1_order"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingVertical="5dp"
+        style="@style/RectangleStyle"
+        >
 
-        <ImageButton
+        <ImageView
             android:id="@+id/imgbtn_back_user"
-            android:layout_width="45dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="10dp"
-            android:contentDescription="null"
-            app:srcCompat="@drawable/navigate_before"
-            android:backgroundTint="@android:color/white"/>
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="30dp"
+            android:src="@drawable/back_arrow"
+            android:clickable="true"
+            >
+
+        </ImageView>
 
         <TextView
             android:id="@+id/My_product_order"
-            style="@style/Title"
-            android:layout_width="215dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="170dp"
-            android:paddingLeft="20dp"
-            android:text="Your Order" />
-
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="@font/montserrat_medium"
+            android:paddingTop="5dp"
+            android:text="Your Order"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
     </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"

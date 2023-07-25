@@ -141,7 +141,7 @@ public class AccountFragment extends Fragment {
         YourOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //bottomNavigationCustomActivity.gotoOrderActivity();
+                bottomNavigationCustomActivity.gotoOrderActivity();
             }
         });
     }

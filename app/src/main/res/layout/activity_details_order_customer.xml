@@ -160,8 +160,10 @@
                         android:elevation="10dp"
                         android:fontFamily="@font/montserrat_lights"
                         android:text="Phuong thuc thanh toan: "
+                        android:textStyle="bold"
+                        android:textSize="14dp"
                         android:textColor="@color/black"
-                        android:textSize="13dp" />
+                        />
                     <TextView
                         android:id="@+id/phuongthuctt_customer"
                         android:layout_width="100dp"
@@ -183,15 +185,16 @@
                     android:layout_below="@id/layoutPhuongThucThanhToan"
                     >
                     <TextView
-                        android:layout_width="150dp"
+                        android:layout_width="170dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="42dp"
-
+                        android:textStyle="bold"
+                        android:textSize="14dp"
                         android:elevation="10dp"
                         android:fontFamily="@font/montserrat_lights"
                         android:text="Gia tri don hang (VND): "
                         android:textColor="@color/black"
-                        android:textSize="13dp" />
+                    />
                     <TextView
                         android:id="@+id/giatridonhang_customer"
                         android:layout_width="100dp"
@@ -213,15 +216,16 @@
                     android:layout_below="@id/layoutGiaTriDonHang"
                     >
                     <TextView
-                        android:layout_width="150dp"
+                        android:layout_width="170dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="42dp"
-
+                        android:textStyle="bold"
+                        android:textSize="14dp"
                         android:elevation="10dp"
                         android:fontFamily="@font/montserrat_lights"
                         android:text="Giảm giá (VND): "
                         android:textColor="@color/black"
-                        android:textSize="13dp" />
+                    />
                     <TextView
                         android:id="@+id/discount_customer"
                         android:layout_width="100dp"
@@ -244,15 +248,16 @@
                     android:layout_below="@id/layoutGiamGia"
                     >
                     <TextView
-                        android:layout_width="150dp"
+                        android:layout_width="170dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="42dp"
-
+                        android:textStyle="bold"
+                        android:textSize="14dp"
                         android:elevation="10dp"
                         android:fontFamily="@font/montserrat_lights"
                         android:text="Phí vận chuyển (VND): "
                         android:textColor="@color/black"
-                        android:textSize="13dp" />
+           />
                     <TextView
                         android:id="@+id/phiVanChuyen_customer"
                         android:layout_width="100dp"
@@ -273,15 +278,16 @@
                     android:layout_below="@id/layoutPhiVanChuyen"
                     >
                     <TextView
-                        android:layout_width="150dp"
+                        android:layout_width="170dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="42dp"
-
+                        android:textStyle="bold"
+                        android:textSize="14dp"
                         android:elevation="10dp"
                         android:fontFamily="@font/montserrat_lights"
                         android:text="Tổng tiền(VND): "
                         android:textColor="@color/black"
-                        android:textSize="13dp" />
+                     />
                     <TextView
                         android:id="@+id/TongTien_customer"
                         android:layout_width="100dp"
@@ -329,6 +335,8 @@
                     android:layout_marginLeft="70dp"
                     android:layout_marginTop="30dp"
                     android:elevation="10dp"
+                    android:textStyle="bold"
+
                     android:fontFamily="@font/montserrat_lights"
                     android:text="Le Dang Thuong"
                     android:textColor="@color/black"

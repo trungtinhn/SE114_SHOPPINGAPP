@@ -13,6 +13,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.customerview.BottomNavigationCustomActivity;
@@ -36,7 +37,7 @@ public class OrderActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private TabLayout tabLayout;
 
-    private ImageButton back_to_Home;
+    private ImageView back_to_Home;
     private Button detail;
 
     @SuppressLint("MissingInflatedId")
@@ -59,8 +60,7 @@ public class OrderActivity extends AppCompatActivity {
         back_to_Home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(OrderActivity.this, BottomNavigationCustomActivity.class);
-                startActivity(intent);
+               finish();
             }
         });
 
