@@ -1,19 +1,12 @@
 package com.example.shoppingapp.customerview.activity;
 
-import static java.security.AccessController.getContext;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,7 +14,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -34,8 +26,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shoppingapp.Login.User;
 import com.example.shoppingapp.R;
-import com.example.shoppingapp.StaffView.activity.activity_admin_control;
-import com.example.shoppingapp.StaffView.activity.activity_admin_detail;
 import com.example.shoppingapp.customerview.BottomNavigationCustomActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -50,7 +40,6 @@ import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -60,7 +49,7 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
     Button btn_ChangeIf,btn_ChangeAva;
     User user;
     int position;
-    private ImageButton back_to_Home;
+    private Button back_to_Home;
     FirebaseFirestore db;
     FirebaseAuth firebaseAuth;
     DocumentReference docRef;
@@ -77,7 +66,7 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         imgAvt = findViewById(R.id.img_avt_Profile);
-        back_to_Home = findViewById(R.id.btnBack_home);
+        back_to_Home = findViewById(R.id.btn_back);
         back_to_Home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,12 +132,6 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
                 EventChangeAva();
             }
         });
-        findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
 
     }
     private static final int REQUEST_IMAGE_PICK = 1;
@@ -208,9 +191,6 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
         dialog.show();
     }
 
-
-
-
     private void EventEdit() {
         DialogPlus dialogPlus = DialogPlus.newDialog( this)
                 .setGravity(Gravity.CENTER)
@@ -232,7 +212,6 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
         gender.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         edSex.setAdapter(gender);
         edSex.setOnItemSelectedListener(this);
-
 
         edDob.setOnClickListener(new View.OnClickListener() {
             @Override
