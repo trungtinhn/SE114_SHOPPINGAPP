@@ -188,6 +188,13 @@ public class activity_specificchat extends AppCompatActivity {
                             });
 
                     mgetmessage.setText(null);
+                    mmessagerecyclerview.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Call smooth scroll
+                            mmessagerecyclerview.smoothScrollToPosition(messagesAdapter.getItemCount() - 1);
+                        }
+                    });
                 }
             }
         });
