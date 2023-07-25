@@ -21,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -55,6 +56,7 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
     Button btn_ChangeIf,btn_ChangeAva;
     User user;
     int position;
+    private ImageButton back_to_Home;
     FirebaseFirestore db;
     FirebaseAuth firebaseAuth;
     DocumentReference docRef;
@@ -71,7 +73,15 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         imgAvt = findViewById(R.id.img_avt_Profile);
-
+        back_to_Home = findViewById(R.id.btnBack_home);
+        back_to_Home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProfileActivity.this, BottomNavigationCustomActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         if (currentUser != null) {
             String currentUserId = currentUser.getUid();
@@ -100,6 +110,10 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
                                 int height = 200;
                                 Picasso.get().load(uri).resize(width, height).into((ImageView) findViewById(R.id.img_avt_Profile));
                             } else {
+                                int width = 200;
+                                int height = 200;
+                                Picasso.get().load(R.drawable.null_avatar).resize(width, height).into((ImageView) findViewById(R.id.img_avt_Profile));
+
                                 Toast.makeText(getApplicationContext(), "Avatar is null or empty", Toast.LENGTH_SHORT).show();
                             }
                         } catch (Exception ex) {
