@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.shoppingapp.R;
+import com.example.shoppingapp.StaffView.MyOrder.Adapter.ProductAdapter;
 import com.example.shoppingapp.StaffView.MyOrder.ItemOrder;
 import com.example.shoppingapp.customerview.fragment.My_Order_fragment.Adapter.ProductAdapter_customer;
 import com.google.firebase.firestore.CollectionReference;
@@ -29,11 +30,11 @@ public class activity_details_order_customer extends AppCompatActivity {
 
     private ImageView back;
     private List<ItemOrder> itemOrderList;
-    private TextView TenNguoiMua, TenND, MaND, SoDT, Diachi;
+    private TextView TenNguoiMua, TenND, MaND, SoDT, Diachi, tongTienThanhToan;
     private TextView txtGiaTriDonHang, txtGiamGia, txtPhiVanChuyen, txtTongTien;
 
     private RecyclerView recyclerViewProducts;
-    private ProductAdapter_customer productAdapter;
+    private ProductAdapter productAdapter;
     private ImageView img_avatar;
 
     public activity_details_order_customer() {
@@ -57,6 +58,7 @@ public class activity_details_order_customer extends AppCompatActivity {
         txtGiamGia = findViewById(R.id.discount_customer);
         txtPhiVanChuyen = findViewById(R.id.phiVanChuyen_customer);
         txtTongTien = findViewById(R.id.TongTien_customer);
+        tongTienThanhToan = findViewById(R.id.total_customer);
 
         itemOrderList = new ArrayList<>();
 
@@ -96,6 +98,7 @@ public class activity_details_order_customer extends AppCompatActivity {
                         txtGiamGia.setText(giamGia + "");
                         txtPhiVanChuyen.setText(phiVanChuyen + "");
                         txtTongTien.setText(tongTien + "");
+                        tongTienThanhToan.setText(tongTien + "");
 
 
                         // Từ đây, xuất ra nhiều collection khác
@@ -138,6 +141,9 @@ public class activity_details_order_customer extends AppCompatActivity {
                                     for (DocumentSnapshot document : querySnapshot.getDocuments()) {
                                         String maSP = document.getString("MaSP");
 
+                                        String mauSac = document.getString("MauSac");
+                                        String size = document.getString("Size");
+
                                         int number = document.getLong("SoLuong") != null ? Math.toIntExact(document.getLong("SoLuong")) : 0;
 
                                         // Truy vấn Firebase để lấy thông tin sản phẩm từ MaSP
@@ -158,12 +164,12 @@ public class activity_details_order_customer extends AppCompatActivity {
                                                         Long giaSPLong = sanphamDocument.getLong("GiaSP");
                                                         int GiaSP = giaSPLong != null ? Math.toIntExact(giaSPLong) : 0;
 
-                                                        ItemOrder itemOrder = new ItemOrder(hinhAnhSP, tenSP, maSP, GiaSP, number);
+                                                        ItemOrder itemOrder = new ItemOrder(hinhAnhSP, tenSP, maSP, GiaSP, number, mauSac, size);
                                                         itemOrderList.add(itemOrder);
                                                         // Cập nhật tổng tiền
                                                         int totalPrice = GiaSP * number;
 
-                                                        productAdapter = new ProductAdapter_customer(itemOrderList);
+                                                        productAdapter = new ProductAdapter(itemOrderList);
                                                         recyclerViewProducts.setAdapter(productAdapter);
                                                         recyclerViewProducts.setLayoutManager(new GridLayoutManager(this, 1));
 
