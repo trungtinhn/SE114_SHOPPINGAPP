@@ -88,18 +88,16 @@ public class AccountFragment extends Fragment {
                     String fullName = documentSnapshot.getString("fullName");
                     String avatarURL = documentSnapshot.getString("avatar");
                     txtFullName.setText(fullName);
-                  if (avatarURL != null && !avatarURL.isEmpty()) {
+                    if (avatarURL != null && !avatarURL.isEmpty()) {
                         int width = 200;
                         int height = 200;
                         Picasso.get().load(avatarURL).resize(width, height).into(imgAvt);
                     } else {
                     }
+                }
             });
         }
-
-
         setOnClick();
-
         return view;
     }
 
