@@ -12,6 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="50dp"
         android:orientation="vertical">
     <androidx.cardview.widget.CardView
         android:layout_width="130dp"
@@ -226,19 +227,36 @@
             android:textSize="15dp"/>
     </LinearLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_update"
-        android:layout_width="wrap_content"
-        android:layout_height="53dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
-        android:background="@drawable/background_circle_send"
-        android:backgroundTint="@color/orange"
-        android:fontFamily="@font/montserrat"
-        android:padding="10dp"
-        android:text="Add"
-        android:textColor="@color/white"
-        android:textSize="15dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp"
+            android:padding="10dp"
+            android:gravity="center">
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancel"
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                android:padding="10dp"
+                android:background="@drawable/background_circle_send"
+                android:backgroundTint="@color/orange"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_update"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_height="wrap_content"
+                android:text="Update"
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/white"
+                android:padding="10dp"
+                android:textSize="15dp"
+                android:background="@drawable/background_circle_send"
+                android:backgroundTint="@color/orange"/>
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

@@ -117,7 +117,6 @@ public class activity_admin_control extends AppCompatActivity implements itf_RCV
                         try{
                             if(uri.isEmpty())
                             {
-                                Toast.makeText(getApplicationContext(),"null is recieved",Toast.LENGTH_SHORT).show();
                             }
                             else Picasso.get().load(uri).into((ImageView) findViewById(R.id.img_avt));
                         }
@@ -221,6 +220,7 @@ public class activity_admin_control extends AppCompatActivity implements itf_RCV
         EditText edPass_2 = holderView.findViewById(R.id.txt_pass_2);
         ivImg = holderView.findViewById(R.id.img_imageView);
         Button btnUpdate = holderView.findViewById(R.id.btn_update);
+        Button btnCancel = holderView.findViewById(R.id.btn_cancel);
 
         ArrayAdapter<CharSequence> gender = ArrayAdapter.createFromResource(this, R.array.gender,
                 R.layout.spinner_item);
@@ -258,7 +258,13 @@ public class activity_admin_control extends AppCompatActivity implements itf_RCV
                         .start();
             }
         });
-
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogPlus.dismiss();
+                DeleteOldImg(ImageUrl);
+            }
+        });
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -342,7 +348,6 @@ public class activity_admin_control extends AppCompatActivity implements itf_RCV
                                                                 adapterAdmin.notifyDataSetChanged();
                                                                 EventInitListener();
                                                                 dialogPlus.dismiss();
-                                                                Toast.makeText(activity_admin_control.this, firebaseAuth.getUid(), Toast.LENGTH_SHORT).show();
                                                             }
                                                         })
                                                         .addOnFailureListener(new OnFailureListener() {
@@ -350,7 +355,15 @@ public class activity_admin_control extends AppCompatActivity implements itf_RCV
                                                             public void onFailure(@NonNull Exception e) {
                                                                 dialogPlus.dismiss();
                                                                 Toast.makeText(activity_admin_control.this, "Failed to register new staff", Toast.LENGTH_SHORT).show();
-                                                                DeleteOldImg(ImageUrl);
+                                                                try{
+                                                                    if(!ImageUrl.isEmpty())
+                                                                    {
+                                                                        DeleteOldImg(ImageUrl);
+                                                                    }
+                                                                }
+                                                                catch (Exception d)
+                                                                {
+                                                                }
                                                             }
                                                         });
                                                 dialogPlus.dismiss();
@@ -364,7 +377,15 @@ public class activity_admin_control extends AppCompatActivity implements itf_RCV
                                                                         + " Please try again later",
                                                                 Toast.LENGTH_LONG)
                                                         .show();
-                                                DeleteOldImg(ImageUrl);
+                                                try{
+                                                    if(!ImageUrl.isEmpty())
+                                                    {
+                                                        DeleteOldImg(ImageUrl);
+                                                    }
+                                                }
+                                                catch (Exception d)
+                                                {
+                                                }
                                                 // hide the progress bar
                                             }
 
@@ -385,24 +406,23 @@ public class activity_admin_control extends AppCompatActivity implements itf_RCV
     }
 
     private void DeleteOldImg(String deleteImg){
-        progressDialog.setTitle("Updating...");
+        progressDialog.setTitle("Loading...");
         progressDialog.show();
         if(deleteImg != null ){
             StorageReference oldImageRef = firebaseStorage.getReferenceFromUrl(deleteImg);
             oldImageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    progressDialog.dismiss();
                     // File deleted successfully
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
-                    progressDialog.dismiss();
                     // Uh-oh, an error occurred
                 }
             });
         }
+        progressDialog.dismiss();
     }
     private void sendImgToStorage(Uri imageUri){
         progressDialog.setTitle("Storing...");

@@ -28,6 +28,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.shoppingapp.Login.User;
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.StaffView.activity.activity_admin_control;
@@ -112,7 +116,7 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
                             } else {
                                 int width = 200;
                                 int height = 200;
-                                Picasso.get().load(R.drawable.null_avatar).resize(width, height).into((ImageView) findViewById(R.id.img_avt_Profile));
+                                Picasso.get().load(R.drawable.default_user).resize(width, height).into((ImageView) findViewById(R.id.img_avt_Profile));
 
                                 Toast.makeText(getApplicationContext(), "Avatar is null or empty", Toast.LENGTH_SHORT).show();
                             }
@@ -139,7 +143,12 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
                 EventChangeAva();
             }
         });
+        findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+            }
+        });
 
     }
     private static final int REQUEST_IMAGE_PICK = 1;
@@ -224,15 +233,6 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
         edSex.setAdapter(gender);
         edSex.setOnItemSelectedListener(this);
 
-
-
-//        edName.setText(object.getName());
-//        edStatus.setSelection(object.getStatusIndex());
-//        edSex.setSelection(object.getSexIndex());
-//        edDob.setText(object.getDob());
-//        edPhone.setText(object.getPhoneNum());
-//        edMail.setText(object.getEmail());
-//        edPass.setText(object.getPass());
 
         edDob.setOnClickListener(new View.OnClickListener() {
             @Override
