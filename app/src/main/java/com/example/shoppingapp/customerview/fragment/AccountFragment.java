@@ -74,6 +74,7 @@ public class AccountFragment extends Fragment {
         setOnCLickHelp();
         setOnClickChangePass();
         setOnClickLogOut();
+        setOnClickProfile();
         if (currentUser != null) {
             String userID = currentUser.getUid();
 
@@ -107,7 +108,14 @@ public class AccountFragment extends Fragment {
     }
 
 
-
+    private void setOnClickProfile() {
+        Profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomNavigationCustomActivity.gotoProfile();
+            }
+        });
+    }
     private void setOnCLickHelp() {
         Help.setOnClickListener(new View.OnClickListener() {
             @Override
