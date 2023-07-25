@@ -168,6 +168,7 @@
             android:exported="true"/>
         <activity android:name=".StaffView.FinancialReport.Activity.activity_financial"
             android:exported="true"/>
+        <activity android:name=".StaffView.MyProduct.Activity.activity_edit_withou_amount_product"
          <activity android:name=".customerview.activity.ChangePassWordActivity"
             android:exported="true"/>
         <activity android:name=".customerview.activity.ProfileActivity"
@@ -175,5 +176,4 @@
          <activity android:name=".customerview.activity.OrderActivity"
             android:exported="true"/>
     </application>
-
 </manifest>
