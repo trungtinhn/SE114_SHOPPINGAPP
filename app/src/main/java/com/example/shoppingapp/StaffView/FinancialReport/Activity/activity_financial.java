@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -18,6 +19,7 @@ import com.example.shoppingapp.R;
 import com.example.shoppingapp.StaffView.Home.home_page;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -29,7 +31,7 @@ import java.util.Locale;
 
 public class activity_financial extends AppCompatActivity {
     private EditText startDay, endDay;
-    private Button view_report;
+    private Button view_report, btn_today;
     private TextView doanhthu, sodonhang;
     private FirebaseFirestore firestore;
     private ImageView ic_back;
@@ -56,7 +58,17 @@ public class activity_financial extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        btn_today = findViewById(R.id.btn_today);
+        btn_today.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar calendar = Calendar.getInstance();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+                String currentDate = dateFormat.format(calendar.getTime());
+                startDay.setText(currentDate);
+                endDay.setText(currentDate);
+            }
+        });
         startDay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,27 +82,63 @@ public class activity_financial extends AppCompatActivity {
                 showDatePickerDialog(endDay);
             }
         });
+        // Trong phương thức view_report.setOnClickListener
         view_report.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String startDateStr = startDay.getText().toString();
                 String endDateStr = endDay.getText().toString();
+                Log.d("StartDay", " is: " + startDateStr);
+                Log.d("EndDay", " is: " + startDateStr);
+                // Nếu chỉ nhập ngày bắt đầu
+                if (!startDateStr.isEmpty() && endDateStr.isEmpty()) {
 
-                if (!startDateStr.isEmpty() && !endDateStr.isEmpty()) {
+                    // Thực hiện truy vấn với ngày bắt đầu
                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
                     try {
                         Date startDate = dateFormat.parse(startDateStr);
-                        Date endDate = dateFormat.parse(endDateStr);
-
+                        Date endDate = new Date(); // Sử dụng ngày hiện tại làm ngày kết thúc
                         getDeliveredOrdersAndCalculateRevenue(startDate, endDate);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                } else {
+                }
+                // Nếu chỉ nhập ngày kết thúc
+                else if (startDateStr.isEmpty() && !endDateStr.isEmpty()) {
+                    // Thực hiện truy vấn với ngày kết thúc
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+                    try {
+                        Date startDate = new Date(0); // Sử dụng ngày 0 làm ngày bắt đầu (ngày 01/01/1970)
+                        Date endDate = dateFormat.parse(endDateStr);
+                        getDeliveredOrdersAndCalculateRevenue(startDate, endDate);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+                // Nếu nhập cả 2 ngày bắt đầu và ngày kết thúc
+                else if (!startDateStr.isEmpty() && !endDateStr.isEmpty()) {
+                    // Thực hiện truy vấn với cả hai ngày
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+                    try {
+                        Date startDate = dateFormat.parse(startDateStr);
+                        Date endDate = dateFormat.parse(endDateStr);
+                        if (startDate.compareTo(endDate) == 0) {
+
+                            getDeliveredOrdersAndCalculateRevenue(startDate, endDate);
+                        } else {
+                            getDeliveredOrdersAndCalculateRevenue(startDate, endDate);
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+                // Nếu không nhập cả 2 ngày bắt đầu và ngày kết thúc
+                else {
                     Toast.makeText(activity_financial.this, "Vui lòng nhập đầy đủ ngày bắt đầu và ngày kết thúc.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
     }
     private void showDatePickerDialog(final EditText editText) {
         final Calendar calendar = Calendar.getInstance();
@@ -114,9 +162,21 @@ public class activity_financial extends AppCompatActivity {
                         editText.setText(selectedDate);
 
                         // Kiểm tra ngày kết thúc phải lớn hơn ngày bắt đầu
-                        if (editText == endDay) {
-                            if (calendar.getTimeInMillis() <= Calendar.getInstance().getTimeInMillis()) {
-                                Toast.makeText(activity_financial.this, "Ngày kết thúc phải lớn hơn ngày bắt đầu.", Toast.LENGTH_SHORT).show();
+                        if (!startDay.getText().toString().isEmpty() && !endDay.getText().toString().isEmpty()) {
+                            Calendar startCalendar = Calendar.getInstance();
+                            try {
+                                startCalendar.setTime(dateFormat.parse(startDay.getText().toString()));
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            Calendar endCalendar = Calendar.getInstance();
+                            try {
+                                endCalendar.setTime(dateFormat.parse(endDay.getText().toString()));
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            if (endCalendar.getTimeInMillis() < startCalendar.getTimeInMillis()) {
+                                Toast.makeText(activity_financial.this, "Ngày kết thúc phải lớn hơn  hoặc bằng ngày bắt đầu.", Toast.LENGTH_SHORT).show();
                                 editText.setText("");
                             }
                         }
@@ -126,10 +186,16 @@ public class activity_financial extends AppCompatActivity {
     }
 
     private void getDeliveredOrdersAndCalculateRevenue(Date startDate, Date endDate) {
+        Timestamp startTimestamp = new Timestamp(startDate);
+        Timestamp endTimestamp = new Timestamp(endDate);
+        // If endDay is equal to startDay, set the end time to the end of the day
+        // Loại bỏ giờ, phút, giây từ Timestamp
+        startTimestamp = removeTimeFromTimestamp(startTimestamp);
+        endTimestamp = setEndTimeFromtimestamp(endTimestamp);
         firestore.collection("DONHANG")
                 .whereEqualTo("TrangThai", "Delivered")
-                .whereGreaterThanOrEqualTo("NgayDatHang", startDate)
-                .whereLessThanOrEqualTo("NgayDatHang", endDate)
+                .whereGreaterThanOrEqualTo("NgayDatHang", startTimestamp)
+                .whereLessThanOrEqualTo("NgayDatHang", endTimestamp)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -145,7 +211,6 @@ public class activity_financial extends AppCompatActivity {
                                     orderCount++;
                                 }
                             }
-
                             // Display the total revenue and order count in respective TextViews
                             doanhthu.setText(String.valueOf(totalRevenue));
                             sodonhang.setText(String.valueOf(orderCount));
@@ -154,5 +219,28 @@ public class activity_financial extends AppCompatActivity {
                         }
                     }
                 });
+    }
+    private Timestamp removeTimeFromTimestamp(Timestamp timestamp) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(timestamp.getSeconds() * 1000); // Chuyển đổi giây thành mili giây
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        long seconds = calendar.getTimeInMillis() / 1000; // Chuyển đổi lại thành giây
+        return new Timestamp(seconds, 0);
+    }
+    private Timestamp setEndTimeFromtimestamp(Timestamp timestamp)
+    {
+        Calendar endCalendar = Calendar.getInstance();
+        endCalendar.setTimeInMillis(timestamp.getSeconds() * 1000); // Convert seconds to milliseconds
+        endCalendar.set(Calendar.HOUR_OF_DAY, 23);
+        endCalendar.set(Calendar.MINUTE, 59);
+        endCalendar.set(Calendar.SECOND, 59);
+        endCalendar.set(Calendar.MILLISECOND, 999); // Set milliseconds to 999 for end of day
+
+        long seconds = endCalendar.getTimeInMillis() / 1000; // Convert back to seconds
+        return new Timestamp(seconds, 0);
     }
 }
