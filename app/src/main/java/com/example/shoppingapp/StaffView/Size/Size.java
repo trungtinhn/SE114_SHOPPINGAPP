@@ -13,6 +13,7 @@ public class Size {
         this.checked= checked;
     }
 
+
     public String getSizeName() {
         return sizeName;
     }

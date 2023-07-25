@@ -7,7 +7,6 @@ public class Order {
     public void setTenNguoiMua(String tenNguoiMua) {
         TenNguoiMua = tenNguoiMua;
     }
-
     public void setSDT(String SDT) {
         this.SDT = SDT;
     }

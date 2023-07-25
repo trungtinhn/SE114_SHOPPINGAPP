@@ -40,6 +40,7 @@ public class activity_add_new_category extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String MaSP = getIntent().getStringExtra("MaSP");
         setContentView(R.layout.activity_create_new_category);
         button_back = findViewById(R.id.btn_back);
         btn_addnew = findViewById(R.id.btn_add_new);

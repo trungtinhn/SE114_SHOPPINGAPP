@@ -1,6 +1,6 @@
 
 
-package com.example.shoppingapp.StaffView.ViewShop;
+package com.example.shoppingapp.StaffView.ViewShop.Activity;
 
 
 import android.os.Bundle;

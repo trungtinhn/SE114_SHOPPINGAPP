@@ -24,6 +24,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         public TextView number;
         public TextView number_of;
         public ImageView image;
+        public TextView color, size;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -31,6 +32,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             image = itemView.findViewById(R.id.img_product);
             number = itemView.findViewById(R.id.product_price);
             number_of = itemView.findViewById(R.id.number_of_product);
+            color = itemView.findViewById(R.id.color_product);
+            size = itemView.findViewById(R.id.size_product);
         }
     }
 
@@ -62,6 +65,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         holder.productNameTextView.setText(itemOrder.getTenSP());
         holder.number.setText(String.valueOf(itemOrder.getGiaSP()));
         holder.number_of.setText(String.valueOf(itemOrder.getSoLuong()));
+        holder.color.setText(itemOrder.getMauSac());
+        holder.size.setText(itemOrder.getSize());
         if(itemOrder.getHinhAnhSP() == null)
         {
             Picasso.get().load(R.drawable.anh1).into(holder.image);

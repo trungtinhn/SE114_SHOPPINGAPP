@@ -11,6 +11,7 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.StaffView.MyProduct.Activity.activity_edit_product;
 import com.example.shoppingapp.StaffView.Product;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -31,7 +35,15 @@ public class My_inventory_Adapter extends RecyclerView.Adapter<My_inventory_Adap
     private List<String> imageUrls = new ArrayList<>();
     private ImageAdapter imageAdapter;
     private Uri selectedImageUri;
+    public interface HideButtonClickListener {
+        void onHideButtonClick(int position);
+    }
 
+    private HideButtonClickListener hideButtonClickListener;
+
+    public void setHideButtonClickListener(HideButtonClickListener listener) {
+        this.hideButtonClickListener = listener;
+    }
     public My_inventory_Adapter(List<Product> productList, Context context) {
         this.context = context;
         this.productList = productList;
@@ -59,6 +71,12 @@ public class My_inventory_Adapter extends RecyclerView.Adapter<My_inventory_Adap
         holder.Love.setText(String.valueOf(product.getLove()));
         holder.View.setText(String.valueOf(product.getViews()));
         Picasso.get().load(product.getAvatar()).into(holder.ava);
+
+        if (product.getTrangThai().equals("Onwait")) {
+            holder.H.setText("Show");
+        } else {
+            holder.H.setText("Hide");
+        }
         holder.Edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,7 +142,44 @@ public class My_inventory_Adapter extends RecyclerView.Adapter<My_inventory_Adap
             View = itemView.findViewById(R.id.idviews);
             H = itemView.findViewById(R.id.button2);
             Edit = itemView.findViewById(R.id.button3);
+            H.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (hideButtonClickListener != null && position != RecyclerView.NO_POSITION) {
+                        hideButtonClickListener.onHideButtonClick(position);
+                    }
+                }
+            });
         }
+    }
+    public void updateProductStatus(int position) {
+        Product product = productList.get(position);
+        if (product.getTrangThai().equals("Onwait")) {
+            product.setTrangThai("Inventory");
+        } else {
+            product.setTrangThai("Onwait");
+        }
+        notifyItemChanged(position);
+        String documentId = product.getMaSP(); // Giả sử bạn có một trường DocumentId để xác định từng sản phẩm
+        FirebaseFirestore.getInstance().collection("SANPHAM").document(documentId)
+                .update("TrangThai", product.getTrangThai())
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            // Xử lý khi cập nhật thành công
+                            // Cập nhật dữ liệu trên Firebase thành công
+
+                            // Ví dụ: Hiển thị thông báo thành công
+                            Toast.makeText(context, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                        } else {
+                            // Xử lý khi cập nhật thất bại
+                            // Log lỗi hoặc hiển thị thông báo lỗi
+                            Toast.makeText(context, "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 
 }

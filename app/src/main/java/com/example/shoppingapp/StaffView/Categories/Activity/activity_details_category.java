@@ -3,6 +3,7 @@ package com.example.shoppingapp.StaffView.Categories.Activity;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Filter;
@@ -15,7 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.StaffView.Categories.Adapter.adapter_details_category;
+import com.example.shoppingapp.StaffView.DetailProduct.Activity.activity_details_product_staff;
 import com.example.shoppingapp.StaffView.Product;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +66,28 @@ public class activity_details_category extends AppCompatActivity implements Filt
             public boolean onQueryTextChange(String s) {
                 adapter.getFilter().filter(s);
                 return false;
+            }
+        });
+        adapter.setOnItemClickListener(new adapter_details_category.OnItemClickListener() {
+            @Override
+            public void onItemClick(Product product) {
+                // Xử lý sự kiện khi nhấp vào danh mục
+                String TenSP = product.getName(); // Lấy tên danh mục
+                Log.d("ProductID", "ProductID: " + TenSP);
+
+                // Tạo một truy vấn Firestore để lấy MaDM từ TenDM
+                FirebaseFirestore.getInstance().collection("SANPHAM")
+                        .whereEqualTo("TenSP", TenSP)
+                        .get()
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                                // Lấy MaDM từ kết quả truy vấn
+                                String productID = task.getResult().getDocuments().get(0).getId();
+                                Intent intent = new Intent(activity_details_category.this, activity_details_product_staff.class);
+                                intent.putExtra("MaSP", productID);
+                                startActivity(intent);
+                            }
+                        });
             }
         });
     }

@@ -27,6 +27,7 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_setting"
+                android:layout_marginTop="1dp"
                 android:layout_width="17dp"
                 android:layout_height="17dp"
                 android:layout_marginRight="10dp"
@@ -39,6 +40,7 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_chat"
+                android:layout_marginTop="1dp"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:background="@drawable/icon_message"
@@ -49,7 +51,8 @@
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:background="@drawable/icon_logout"
-                android:paddingStart="10dp" />
+                android:paddingBottom="20dp"
+                />
 
         </LinearLayout>
 

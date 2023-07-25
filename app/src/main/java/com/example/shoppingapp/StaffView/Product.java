@@ -5,6 +5,16 @@ import java.util.List;
 public class Product  {
     private String MoTaSP;
     private String name;
+
+    public String getTrangThai() {
+        return TrangThai;
+    }
+
+    public void setTrangThai(String trangThai) {
+        TrangThai = trangThai;
+    }
+
+    private String TrangThai;
     private int price;
     private String avatar;
     public String getMaSP() {

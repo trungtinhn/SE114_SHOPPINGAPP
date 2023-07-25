@@ -44,6 +44,13 @@ public class my_inventory_fragment extends Fragment implements Filterable {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         productList = new ArrayList<>();
         adapter = new My_inventory_Adapter(productList, getContext());
+        adapter.setHideButtonClickListener(new My_inventory_Adapter.HideButtonClickListener() {
+            @Override
+            public void onHideButtonClick(int position) {
+                adapter.updateProductStatus(position);
+                adapter.notifyDataSetChanged();
+            }
+        });
         recyclerView.setAdapter(adapter);
         loadProductsFromFirestore();
         SearchTrending();
@@ -83,6 +90,7 @@ public class my_inventory_fragment extends Fragment implements Filterable {
                         String moTaSP = document.getString("MoTaSP");
                         List<String> color = (List<String>) document.get("MauSac");
                         List<String> size = (List<String>) document.get("Size");
+                        String trangthai = document.getString("TrangThai");
                         int price = document.getLong("GiaSP") != null ? document.getLong("GiaSP").intValue() : 0;
                         int warehouse = document.getLong("SoLuongConLai") != null ? document.getLong("SoLuongConLai").intValue() : 0;
                         int sold = document.getLong("SoLuongDaBan") != null ? document.getLong("SoLuongDaBan").intValue() : 0;
@@ -103,6 +111,7 @@ public class my_inventory_fragment extends Fragment implements Filterable {
                                 product.setMoTaSP(moTaSP);
                                 product.setSize(size);
                                 product.setMauSac(color);
+                                product.setTrangThai(trangthai);
 
                                 // Thêm đối tượng Product vào danh sách
                                 productList.add(product);
@@ -114,7 +123,7 @@ public class my_inventory_fragment extends Fragment implements Filterable {
                                 product.setMoTaSP(moTaSP);
                                 product.setSize(size);
                                 product.setMauSac(color);
-
+                                product.setTrangThai(trangthai);
                                 // Thêm đối tượng Product vào danh sách
                                 productList.add(product);
                             } else {
