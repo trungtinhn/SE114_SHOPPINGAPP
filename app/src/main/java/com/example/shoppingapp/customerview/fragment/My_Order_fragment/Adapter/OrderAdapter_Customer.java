@@ -130,6 +130,19 @@ public class OrderAdapter_Customer extends RecyclerView.Adapter<OrderAdapter_Cus
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
+        CollectionReference donHangRef = db.collection("DONHANG");
+        donHangRef.document(orderList.get(receive).getMaDH()).get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+
+                        Long tongTien = documentSnapshot.getLong("TongTien");
+                        holder.total.setText(formatCurrency(tongTien.intValue()));
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    // Xử lý khi truy vấn thất bại
+                });
+
         CollectionReference usersRef = db.collection("NGUOIDUNG");
         usersRef.document(firebaseUser.getUid()).get()
                 .addOnSuccessListener(documentSnapshot -> {
@@ -179,7 +192,7 @@ public class OrderAdapter_Customer extends RecyclerView.Adapter<OrderAdapter_Cus
                                         // Cập nhật tổng tiền
                                         int totalPrice = GiaSP * number;
                                         totalMoney.addAndGet(totalPrice);
-                                        holder.total.setText(formatCurrency(totalMoney.get()));
+                                        //holder.total.setText(formatCurrency(totalMoney.get()));
                                         // Đặt giá trị tổng tiền vào TextView
 
                                         // Tạo mới ProductAdapter và gán nó cho recyclerViewProducts

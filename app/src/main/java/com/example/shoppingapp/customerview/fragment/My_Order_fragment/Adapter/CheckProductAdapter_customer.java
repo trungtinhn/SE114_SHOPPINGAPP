@@ -89,6 +89,20 @@ public class CheckProductAdapter_customer extends RecyclerView.Adapter<CheckProd
 
         // Truy vấn Firebase để lấy AnhDaiDien dựa trên maND
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        CollectionReference donHangRef = db.collection("DONHANG");
+        donHangRef.document(orderList.get(receive).getMaDH()).get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+
+                        Long tongTien = documentSnapshot.getLong("TongTien");
+                        holder.total.setText(formatCurrency(tongTien.intValue()));
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    // Xử lý khi truy vấn thất bại
+                });
+
         CollectionReference usersRef = db.collection("NGUOIDUNG");
         usersRef.document(order.getMaND()).get()
                 .addOnSuccessListener(documentSnapshot -> {
@@ -138,7 +152,7 @@ public class CheckProductAdapter_customer extends RecyclerView.Adapter<CheckProd
                                         // Cập nhật tổng tiền
                                         int totalPrice = GiaSP * number;
                                         totalMoney.addAndGet(totalPrice);
-                                        holder.total.setText(formatCurrency(totalMoney.get()));
+                                       // holder.total.setText(formatCurrency(totalMoney.get()));
                                         // Đặt giá trị tổng tiền vào TextView
 
                                         // Tạo mới ProductAdapter và gán nó cho recyclerViewProducts
