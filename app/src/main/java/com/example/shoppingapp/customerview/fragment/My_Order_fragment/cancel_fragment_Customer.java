@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.StaffView.MyOrder.Order;
 import com.example.shoppingapp.customerview.fragment.My_Order_fragment.Adapter.CheckProductAdapter_customer;
+import com.example.shoppingapp.customerview.fragment.My_Order_fragment.Adapter.OrderAdapter_Customer;
+import com.example.shoppingapp.customerview.fragment.My_Order_fragment.Adapter.OrderCancelAdapter_Customer;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -27,7 +29,10 @@ public class cancel_fragment_Customer extends Fragment {
 
 
     private List<Order> orderList;
-    private CheckProductAdapter_customer orderAdapter;
+
+    private OrderCancelAdapter_Customer orderAdapter;
+    private int confirmProductCount = 0;
+    private confirm_fragment_Customer.OnProductCountChangeListener listener;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
@@ -84,7 +89,7 @@ public class cancel_fragment_Customer extends Fragment {
                     }
 
                     // Khởi tạo adapter và gán nó cho RecyclerView
-                    orderAdapter = new CheckProductAdapter_customer(orderList);
+                    orderAdapter = new OrderCancelAdapter_Customer(orderList);
                     orderAdapter.refresh();
                     recyclerView.setAdapter(orderAdapter);
                 });

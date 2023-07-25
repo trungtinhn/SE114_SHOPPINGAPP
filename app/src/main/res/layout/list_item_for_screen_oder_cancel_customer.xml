@@ -19,6 +19,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -30,7 +31,7 @@
                     app:cardCornerRadius="40dp">
 
                     <ImageView
-                        android:id="@+id/img_ava_customer"
+                        android:id="@+id/img_avatar_customer"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
@@ -45,7 +46,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/ten_customer"
+                        android:id="@+id/tv_ordername_customer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -69,7 +70,7 @@
                             android:fontFamily="@font/montserrat_medium"
                             android:textSize="12dp" />
                         <TextView
-                            android:id="@+id/maND_customer"
+                            android:id="@+id/tv_orderID_customer"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/montserrat"
@@ -94,24 +95,13 @@
             android:text= "Purchased Products" >
         </TextView>
 
-
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/RCV_details_customer"
+            android:id="@+id/RCVcard_view_customer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:padding="4dp" />
-
-        <Button
-            android:id="@+id/btn_detail_customer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Detail"
-            android:backgroundTint="#FF931F"
-            android:layout_marginStart="260dp"
-            android:layout_marginTop="10dp"/>
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -126,7 +116,7 @@
                 android:textColor="@android:color/black"
                 />
             <TextView
-                android:id="@+id/money_total_customer"
+                android:id="@+id/moneytotal_customer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/total_customer"
@@ -135,7 +125,7 @@
                 android:textColor="@android:color/black"
                 android:layout_marginStart="150dp"/>
             <TextView
-                android:layout_toRightOf="@+id/money_total_customer"
+                android:layout_toRightOf="@+id/moneytotal_customer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="VND"
@@ -143,13 +133,23 @@
                 android:textColor="@android:color/black"
                 android:layout_marginStart="10dp"/>.
         </RelativeLayout>
+        <Button
+            android:id="@+id/btn_detail_customer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Detail"
+            android:backgroundTint="#FF931F"
+            android:layout_marginStart="260dp"
+            android:layout_marginTop="10dp"/>
 
-        <LinearLayout
+        <Button
+            android:id="@+id/confirm_customer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal"/>
-
+            android:text="Replace"
+            android:layout_marginTop="0dp"
+            android:backgroundTint="#FF931F"
+            />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
