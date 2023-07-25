@@ -1,5 +1,6 @@
 package com.example.shoppingapp.customerview.fragment.My_Order_fragment.Adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.example.shoppingapp.R;
 import com.example.shoppingapp.StaffView.MyOrder.Adapter.ProductAdapter;
 import com.example.shoppingapp.StaffView.MyOrder.ItemOrder;
 import com.example.shoppingapp.StaffView.MyOrder.Order;
+import com.example.shoppingapp.customerview.activity.activity_details_order_customer;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -36,9 +38,10 @@ public class CheckProductAdapter_customer extends RecyclerView.Adapter<CheckProd
         private ImageView img_avatar;
         private RecyclerView recyclerViewProducts;
         private ProductAdapter productAdapter;
-        private TextView getMaStaff;
-        private Button Confirm;
+
+        private Button btnDetail;
         private TextView total;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -47,7 +50,8 @@ public class CheckProductAdapter_customer extends RecyclerView.Adapter<CheckProd
             img_avatar = itemView.findViewById(R.id.img_ava_customer);
             recyclerViewProducts = itemView.findViewById(R.id.RCV_details_customer);
             total = itemView.findViewById(R.id.money_total_customer);
-            getMaStaff = itemView.findViewById(R.id.getMaND_customer);
+            btnDetail = itemView.findViewById(R.id.btn_detail_customer);
+
 
         }
     }
@@ -71,6 +75,17 @@ public class CheckProductAdapter_customer extends RecyclerView.Adapter<CheckProd
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(holder.itemView.getContext());
         holder.recyclerViewProducts.setLayoutManager(layoutManager);
 
+        holder.btnDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String maDH = orderList.get(receive).getMaDH();
+                // Chuyển sang activity mới
+                Intent intent = new Intent(v.getContext(), activity_details_order_customer.class);
+                intent.putExtra("MaDH", maDH);
+                v.getContext().startActivity(intent);
+            }
+        });
+
 
         // Truy vấn Firebase để lấy AnhDaiDien dựa trên maND
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -85,21 +100,7 @@ public class CheckProductAdapter_customer extends RecyclerView.Adapter<CheckProd
                 .addOnFailureListener(e -> {
                     // Xử lý khi truy vấn thất bại
                 });
-        FirebaseFirestore db_xacnhan = FirebaseFirestore.getInstance();
-        CollectionReference xacnhanRef = db_xacnhan.collection("XACNHANDONHANG");
-        xacnhanRef.whereEqualTo("MaDH", order.getMaDH())
-                .get()
-                .addOnSuccessListener(querySnapshot -> {
-                    for (DocumentSnapshot document : querySnapshot.getDocuments()) {
-                        String maND = document.getString("MaND");
-                        if (maND != null) {
-                            holder.getMaStaff.setText(maND);
-                        }
-                    }
-                })
-                .addOnFailureListener(e -> {
-                    // Xử lý khi truy vấn thất bại
-                });
+
         FirebaseFirestore db_con = FirebaseFirestore.getInstance();
         CollectionReference dathangRef = db_con.collection("DATHANG");
         dathangRef.whereEqualTo("MaDH", order.getMaDH())
@@ -108,6 +109,9 @@ public class CheckProductAdapter_customer extends RecyclerView.Adapter<CheckProd
                     List<ItemOrder> itemOrderList = new ArrayList<>();
                     for (DocumentSnapshot document : querySnapshot.getDocuments()) {
                         String maSP = document.getString("MaSP");
+
+                        String mauSac = document.getString("MauSac");
+                        String size = document.getString("Size");
 
                         int number = document.getLong("SoLuong") != null ? Math.toIntExact(document.getLong("SoLuong")) : 0;
 
@@ -129,7 +133,7 @@ public class CheckProductAdapter_customer extends RecyclerView.Adapter<CheckProd
                                         Long giaSPLong = sanphamDocument.getLong("GiaSP");
                                         int GiaSP = giaSPLong != null ? Math.toIntExact(giaSPLong) : 0;
 
-                                        ItemOrder itemOrder = new ItemOrder(hinhAnhSP, tenSP, maSP, GiaSP, number);
+                                        ItemOrder itemOrder = new ItemOrder(hinhAnhSP, tenSP, maSP, GiaSP, number, mauSac, size);
                                         itemOrderList.add(itemOrder);
                                         // Cập nhật tổng tiền
                                         int totalPrice = GiaSP * number;

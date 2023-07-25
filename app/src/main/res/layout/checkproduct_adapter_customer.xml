@@ -94,6 +94,7 @@
             android:text= "Purchased Products" >
         </TextView>
 
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/RCV_details_customer"
             android:layout_width="match_parent"
@@ -101,6 +102,16 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:padding="4dp" />
+
+        <Button
+            android:id="@+id/btn_detail_customer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Detail"
+            android:backgroundTint="#FF931F"
+            android:layout_marginStart="260dp"
+            android:layout_marginTop="10dp"/>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -132,31 +143,12 @@
                 android:textColor="@android:color/black"
                 android:layout_marginStart="10dp"/>.
         </RelativeLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:text = "ID Staff: "
-                android:layout_marginLeft="23dp"
-                android:fontFamily="@font/montserrat_medium"
-                android:textColor="@color/black"
-                android:textSize="14dp"
-                >
-            </TextView>
-            <TextView
-                android:id="@+id/getMaND_customer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text = "21522654"
-                android:fontFamily="@font/montserrat"
-                android:textColor="@color/black"
-                android:textSize="14dp"
-                />
-        </LinearLayout>
+            android:orientation="horizontal"/>
 
     </LinearLayout>
 
