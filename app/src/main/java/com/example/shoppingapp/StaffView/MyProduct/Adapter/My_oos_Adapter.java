@@ -1,6 +1,7 @@
 package com.example.shoppingapp.StaffView.MyProduct.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
+import com.example.shoppingapp.StaffView.MyProduct.Activity.activity_edit_product;
 import com.example.shoppingapp.StaffView.Product;
 import com.squareup.picasso.Picasso;
 
@@ -50,6 +52,14 @@ public class My_oos_Adapter extends RecyclerView.Adapter<My_oos_Adapter.Products
         holder.View.setText(String.valueOf(product.getViews()));
         Picasso.get().load(R.drawable.ic_add_circle).into(holder.add);
         Picasso.get().load(product.getAvatar()).into(holder.ava);
+        holder.Edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), activity_edit_product.class);
+                intent.putExtra("MaSP", product.getMaSP());
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -106,6 +116,7 @@ public class My_oos_Adapter extends RecyclerView.Adapter<My_oos_Adapter.Products
             View = itemView.findViewById(R.id.idviews_add);
             Edit = itemView.findViewById(R.id.btn_edit_add);
             add = itemView.findViewById(R.id.imgView_add_more);
+
         }
     }
 }

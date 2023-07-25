@@ -1,7 +1,5 @@
 package com.example.shoppingapp.StaffView.MyProduct.Fragment;
 
-import static android.view.View.GONE;
-
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -14,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
-import com.example.shoppingapp.StaffView.MyProduct.Adapter.My_inventory_Adapter;
+import com.example.shoppingapp.StaffView.MyProduct.Adapter.OnwaitAdapter;
 import com.example.shoppingapp.StaffView.Product;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -26,18 +24,24 @@ import java.util.List;
 public class onwait_fragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private My_inventory_Adapter adapter;
+    private OnwaitAdapter adapter;
     private List<Product> productList;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_my_inventory, container, false);
-        view.findViewById(R.id.searchView).setVisibility(GONE);
-        recyclerView = view.findViewById(R.id.RCV_My_inventory);
+        View view = inflater.inflate(R.layout.fragment_onwait, container, false);
+        recyclerView = view.findViewById(R.id.RCV_onwait);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         productList = new ArrayList<>();
-        adapter = new My_inventory_Adapter(productList, getContext());
+        adapter = new OnwaitAdapter(productList, getContext());
+        adapter.setHideButtonClickListener(new OnwaitAdapter.HideButtonClickListener() {
+            @Override
+            public void onHideButtonClick(int position) {
+                adapter.updateProductStatus(position);
+                adapter.notifyDataSetChanged();
+            }
+        });
         recyclerView.setAdapter(adapter);
         return view;
     }
@@ -56,6 +60,10 @@ public class onwait_fragment extends Fragment {
                     for (DocumentSnapshot document : queryDocumentSnapshots) {
                         List<String> hinhAnhSPList = (List<String>) document.get("HinhAnhSP");
 
+                        String moTaSP = document.getString("MoTaSP");
+                        List<String> color = (List<String>) document.get("MauSac");
+                        List<String> size = (List<String>) document.get("Size");
+                        String trangthai = document.getString("TrangThai");
                         // Lấy địa chỉ ảnh đầu tiên trong mảng
                         String hinhAnhSP = hinhAnhSPList != null && !hinhAnhSPList.isEmpty() ? hinhAnhSPList.get(0) : "";
                         String tenSP = document.getString("TenSP");
@@ -67,13 +75,15 @@ public class onwait_fragment extends Fragment {
                         int view = document.getLong("SoLuongXem") != null ? document.getLong("SoLuongXem").intValue() : 0;
                         Product product = new Product(hinhAnhSP, tenSP, price, warehouse, sold, love, view, MaSP);
                         // Thêm đối tượng Product vào danh sách
+                        product.setMoTaSP(moTaSP);
+                        product.setSize(size);
+                        product.setMauSac(color);
+                        product.setTrangThai(trangthai);
                         productList.add(product);
                     }
-
                     adapter.notifyDataSetChanged();
                 });
     }
-
     @Override
     public void onResume() {
         super.onResume();

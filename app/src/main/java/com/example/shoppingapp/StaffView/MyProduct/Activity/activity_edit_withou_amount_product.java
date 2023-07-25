@@ -41,14 +41,14 @@ import com.google.firebase.storage.UploadTask;
 import java.util.ArrayList;
 import java.util.List;
 
-public class activity_edit_product extends AppCompatActivity {
+public class activity_edit_withou_amount_product extends AppCompatActivity {
     private ImageAdapter imageAdapter;
     private List<String>imageUrls = new ArrayList<>();
     private List<Color> allColors = new ArrayList<>();
     private List<String> selectedColors = new ArrayList<>();
     private List<Size> allSize = new ArrayList<>();
     private List<String> selectedSizes = new ArrayList<>();
-    private EditText name, description, price, amount;
+    private EditText name, description, price;
     private String MaSP;
     private RecyclerView recyclerView_color, recyclerView_size, recyclerView_image;
     private ImageView img_add;
@@ -60,11 +60,10 @@ public class activity_edit_product extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_product);
+        setContentView(R.layout.activity_edit_without_amount);
         name = findViewById(R.id.edt_name);
         description = findViewById(R.id.edit_decription);
         price = findViewById(R.id.edit_price);
-        amount = findViewById(R.id.edit_amount);
         Intent intent = getIntent();
         MaSP = intent.getStringExtra("MaSP");
         recyclerView_color = findViewById(R.id.RCV_color_edit);
@@ -79,7 +78,7 @@ public class activity_edit_product extends AppCompatActivity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent_back = new Intent(activity_edit_product.this, activity_MyProduct.class);
+                Intent intent_back = new Intent(activity_edit_withou_amount_product.this, activity_MyProduct.class);
                 startActivity(intent_back);
             }
         });
@@ -175,7 +174,7 @@ public class activity_edit_product extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
                                 // Gọi hộp thoại chọn hình ảnh từ thư viện hoặc camera
-                                ImagePicker.Companion.with(activity_edit_product.this)
+                                ImagePicker.Companion.with(activity_edit_withou_amount_product.this)
                                         .cropSquare()
                                         .compress(1700)
                                         .start();
@@ -190,8 +189,6 @@ public class activity_edit_product extends AppCompatActivity {
                         description.setText(mota);
                         String giaSP = String.valueOf(document.getLong("GiaSP"));
                         price.setText(giaSP);
-                        String soluong = String.valueOf(document.getLong("SoLuongSP"));
-                        amount.setText(soluong);
                     }
                     recyclerView_image.setAdapter(imageAdapter);
                 });
@@ -223,15 +220,15 @@ public class activity_edit_product extends AppCompatActivity {
         productRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Toast.makeText(activity_edit_product.this, "Xóa sản phẩm thành công", Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity_edit_withou_amount_product.this, "Xóa sản phẩm thành công", Toast.LENGTH_SHORT).show();
                 // Redirect the user to the MyProduct activity or any other desired activity
-                Intent intent_done = new Intent(activity_edit_product.this, activity_MyProduct.class);
+                Intent intent_done = new Intent(activity_edit_withou_amount_product.this, activity_MyProduct.class);
                 startActivity(intent_done);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(activity_edit_product.this, "Xóa sản phẩm thất bại", Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity_edit_withou_amount_product.this, "Xóa sản phẩm thất bại", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -316,21 +313,12 @@ public class activity_edit_product extends AppCompatActivity {
         String tenSP = name.getText().toString();
         String mota = description.getText().toString();
         long giaSP;
-        int soluong;
         try {
             giaSP = Long.parseLong(price.getText().toString());
         } catch (NumberFormatException e) {
             Toast.makeText(this, "Vui lòng nhập giá hợp lệ hoặc không được để trống", Toast.LENGTH_SHORT).show();
             return;
         }
-
-        try {
-            soluong = Integer.parseInt(amount.getText().toString());
-        } catch (NumberFormatException e) {
-            Toast.makeText(this, "Vui lòng nhập số lượng hợp lệ hoặc không được để trống", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         // Kiểm tra các thông tin cần thiết không được để trống
         if (tenSP.isEmpty()) {
             Toast.makeText(this, "Vui lòng nhập tên sản phẩm", Toast.LENGTH_SHORT).show();
@@ -363,21 +351,20 @@ public class activity_edit_product extends AppCompatActivity {
                 "TenSP", tenSP,
                 "MoTaSP", mota,
                 "GiaSP", giaSP,
-                "SoLuongSP", soluong,
                 "MauSac", selectedColors,
                 "Size", selectedSizes,
                 "HinhAnhSP", updatedImageUrls
         ).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Intent intent_done = new Intent(activity_edit_product.this, activity_MyProduct.class);
-                Toast.makeText(activity_edit_product.this, "Cập nhật sản phẩm thành công", Toast.LENGTH_SHORT).show();
+                Intent intent_done = new Intent(activity_edit_withou_amount_product.this, activity_MyProduct.class);
+                Toast.makeText(activity_edit_withou_amount_product.this, "Cập nhật sản phẩm thành công", Toast.LENGTH_SHORT).show();
                 startActivity(intent_done);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(activity_edit_product.this, "Cập nhật sản phẩm thất bại", Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity_edit_withou_amount_product.this, "Cập nhật sản phẩm thất bại", Toast.LENGTH_SHORT).show();
             }
         });
     }

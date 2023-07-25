@@ -3,6 +3,7 @@ package com.example.shoppingapp.StaffView.MyProduct.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
-import com.example.shoppingapp.StaffView.MyProduct.Activity.activity_edit_withou_amount_product;
+import com.example.shoppingapp.StaffView.MyProduct.Activity.activity_edit_product;
 import com.example.shoppingapp.StaffView.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -27,7 +28,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-public class My_inventory_Adapter extends RecyclerView.Adapter<My_inventory_Adapter.ProductsViewHolder> implements Filterable {
+public class OnwaitAdapter extends RecyclerView.Adapter<OnwaitAdapter.ProductsViewHolder> implements Filterable {
 
     private List<Product> productList;
     private List<Product> productListOld;
@@ -44,7 +45,7 @@ public class My_inventory_Adapter extends RecyclerView.Adapter<My_inventory_Adap
     public void setHideButtonClickListener(HideButtonClickListener listener) {
         this.hideButtonClickListener = listener;
     }
-    public My_inventory_Adapter(List<Product> productList, Context context) {
+    public OnwaitAdapter(List<Product> productList, Context context) {
         this.context = context;
         this.productList = productList;
         this.productListOld = productList;
@@ -80,7 +81,7 @@ public class My_inventory_Adapter extends RecyclerView.Adapter<My_inventory_Adap
         holder.Edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), activity_edit_withou_amount_product.class);
+                Intent intent = new Intent(v.getContext(), activity_edit_product.class);
                 intent.putExtra("MaSP", product.getMaSP());
                 v.getContext().startActivity(intent);
             }
@@ -167,18 +168,19 @@ public class My_inventory_Adapter extends RecyclerView.Adapter<My_inventory_Adap
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            // Xử lý khi cập nhật thành công
-                            // Cập nhật dữ liệu trên Firebase thành công
-
-                            // Ví dụ: Hiển thị thông báo thành công
+                            // Update successful
                             Toast.makeText(context, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
                         } else {
-                            // Xử lý khi cập nhật thất bại
-                            // Log lỗi hoặc hiển thị thông báo lỗi
+                            // Update failed, log the error
+                            Exception e = task.getException();
+                            if (e != null) {
+                                Log.e("OnwaitAdapter", "Error updating product status", e);
+                            }
                             Toast.makeText(context, "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+
     }
 
 }
