@@ -18,7 +18,11 @@ import com.example.shoppingapp.StaffView.Home.home_page;
 import com.example.shoppingapp.StaffView.MyProduct.Fragment.my_inventory_fragment;
 import com.example.shoppingapp.StaffView.MyProduct.Fragment.onwait_fragment;
 import com.example.shoppingapp.StaffView.MyProduct.Fragment.out_of_stock_fragment;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class activity_MyProduct extends AppCompatActivity {
 
@@ -59,6 +63,30 @@ public class activity_MyProduct extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        DocumentReference documentReference=FirebaseFirestore.getInstance().
+                collection("NGUOIDUNG").document(FirebaseAuth.getInstance().getUid());
+        documentReference.update("status","Offline").addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+            }
+        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        DocumentReference documentReference= FirebaseFirestore.getInstance().
+                collection("NGUOIDUNG").document(FirebaseAuth.getInstance().getUid());
+        documentReference.update("status","Online").addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+            }
+        });
+
     }
 
     private static class AdminOrderPagerAdapter extends FragmentPagerAdapter {

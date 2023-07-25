@@ -21,9 +21,12 @@ import com.example.shoppingapp.StaffView.MyOrder.Fragment.confirm_fragment;
 import com.example.shoppingapp.StaffView.MyOrder.Fragment.delivered_fragment;
 import com.example.shoppingapp.StaffView.MyOrder.Fragment.delivering_fragment;
 import com.example.shoppingapp.StaffView.MyOrder.Fragment.wait_fragment;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class activity_MyOrder extends AppCompatActivity {
@@ -138,7 +141,33 @@ public class activity_MyOrder extends AppCompatActivity {
                 });
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        DocumentReference documentReference=FirebaseFirestore.getInstance().
+                collection("NGUOIDUNG").document(FirebaseAuth.getInstance().getUid());
+        documentReference.update("status","Offline").addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+            }
+        });
 
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        DocumentReference documentReference=FirebaseFirestore.getInstance().
+                collection("NGUOIDUNG").document(FirebaseAuth.getInstance().getUid());
+        documentReference.update("status","Online").addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+            }
+        });
+
+    }
     private class AdminOrderPagerAdapter extends FragmentPagerAdapter {
         private static final int NUM_PAGES = 5;
         private BadgeDrawable[] badgeDrawables = new BadgeDrawable[NUM_PAGES];

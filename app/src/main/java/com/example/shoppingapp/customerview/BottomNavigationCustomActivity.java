@@ -26,8 +26,11 @@ import com.example.shoppingapp.customerview.activity.TrendingActivity;
 import com.example.shoppingapp.customerview.fragment.HomeFragment;
 import com.example.shoppingapp.customerview.fragment.ViewPagerAdapter;
 import com.example.shoppingapp.customerview.product.Product;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class BottomNavigationCustomActivity extends AppCompatActivity{
 
@@ -204,5 +207,28 @@ public class BottomNavigationCustomActivity extends AppCompatActivity{
     }
     public void gotoLogOut() {
         showLogoutConfirmationDialog();
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        DocumentReference documentReference= FirebaseFirestore.getInstance().
+                collection("NGUOIDUNG").document(FirebaseAuth.getInstance().getUid());
+        documentReference.update("status","Offline").addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+            }
+        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        DocumentReference documentReference=FirebaseFirestore.getInstance().
+                collection("NGUOIDUNG").document(FirebaseAuth.getInstance().getUid());
+        documentReference.update("status","Online").addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+            }
+        });
     }
 }
