@@ -1,10 +1,8 @@
 package com.example.shoppingapp.StaffView.activity;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,6 +15,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -29,11 +28,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.example.shoppingapp.Login.User;
 import com.example.shoppingapp.R;
+import com.example.shoppingapp.StaffView.Home.home_page;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -47,10 +53,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class activity_admin_detail extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    Button btn_edit, btn_remove;
+public class activity_setting extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     User object;
-    User admin;
     int position;
     ProgressDialog progressDialog;
     //ArrayList<User> AdminList;
@@ -59,6 +63,7 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
     FirebaseStorage firebaseStorage;
     DocumentReference docRef;
     StorageReference storageReference;
+    private LinearLayout layout;
     private String imagePath;
     private ImageView edImg;
     private String ImageUrl;
@@ -67,76 +72,87 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_detail);
+        firebaseAuth = FirebaseAuth.getInstance();
+        setContentView(R.layout.activity_profile);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
 
-        Intent intent = getIntent();
-        admin = (User) intent.getSerializableExtra("Admin");
-        object = (User) intent.getSerializableExtra("Data");
-        position = intent.getIntExtra("Position",0);
-        Bundle args = intent.getBundleExtra("Bundle");
-        //AdminList = (ArrayList<User>) args.getSerializable("ArrayList");
-
         db = FirebaseFirestore.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
         docRef = FirebaseFirestore.getInstance()
-                .collection("NGUOIDUNG").document(object.getMaND());
-        ((TextView) findViewById(R.id.txt_admin_name)).setText(object.getFullName());
-        ((TextView) findViewById(R.id.txt_name)).setText(object.getFullName());
-        ((TextView) findViewById(R.id.txt_sex)).setText(object.getGioitinh());
-        ((TextView) findViewById(R.id.txt_dob)).setText(object.getDayOfBirth());
-        ((TextView) findViewById(R.id.txt_phone)).setText(object.getPhoneNumber());
-        ((TextView) findViewById(R.id.txt_mail)).setText(object.getEmail());
-        ((TextView) findViewById(R.id.txt_location)).setText(object.getDiachi());
-        ((TextView) findViewById(R.id.txt_status)).setText(object.getStatus());
-        ImageUrl = object.getAvatar();
-        try{
-            if(ImageUrl.isEmpty()) {}
-            else {
-                Picasso.get().load(ImageUrl).into((ImageView) findViewById(R.id.img_staff));
-                storageReference = firebaseStorage.getReferenceFromUrl(ImageUrl);
+                .collection("NGUOIDUNG").document(firebaseAuth.getUid());
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                EventInit();
             }
-        }
-        catch (Exception e)
-        {
 
-        }
-        oldImageUrl = ImageUrl;
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-        ((TextView) findViewById(R.id.adminName)).setText(admin.getFullName());
-        ((TextView) findViewById(R.id.adminID)).setText(admin.getMaND());
-        String uri=admin.getAvatar();
-        try{
-            if(uri.isEmpty()) {}
-            else Picasso.get().load(uri).into((ImageView) findViewById(R.id.img_avt));
-        }
-        catch (Exception e)
-        {
+            }
+        });
 
-        }
-        //((TextView) findViewById(R.id.txt_pass)).setText(());
 
-        findViewById(R.id.btn_edit).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btn_changeInfo_Profile).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 EventEdit();
+            }
+        });
 
-            }
-        });
-        findViewById(R.id.btn_remove).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                EventRemove();
-            }
-        });
         findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                Intent intent = new Intent(activity_setting.this, home_page.class);
+                startActivity(intent);
             }
         });
+        findViewById(R.id.btn_changeAvt_Profile).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                EventChangeAva();
+            }
+        });
+        EventInit();
+    }
+    private static final int REQUEST_IMAGE_PICK = 1;
+    private void EventChangeAva() {
+        ImagePicker.Companion.with(activity_setting.this)
+                .crop()  // optionally enable image cropping
+                .start();
+    }
+    private void EventInit(){
+        db.collection("NGUOIDUNG").document(firebaseAuth.getUid()).
+                get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        object = documentSnapshot.toObject(User.class);
+                        ((TextView) findViewById(R.id.name_Profile)).setText(object.getFullName());
+                        ((TextView) findViewById(R.id.sex_Profile)).setText(object.getGioitinh());
+                        ((TextView) findViewById(R.id.txt_dob_Profile)).setText(object.getDayOfBirth());
+                        ((TextView) findViewById(R.id.txt_pnumP7_Profile)).setText(object.getPhoneNumber());
+                        ((TextView) findViewById(R.id.txt_email_Profile)).setText(object.getEmail());
+                        ((TextView) findViewById(R.id.txt_address_Profile)).setText(object.getDiachi());
+
+                        ImageUrl = object.getAvatar();
+                        try{
+                            if(ImageUrl.isEmpty()) {}
+                            else {
+                                Picasso.get().load(ImageUrl).into((ImageView) findViewById(R.id.img_avt_Profile));
+                                storageReference = firebaseStorage.getReferenceFromUrl(ImageUrl);
+                            }
+                        }
+                        catch (Exception e)
+                        {
+
+                        }
+                        oldImageUrl = ImageUrl;
+                    }
+                });
     }
     private void EventEdit()
     {
@@ -193,18 +209,13 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
             @Override
             public void onClick(View view) {
                 dialogPlus.dismiss();
-                try {
-                    if (!ImageUrl.equals(oldImageUrl)) {
-                        try {
-                            if (!ImageUrl.isEmpty()) {
-                                DeleteOldImg(ImageUrl);
-                            }}
-                        catch (Exception d)
-                        {
-                        }
+                try{
+                    if(!ImageUrl.isEmpty())
+                    {
+                        DeleteOldImg(ImageUrl);
                     }
                 }
-                catch (Exception d)
+                catch (Exception e)
                 {
                 }
             }
@@ -212,7 +223,7 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
         edImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ImagePicker.Companion.with(activity_admin_detail.this)
+                ImagePicker.Companion.with(activity_setting.this)
                         .crop()  // optionally enable image cropping
                         .start();
             }
@@ -228,7 +239,7 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
                 int day = c.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog datePickerDialog = new DatePickerDialog(
-                        activity_admin_detail.this,
+                        activity_setting.this,
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year,
@@ -258,23 +269,24 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
-                                Toast.makeText(activity_admin_detail.this, "Success updating the data", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(activity_setting.this, "Success updating the data", Toast.LENGTH_SHORT).show();
                                 dialogPlus.dismiss();
                                 try {
                                     if (!ImageUrl.equals(oldImageUrl)) {
                                         try {
-                                            if (!oldImageUrl.isEmpty()) {
-                                                DeleteOldImg(oldImageUrl);
-                                            }}
+                                        if (!oldImageUrl.isEmpty()) {
+                                            DeleteOldImg(oldImageUrl);
+                                        }}
                                         catch (Exception e)
                                         {
                                         }
                                     }
                                 }
-                                catch (Exception e)
-                                {
-                                }
-                                Intent intent = new Intent(activity_admin_detail.this,activity_admin_control.class);
+                                    catch (Exception e)
+                                    {
+                                    }
+                                Intent intent = getIntent();
+                                finish();
                                 startActivity(intent);
                             }
                         })
@@ -282,7 +294,7 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 dialogPlus.dismiss();
-                                Toast.makeText(activity_admin_detail.this, "Fail to update the data", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(activity_setting.this, "Fail to update the data", Toast.LENGTH_SHORT).show();
                                 try {
                                     if (!ImageUrl.equals(oldImageUrl)) {
                                         try {
@@ -303,42 +315,6 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
         });
 
         dialogPlus.show();
-
-    }
-    private void EventRemove(){
-        progressDialog.setTitle("Removing Staff...");
-        progressDialog.show();
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this)
-                .setTitle("Delete Staff")
-                .setMessage("Are you sure want to delete ?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        progressDialog.dismiss();
-                        docRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unused) {
-                                Toast.makeText(activity_admin_detail.this, "Deleted Staff", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(activity_admin_detail.this,activity_admin_control.class);
-                                startActivity(intent);
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(activity_admin_detail.this, "Fail to delete the staff", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        progressDialog.dismiss();
-                    }
-                });
-        builder.show();
 
     }
     private void DeleteOldImg(String deleteImg){
@@ -387,7 +363,7 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         progressDialog.dismiss();
-                        Toast.makeText(activity_admin_detail.this, "Fail to send image to firebase", Toast.LENGTH_LONG).show();
+                        Toast.makeText(activity_setting.this, "Fail to send image to firebase", Toast.LENGTH_LONG).show();
                         // Tải ảnh thất bại
                     }
                 });

@@ -1,5 +1,6 @@
 package com.example.shoppingapp.StaffView.Home;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shoppingapp.Login.LoginActivity;
@@ -21,6 +23,8 @@ import com.example.shoppingapp.StaffView.Promotions.Activity.activity_promotions
 import com.example.shoppingapp.StaffView.ViewShop.activity_viewshop;
 import com.example.shoppingapp.StaffView.activity.activity_admin_control;
 import com.example.shoppingapp.StaffView.activity.activity_chat_board;
+import com.example.shoppingapp.StaffView.activity.activity_setting;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -35,6 +39,7 @@ public class home_page extends AppCompatActivity {
 
     private Button btn_logout;
     private ImageButton btn_Promotions;
+    ProgressDialog progressDialog;
     User user;
     FirebaseFirestore firebaseFirestore;
 
@@ -42,6 +47,8 @@ public class home_page extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
         setContentView(R.layout.screen_home_page);
         // initialising all views through id defined above
         btn_my_product = findViewById(R.id.btn_my_product);
@@ -64,6 +71,8 @@ public class home_page extends AppCompatActivity {
                 finish();
             }
         });
+        progressDialog.setTitle("Fetching data...");
+        progressDialog.show();
         firebaseFirestore=FirebaseFirestore.getInstance();
         firebaseAuth=FirebaseAuth.getInstance();
         DocumentReference documentReference=firebaseFirestore.collection("NGUOIDUNG").document(firebaseAuth.getUid());
@@ -78,7 +87,6 @@ public class home_page extends AppCompatActivity {
                 try{
                     if(uri.isEmpty())
                     {
-                        Toast.makeText(getApplicationContext(),"null is recieved",Toast.LENGTH_SHORT).show();
                     }
                     else Picasso.get().load(uri).into((ImageView) findViewById(R.id.img_avt));
                 }
@@ -90,14 +98,27 @@ public class home_page extends AppCompatActivity {
                     btn_manage_users.setVisibility(View.GONE);
                     findViewById(R.id.txt_manage_user).setVisibility(View.GONE);
                 }
-                return;
+                progressDialog.dismiss();
             }
-        });
+        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(),"Fetching Failed",Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                    }
+                });
         btn_my_product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Chuyển đến màn hình "MyProductActivity"
                 Intent intent = new Intent(home_page.this, activity_MyProduct.class);
+                startActivity(intent);
+            }
+        });
+        btn_setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(home_page.this, activity_setting.class);
                 startActivity(intent);
             }
         });

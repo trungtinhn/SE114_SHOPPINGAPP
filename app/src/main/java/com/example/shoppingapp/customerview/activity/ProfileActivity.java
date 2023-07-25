@@ -1,19 +1,12 @@
 package com.example.shoppingapp.customerview.activity;
 
-import static java.security.AccessController.getContext;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -27,11 +20,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.shoppingapp.Login.User;
 import com.example.shoppingapp.R;
-import com.example.shoppingapp.StaffView.activity.activity_admin_control;
-import com.example.shoppingapp.StaffView.activity.activity_admin_detail;
-import com.example.shoppingapp.customerview.BottomNavigationCustomActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.imageview.ShapeableImageView;
@@ -45,7 +39,6 @@ import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -100,7 +93,6 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
                                 int height = 200;
                                 Picasso.get().load(uri).resize(width, height).into((ImageView) findViewById(R.id.img_avt_Profile));
                             } else {
-                                Toast.makeText(getApplicationContext(), "Avatar is null or empty", Toast.LENGTH_SHORT).show();
                             }
                         } catch (Exception ex) {
                             ex.printStackTrace();
@@ -125,7 +117,12 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
                 EventChangeAva();
             }
         });
+        findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+            }
+        });
 
     }
     private static final int REQUEST_IMAGE_PICK = 1;
@@ -210,15 +207,6 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
         edSex.setAdapter(gender);
         edSex.setOnItemSelectedListener(this);
 
-
-
-//        edName.setText(object.getName());
-//        edStatus.setSelection(object.getStatusIndex());
-//        edSex.setSelection(object.getSexIndex());
-//        edDob.setText(object.getDob());
-//        edPhone.setText(object.getPhoneNum());
-//        edMail.setText(object.getEmail());
-//        edPass.setText(object.getPass());
 
         edDob.setOnClickListener(new View.OnClickListener() {
             @Override

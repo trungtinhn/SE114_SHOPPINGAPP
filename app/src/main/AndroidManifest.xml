@@ -64,8 +64,11 @@
             android:name=".StaffView.Home.home_page"
             android:exported="true" />
         <activity
+            android:name=".StaffView.activity.activity_setting"
+            android:exported="false" />
+        <activity
             android:name=".StaffView.activity.activity_admin_control"
-            android:exported="true" />
+            android:exported="false" />
 
         <meta-data
             android:name="preloaded_fonts"
