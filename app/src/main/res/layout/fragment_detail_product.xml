@@ -128,9 +128,7 @@
             android:scaleX=".8"
             android:scaleY=".8"
             android:transformPivotX="0dp"
-            android:transformPivotY="0dp"
-
-            />
+            android:transformPivotY="0dp" />
 
 
         <TextView
@@ -255,7 +253,6 @@
             android:textColor="@color/black"
             android:layout_centerVertical="true"
             />
-
         <LinearLayout
             android:id="@+id/size1"
             android:layout_width="45dp"

@@ -33,7 +33,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
     private List<Order> orderList;
@@ -59,6 +58,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
             total = itemView.findViewById(R.id.moneytotal);
             button = itemView.findViewById(R.id.btn_detail);
             confirm = itemView.findViewById(R.id.confirm);
+
         }
     }
 
@@ -87,7 +87,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
         Order order = orderList.get(position);
         int receive = position;
-        AtomicInteger totalMoney = new AtomicInteger(0);
         holder.orderIdTextView.setText(order.getMaDH());
         holder.customerNameTextView.setText(order.getTenNguoiMua());
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(holder.itemView.getContext());
@@ -140,9 +139,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
                                     });
 
                         }
-                        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
                         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-                        DocumentReference documentReference=firebaseFirestore.collection("NGUOIDUNG").document(firebaseAuth.getUid());
                         String MaND = firebaseAuth.getUid();
                         Timestamp timestamp = Timestamp.now();
                         Map<String, Object> xacNhanDonHang = new HashMap<>();
@@ -168,10 +165,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
                         Toast.makeText(v.getContext(), "Document does not exist", Toast.LENGTH_SHORT).show();
                     }
                 });
-
-
-
-
             }
         });
 
@@ -190,6 +183,16 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
                     // Xử lý khi truy vấn thất bại
                 });
 
+        CollectionReference tongtienRef = FirebaseFirestore.getInstance().collection("DONHANG");
+        DocumentReference tienRef = tongtienRef.document(order.getMaDH());
+        tienRef
+                .addSnapshotListener((documentSnapshot,e) -> {
+                    if (documentSnapshot.exists()) {
+                        long tongtien = documentSnapshot.getLong("TongTien");
+                        holder.total.setText(formatCurrency(Integer.parseInt(String.valueOf(tongtien))));
+                    }
+                });
+
         FirebaseFirestore db_con = FirebaseFirestore.getInstance();
         CollectionReference dathangRef = db_con.collection("DATHANG");
         dathangRef.whereEqualTo("MaDH", order.getMaDH())
@@ -198,9 +201,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
                     List<ItemOrder> itemOrderList = new ArrayList<>();
                     for (DocumentSnapshot document : querySnapshot.getDocuments()) {
                         String maSP = document.getString("MaSP");
-
                         int number = document.getLong("SoLuong") != null ? Math.toIntExact(document.getLong("SoLuong")) : 0;
-
+                        String color = document.getString("MauSac");
+                        String size = document.getString("Size");
                         // Truy vấn Firebase để lấy thông tin sản phẩm từ MaSP
                         CollectionReference sanphamRef = db.collection("SANPHAM");
                         sanphamRef.document(maSP).get()
@@ -219,14 +222,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
                                         Long giaSPLong = sanphamDocument.getLong("GiaSP");
                                         int GiaSP = giaSPLong != null ? Math.toIntExact(giaSPLong) : 0;
 
-                                        ItemOrder itemOrder = new ItemOrder(hinhAnhSP, tenSP, maSP, GiaSP, number);
+                                        ItemOrder itemOrder = new ItemOrder(hinhAnhSP, tenSP, maSP, GiaSP, number, color, size);
                                         itemOrderList.add(itemOrder);
-                                        // Cập nhật tổng tiền
-                                        int totalPrice = GiaSP * number;
-                                        totalMoney.addAndGet(totalPrice);
-                                        holder.total.setText(formatCurrency(totalMoney.get()));
-                                        // Đặt giá trị tổng tiền vào TextView
-
                                         // Tạo mới ProductAdapter và gán nó cho recyclerViewProducts
                                         holder.productAdapter = new ProductAdapter(itemOrderList);
                                         holder.recyclerViewProducts.setAdapter(holder.productAdapter);

@@ -27,8 +27,19 @@ public class adapter_details_category extends RecyclerView.Adapter<adapter_detai
     private List<Product> productList;
     private List<Product> oldProductList;
     private Context context;
-    private String categoryId;
 
+    private String categoryId;
+    public interface OnItemClickListener {
+        void onItemClick(Product product);
+    }
+
+    // Biến mới
+    private OnItemClickListener onItemClickListener;
+
+    // Phương thức đặt OnItemClickListener
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
+    }
     public adapter_details_category(List<Product> productList, String categoryId) {
         this.productList = productList;
         this.oldProductList = productList;
@@ -81,6 +92,7 @@ public class adapter_details_category extends RecyclerView.Adapter<adapter_detai
         holder.name.setText(product.getName());
         holder.price.setText(String.valueOf(product.getPrice()));
         Picasso.get().load(product.getAvatar()).into(holder.ava);
+
     }
 
     @Override
@@ -120,6 +132,8 @@ public class adapter_details_category extends RecyclerView.Adapter<adapter_detai
         };
     }
 
+
+
     public class ProductsViewHolder extends RecyclerView.ViewHolder {
         private TextView name, price;
         private ImageView ava;
@@ -130,6 +144,18 @@ public class adapter_details_category extends RecyclerView.Adapter<adapter_detai
             name = itemView.findViewById(R.id.txt_product_name);
             price = itemView.findViewById(R.id.txt_product_price);
             ava = itemView.findViewById(R.id.img_product_img);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onItemClickListener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            Product clickedItem = productList.get(position);
+                            onItemClickListener.onItemClick(clickedItem);
+                        }
+                    }
+                }
+            });
         }
     }
 }

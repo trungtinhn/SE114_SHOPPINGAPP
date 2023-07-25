@@ -79,8 +79,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:textSize="14dp"
+                android:fontFamily="@font/montserrat_medium"
+                android:textStyle="italic"
                 android:layout_marginBottom="5dp"
-                android:text="Color: "/>
+                android:text="alo"
+                />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/linear3"
@@ -103,8 +106,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:textSize="14dp"
+                android:fontFamily="@font/montserrat_medium"
+                android:textStyle="italic"
                 android:layout_marginBottom="5dp"
-                android:text="Color: "/>
+                android:text="alo"
+                />
         </LinearLayout>
     </LinearLayout>
 

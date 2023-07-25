@@ -21,6 +21,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +32,7 @@ public class activity_details_order extends AppCompatActivity {
     private List<ItemOrder> itemOrderList;
     private TextView TenNguoiMua, TenND, MaND, SDT, Diachi;
 
+    private TextView Phivanchuyen, pttt, Giatridonhang, giamgia, color, size, total;
     private RecyclerView recyclerViewProducts;
     private ProductAdapter productAdapter;
     private ImageView img_avatar;
@@ -51,8 +53,14 @@ public class activity_details_order extends AppCompatActivity {
         Diachi = findViewById(R.id.diachi_chitiet);
         recyclerViewProducts = findViewById(R.id.list_sanpham);
         itemOrderList = new ArrayList<>();
-
+        SDT = findViewById(R.id.soDT);
         btn_confirm = findViewById(R.id.btn_confirm);
+        TenND = findViewById(R.id.tenND);
+        total = findViewById(R.id.total);
+        Phivanchuyen = findViewById(R.id.phivanchuyen);
+        Giatridonhang = findViewById(R.id.giatridonhang);
+        giamgia = findViewById(R.id.discount);
+        pttt = findViewById(R.id.phuongthuctt);
 
         btn_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,10 +111,8 @@ public class activity_details_order extends AppCompatActivity {
         String maDH = getIntent().getStringExtra("MaDH");
         FirebaseFirestore db_donhang = FirebaseFirestore.getInstance();
         FirebaseFirestore db_nguoidung = FirebaseFirestore.getInstance();
-        FirebaseFirestore db_khuyenmai = FirebaseFirestore.getInstance();
         FirebaseFirestore db_diachi = FirebaseFirestore.getInstance();
         FirebaseFirestore db_dathang = FirebaseFirestore.getInstance();
-        FirebaseFirestore db_sanpham = FirebaseFirestore.getInstance();
         CollectionReference donHangRef = db_donhang.collection("DONHANG");
         DocumentReference docRef = donHangRef.document(maDH);
 
@@ -119,9 +125,21 @@ public class activity_details_order extends AppCompatActivity {
                         String maND = documentSnapshot.getString("MaND");
                         MaND.setText(maND);
                         String MaDC = documentSnapshot.getString("MaDC");
-
+                        String phuongttt = documentSnapshot.getString("PhuongThucTT");
+                        pttt.setText(phuongttt);
+                        long phivc = documentSnapshot.getLong("PhiVanChuyen");
+                        Phivanchuyen.setText(String.valueOf(phivc));
+                        long value_of_order = documentSnapshot.getLong("TamTinh");
+                        Giatridonhang.setText(String.valueOf(value_of_order));
+                        long discount = documentSnapshot.getLong("GiamGia");
+                        giamgia.setText(String.valueOf(discount));
                         String MaDH = documentSnapshot.getString("MaDH");
 
+                        String sodt = documentSnapshot.getString("SDT");
+                        SDT.setText(sodt);long tongtien = documentSnapshot.getLong("TongTien");
+                        DecimalFormat decimalFormat = new DecimalFormat("#,###");
+                        String formattedTongTien = decimalFormat.format(tongtien);
+                        total.setText(formattedTongTien);
                         // Từ đây, xuất ra nhiều collection khác
                         CollectionReference nguoidung = db_nguoidung.collection("NGUOIDUNG");
                         DocumentReference nguoidungref = nguoidung.document(maND);
@@ -129,6 +147,8 @@ public class activity_details_order extends AppCompatActivity {
                             if(nguoidungdocument.getResult().exists())
                             {
                                 String anhDaiDien = nguoidungdocument.getResult().getString("avatar");
+                                String fullname = nguoidungdocument.getResult().getString("fullName");
+                                TenND.setText(fullname);
                                 Picasso.get().load(anhDaiDien).into(img_avatar);
                             }
                         });
@@ -154,6 +174,8 @@ public class activity_details_order extends AppCompatActivity {
                                     List<ItemOrder> itemOrderList = new ArrayList<>();
                                     for (DocumentSnapshot document : querySnapshot.getDocuments()) {
                                         String maSP = document.getString("MaSP");
+                                        String color = document.getString("MauSac");
+                                        String size = document.getString("Size");
 
                                         int number = document.getLong("SoLuong") != null ? Math.toIntExact(document.getLong("SoLuong")) : 0;
 
@@ -175,7 +197,7 @@ public class activity_details_order extends AppCompatActivity {
                                                         Long giaSPLong = sanphamDocument.getLong("GiaSP");
                                                         int GiaSP = giaSPLong != null ? Math.toIntExact(giaSPLong) : 0;
 
-                                                        ItemOrder itemOrder = new ItemOrder(hinhAnhSP, tenSP, maSP, GiaSP, number);
+                                                        ItemOrder itemOrder = new ItemOrder(hinhAnhSP, tenSP, maSP, GiaSP, number, color, size);
                                                         itemOrderList.add(itemOrder);
                                                         // Cập nhật tổng tiền
                                                         int totalPrice = GiaSP * number;
@@ -193,6 +215,9 @@ public class activity_details_order extends AppCompatActivity {
                         // Dữ liệu không tồn tại
                     }
                 });
+
+
+
     }
 
 }

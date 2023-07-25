@@ -43,7 +43,7 @@ public class onwait_fragment extends Fragment {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference sanphamRef = db.collection("SANPHAM");
 
-        sanphamRef.whereEqualTo("TrangThai", "onwait")
+        sanphamRef.whereEqualTo("TrangThai", "Onwait")
                 .addSnapshotListener((queryDocumentSnapshots, e) -> {
                     if (e != null) {
                         // Xử lý lỗi nếu cần thiết

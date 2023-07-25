@@ -27,12 +27,15 @@ import com.example.shoppingapp.StaffView.Size.adapter_size;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -209,73 +212,77 @@ public class activity_edit_product extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && data != null) {
-            // Lấy URI của hình ảnh được chọn
             Uri imageUri = data.getData();
-
-            // Lưu URI của hình ảnh vào danh sách imageUrls
-            imageAdapter.getImageUrls().add(imageUri.toString());
-
-            // Cập nhật RecyclerView bằng cách thông báo thay đổi dữ liệu
-            imageAdapter.notifyDataSetChanged();
+            if (imageUri != null) {
+                imageUrls.add(imageUri.toString());
+                imageAdapter.notifyDataSetChanged();
+            } else {
+                Toast.makeText(this, "Failed to get image URI.", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
-
-
-
     private void updateProduct() {
         // Tải ảnh lên Firebase Storage và sau khi hoàn thành, tiến hành cập nhật thông tin sản phẩm
-        List<String> removedImageUrls = imageAdapter.getRemovedImageUrls();
         if (imageUrls.isEmpty() || imageUrls.size() > 3) {
             Toast.makeText(this, "Vui lòng thêm ít nhất một hình ảnh và không được thêm hơn 3 hình ảnh", Toast.LENGTH_SHORT).show();
             return;
         }
         uploadImagesAndSaveProduct();
     }
-
     private void uploadImagesAndSaveProduct() {
-        // Tạo thư mục lưu trữ ảnh trong Firebase Storage với tên là "ImageSanPham"
         StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("ImageSanPham");
-
-        // Tạo danh sách lưu trữ các URL ảnh mới sau khi tải lên thành công
         updatedImageUrls = new ArrayList<>();
+        List<Task<Uri>> imageUploadTasks = new ArrayList<>();
+        List<String> localImageUrls = new ArrayList<>();
+        List<String> storageImageUrls = new ArrayList<>();
 
-        // Lưu số lượng ảnh đã tải lên thành công để xác định khi nào hoàn thành tải lên tất cả
-        final int[] uploadedCount = {0};
-
-        // Tải lần lượt các ảnh lên Firebase Storage và cập nhật danh sách URL ảnh trong Firestore
         for (String imageUrl : imageUrls) {
-            // Kiểm tra xem URL ảnh đã tồn tại trong danh sách updatedImageUrls chưa
-            int existingIndex = updatedImageUrls.indexOf(imageUrl);
-            if (existingIndex != -1) {
-                // Nếu URL ảnh đã tồn tại trong danh sách updatedImageUrls, thay thế URL cũ bằng URL mới
-                updatedImageUrls.set(existingIndex, imageUrl);
-            } else {
-                // Nếu URL ảnh chưa tồn tại trong danh sách updatedImageUrls, tiến hành upload ảnh và thêm URL mới vào danh sách
-                // Thay vì sử dụng imageUrl (từ imageUrls), bạn có thể lưu trữ URI của ảnh đã tải lên trong danh sách updatedImageUrls
-                updatedImageUrls.add(imageUrl);
+            if (imageUrl.contains("firebasestorage.googleapis.com")) {
+                // Ảnh đã là URL Storage Firebase
+                storageImageUrls.add(imageUrl);
+            }
+            else {
+                // Ảnh là URL tệp cục bộ, vì vậy tải lên Firebase Storage
+                localImageUrls.add(imageUrl);
+                Uri imageUri = Uri.parse(imageUrl); // Thay đổi ở đây
+                StorageReference imageRef = storageRef.child(imageUri.getLastPathSegment());
+                UploadTask uploadTask = imageRef.putFile(imageUri);
+                Task<Uri> downloadUrlTask = uploadTask.continueWithTask(task -> {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
+                    }
+                    return imageRef.getDownloadUrl();
+                });
 
-                // Tăng số lượng ảnh đã tải lên thành công
-                uploadedCount[0]++;
-
-                // Kiểm tra xem đã tải lên hết các ảnh chưa, nếu đã xong thì tiến hành cập nhật thông tin sản phẩm
-                if (uploadedCount[0] == imageUrls.size()) {
-                    // Kiểm tra xem có ảnh nào cần xóa không
-                    List<String> removedImageUrls = new ArrayList<>(imageUrls); // Tạo một bản sao của danh sách imageUrls
-                    removedImageUrls.removeAll(updatedImageUrls); // Loại bỏ các URL hình ảnh đã tải lên khỏi danh sách removedImageUrls
-
-                    // Bây giờ, trong removedImageUrls, chỉ còn những URL hình ảnh cần bị xóa
-                    // Bạn có thể xóa các URL này khỏi Firebase Storage hoặc thực hiện các tác vụ khác cần thiết.
-
-                    // Tiếp theo, bạn có thể gọi phương thức updateProductInfo(updatedImageUrls) để cập nhật thông tin sản phẩm
-                    // và sau đó thực hiện xóa các URL hình ảnh không cần thiết nếu cần.
-                    updateProductInfo(updatedImageUrls);
-                }
+                imageUploadTasks.add(downloadUrlTask);
             }
         }
+
+        Tasks.whenAllComplete(imageUploadTasks)
+                .addOnSuccessListener(taskSnapshots -> {
+                    for (Task<Uri> downloadUrlTask : imageUploadTasks) {
+                        if (downloadUrlTask.isSuccessful()) {
+                            String imageUrlpiu = downloadUrlTask.getResult().toString();
+                            updatedImageUrls.add(imageUrlpiu);
+                            // Tùy chọn: Bạn cũng có thể loại bỏ URL ảnh cục bộ đã tải lên khỏi danh sách
+                            localImageUrls.remove(imageUrlpiu);
+                        }
+                    }
+
+                    // Gộp hai danh sách (URL Storage Firebase đã tải lên + URL Storage Firebase ban đầu)
+                    updatedImageUrls.addAll(storageImageUrls);
+                    // Bây giờ bạn có một danh sách hoàn chỉnh của URL ảnh sẵn sàng để thêm vào tài liệu
+
+                    // Gọi hàm để cập nhật thông tin sản phẩm
+                    updateProductInfo(updatedImageUrls);
+
+                    Toast.makeText(getApplicationContext(), "Lấy URL ảnh thành công!", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(getApplicationContext(), "Lỗi khi tải lên ảnh!", Toast.LENGTH_SHORT).show();
+                });
     }
-
-
 
     private void updateProductInfo(List<String> updatedImageUrls) {
         // Lấy thông tin sản phẩm từ giao diện người dùng
@@ -315,7 +322,7 @@ public class activity_edit_product extends AppCompatActivity {
             }
         }
         selectedSizes.clear();
-        for(Size size:allSize)
+        for(Size size : allSize)
         {
             if(size.isChecked())
             {
@@ -323,7 +330,6 @@ public class activity_edit_product extends AppCompatActivity {
             }
         }
 
-        // Cập nhật thông tin sản phẩm vào Firestore
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference productsRef = db.collection("SANPHAM");
         productsRef.document(MaSP).update(
@@ -333,7 +339,7 @@ public class activity_edit_product extends AppCompatActivity {
                 "SoLuongSP", soluong,
                 "MauSac", selectedColors,
                 "Size", selectedSizes,
-                "HinhAnhSP", updatedImageUrls // Cập nhật danh sách URL ảnh mới vào Firestore
+                "HinhAnhSP", updatedImageUrls
         ).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {

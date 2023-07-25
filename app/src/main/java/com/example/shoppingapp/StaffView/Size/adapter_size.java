@@ -16,6 +16,7 @@ import java.util.List;
 
 public class adapter_size extends RecyclerView.Adapter<adapter_size.SizeViewHolder> {
     private List<Size> sizeList;
+    private Size size;
     public List<String> getSelectedSizes() {
         List<String> selectedSizes = new ArrayList<>();
         for (Size size : sizeList) {
@@ -24,6 +25,9 @@ public class adapter_size extends RecyclerView.Adapter<adapter_size.SizeViewHold
             }
         }
         return selectedSizes;
+    }
+    public adapter_size(Size size){
+        this.size = size;
     }
 
     private OnSizeCheckedChangeListener onSizeCheckedChangeListener;

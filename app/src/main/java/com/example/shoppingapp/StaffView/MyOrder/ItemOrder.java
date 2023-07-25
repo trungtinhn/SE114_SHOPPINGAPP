@@ -3,6 +3,25 @@ package com.example.shoppingapp.StaffView.MyOrder;
 public class ItemOrder {
 
     private String TenSP;
+    private String MauSac;
+    private String Size;
+
+    public String getMauSac() {
+        return MauSac;
+    }
+
+    public void setMauSac(String mauSac) {
+        MauSac = mauSac;
+    }
+
+    public String getSize() {
+        return Size;
+    }
+
+    public void setSize(String size) {
+        Size = size;
+    }
+
 
     public String getHinhAnhSP() {
         return HinhAnhSP;
@@ -34,6 +53,15 @@ public class ItemOrder {
         this.TenSP = TenSP;
         this.MaSP = MaSP;
         this.SoLuong = SoLuong;
+    }
+    public ItemOrder (String HinhAnhSP,String TenSP, String MaSP,int GiaSP, int SoLuong, String color, String size){
+        this.GiaSP = GiaSP;
+        this.HinhAnhSP = HinhAnhSP;
+        this.TenSP = TenSP;
+        this.MaSP = MaSP;
+        this.SoLuong = SoLuong;
+        this.MauSac = color;
+        this.Size = size;
     }
 
     public String getTenSP() {

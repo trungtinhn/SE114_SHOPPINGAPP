@@ -1,0 +1,44 @@
+// Lấy thông tin sản phẩm từ giao diện người dùng
+        String tenSP = name.getText().toString();
+        String mota = description.getText().toString();
+        long giaSP;
+        int soluong;
+        try {
+            giaSP = Long.parseLong(price.getText().toString());
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, "Vui lòng nhập giá hợp lệ hoặc không được để trống", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        try {
+            soluong = Integer.parseInt(amount.getText().toString());
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, "Vui lòng nhập số lượng hợp lệ hoặc không được để trống", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Kiểm tra các thông tin cần thiết không được để trống
+        if (tenSP.isEmpty()) {
+            Toast.makeText(this, "Vui lòng nhập tên sản phẩm", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(mota.isEmpty()) {
+            Toast.makeText(this, "Vui lòng nhập mô tả sản phẩm", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Lấy danh sách màu sắc mới từ adapter_color
+        selectedColors.clear();
+        for (Color color : allColors) {
+            if (color.getChecked()) {
+                selectedColors.add(color.getMaMau());
+            }
+        }
+        selectedSizes.clear();
+        for(Size size:allSize)
+        {
+            if(size.isChecked())
+            {
+                selectedSizes.add(size.getMaSize());
+            }
+        }

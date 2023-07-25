@@ -21,13 +21,12 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorViewHol
     DetailProductActivity detailProductActivity;
 
     private int selectedItem = -1;
+
     public void setData(List<Colors> list, DetailProductActivity detailProductActivity){
         this.mColor = list;
         this.detailProductActivity = detailProductActivity;
         notifyDataSetChanged();
     }
-
-
 
     @NonNull
     @Override

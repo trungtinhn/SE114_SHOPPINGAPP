@@ -15,15 +15,15 @@ import com.example.shoppingapp.Login.LoginActivity;
 import com.example.shoppingapp.Login.User;
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.StaffView.Categories.Activity.activity_categories;
+import com.example.shoppingapp.StaffView.FinancialReport.Activity.activity_financial;
 import com.example.shoppingapp.StaffView.MyOrder.Activity.activity_MyOrder;
 import com.example.shoppingapp.StaffView.MyProduct.Activity.activity_MyProduct;
 import com.example.shoppingapp.StaffView.Promotions.Activity.activity_promotions;
-import com.example.shoppingapp.StaffView.ViewShop.activity_viewshop;
+import com.example.shoppingapp.StaffView.ViewShop.Activity.activity_viewshop;
 import com.example.shoppingapp.StaffView.activity.activity_admin_control;
 import com.example.shoppingapp.StaffView.activity.activity_chat_board;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
@@ -55,6 +55,14 @@ public class home_page extends AppCompatActivity {
         btn_view_shop = findViewById(R.id.btn_view_shop);
         btn_Promotions = findViewById(R.id.btn_promotions);
         btn_logout = findViewById(R.id.btn_logout);
+        btn_financial_report = findViewById(R.id.btn_financial_report);
+        btn_financial_report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(home_page.this, activity_financial.class);
+                startActivity(intent);
+            }
+        });
         btn_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,9 +72,19 @@ public class home_page extends AppCompatActivity {
                 finish();
             }
         });
-        firebaseFirestore=FirebaseFirestore.getInstance();
-        firebaseAuth=FirebaseAuth.getInstance();
-        DocumentReference documentReference=firebaseFirestore.collection("NGUOIDUNG").document(firebaseAuth.getUid());
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        // Kiểm tra và xử lý trường hợp khi firebaseAuth.getUid() bị null
+        if (firebaseAuth.getCurrentUser() == null) {
+            // Xử lý khi firebaseAuth.getUid() bị null, ví dụ chuyển đến màn hình đăng nhập
+            Intent intent = new Intent(home_page.this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+            return;
+        }
+
         firebaseFirestore.collection("NGUOIDUNG").document(firebaseAuth.getUid()).
                 get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -74,7 +92,7 @@ public class home_page extends AppCompatActivity {
                 user = documentSnapshot.toObject(User.class);
                 ((TextView) findViewById(R.id.userName)).setText(user.getFullName());
                 ((TextView) findViewById(R.id.userID)).setText(user.getMaND());
-                String uri=user.getAvatar();
+                String uri= user.getAvatar();
                 try{
                     if(uri.isEmpty())
                     {

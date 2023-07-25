@@ -26,6 +26,7 @@ public class SizeAdapter extends RecyclerView.Adapter<SizeAdapter.SizeViewHolder
         notifyDataSetChanged();
     }
 
+
     @NonNull
     @Override
     public SizeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

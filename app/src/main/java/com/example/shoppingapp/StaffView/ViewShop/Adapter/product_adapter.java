@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -67,7 +66,7 @@ public class product_adapter extends RecyclerView.Adapter<product_adapter .Produ
     @NonNull
     @Override
     public ProductsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product, parent, false);
         return new ProductsViewHolder(view);
     }
 
@@ -87,15 +86,12 @@ public class product_adapter extends RecyclerView.Adapter<product_adapter .Produ
     public class ProductsViewHolder extends RecyclerView.ViewHolder {
         private TextView name, price;
         private ImageView ava;
-        private Button H, Edit;
 
         public ProductsViewHolder(@NonNull View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.product_name);
-            price = itemView.findViewById(R.id.product_price);
-            ava = itemView.findViewById(R.id.id_avatar);
-            H = itemView.findViewById(R.id.button2);
-            Edit = itemView.findViewById(R.id.button3);
+            name = itemView.findViewById(R.id.txt_product_name);
+            price = itemView.findViewById(R.id.txt_product_price);
+            ava = itemView.findViewById(R.id.img_product_img);
         }
     }
 }

@@ -40,7 +40,6 @@ public class CheckProductAdapter extends RecyclerView.Adapter<CheckProductAdapte
         private TextView getMaStaff;
         private Button Confirm;
         private TextView total;
-
         public ViewHolder(View itemView) {
             super(itemView);
             orderIdTextView = itemView.findViewById(R.id.maND);
@@ -50,6 +49,7 @@ public class CheckProductAdapter extends RecyclerView.Adapter<CheckProductAdapte
             total = itemView.findViewById(R.id.money_total);
             getMaStaff = itemView.findViewById(R.id.getMaND);
             Confirm = itemView.findViewById(R.id.btn_confirm);
+
         }
     }
 
@@ -149,6 +149,15 @@ public class CheckProductAdapter extends RecyclerView.Adapter<CheckProductAdapte
                 .addOnFailureListener(e -> {
                     // Xử lý khi truy vấn thất bại
                 });
+        CollectionReference tongtienRef = FirebaseFirestore.getInstance().collection("DONHANG");
+        DocumentReference tienRef = tongtienRef.document(order.getMaDH());
+        tienRef
+                .addSnapshotListener((documentSnapshot,e) -> {
+                    if (documentSnapshot.exists()) {
+                        long tongtien = documentSnapshot.getLong("TongTien");
+                        holder.total.setText(formatCurrency(Integer.parseInt(String.valueOf(tongtien))));
+                    }
+                });
         FirebaseFirestore db_con = FirebaseFirestore.getInstance();
         CollectionReference dathangRef = db_con.collection("DATHANG");
         dathangRef.whereEqualTo("MaDH", order.getMaDH())
@@ -157,7 +166,8 @@ public class CheckProductAdapter extends RecyclerView.Adapter<CheckProductAdapte
                     List<ItemOrder> itemOrderList = new ArrayList<>();
                     for (DocumentSnapshot document : querySnapshot.getDocuments()) {
                         String maSP = document.getString("MaSP");
-
+                        String color = document.getString("MauSac");
+                        String size = document.getString("Size");
                         int number = document.getLong("SoLuong") != null ? Math.toIntExact(document.getLong("SoLuong")) : 0;
 
                         // Truy vấn Firebase để lấy thông tin sản phẩm từ MaSP
@@ -178,13 +188,8 @@ public class CheckProductAdapter extends RecyclerView.Adapter<CheckProductAdapte
                                         Long giaSPLong = sanphamDocument.getLong("GiaSP");
                                         int GiaSP = giaSPLong != null ? Math.toIntExact(giaSPLong) : 0;
 
-                                        ItemOrder itemOrder = new ItemOrder(hinhAnhSP, tenSP, maSP, GiaSP, number);
+                                        ItemOrder itemOrder = new ItemOrder(hinhAnhSP, tenSP, maSP, GiaSP, number, color, size);
                                         itemOrderList.add(itemOrder);
-                                        // Cập nhật tổng tiền
-                                        int totalPrice = GiaSP * number;
-                                        totalMoney.addAndGet(totalPrice);
-                                        holder.total.setText(formatCurrency(totalMoney.get()));
-                                        // Đặt giá trị tổng tiền vào TextView
 
                                         // Tạo mới ProductAdapter và gán nó cho recyclerViewProducts
                                         holder.productAdapter = new ProductAdapter(itemOrderList);
