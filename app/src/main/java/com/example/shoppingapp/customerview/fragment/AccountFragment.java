@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -70,7 +71,7 @@ public class AccountFragment extends Fragment {
         txtFullName = view.findViewById(R.id.user_name);
         imgAvt = view.findViewById(R.id.img_avt_account);
         // Inflate the layout for this fragment
-
+       // setOnClickProfile();
         setOnCLickHelp();
         setOnClickChangePass();
         setOnClickLogOut();
@@ -91,9 +92,19 @@ public class AccountFragment extends Fragment {
                     String fullName = documentSnapshot.getString("fullName");
                     String avatarURL = documentSnapshot.getString("avatar");
                     txtFullName.setText(fullName);
-                    int width = 200;
-                    int height = 200;
-                    Picasso.get().load(avatarURL).resize(width, height).into(imgAvt);
+                    try {
+                        if (avatarURL != null && !avatarURL .isEmpty()) {
+                            int width = 200;
+                            int height = 200;
+                            Picasso.get().load(avatarURL ).resize(width, height).into(imgAvt);
+                        } else {
+                            int width = 200;
+                            int height = 200;
+                            Picasso.get().load(R.drawable.null_avatar).resize(width, height).into(imgAvt);
+                        }
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
                 } else {
                     // Xử lý khi tài liệu không tồn tại hoặc bị xóa
                 }
@@ -144,4 +155,12 @@ public class AccountFragment extends Fragment {
             }
         });
     }
+//    private void setOnClickProfile() {
+//        Profile.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                bottomNavigationCustomActivity.gotoProfile();
+//            }
+//        });
+//    }
 }
