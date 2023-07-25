@@ -18,6 +18,9 @@ import com.example.shoppingapp.R;
 import com.example.shoppingapp.StaffView.Categories.Adapter.adapter_details_category;
 import com.example.shoppingapp.StaffView.DetailProduct.Activity.activity_details_product_staff;
 import com.example.shoppingapp.StaffView.Product;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -91,7 +94,33 @@ public class activity_details_category extends AppCompatActivity implements Filt
             }
         });
     }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        DocumentReference documentReference=FirebaseFirestore.getInstance().
+                collection("NGUOIDUNG").document(FirebaseAuth.getInstance().getUid());
+        documentReference.update("status","Offline").addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+            }
+        });
 
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        DocumentReference documentReference=FirebaseFirestore.getInstance().
+                collection("NGUOIDUNG").document(FirebaseAuth.getInstance().getUid());
+        documentReference.update("status","Online").addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+            }
+        });
+
+    }
     @Override
     public Filter getFilter() {
         return null;

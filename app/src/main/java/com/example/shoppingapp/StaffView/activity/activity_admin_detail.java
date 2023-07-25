@@ -138,6 +138,33 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
             }
         });
     }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        DocumentReference documentReference=FirebaseFirestore.getInstance().
+                collection("NGUOIDUNG").document(FirebaseAuth.getInstance().getUid());
+        documentReference.update("status","Offline").addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+            }
+        });
+
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        DocumentReference documentReference=FirebaseFirestore.getInstance().
+                collection("NGUOIDUNG").document(FirebaseAuth.getInstance().getUid());
+        documentReference.update("status","Online").addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+            }
+        });
+
+    }
     private void EventEdit()
     {
         DialogPlus dialogPlus = DialogPlus.newDialog( this)

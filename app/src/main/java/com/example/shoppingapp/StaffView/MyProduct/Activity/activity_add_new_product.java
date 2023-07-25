@@ -27,6 +27,7 @@ import com.example.shoppingapp.StaffView.Size.Size;
 import com.example.shoppingapp.StaffView.Size.adapter_size;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -235,6 +236,30 @@ public class activity_add_new_product extends AppCompatActivity {
             }
         });
 
+
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        DocumentReference documentReference=FirebaseFirestore.getInstance().
+                collection("NGUOIDUNG").document(FirebaseAuth.getInstance().getUid());
+        documentReference.update("status","Offline").addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+            }
+        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        DocumentReference documentReference=FirebaseFirestore.getInstance().
+                collection("NGUOIDUNG").document(FirebaseAuth.getInstance().getUid());
+        documentReference.update("status","Online").addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+            }
+        });
 
     }
     public interface OnImageUploadListener {

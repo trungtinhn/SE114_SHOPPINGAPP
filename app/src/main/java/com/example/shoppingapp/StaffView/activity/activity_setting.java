@@ -125,6 +125,33 @@ public class activity_setting extends AppCompatActivity implements AdapterView.O
         }
         EventInit();
     }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        DocumentReference documentReference=FirebaseFirestore.getInstance().
+                collection("NGUOIDUNG").document(FirebaseAuth.getInstance().getUid());
+        documentReference.update("status","Offline").addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+            }
+        });
+
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        DocumentReference documentReference=FirebaseFirestore.getInstance().
+                collection("NGUOIDUNG").document(FirebaseAuth.getInstance().getUid());
+        documentReference.update("status","Online").addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+            }
+        });
+
+    }
     private void EventChangeAva() {
         Intent pickPhotoIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(pickPhotoIntent, REQUEST_IMAGE_PICK);

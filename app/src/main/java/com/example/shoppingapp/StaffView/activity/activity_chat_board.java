@@ -11,9 +11,11 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.StaffView.adapter.adapter_chat_board_staff;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class activity_chat_board extends AppCompatActivity {
@@ -55,8 +57,6 @@ public class activity_chat_board extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
-//                Intent intent=new Intent(activity_chat_board.this, home_page.class);
-//                startActivity(intent);
             }
         });
 
@@ -87,6 +87,33 @@ public class activity_chat_board extends AppCompatActivity {
 
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        DocumentReference documentReference=FirebaseFirestore.getInstance().
+                collection("NGUOIDUNG").document(FirebaseAuth.getInstance().getUid());
+        documentReference.update("status","Offline").addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+            }
+        });
+
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        DocumentReference documentReference=FirebaseFirestore.getInstance().
+                collection("NGUOIDUNG").document(FirebaseAuth.getInstance().getUid());
+        documentReference.update("status","Online").addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+            }
+        });
 
     }
 }

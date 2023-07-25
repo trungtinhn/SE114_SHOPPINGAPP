@@ -15,7 +15,11 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.StaffView.ViewShop.Fragment.fragment_listItems;
 import com.example.shoppingapp.StaffView.ViewShop.Fragment.fragment_products;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class activity_viewshop extends AppCompatActivity{
     private TabLayout tabLayout;
@@ -32,6 +36,33 @@ public class activity_viewshop extends AppCompatActivity{
 
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        DocumentReference documentReference=FirebaseFirestore.getInstance().
+                collection("NGUOIDUNG").document(FirebaseAuth.getInstance().getUid());
+        documentReference.update("status","Offline").addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+            }
+        });
+
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        DocumentReference documentReference= FirebaseFirestore.getInstance().
+                collection("NGUOIDUNG").document(FirebaseAuth.getInstance().getUid());
+        documentReference.update("status","Online").addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+            }
+        });
+
     }
     private static class PagerAdapter extends FragmentPagerAdapter {
         private static final int NUM_PAGES = 2;

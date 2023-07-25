@@ -38,9 +38,6 @@
             android:name=".customerview.BottomNavigationCustomActivity"
             android:exported="true" />
         <activity
-            android:name=".StaffView.activity.activity_click_staff_check"
-            android:exported="true" />
-        <activity
             android:name=".Login.LoginActivity"
             android:enableOnBackInvokedCallback="true"
             android:exported="true"
@@ -112,9 +109,6 @@
             android:name=".customerview.activity.SearchingActivity"
             android:exported="false" />
         <activity
-            android:name=".customerview.activity.MessageActivity"
-            android:exported="false" />
-        <activity
             android:name=".customerview.activity.DetailProductActivity"
             android:theme="@style/Theme.ShoppingApp"
             android:exported="true" />
@@ -128,9 +122,6 @@
 
         <activity
             android:name=".StaffView.activity.activity_List_Product_And_Item"
-            android:exported="true" />
-        <activity
-            android:name=".StaffView.activity.activity_chartbar"
             android:exported="true" />
         <activity android:name=".StaffView.MyProduct.Activity.activity_MyProduct"
             android:exported="true"/>

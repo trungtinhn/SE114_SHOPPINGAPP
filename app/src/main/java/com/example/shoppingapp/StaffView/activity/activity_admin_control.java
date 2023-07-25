@@ -51,6 +51,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -176,8 +177,6 @@ public class activity_admin_control extends AppCompatActivity implements itf_RCV
             @Override
             public void onClick(View view) {
                 finish();
-//                Intent intent = new Intent(activity_admin_control.this, home_page.class);
-//                startActivity(intent);
             }
         });
         SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
@@ -200,6 +199,33 @@ public class activity_admin_control extends AppCompatActivity implements itf_RCV
 
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        DocumentReference documentReference=FirebaseFirestore.getInstance().
+                collection("NGUOIDUNG").document(FirebaseAuth.getInstance().getUid());
+        documentReference.update("status","Offline").addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+            }
+        });
+
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        DocumentReference documentReference=FirebaseFirestore.getInstance().
+                collection("NGUOIDUNG").document(FirebaseAuth.getInstance().getUid());
+        documentReference.update("status","Online").addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+            }
+        });
+
+    }
     private void EventAdd() {
 
         DialogPlus dialogPlus = DialogPlus.newDialog(this)
