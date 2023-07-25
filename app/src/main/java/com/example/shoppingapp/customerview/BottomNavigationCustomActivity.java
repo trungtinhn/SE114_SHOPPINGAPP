@@ -153,7 +153,7 @@ public class BottomNavigationCustomActivity extends AppCompatActivity{
         startActivity(intent);
     }
 
-    public void gotoYourOrder() {
+    public void gotoOrderActivity() {
         Intent intent = new Intent(BottomNavigationCustomActivity.this, OrderActivity.class);
       //  intent.putExtra("MaSP", product.getMasp());
         startActivity(intent);

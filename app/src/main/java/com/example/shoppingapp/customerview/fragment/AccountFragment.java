@@ -1,10 +1,6 @@
 package com.example.shoppingapp.customerview.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +8,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.customerview.BottomNavigationCustomActivity;
-import com.example.shoppingapp.customerview.activity.OrderActivity;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
@@ -74,6 +70,7 @@ public class AccountFragment extends Fragment {
         setOnCLickHelp();
         setOnClickChangePass();
         setOnClickLogOut();
+        setOnClickProfile();
         if (currentUser != null) {
             String userID = currentUser.getUid();
 
@@ -91,12 +88,12 @@ public class AccountFragment extends Fragment {
                     String fullName = documentSnapshot.getString("fullName");
                     String avatarURL = documentSnapshot.getString("avatar");
                     txtFullName.setText(fullName);
-                    int width = 200;
-                    int height = 200;
-                    Picasso.get().load(avatarURL).resize(width, height).into(imgAvt);
-                } else {
-                    // Xử lý khi tài liệu không tồn tại hoặc bị xóa
-                }
+                  if (avatarURL != null && !avatarURL.isEmpty()) {
+                        int width = 200;
+                        int height = 200;
+                        Picasso.get().load(avatarURL).resize(width, height).into(imgAvt);
+                    } else {
+                    }
             });
         }
 
@@ -107,7 +104,14 @@ public class AccountFragment extends Fragment {
     }
 
 
-
+    private void setOnClickProfile() {
+        Profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomNavigationCustomActivity.gotoProfile();
+            }
+        });
+    }
     private void setOnCLickHelp() {
         Help.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,8 +143,7 @@ public class AccountFragment extends Fragment {
         YourOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bottomNavigationCustomActivity.gotoOrderActivity();
-
+                //bottomNavigationCustomActivity.gotoOrderActivity();
             }
         });
     }

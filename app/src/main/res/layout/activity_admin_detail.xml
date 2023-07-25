@@ -30,7 +30,7 @@
             android:layout_height="72dp"
             android:layout_marginTop="10dp"
             android:layout_marginStart="8dp"
-            android:src="@color/teal_700"
+            android:src="@drawable/default_user"
             app:shapeAppearanceOverlay="@style/Circular" />
 
         <LinearLayout
@@ -76,6 +76,7 @@
         <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+            android:id="@+id/lay_detail"
         android:layout_margin="10dp"
         android:background="@drawable/background_circle_send"
         android:gravity="center"
@@ -89,7 +90,7 @@
             app:civ_border_color="@color/white"
             app:civ_border_overlay="true"
             app:civ_border_width="0dp"
-            android:src="@color/white"/>
+            android:src="@drawable/default_user" />
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -334,6 +335,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="30dp"
+            android:layout_gravity="bottom"
             android:padding="10dp"
             android:gravity="center">
             <androidx.appcompat.widget.AppCompatButton
@@ -343,13 +345,13 @@
                 android:text="Remove"
                 android:fontFamily="@font/montserrat"
                 android:textColor="@color/white"
+                android:layout_marginEnd="50dp"
                 android:textSize="15dp"
                 android:background="@drawable/background_circle_send"
                 android:backgroundTint="@color/orange"/>
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_edit"
                 android:layout_width="wrap_content"
-                android:layout_marginStart="50dp"
                 android:layout_height="wrap_content"
                 android:text="Edit"
                 android:fontFamily="@font/montserrat"

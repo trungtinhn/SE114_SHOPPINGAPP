@@ -193,7 +193,20 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
             @Override
             public void onClick(View view) {
                 dialogPlus.dismiss();
-                if(!ImageUrl.equals(oldImageUrl)) DeleteOldImg(ImageUrl);
+                try {
+                    if (!ImageUrl.equals(oldImageUrl)) {
+                        try {
+                            if (!ImageUrl.isEmpty()) {
+                                DeleteOldImg(ImageUrl);
+                            }}
+                        catch (Exception d)
+                        {
+                        }
+                    }
+                }
+                catch (Exception d)
+                {
+                }
             }
         });
         edImg.setOnClickListener(new View.OnClickListener() {
@@ -247,7 +260,20 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
                             public void onSuccess(Void unused) {
                                 Toast.makeText(activity_admin_detail.this, "Success updating the data", Toast.LENGTH_SHORT).show();
                                 dialogPlus.dismiss();
-                                if(!ImageUrl.equals(oldImageUrl)) DeleteOldImg(oldImageUrl);
+                                try {
+                                    if (!ImageUrl.equals(oldImageUrl)) {
+                                        try {
+                                            if (!oldImageUrl.isEmpty()) {
+                                                DeleteOldImg(oldImageUrl);
+                                            }}
+                                        catch (Exception e)
+                                        {
+                                        }
+                                    }
+                                }
+                                catch (Exception e)
+                                {
+                                }
                                 Intent intent = new Intent(activity_admin_detail.this,activity_admin_control.class);
                                 startActivity(intent);
                             }
@@ -257,7 +283,20 @@ public class activity_admin_detail extends AppCompatActivity implements AdapterV
                             public void onFailure(@NonNull Exception e) {
                                 dialogPlus.dismiss();
                                 Toast.makeText(activity_admin_detail.this, "Fail to update the data", Toast.LENGTH_SHORT).show();
-                                if(!ImageUrl.equals(oldImageUrl)) DeleteOldImg(ImageUrl);
+                                try {
+                                    if (!ImageUrl.equals(oldImageUrl)) {
+                                        try {
+                                            if (!ImageUrl.isEmpty()) {
+                                                DeleteOldImg(ImageUrl);
+                                            }}
+                                        catch (Exception d)
+                                        {
+                                        }
+                                    }
+                                }
+                                catch (Exception d)
+                                {
+                                }
                             }
                         });
             }
