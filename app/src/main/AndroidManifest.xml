@@ -94,6 +94,9 @@
             android:name=".customerview.activity.BuyNow"
             android:exported="false" />
         <activity
+            android:name=".customerview.activity.ChatActivity"
+            android:exported="false" />
+        <activity
             android:name=".customerview.activity.SaveAddress"
             android:exported="false" />
         <activity

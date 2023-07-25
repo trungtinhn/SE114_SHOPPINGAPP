@@ -26,6 +26,7 @@
             android:layout_height="wrap_content"
             android:maxWidth="300dp"
             android:text="Hello you!"
+            android:fontFamily="@font/montserrat"
             android:layout_marginRight="10dp"
             android:textColor="@color/white"
 
@@ -36,6 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="11:30"
+            android:fontFamily="@font/montserrat"
             android:textColor="@color/white"
             android:textSize="10dp"
             android:layout_gravity="bottom"

@@ -1,17 +1,34 @@
 package com.example.shoppingapp.StaffView.item;
 
 public class message_object {
-    private String msgId, senderId, message, time;
+    private String msgId, senderId, message, time, receiveID;
     long timestamp;
 
+
+
     public message_object(){}
-    public message_object(String message, String senderId, long timestamp , String time) {
+    public message_object(String message, String senderId,String receiveID, long timestamp , String time) {
         this.timestamp = timestamp;
         this.senderId = senderId;
         this.message = message;
+        this.receiveID = receiveID;
         this.time = time;
     }
+    public String getReceiveID() {
+        return receiveID;
+    }
 
+    public void setReceiveID(String receiveID) {
+        this.receiveID = receiveID;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
     public String getMsgId() {
         return msgId;
     }

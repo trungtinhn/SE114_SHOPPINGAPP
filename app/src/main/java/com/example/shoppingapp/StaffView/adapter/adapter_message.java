@@ -65,12 +65,28 @@ public class adapter_message extends RecyclerView.Adapter<adapter_message.MyView
             holder.layout_rowMessage.setBackgroundResource(background_message_blue);
             holder.txtContentMessage.setTextColor((ContextCompat.getColor(context,R.color.white)));
             holder.txtTimeMessage.setTextColor((ContextCompat.getColor(context,R.color.white)));
-        }else {
+        }
+        else if(messageObject.getReceiveID().equals(FirebaseAuth.getInstance().getUid()))
+        {
             holder.layout_message_item.setGravity(Gravity.LEFT);
             holder.layout_rowMessage.setBackgroundResource(background_message_white);
             holder.txtContentMessage.setTextColor((ContextCompat.getColor(context,R.color.black)));
             holder.txtTimeMessage.setTextColor((ContextCompat.getColor(context,R.color.black)));
         }
+        else if(messageObject.getReceiveID().equals("Staff"))
+        {
+            holder.layout_message_item.setGravity(Gravity.LEFT);
+            holder.layout_rowMessage.setBackgroundResource(background_message_white);
+            holder.txtContentMessage.setTextColor((ContextCompat.getColor(context,R.color.black)));
+            holder.txtTimeMessage.setTextColor((ContextCompat.getColor(context,R.color.black)));
+        }
+        else if(messageObject.getSenderId().equals("Staff")){
+            holder.layout_message_item.setGravity(Gravity.RIGHT);
+            holder.layout_rowMessage.setBackgroundResource(background_message_blue);
+            holder.txtContentMessage.setTextColor((ContextCompat.getColor(context,R.color.white)));
+            holder.txtTimeMessage.setTextColor((ContextCompat.getColor(context,R.color.white)));
+        }
+
     }
 
     @Override

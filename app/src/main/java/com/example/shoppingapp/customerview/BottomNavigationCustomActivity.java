@@ -15,8 +15,8 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.shoppingapp.Login.LoginActivity;
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.customerview.activity.ChangePassWordActivity;
+import com.example.shoppingapp.customerview.activity.ChatActivity;
 import com.example.shoppingapp.customerview.activity.DetailProductActivity;
-import com.example.shoppingapp.customerview.activity.MessageActivity;
 import com.example.shoppingapp.customerview.activity.Notification;
 import com.example.shoppingapp.customerview.activity.OrderActivity;
 import com.example.shoppingapp.customerview.activity.ProfileActivity;
@@ -132,7 +132,7 @@ public class BottomNavigationCustomActivity extends AppCompatActivity{
 
     public void gotoMessageActivity()
     {
-        Intent intent = new Intent(BottomNavigationCustomActivity.this, MessageActivity.class);
+        Intent intent = new Intent(BottomNavigationCustomActivity.this, ChatActivity.class);
         startActivity(intent);
     }
 
@@ -165,7 +165,7 @@ public class BottomNavigationCustomActivity extends AppCompatActivity{
     }
 
     public void gotoCLickHelp() {
-        Intent intent = new Intent(BottomNavigationCustomActivity.this, MessageActivity.class);
+        Intent intent = new Intent(BottomNavigationCustomActivity.this, ChatActivity.class);
         startActivity(intent);
     }
 
