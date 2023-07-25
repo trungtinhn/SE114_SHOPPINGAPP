@@ -21,7 +21,7 @@ import com.example.shoppingapp.StaffView.FinancialReport.Activity.activity_finan
 import com.example.shoppingapp.StaffView.MyOrder.Activity.activity_MyOrder;
 import com.example.shoppingapp.StaffView.MyProduct.Activity.activity_MyProduct;
 import com.example.shoppingapp.StaffView.Promotions.Activity.activity_promotions;
-import com.example.shoppingapp.StaffView.ViewShop.activity_viewshop;
+import com.example.shoppingapp.StaffView.ViewShop.Activity.activity_viewshop;
 import com.example.shoppingapp.StaffView.activity.activity_admin_control;
 import com.example.shoppingapp.StaffView.activity.activity_chat_board;
 import com.example.shoppingapp.StaffView.activity.activity_setting;
