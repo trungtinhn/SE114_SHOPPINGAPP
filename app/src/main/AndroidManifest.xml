@@ -166,7 +166,9 @@
          <activity android:name=".customerview.activity.ChangePassWordActivity"
             android:exported="true"/>
         <activity android:name=".customerview.activity.ProfileActivity"
-        android:exported="true"/>
+            android:exported="true"/>
+         <activity android:name=".customerview.activity.OrderActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>
