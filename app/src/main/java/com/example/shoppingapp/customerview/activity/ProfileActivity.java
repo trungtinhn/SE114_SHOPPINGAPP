@@ -14,7 +14,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -50,7 +49,7 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
     Button btn_ChangeIf,btn_ChangeAva;
     User user;
     int position;
-    private ImageButton back_to_Home;
+    private Button back_to_Home;
     FirebaseFirestore db;
     FirebaseAuth firebaseAuth;
     DocumentReference docRef;
@@ -192,9 +191,6 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
         dialog.show();
     }
 
-
-
-
     private void EventEdit() {
         DialogPlus dialogPlus = DialogPlus.newDialog( this)
                 .setGravity(Gravity.CENTER)
@@ -216,7 +212,6 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
         gender.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         edSex.setAdapter(gender);
         edSex.setOnItemSelectedListener(this);
-
 
         edDob.setOnClickListener(new View.OnClickListener() {
             @Override

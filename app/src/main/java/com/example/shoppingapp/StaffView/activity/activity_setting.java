@@ -5,8 +5,9 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+import android.provider.MediaStore;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -54,6 +55,8 @@ import java.util.Map;
 import java.util.UUID;
 
 public class activity_setting extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+    private static final int REQUEST_IMAGE_PICK = 1;
+    private String currentUserId ;
     User object;
     int position;
     ProgressDialog progressDialog;
@@ -65,7 +68,7 @@ public class activity_setting extends AppCompatActivity implements AdapterView.O
     StorageReference storageReference;
     private LinearLayout layout;
     private String imagePath;
-    private ImageView edImg;
+    private ImageView edImg, imgAvt;
     private String ImageUrl;
     private String oldImageUrl;
     private Uri Staff_imagepath;
@@ -74,10 +77,10 @@ public class activity_setting extends AppCompatActivity implements AdapterView.O
         super.onCreate(savedInstanceState);
         firebaseAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_profile);
-
+        currentUserId = firebaseAuth.getCurrentUser().getUid();
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
-
+        imgAvt = findViewById(R.id.img_avt_Profile);
         db = FirebaseFirestore.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
         docRef = FirebaseFirestore.getInstance()
@@ -117,13 +120,14 @@ public class activity_setting extends AppCompatActivity implements AdapterView.O
                 EventChangeAva();
             }
         });
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            findViewById(R.id.constraintLayout).setLeftTopRightBottom(0,0,0,180);
+        }
         EventInit();
     }
-    private static final int REQUEST_IMAGE_PICK = 1;
     private void EventChangeAva() {
-        ImagePicker.Companion.with(activity_setting.this)
-                .crop()  // optionally enable image cropping
-                .start();
+        Intent pickPhotoIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(pickPhotoIntent, REQUEST_IMAGE_PICK);
     }
     private void EventInit(){
         db.collection("NGUOIDUNG").document(firebaseAuth.getUid()).
@@ -342,7 +346,7 @@ public class activity_setting extends AppCompatActivity implements AdapterView.O
         progressDialog.show();
         StorageReference storageRef = firebaseStorage.getReference();
 
-        String imagePath = "ImageUser/" + UUID.randomUUID().toString() + ".jpg";
+        String imagePath = "ImageUser/" + firebaseAuth.getCurrentUser().getUid() + ".jpg";
         StorageReference imageRef = storageRef.child(imagePath);
 
         imageRef.putFile(imageUri)
@@ -352,7 +356,6 @@ public class activity_setting extends AppCompatActivity implements AdapterView.O
                         imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri downloadUri) {
-                                Log.d("ImageURI: ", downloadUri.toString());
                                 ImageUrl = downloadUri.toString();
                                 progressDialog.dismiss();
                             }
@@ -369,9 +372,56 @@ public class activity_setting extends AppCompatActivity implements AdapterView.O
                 });
 
     }
+    private void updateUserAvatar( Uri imageUri) {
+        progressDialog.setTitle("Updating...");
+        progressDialog.show();
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+        StorageReference avatarRef = storageRef.child("ImageUser/" + UUID.randomUUID().toString() + ".jpg");
+
+        avatarRef.putFile(imageUri)
+                .addOnSuccessListener(taskSnapshot -> {
+                    avatarRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                        ImageUrl = uri.toString();
+                        db.collection("NGUOIDUNG").document(currentUserId)
+                                .update("avatar", ImageUrl)
+                                .addOnSuccessListener(aVoid -> {
+                                    try{
+                                        Picasso.get().load(ImageUrl).into(imgAvt);
+                                    }
+                                    catch(Exception e){}
+                                    try {if (!ImageUrl.equals(oldImageUrl)) {
+                                            try {
+                                                if (!oldImageUrl.isEmpty()) {
+                                                    DeleteOldImg(oldImageUrl);
+                                                }
+                                            } catch (Exception e) {}}
+                                    } catch (Exception e) {}
+
+                                })
+                                .addOnFailureListener(e -> {
+                                    try {if (!ImageUrl.equals(oldImageUrl)) {
+                                            try {
+                                                if (!ImageUrl.isEmpty()) {DeleteOldImg(ImageUrl);}
+                                            }
+                                            catch (Exception d) {}}
+                                    } catch (Exception d) {}
+                                    Toast.makeText(activity_setting.this, "Failed to update avatar", Toast.LENGTH_SHORT).show();
+                                });
+                    });
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(activity_setting.this, "Failed to upload avatar", Toast.LENGTH_SHORT).show();
+                });
+        progressDialog.dismiss();
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
+        if (requestCode == REQUEST_IMAGE_PICK && resultCode == RESULT_OK) {
+            Uri selectedImageUri = data.getData();
+            updateUserAvatar(selectedImageUri);
+        }
         if (resultCode == Activity.RESULT_OK && requestCode == ImagePicker.REQUEST_CODE) {
             // Lấy đường dẫn hình ảnh được chọn
             imagePath = data.getStringExtra(ImagePicker.EXTRA_FILE_PATH);
