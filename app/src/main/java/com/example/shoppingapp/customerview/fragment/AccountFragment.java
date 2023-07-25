@@ -88,22 +88,12 @@ public class AccountFragment extends Fragment {
                     String fullName = documentSnapshot.getString("fullName");
                     String avatarURL = documentSnapshot.getString("avatar");
                     txtFullName.setText(fullName);
-                   try {
-                        if (avatarURL != null && !avatarURL .isEmpty()) {
-                            int width = 200;
-                            int height = 200;
-                            Picasso.get().load(avatarURL ).resize(width, height).into(imgAvt);
-                        } else {
-                            int width = 200;
-                            int height = 200;
-                            Picasso.get().load(R.drawable.null_avatar).resize(width, height).into(imgAvt);
-                        }
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
+                  if (avatarURL != null && !avatarURL.isEmpty()) {
+                        int width = 200;
+                        int height = 200;
+                        Picasso.get().load(avatarURL).resize(width, height).into(imgAvt);
+                    } else {
                     }
-                } else {
-                    // Xử lý khi tài liệu không tồn tại hoặc bị xóa
-                }
             });
         }
 

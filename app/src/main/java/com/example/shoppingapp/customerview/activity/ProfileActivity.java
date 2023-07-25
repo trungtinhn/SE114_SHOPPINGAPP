@@ -46,83 +46,62 @@ import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    Button btn_ChangeIf,btn_ChangeAva;
-    User user;
+    private static final int REQUEST_IMAGE_PICK = 1;
+    private String currentUserId ;
+    User object;
     int position;
-    private Button back_to_Home;
+    ProgressDialog progressDialog;
+    //ArrayList<User> AdminList;
     FirebaseFirestore db;
     FirebaseAuth firebaseAuth;
+    FirebaseStorage firebaseStorage;
     DocumentReference docRef;
-    ProgressDialog progressDialog;
-    private ShapeableImageView imgAvt,imgAvt_account;
-
+    StorageReference storageReference;
+    private LinearLayout layout;
+    private String imagePath;
+    private ImageView edImg, imgAvt;
+    private String ImageUrl;
+    private String oldImageUrl;
+    private Uri Staff_imagepath;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
-
         firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        setContentView(R.layout.activity_profile);
+        currentUserId = firebaseAuth.getCurrentUser().getUid();
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         imgAvt = findViewById(R.id.img_avt_Profile);
-        back_to_Home = findViewById(R.id.btn_back);
-        back_to_Home.setOnClickListener(new View.OnClickListener() {
+        db = FirebaseFirestore.getInstance();
+        firebaseStorage = FirebaseStorage.getInstance();
+        docRef = FirebaseFirestore.getInstance()
+                .collection("NGUOIDUNG").document(firebaseAuth.getUid());
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ProfileActivity.this, BottomNavigationCustomActivity.class);
-                startActivity(intent);
-                finish();
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                EventInit();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
 
-        if (currentUser != null) {
-            String currentUserId = currentUser.getUid();
-            db = FirebaseFirestore.getInstance();
-            docRef = db.collection("NGUOIDUNG").document(currentUserId);
 
-            docRef.addSnapshotListener((documentSnapshot, e) -> {
-                if (e != null) {
-                }
-
-                if (documentSnapshot != null && documentSnapshot.exists()) {
-                    // Lấy thông tin người dùng từ Firestore
-                    User user = documentSnapshot.toObject(User.class);
-                    if (user != null) {
-                        // Hiển thị thông tin người dùng lên giao diện
-                        ((TextView) findViewById(R.id.name_Profile)).setText(user.getFullName());
-                        ((TextView) findViewById(R.id.sex_Profile)).setText(user.getGioitinh());
-                        ((TextView) findViewById(R.id.txt_dob_Profile)).setText(user.getDayOfBirth());
-                        ((TextView) findViewById(R.id.txt_pnumP7_Profile)).setText(user.getPhoneNumber());
-                        ((TextView) findViewById(R.id.txt_email_Profile)).setText(user.getEmail());
-                        ((TextView) findViewById(R.id.txt_address_Profile)).setText(user.getDiachi());
-                        String uri = user.getAvatar();
-                        try {
-                            if (uri != null && !uri.isEmpty()) {
-                                int width = 200;
-                                int height = 200;
-                                Picasso.get().load(uri).resize(width, height).into((ImageView) findViewById(R.id.img_avt_Profile));
-                            } else {
-                                int width = 200;
-                                int height = 200;
-                                Picasso.get().load(R.drawable.default_user).resize(width, height).into((ImageView) findViewById(R.id.img_avt_Profile));
-
-                                Toast.makeText(getApplicationContext(), "Avatar is null or empty", Toast.LENGTH_SHORT).show();
-                            }
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-                        }
-                    }
-                } else {
-                    // Xử lý khi tài liệu không tồn tại hoặc bị xóa
-                }
-            });
-        }
         findViewById(R.id.btn_changeInfo_Profile).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 EventEdit();
+            }
+        });
 
+        findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProfileActivity.this, BottomNavigationCustomActivity.class);
+                startActivity(intent);
             }
         });
         findViewById(R.id.btn_changeAvt_Profile).setOnClickListener(new View.OnClickListener() {
@@ -132,86 +111,124 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
                 EventChangeAva();
             }
         });
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            findViewById(R.id.constraintLayout).setLeftTopRightBottom(0,0,0,180);
+        }
+        EventInit();
     }
-    private static final int REQUEST_IMAGE_PICK = 1;
     private void EventChangeAva() {
         Intent pickPhotoIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(pickPhotoIntent, REQUEST_IMAGE_PICK);
     }
+    private void EventInit(){
+        db.collection("NGUOIDUNG").document(firebaseAuth.getUid()).
+                get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        object = documentSnapshot.toObject(User.class);
+                        ((TextView) findViewById(R.id.name_Profile)).setText(object.getFullName());
+                        ((TextView) findViewById(R.id.sex_Profile)).setText(object.getGioitinh());
+                        ((TextView) findViewById(R.id.txt_dob_Profile)).setText(object.getDayOfBirth());
+                        ((TextView) findViewById(R.id.txt_pnumP7_Profile)).setText(object.getPhoneNumber());
+                        ((TextView) findViewById(R.id.txt_email_Profile)).setText(object.getEmail());
+                        ((TextView) findViewById(R.id.txt_address_Profile)).setText(object.getDiachi());
 
-    // Xử lý kết quả sau khi người dùng đã chọn ảnh
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-        String currentUserId = currentUser.getUid();
+                        ImageUrl = object.getAvatar();
+                        try{
+                            if(ImageUrl.isEmpty()) {}
+                            else {
+                                int width = 200;
+                                int height = 200;
+                                Picasso.get().load(ImageUrl).resize(width,height).into((ImageView) findViewById(R.id.img_avt_Profile));
+                                storageReference = firebaseStorage.getReferenceFromUrl(ImageUrl);
+                            }
+                        }
+                        catch (Exception e)
+                        {
 
-        if (requestCode == REQUEST_IMAGE_PICK && resultCode == RESULT_OK) {
-            Uri selectedImageUri = data.getData();
-            updateUserAvatar(currentUserId, selectedImageUri);
-        }
-    }
-    private void updateUserAvatar(String userId, Uri imageUri) {
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReference();
-        StorageReference avatarRef = storageRef.child("avatars/" + userId + ".jpg");
-
-        avatarRef.putFile(imageUri)
-                .addOnSuccessListener(taskSnapshot -> {
-                    avatarRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                        String imageURL = uri.toString();
-                        db.collection("NGUOIDUNG").document(userId)
-                                .update("avatar", imageURL)
-                                .addOnSuccessListener(aVoid -> {
-                                    int width = 200;
-                                    int height = 200;
-                                    Picasso.get().load(imageURL).resize(width, height).into(imgAvt);
-                                    showUpdateSuccessDialog_ava();
-                                    Toast.makeText(ProfileActivity.this, "Avatar updated successfully", Toast.LENGTH_SHORT).show();
-                                })
-                                .addOnFailureListener(e -> {
-                                    Toast.makeText(ProfileActivity.this, "Failed to update avatar", Toast.LENGTH_SHORT).show();
-                                });
-                    });
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(ProfileActivity.this, "Failed to upload avatar", Toast.LENGTH_SHORT).show();
+                        }
+                        oldImageUrl = ImageUrl;
+                    }
                 });
     }
-    private void showUpdateSuccessDialog_ava() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Avatar updated successfully")
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                       }
-                });
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
-
-    private void EventEdit() {
+    private void EventEdit()
+    {
         DialogPlus dialogPlus = DialogPlus.newDialog( this)
                 .setGravity(Gravity.CENTER)
-                .setContentHolder(new ViewHolder(R.layout.activity_customer_detail_update))
+                .setContentHolder(new ViewHolder(R.layout.activity_admin_detail_edit))
                 .setExpanded(false)
                 .create();
 
-        View holderView = (LinearLayout) dialogPlus.getHolderView();
+        View holderView = (ScrollView) dialogPlus.getHolderView();
 
-        EditText edName = holderView.findViewById(R.id.txt_name_Profile);
-        Spinner edSex = holderView.findViewById(R.id.txt_sex_Profile);
-        TextView edDob = holderView.findViewById(R.id.txt_dob_Profile);
-        EditText edPhone = holderView.findViewById(R.id.txt_phone_Profile);
-        EditText edAdd = holderView.findViewById(R.id.txt_address_Profile);
-        Button btnUpdate = holderView.findViewById(R.id.btn_update_Profile);
+        edImg = holderView.findViewById(R.id.img_imageView);
+        EditText edName = holderView.findViewById(R.id.txt_name);
+        Spinner edSex = holderView.findViewById(R.id.txt_sex);
+        TextView edDob = holderView.findViewById(R.id.txt_dob);
+        EditText edPhone = holderView.findViewById(R.id.txt_phone);
+        EditText edAddr = holderView.findViewById(R.id.txt_address);
+        Button btnUpdate = holderView.findViewById(R.id.btn_update);
+        Button btnCancel = holderView.findViewById(R.id.btn_cancel);
+
 
         ArrayAdapter<CharSequence> gender = ArrayAdapter.createFromResource(this,R.array.gender,
                 R.layout.spinner_item);
         gender.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         edSex.setAdapter(gender);
         edSex.setOnItemSelectedListener(this);
+
+
+        edName.setText(object.getFullName());
+        String gt = object.getGioitinh();
+        try{
+            if(gt.isEmpty()) edSex.setSelection(0);
+            else if(gt.equals("Male")) edSex.setSelection(1);
+            else if(gt.equals("Female")) edSex.setSelection(2);
+        }
+        catch (Exception e){
+
+        }
+        edAddr.setText(object.getDiachi());
+        edDob.setText(object.getDayOfBirth());
+        edPhone.setText(object.getPhoneNumber());
+        try{
+            if(ImageUrl.isEmpty())
+            {
+                Toast.makeText(getApplicationContext(),"null is recieved",Toast.LENGTH_SHORT).show();
+            }
+            else {
+                int width = 200;
+                int height = 200;
+                Picasso.get().load(ImageUrl).resize(width, height).into(edImg);
+            }
+        }
+        catch (Exception e)
+        {
+
+        }
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogPlus.dismiss();
+                try{
+                    if(!ImageUrl.isEmpty())
+                    {
+                        DeleteOldImg(ImageUrl);
+                    }
+                }
+                catch (Exception e)
+                {
+                }
+            }
+        });
+        edImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ImagePicker.Companion.with(ProfileActivity.this)
+                        .crop()  // optionally enable image cropping
+                        .start();
+            }
+        });
 
         edDob.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -240,21 +257,38 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Map<String, Object> map = new HashMap<>();
-                map.put("fullName", edName.getText().toString());
-                map.put("gioitinh", edSex.getSelectedItem().toString());
-                map.put("dayOfBirth", edDob.getText().toString());
-                map.put("phoneNumber", edPhone.getText().toString());
-                map.put("diachi", edAdd.getText().toString());
+                map.put("fullName",edName.getText().toString());
+                map.put("gioitinh",edSex.getSelectedItem().toString());
+                map.put("dayOfBirth",edDob.getText().toString());
+                map.put("phoneNumber",edPhone.getText().toString());
+                map.put("diachi",edAddr.getText().toString());
+                map.put("avatar",ImageUrl);
 
                 docRef.update(map)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
-                                // Hiển thị dialog thông báo thành công
-                                showSuccessDialog();
-
-                                // Sau khi người dùng nhấn "OK", chuyển hướng đến ProfileActivity
+                                Toast.makeText(ProfileActivity.this, "Success updating the data", Toast.LENGTH_SHORT).show();
+                                dialogPlus.dismiss();
+                                try {
+                                    if (!ImageUrl.equals(oldImageUrl)) {
+                                        try {
+                                            if (!oldImageUrl.isEmpty()) {
+                                                DeleteOldImg(oldImageUrl);
+                                            }}
+                                        catch (Exception e)
+                                        {
+                                        }
+                                    }
+                                }
+                                catch (Exception e)
+                                {
+                                }
+                                Intent intent = getIntent();
+                                finish();
+                                startActivity(intent);
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -262,29 +296,152 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
                             public void onFailure(@NonNull Exception e) {
                                 dialogPlus.dismiss();
                                 Toast.makeText(ProfileActivity.this, "Fail to update the data", Toast.LENGTH_SHORT).show();
+                                try {
+                                    if (!ImageUrl.equals(oldImageUrl)) {
+                                        try {
+                                            if (!ImageUrl.isEmpty()) {
+                                                DeleteOldImg(ImageUrl);
+                                            }}
+                                        catch (Exception d)
+                                        {
+                                        }
+                                    }
+                                }
+                                catch (Exception d)
+                                {
+                                }
                             }
                         });
             }
-            private void showSuccessDialog() {
-                AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
-                builder.setTitle("Success");
-                builder.setMessage("Your information has been changed");
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(ProfileActivity.this, ProfileActivity.class);
-                        startActivity(intent);
-                    }
-                });
-                AlertDialog dialog = builder.create();
-                dialog.show();
-            }
         });
+
         dialogPlus.show();
 
+    }
+    private void DeleteOldImg(String deleteImg){
+        progressDialog.setTitle("Waiting...");
+        progressDialog.show();
+        if(deleteImg != null ){
+            StorageReference oldImageRef = firebaseStorage.getReferenceFromUrl(deleteImg);
+            oldImageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    progressDialog.dismiss();
+                    // File deleted successfully
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    progressDialog.dismiss();
+                    // Uh-oh, an error occurred
+                }
+            });
+        }
+    }
+    private void updateImgInStorage(Uri imageUri){
+        progressDialog.setTitle("Updating...");
+        progressDialog.show();
+        StorageReference storageRef = firebaseStorage.getReference();
+
+        String imagePath = "ImageUser/" + firebaseAuth.getCurrentUser().getUid() + ".jpg";
+        StorageReference imageRef = storageRef.child(imagePath);
+
+        imageRef.putFile(imageUri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri downloadUri) {
+                                ImageUrl = downloadUri.toString();
+                                progressDialog.dismiss();
+                            }
+                        });
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        progressDialog.dismiss();
+                        Toast.makeText(ProfileActivity.this, "Fail to send image to firebase", Toast.LENGTH_LONG).show();
+                        // Tải ảnh thất bại
+                    }
+                });
 
     }
+    private void updateUserAvatar( Uri imageUri) {
+        progressDialog.setTitle("Updating...");
+        progressDialog.show();
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+        StorageReference avatarRef = storageRef.child("ImageUser/" + currentUserId.toString() + ".jpg");
 
+        avatarRef.putFile(imageUri)
+                .addOnSuccessListener(taskSnapshot -> {
+                    avatarRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                        ImageUrl = uri.toString();
+                        db.collection("NGUOIDUNG").document(currentUserId)
+                                .update("avatar", ImageUrl)
+                                .addOnSuccessListener(aVoid -> {
+                                    try{
+                                        int width = 200;
+                                        int height = 200;
+                                        Picasso.get().load(ImageUrl).resize(width,height).into(imgAvt);
+                                        showUpdateSuccessDialog_ava();
+
+                                    }
+                                    catch(Exception e){}
+                                    try {if (!ImageUrl.equals(oldImageUrl)) {
+                                        try {
+                                            if (!oldImageUrl.isEmpty()) {
+                                                DeleteOldImg(oldImageUrl);
+                                            }
+                                        } catch (Exception e) {}}
+                                    } catch (Exception e) {}
+
+                                })
+                                .addOnFailureListener(e -> {
+                                    try {if (!ImageUrl.equals(oldImageUrl)) {
+                                        try {
+                                            if (!ImageUrl.isEmpty()) {DeleteOldImg(ImageUrl);}
+                                        }
+                                        catch (Exception d) {}}
+                                    } catch (Exception d) {}
+                                    Toast.makeText(ProfileActivity.this, "Failed to update avatar", Toast.LENGTH_SHORT).show();
+                                });
+                    });
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(ProfileActivity.this, "Failed to upload avatar", Toast.LENGTH_SHORT).show();
+                });
+        progressDialog.dismiss();
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        if (requestCode == REQUEST_IMAGE_PICK && resultCode == RESULT_OK) {
+            Uri selectedImageUri = data.getData();
+            updateUserAvatar(selectedImageUri);
+        }
+        if (resultCode == Activity.RESULT_OK && requestCode == ImagePicker.REQUEST_CODE) {
+            // Lấy đường dẫn hình ảnh được chọn
+            imagePath = data.getStringExtra(ImagePicker.EXTRA_FILE_PATH);
+            Glide.with(this).load(imagePath).into(edImg);
+
+            updateImgInStorage(data.getData());
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+    private void showUpdateSuccessDialog_ava() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Avatar updated successfully")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
