@@ -88,7 +88,7 @@ public class activity_specificchat extends AppCompatActivity {
 
 
         msenderuid=firebaseAuth.getUid();
-        type = getIntent().getStringExtra("loaiND");
+        type = intent.getStringExtra("type");
         mrecieveruid=getIntent().getStringExtra("receiveruid");
         mrecievername=getIntent().getStringExtra("name");
 
@@ -97,18 +97,17 @@ public class activity_specificchat extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "null is recieved", Toast.LENGTH_SHORT).show();
             } else {
                 if (type.equals("customer")) {
-                    senderroom = "Staff" + mrecieveruid;
-                    recieverroom = mrecieveruid + "Staff";
-                } else {
-                    senderroom = msenderuid + mrecieveruid;
-                    recieverroom = mrecieveruid + msenderuid;
+                    msenderuid = "Staff";
                 }
             }
         }
         catch (Exception e) {}
 
+        senderroom = msenderuid + mrecieveruid;
+        recieverroom = mrecieveruid + msenderuid;
 
-        DatabaseReference databaseReference=firebaseDatabase.getReference().child("chats").child(senderroom).child("messages");
+        DatabaseReference databaseReference=firebaseDatabase.getReference().
+                child("chats").child(senderroom).child("messages");
         messagesAdapter=new adapter_message(activity_specificchat.this,messagesArrayList);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -166,7 +165,7 @@ public class activity_specificchat extends AppCompatActivity {
                 {
                     Date date=new Date();
                     currenttime=simpleDateFormat.format(calendar.getTime());
-                    message_object messages=new message_object(enteredmessage,msenderuid,date.getTime(),currenttime);
+                    message_object messages=new message_object(enteredmessage,msenderuid, mrecieveruid,date.getTime(),currenttime);
                     firebaseDatabase=FirebaseDatabase.getInstance();
                     firebaseDatabase.getReference().child("chats")
                             .child(senderroom)

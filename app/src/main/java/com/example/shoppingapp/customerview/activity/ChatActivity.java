@@ -143,7 +143,7 @@ public class ChatActivity extends AppCompatActivity {
                 {
                     Date date=new Date();
                     currenttime=simpleDateFormat.format(calendar.getTime());
-                    message_object messages=new message_object(enteredmessage,msenderuid,date.getTime(),currenttime);
+                    message_object messages=new message_object(enteredmessage,msenderuid,mrecieveruid,date.getTime(),currenttime);
                     firebaseDatabase=FirebaseDatabase.getInstance();
                     firebaseDatabase.getReference().child("chats")
                             .child(senderroom)
