@@ -33,8 +33,9 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/backIcon"
-            android:text="Cart"
+            android:fontFamily="@font/montserrat_medium"
             android:textColor="@color/black"
+            android:text="Cart"
             android:textSize="25dp"
             android:textStyle="bold" />
     </RelativeLayout>
@@ -55,21 +56,30 @@
                 android:gravity="center_horizontal"
                 android:layout_marginVertical="10dp"
                 android:layout_marginHorizontal="10dp"
+                android:paddingVertical="10dp"
                 android:background="@drawable/background_product_sliver">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:gravity="center_vertical"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <ImageView
                         android:id="@+id/image_product"
                         android:layout_width="126dp"
-                        android:layout_height="149dp"
-                        android:layout_marginLeft="20dp"
-                        android:src="@drawable/anhgiay1" />
+                        android:layout_height="126dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="20dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_product" />
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_centerVertical="true"
+                        android:paddingVertical="10dp"
+                        android:layout_toStartOf="@+id/image_next"
+                        android:layout_toEndOf="@+id/image_product"
                         android:orientation="vertical">
 
                         <TextView
@@ -77,25 +87,27 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
-                            android:text="Ten San Pham"
-                            android:textSize="18dp"
                             android:fontFamily="@font/montserrat_medium"
+                            android:text="Ten San Pham"
+                            android:textColor="@color/black"
+                            android:textSize="16dp"
                             android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/txt_MauSac"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:fontFamily="@font/montserrat_medium"
+                            android:fontFamily="@font/montserrat"
+                            android:textColor="@color/black"
                             android:text="Hồng"
                             android:textSize="16sp" />
+
                         <TextView
                             android:id="@+id/txt_KichThuoc"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:fontFamily="@font/montserrat_medium"
+                            android:fontFamily="@font/montserrat"
+                            android:textColor="@color/black"
                             android:text="L"
                             android:textSize="16sp" />
 
@@ -103,30 +115,32 @@
                             android:id="@+id/txt_soluong"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:fontFamily="@font/montserrat_medium"
+                            android:fontFamily="@font/montserrat"
+                            android:textColor="@color/black"
                             android:text="10"
                             android:textSize="16sp" />
 
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
+
                             <TextView
                                 android:id="@+id/txt_giaban"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/montserrat_medium"
-                                android:layout_marginTop="5dp"
+                                android:fontFamily="@font/montserrat"
+                                android:textColor="@color/black"
                                 android:text="200.000"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
+
                             <TextView
-                                android:layout_toRightOf="@id/txt_giaban"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/montserrat_medium"
-                                android:layout_marginTop="5dp"
                                 android:layout_marginLeft="10dp"
+                                android:layout_toRightOf="@id/txt_giaban"
+                                android:fontFamily="@font/montserrat"
+                                android:textColor="@color/black"
                                 android:text="VND"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -134,13 +148,16 @@
                         </RelativeLayout>
 
                     </LinearLayout>
+
                     <ImageView
                         android:id="@+id/image_next"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="40dp"
-                        android:src="@drawable/right" />
-                </LinearLayout>
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="20dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/navigation_after" />
+                </RelativeLayout>
 
 
             </LinearLayout>
