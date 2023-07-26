@@ -13,6 +13,15 @@
         android:theme="@style/Theme.ShoppingApp"
         tools:targetApi="tiramisu">
         <activity
+            android:name=".Login.GetStartedActivity"
+            android:exported="true">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>/>
+        </activity>
+        <activity
             android:name=".StaffView.activity.activity_specificchat"
             android:exported="false" />
         <activity
@@ -36,19 +45,14 @@
             android:exported="true" />
         <activity
             android:name=".customerview.BottomNavigationCustomActivity"
-            android:theme="@style/Theme.ShoppingApp"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.ShoppingApp" />
         <activity
             android:name=".Login.LoginActivity"
             android:enableOnBackInvokedCallback="true"
             android:exported="true"
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.ShoppingApp.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <meta-data
@@ -77,8 +81,8 @@
             android:exported="true" />
         <activity
             android:name=".customerview.activity.CategoriesDetails"
-            android:theme="@style/Theme.ShoppingApp"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.ShoppingApp" />
         <activity
             android:name=".customerview.activity.DoneActivity"
             android:exported="false" />
@@ -111,65 +115,87 @@
             android:exported="false" />
         <activity
             android:name=".customerview.activity.DetailProductActivity"
-            android:theme="@style/Theme.ShoppingApp"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.ShoppingApp" />
         <activity
             android:name=".customerview.activity.TrendingActivity"
-            android:theme="@style/Theme.ShoppingApp"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.ShoppingApp" />
         <activity
             android:name=".customerview.activity.PromotionActivity"
             android:exported="true" />
-
         <activity
             android:name=".StaffView.activity.activity_List_Product_And_Item"
             android:exported="true" />
-        <activity android:name=".StaffView.MyProduct.Activity.activity_MyProduct"
-            android:exported="true"/>
-        <activity android:name=".StaffView.MyOrder.Activity.activity_MyOrder"
-            android:exported="true"/>
-        <activity android:name=".StaffView.Categories.Activity.activity_categories"
-            android:exported="true">
-        </activity>
-        <activity android:name=".StaffView.DetailProduct.Activity.activity_details_product_staff"
-            android:exported="true"/>
-        <activity android:name=".StaffView.Categories.Activity.activity_details_category"
-            android:exported="true"/>
-        <activity android:name=".StaffView.Categories.Activity.activity_add_new_category"
-            android:exported="true"/>
-        <activity android:name=".StaffView.Categories.Activity.activity_delete_categories"
-            android:exported="true"/>
-        <activity android:name=".StaffView.ViewShop.Activity.activity_viewshop"
-            android:exported="true"/>
-        <activity android:name=".Login.Successful"
-            android:exported="true"/>
-        <activity android:name=".StaffView.MyOrder.Activity.activity_details_order"
-            android:exported="true"/>
-        <activity android:name=".StaffView.Promotions.Activity.activity_promotions"
-            android:exported="true"/>
-        <activity android:name=".StaffView.Promotions.Activity.activity_add_new_promotions"
-            android:exported="true"/>
-        <activity android:name=".StaffView.MyProduct.Activity.activity_add_new_product"
-            android:exported="true"/>
-        <activity android:name=".StaffView.Promotions.Activity.activity_delete_promotion"
-            android:exported="true"/>
-        <activity android:name=".customerview.activity.Notification"
-            android:exported="true"/>
-        <activity android:name=".customerview.activity.activity_details_order_customer"
-            android:exported="true"/>
-        <activity android:name=".StaffView.MyProduct.Activity.activity_add_new_color"
-            android:exported="true"/>
-        <activity android:name=".StaffView.MyProduct.Activity.activity_edit_product"
-            android:exported="true"/>
-        <activity android:name=".StaffView.FinancialReport.Activity.activity_financial"
-            android:exported="true"/>
-        <activity android:name=".StaffView.MyProduct.Activity.activity_edit_withou_amount_product"
-            android:exported="true"/>
-         <activity android:name=".customerview.activity.ChangePassWordActivity"
-            android:exported="true"/>
-        <activity android:name=".customerview.activity.ProfileActivity"
-            android:exported="true"/>
-         <activity android:name=".customerview.activity.OrderActivity"
-            android:exported="true"/>
+        <activity
+            android:name=".StaffView.MyProduct.Activity.activity_MyProduct"
+            android:exported="true" />
+        <activity
+            android:name=".StaffView.MyOrder.Activity.activity_MyOrder"
+            android:exported="true" />
+        <activity
+            android:name=".StaffView.Categories.Activity.activity_categories"
+            android:exported="true"></activity>
+        <activity
+            android:name=".StaffView.DetailProduct.Activity.activity_details_product_staff"
+            android:exported="true" />
+        <activity
+            android:name=".StaffView.Categories.Activity.activity_details_category"
+            android:exported="true" />
+        <activity
+            android:name=".StaffView.Categories.Activity.activity_add_new_category"
+            android:exported="true" />
+        <activity
+            android:name=".StaffView.Categories.Activity.activity_delete_categories"
+            android:exported="true" />
+        <activity
+            android:name=".StaffView.ViewShop.Activity.activity_viewshop"
+            android:exported="true" />
+        <activity
+            android:name=".Login.Successful"
+            android:exported="true" />
+        <activity
+            android:name=".StaffView.MyOrder.Activity.activity_details_order"
+            android:exported="true" />
+        <activity
+            android:name=".StaffView.Promotions.Activity.activity_promotions"
+            android:exported="true" />
+        <activity
+            android:name=".StaffView.Promotions.Activity.activity_add_new_promotions"
+            android:exported="true" />
+        <activity
+            android:name=".StaffView.MyProduct.Activity.activity_add_new_product"
+            android:exported="true" />
+        <activity
+            android:name=".StaffView.Promotions.Activity.activity_delete_promotion"
+            android:exported="true" />
+        <activity
+            android:name=".customerview.activity.Notification"
+            android:exported="true" />
+        <activity
+            android:name=".customerview.activity.activity_details_order_customer"
+            android:exported="true" />
+        <activity
+            android:name=".StaffView.MyProduct.Activity.activity_add_new_color"
+            android:exported="true" />
+        <activity
+            android:name=".StaffView.MyProduct.Activity.activity_edit_product"
+            android:exported="true" />
+        <activity
+            android:name=".StaffView.FinancialReport.Activity.activity_financial"
+            android:exported="true" />
+        <activity
+            android:name=".StaffView.MyProduct.Activity.activity_edit_withou_amount_product"
+            android:exported="true" />
+        <activity
+            android:name=".customerview.activity.ChangePassWordActivity"
+            android:exported="true" />
+        <activity
+            android:name=".customerview.activity.ProfileActivity"
+            android:exported="true" />
+        <activity
+            android:name=".customerview.activity.OrderActivity"
+            android:exported="true" />
     </application>
+
 </manifest>
