@@ -31,53 +31,48 @@ public class GeneralAdapter extends RecyclerView.Adapter<GeneralAdapter.Products
 
     private void loadDataFromFirestore() {
         CollectionReference thongbaoRef = FirebaseFirestore.getInstance().collection("THONGBAO");
+        thongbaoRef.addSnapshotListener((querySnapshot, error) -> {
+            if (error != null) {
+                // Xử lý khi có lỗi xảy ra
+                return;
+            }
 
-        thongbaoRef.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
+            if (querySnapshot != null) {
                 notificationList.clear();
 
-                for (DocumentSnapshot document : task.getResult()) {
+                for (DocumentSnapshot document : querySnapshot.getDocuments()) {
                     // Lấy các trường dữ liệu từ document
                     // Lấy mảng địa chỉ ảnh
                     String MaKM = document.getString("MaKM");
                     String MaTB = document.getString("MaTB");
                     String TB = document.getString("TB");
                     CollectionReference mathongbaoRef = FirebaseFirestore.getInstance().collection("MATHONGBAO");
-                    mathongbaoRef.whereEqualTo("MaTB", MaTB).get().addOnSuccessListener(querySnapshot ->{
-                       for(DocumentSnapshot documentSnapshot : querySnapshot.getDocuments())
-                       {
-                           String Noidung = documentSnapshot.getString("NoiDung");
-                           String LoaiTB = documentSnapshot.getString("LoaiTB");
-                           CollectionReference khuyenmaiRef = FirebaseFirestore.getInstance().collection("KHUYENMAI");
-                           khuyenmaiRef.whereEqualTo("MaKM", MaKM).get().addOnSuccessListener(KMquerySnapshot ->{
-                              for(DocumentSnapshot kmdocumentSnapshot : KMquerySnapshot.getDocuments())
-                              {
-                                  String HinhAnhTB = kmdocumentSnapshot.getString("HinhAnhTB");
-                                  String HinhAnhKM = kmdocumentSnapshot.getString("HinhAnhKM");
+                    mathongbaoRef.whereEqualTo("MaTB", MaTB).addSnapshotListener((KMquerySnapshot, error1) -> {
+                        for (DocumentSnapshot documentSnapshot : KMquerySnapshot.getDocuments()) {
+                            String Noidung = documentSnapshot.getString("NoiDung");
+                            String LoaiTB = documentSnapshot.getString("LoaiTB");
+                            CollectionReference khuyenmaiRef = FirebaseFirestore.getInstance().collection("KHUYENMAI");
+                            khuyenmaiRef.whereEqualTo("MaKM", MaKM).addSnapshotListener((KMquerySnapshot1, error2) -> {
+                                for (DocumentSnapshot kmdocumentSnapshot : KMquerySnapshot1.getDocuments()) {
+                                    String HinhAnhTB = kmdocumentSnapshot.getString("HinhAnhTB");
+                                    String HinhAnhKM = kmdocumentSnapshot.getString("HinhAnhKM");
 
-                                  String LoaiKhuyenMai = kmdocumentSnapshot.getString("LoaiKhuyenMai");
-                                  String TenKM = kmdocumentSnapshot.getString("ChiTietKM");
-                                  Notification notification = new Notification(HinhAnhKM, HinhAnhTB, MaTB, MaKM, Noidung, TB, LoaiTB, TenKM);
-                                  notificationList.add(notification);
-                              }
-                               notifyDataSetChanged();
-                           });
-                           notifyDataSetChanged();
-                       }
-                       notifyDataSetChanged();
+                                    String LoaiKhuyenMai = kmdocumentSnapshot.getString("LoaiKhuyenMai");
+                                    String TenKM = kmdocumentSnapshot.getString("ChiTietKM");
+                                    Notification notification = new Notification(HinhAnhKM, HinhAnhTB, MaTB, MaKM, Noidung, TB, LoaiTB, TenKM);
+                                    notificationList.add(notification);
+                                }
+                                notifyDataSetChanged();
+                            });
+                        }
+                        notifyDataSetChanged();
                     });
                     notifyDataSetChanged();
-                    // Thêm đối tượng Product vào danh sách
                 }
-
-                notifyDataSetChanged();
-            } else {
-                // Xử lý khi không thành công
-                Exception exception = task.getException();
-                // ...
             }
         });
     }
+
 
     @NonNull
     @Override

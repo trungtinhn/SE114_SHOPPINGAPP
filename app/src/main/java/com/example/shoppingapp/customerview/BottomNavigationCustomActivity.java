@@ -152,7 +152,6 @@ public class BottomNavigationCustomActivity extends AppCompatActivity{
         Intent intent = new Intent(BottomNavigationCustomActivity.this, ChatActivity.class);
         startActivity(intent);
     }
-
     public void gotoDetail()
     {
         Intent intent = new Intent(BottomNavigationCustomActivity.this, ShoppingCart.class);

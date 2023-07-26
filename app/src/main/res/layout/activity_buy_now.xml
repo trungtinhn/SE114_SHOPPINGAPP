@@ -5,22 +5,29 @@
     android:id="@+id/sub"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:scrollbars="vertical"
     android:orientation="vertical">
-    <LinearLayout
-        android:id="@+id/headingProductDetail"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:padding="10dp">
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/headingProductDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:padding="10dp">
 
-        <ImageView
-            android:id="@+id/backIcon"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            <ImageView
+                android:id="@+id/backIcon"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
 
-            android:layout_marginTop="5dp"
-            android:src="@drawable/back" />
-
+                android:layout_marginTop="5dp"
+                android:src="@drawable/back" />
         <TextView
             android:id="@+id/productName"
             android:layout_width="wrap_content"
@@ -493,7 +500,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp">
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -557,6 +563,5 @@
         </LinearLayout>
 
     </ScrollView>
-
 
 </androidx.appcompat.widget.LinearLayoutCompat>

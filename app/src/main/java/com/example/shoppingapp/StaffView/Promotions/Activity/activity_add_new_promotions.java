@@ -21,14 +21,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.shoppingapp.R;
+import com.example.shoppingapp.StaffView.Promotions.ReadStatus.ReadStatus;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -36,8 +42,11 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -118,6 +127,7 @@ public class activity_add_new_promotions extends AppCompatActivity {
                 uploadImageThongBaoToFirebase();
                 uploadImageToFirebase();
                 savePromotionDataToFirestore();
+                createReadStatusDocument();
             }
         });
     }
@@ -135,7 +145,6 @@ public class activity_add_new_promotions extends AppCompatActivity {
 
 
     }
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -412,10 +421,16 @@ public class activity_add_new_promotions extends AppCompatActivity {
                                 .addOnSuccessListener(querySnapshot -> {
                                     for (DocumentSnapshot document : querySnapshot.getDocuments()) {
                                         String maTB = document.getId(); // MaTB from the matching document
+                                        Boolean read = false;
+                                        Date currentTime = new Date();
+
+                                        Timestamp timestamp = new Timestamp(currentTime);
                                         // Create notification data
                                         Map<String, Object> thongBao = new HashMap<>();
                                         thongBao.put("MaTB", maTB);
                                         thongBao.put("MaKM", maKM);
+                                        thongBao.put("Read", read);
+                                        thongBao.put("Thoigian", timestamp);
                                         // Add the notification to "THONGBAO" collection
                                         db_khuyenmai.collection("THONGBAO")
                                                 .add(thongBao)
@@ -448,4 +463,79 @@ public class activity_add_new_promotions extends AppCompatActivity {
                     }
                 });
     }
+    private void createReadStatusDocument() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        // 1. Lấy danh sách mã ND từ COLLECTION "NGUOIDUNG"
+        CollectionReference nguoiDungCollection = db.collection("NGUOIDUNG");
+        Task<QuerySnapshot> getMaNDTask = nguoiDungCollection.get();
+
+        getMaNDTask.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot maNDQuerySnapshot) {
+                        List<String> maNDList = new ArrayList<>();
+                        for (QueryDocumentSnapshot document : maNDQuerySnapshot) {
+                            String maND = document.getString("maND");
+                            if (maND != null) {
+                                maNDList.add(maND);
+                            }
+                        }
+
+                        // 2. Lấy danh sách ID từ COLLECTION "THONGBAO"
+                        CollectionReference thongBaoCollection = db.collection("THONGBAO");
+                        Task<QuerySnapshot> getTBIdTask = thongBaoCollection.get();
+
+                        getTBIdTask.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onSuccess(QuerySnapshot tbIdQuerySnapshot) {
+                                        List<String> tbIdList = new ArrayList<>();
+                                        for (QueryDocumentSnapshot document : tbIdQuerySnapshot) {
+                                            String tbId = document.getId();
+                                            tbIdList.add(tbId);
+                                        }
+
+                                        // 3. Tạo các document mới trong COLLECTION "READSTATUS"
+                                        CollectionReference readStatusCollection = db.collection("READSTATUS");
+                                        List<Task<DocumentReference>> tasks = new ArrayList<>();
+                                        for (String maND : maNDList) {
+                                            for (String tbId : tbIdList) {
+                                                ReadStatus readStatus = new ReadStatus(maND, false, tbId);
+                                                Task<DocumentReference> addTask = readStatusCollection.add(readStatus);
+                                                tasks.add(addTask);
+                                            }
+                                        }
+
+                                        // Wait for all tasks to complete
+                                        Tasks.whenAll(tasks)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        // All documents added successfully.
+                                                        // You can perform any additional actions here if needed.
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        // Handle error when adding documents.
+                                                    }
+                                                });
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        // Xử lý khi có lỗi xảy ra khi lấy danh sách ID từ COLLECTION "THONGBAO"
+                                    }
+                                });
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Xử lý khi có lỗi xảy ra khi lấy danh sách mã ND từ COLLECTION "NGUOIDUNG"
+                    }
+                });
+    }
+
 }

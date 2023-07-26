@@ -30,6 +30,7 @@ import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -146,18 +147,22 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
                                     if (!querySnapshot.isEmpty()) {
                                         // Lấy MaTB từ tài liệu đầu tiên trong kết quả truy vấn
                                         String maTB = querySnapshot.getDocuments().get(0).getId();
-
+                                        Boolean read = false;
                                         // Truy vấn để lấy MaND dựa trên maDH
                                         donHangRef.document(maDH).get()
                                                 .addOnSuccessListener(documentSnapshotTB -> {
                                                     if (documentSnapshotTB.exists()) {
                                                         String maND = documentSnapshotTB.getString("MaND");
+                                                        Date currentTime = new Date();
+                                                        Timestamp timestamp = new Timestamp(currentTime);
                                                         if (maND != null) {
                                                             // Tạo thông báo
                                                             Map<String, Object> thongBao = new HashMap<>();
                                                             thongBao.put("MaTB", maTB);
                                                             thongBao.put("MaDH", maDH);
                                                             thongBao.put("MaND", maND);
+                                                            thongBao.put("Read", read);
+                                                            thongBao.put("Thoigian", timestamp);
                                                             // Thêm thông báo vào bộ sưu tập "THONGBAODONHANG"
                                                             CollectionReference thongBaoDonHangRef = FirebaseFirestore.getInstance().collection("THONGBAODONHANG");
                                                             thongBaoDonHangRef.add(thongBao)
