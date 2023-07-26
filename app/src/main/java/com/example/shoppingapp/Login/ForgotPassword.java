@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,7 @@ public class ForgotPassword extends AppCompatActivity {
 
     private EditText mEmailEditText;
     private Button mVerifyButton;
+    private ImageButton back;
     private FirebaseAuth mAuth;
 
     @Override
@@ -30,7 +32,15 @@ public class ForgotPassword extends AppCompatActivity {
 
         // Khởi tạo FirebaseAuth instance
         mAuth = FirebaseAuth.getInstance();
-
+        back = findViewById(R.id.btnBacktoLogin);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ForgotPassword.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         // Lấy đối tượng EditText và Button từ layout
         mEmailEditText = findViewById(R.id.email_edittext);
         mVerifyButton = findViewById(R.id.verify_button);

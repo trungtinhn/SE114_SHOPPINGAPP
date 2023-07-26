@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <View
+        android:id="@+id/img"
+        android:layout_width="420dp"
+        android:layout_height="873dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/img_start"
+        tools:layout_editor_absoluteX="-5dp"
+        tools:layout_editor_absoluteY="-85dp" />
+    <!-- Auto layout, variables, and unit scale are not yet supported -->
+    <View
+        android:id="@+id/shadow"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#99000000" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:text="FAUGET"
+        android:layout_marginTop="200dp"
+        android:elevation="200dp"
+        android:textAlignment="center"
+        android:fontFamily="@font/monoton"
+        android:textColor="@color/white"
+        android:textSize="50dp"
+        android:layout_height="100dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:text="Build the better world in fashion"
+        android:layout_marginTop="260dp"
+        android:elevation="200dp"
+        android:textAlignment="center"
+        android:fontFamily="@font/montserrat"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:layout_height="100dp"/>
+    <Button
+        android:layout_width="186dp"
+        android:layout_height="62dp"
+        android:text="GET STARTED"
+        android:elevation="400dp"
+        android:id="@+id/getStarted"
+        android:layout_marginTop="500dp"
+        android:layout_marginLeft="120dp" />
+</FrameLayout>

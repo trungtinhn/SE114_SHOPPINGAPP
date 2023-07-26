@@ -4,11 +4,14 @@ package com.example.shoppingapp.Login;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -35,9 +38,12 @@ import java.util.Calendar;
 
 public class Register extends AppCompatActivity {
 
-    private EditText emailTextView, userNameTextView, phoneNumberTextView, passwordTextView, confirmpasswordTextView;
+    private EditText emailTextView, userNameTextView, phoneNumberTextView, passwordTxtView, confirmpasswordTxtView;
     private EditText DayofBirthTextView;
     private Button Btn;
+    private boolean see = false;
+    private ImageView showpassword, showconfirmpassword;
+    private ImageButton back;
     private FirebaseAuth mAuth;
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     DatabaseReference reference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://se114-df58a-default-rtdb.firebaseio.com/");
@@ -49,11 +55,56 @@ public class Register extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         // initialising all views through id defined above
         emailTextView = findViewById(R.id.editTextEmail);
-        passwordTextView = findViewById(R.id.editTextPassword);
-        confirmpasswordTextView = findViewById(R.id.editTextConfirmPassword);
+        passwordTxtView = findViewById(R.id.editTextPassword);
+        confirmpasswordTxtView = findViewById(R.id.editTextConfirmPassword);
         userNameTextView = findViewById(R.id.editTextFullName);
         phoneNumberTextView = findViewById(R.id.editTextPhone);
         DayofBirthTextView = findViewById(R.id.editTextDayOfBirth);
+        showpassword = findViewById(R.id.showpassword);
+        back = findViewById(R.id.btnBacktoLogin);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Register.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        showpassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    if(see == false) {
+                        see = true;
+                        showpassword.setImageDrawable(getResources().getDrawable(R.drawable.eyeoff));
+                        passwordTxtView.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+
+                    }
+                    else{
+                        see = false;
+                        showpassword.setImageDrawable(getResources().getDrawable(R.drawable.eyeon));
+
+                        passwordTxtView.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    }
+                    passwordTxtView.setSelection(passwordTxtView.length());
+            }
+        });
+        showconfirmpassword = findViewById(R.id.showconfirmpassword);
+        showconfirmpassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(see == false) {
+                    see = true;
+                    showconfirmpassword.setImageDrawable(getResources().getDrawable(R.drawable.eyeoff));
+                    confirmpasswordTxtView.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                }
+                else{
+                    see = false;
+                    showconfirmpassword.setImageDrawable(getResources().getDrawable(R.drawable.eyeon));
+                    confirmpasswordTxtView.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                }
+                confirmpasswordTxtView.setSelection(passwordTxtView.length());
+            }
+        });
         DayofBirthTextView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -73,8 +124,8 @@ public class Register extends AppCompatActivity {
                 //String encodedEmailFromDatabase = "bGVkYW5ndGh1b25nMjAwM0BnbWFpbC5jb20=";
                 //String decodedEmail = new String(Base64.getDecoder().decode(encodedEmailFromDatabase));
                 // Cách mã hóa lại code
-                final String password = passwordTextView.getText().toString();
-                final String confirmPassword = confirmpasswordTextView.getText().toString();
+                final String password = passwordTxtView.getText().toString();
+                final String confirmPassword = confirmpasswordTxtView.getText().toString();
                 final String phoneNumber = phoneNumberTextView.getText().toString();
                 final String dayofbirth = DayofBirthTextView.getText().toString();
 
@@ -153,7 +204,7 @@ public class Register extends AppCompatActivity {
         String status = "Online";
         String userID;
         email = emailTextView.getText().toString();
-        password = passwordTextView.getText().toString();
+        password = passwordTxtView.getText().toString();
         fullname = userNameTextView.getText().toString();
         phonenumber = phoneNumberTextView.getText().toString();
         dayofbirth = DayofBirthTextView.getText().toString();
