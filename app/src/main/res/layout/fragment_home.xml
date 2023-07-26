@@ -18,20 +18,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/editSearch"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-
-            android:layout_toLeftOf="@id/chatBtn"
-            android:layout_marginLeft="10dp"
-            android:fontFamily="@font/montserrat"
-            android:background="@drawable/search_background"
-            android:drawableStart="@drawable/search"
-            android:drawablePadding="12dp"
-            android:hint="Search product"
-            android:maxLength="20"
-            android:paddingStart="12dp" />
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="15dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/ic_search_circle" />
 
         <ImageView
             android:id="@+id/chatBtn"
@@ -40,6 +34,7 @@
             android:layout_height="40dp"
             android:layout_gravity="center"
             android:layout_marginHorizontal="10dp"
+            android:layout_centerVertical="true"
             android:background="@drawable/background_icon"
             android:backgroundTint="@color/white"
             app:srcCompat='@drawable/ic_chat' />
@@ -53,6 +48,7 @@
             android:layout_gravity="center"
             android:background="@drawable/background_icon"
             android:backgroundTint="@color/white"
+            android:layout_centerVertical="true"
             android:scaleType="fitXY"
             app:srcCompat='@drawable/ic_shopping_cart' />
 
@@ -69,7 +65,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="40dp">
 
             <TextView
                 android:id="@+id/txtOnSale"
@@ -101,6 +98,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:fontFamily="@font/montserrat_medium"
+                    android:layout_marginTop="10dp"
                     android:text="Trending now"
                     android:textColor="@color/black"
                     android:textSize="20dp"
@@ -150,6 +148,7 @@
                     android:fontFamily="@font/montserrat_medium"
                     android:text="Order Categories"
                     android:textColor="@color/black"
+                    android:layout_marginTop="10dp"
                     android:textSize="20dp"
                     android:textStyle="italic"
                     app:layout_constraintBottom_toBottomOf="parent"

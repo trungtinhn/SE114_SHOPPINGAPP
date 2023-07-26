@@ -6,7 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,7 +20,6 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.customerview.BottomNavigationCustomActivity;
 import com.example.shoppingapp.customerview.activity.CategoriesDetails;
-import com.example.shoppingapp.customerview.activity.SearchingActivity;
 import com.example.shoppingapp.customerview.categories.Categories;
 import com.example.shoppingapp.customerview.categories.CategoriesAdapter;
 import com.example.shoppingapp.customerview.product.Product;
@@ -60,7 +59,7 @@ public class HomeFragment extends Fragment {
     private List<Categories> listCategories;
     private CategoriesAdapter categoriesAdapter;
     private TextView txtSeeall;
-    private EditText editSearch;
+    private Button editSearch;
     private ImageView chatBtn;
     private  ImageView shoppingCart;
     private List<String> imagePro;
