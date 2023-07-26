@@ -205,8 +205,7 @@ public class BuyNow extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent t = new Intent(BuyNow.this, ShoppingCart.class);
-                startActivity(t);
+                finish();
             }
         });
         CheckOut.setOnClickListener(new View.OnClickListener() {

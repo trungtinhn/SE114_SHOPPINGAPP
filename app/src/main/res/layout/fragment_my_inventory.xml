@@ -17,6 +17,8 @@
         android:layout_toStartOf="@+id/ShoppingCart"
         android:layout_toEndOf="@+id/backIcon"
         android:iconifiedByDefault="false"
+        android:background="@drawable/search_background"
+        android:queryBackground="@null"
         android:queryHint="Search product" />
 
     <androidx.recyclerview.widget.RecyclerView

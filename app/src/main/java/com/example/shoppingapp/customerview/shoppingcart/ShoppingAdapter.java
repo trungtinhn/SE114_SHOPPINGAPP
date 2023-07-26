@@ -98,7 +98,7 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
             @Override
             public void onClick(View v) {
                 if(onButtonDeleteClick != null){
-                    onButtonDeleteClick.onButtonDeleteClick(holder.getAdapterPosition());
+                    onButtonDeleteClick.onButtonDeleteClick(holder.getBindingAdapterPosition());
                 }
             }
         });
@@ -106,7 +106,7 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
             @Override
             public void onClick(View v) {
                 if(onButtonMinusClickListener != null){
-                    onButtonMinusClickListener.onButtonMinusClick(holder.getAdapterPosition());
+                    onButtonMinusClickListener.onButtonMinusClick(holder.getBindingAdapterPosition());
                 }
             }
         });
@@ -114,7 +114,7 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
             @Override
             public void onClick(View v) {
                 if(onButtonAddClickListener != null){
-                    onButtonAddClickListener.onButtonAddClick(holder.getAdapterPosition());
+                    onButtonAddClickListener.onButtonAddClick(holder.getBindingAdapterPosition());
                 }
             }
         });
@@ -122,7 +122,7 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
             @Override
             public void onClick(View v) {
                 if(onCheckedChangeListener != null){
-                    onCheckedChangeListener.onCheckedChange(holder.getAdapterPosition());
+                    onCheckedChangeListener.onCheckedChange(holder.getBindingAdapterPosition());
                     //holder.check.setChecked(!cart.isCheck());
                 }
             }
