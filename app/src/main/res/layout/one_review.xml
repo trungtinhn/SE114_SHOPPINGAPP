@@ -27,7 +27,7 @@
                 android:layout_height="45dp"
                 android:background="@drawable/circle_background"
                 android:scaleType="fitXY"
-                android:src="@drawable/trendy_girl" />
+                android:src="@drawable/default_user" />
 
 
         </androidx.cardview.widget.CardView>
@@ -49,6 +49,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TRUNG TINH"
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:layout_marginTop="5dp"
@@ -64,8 +66,8 @@
                 android:isIndicator="true"
                 android:transformPivotX="0dp"
                 android:transformPivotY="0dp"
-
-                style="@style/MyRatingBar"
+                android:theme="@style/RatingBar"
+                style="@style/Base.Widget.AppCompat.RatingBar.Indicator"
                 />
 
 
@@ -87,14 +89,14 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center">
 
                 <ImageView
                     android:layout_width="17dp"
                     android:layout_height="17dp"
-                    android:layout_marginTop="3dp"
 
-                    android:src="@drawable/clockkk" />
+                    android:src="@drawable/ic_clock" />
 
                 <TextView
                     android:id="@+id/txtTimeReview"
@@ -102,6 +104,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:text="10 April, 2023"
+                    android:gravity="center"
+                    android:fontFamily="@font/montserrat"
+                    android:textColor="@color/black"
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -117,7 +122,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginRight="20dp"
-        android:text="Hàng đẹp shop giau nhanh, nhân viên có tâm tư vấn nhiệt tình lắm ạ"
+        android:text="Review"
+        android:fontFamily="@font/montserrat"
+        android:textColor="@color/black"
         android:textSize="16sp" />
 
     <ImageView
@@ -126,7 +133,7 @@
         android:layout_height="150dp"
         android:layout_marginLeft="20dp"
         android:scaleType="fitXY"
-        android:src="@drawable/anhgiay1" />
+        android:src="@drawable/bg_blank_pic" />
 
     <LinearLayout
         android:layout_width="match_parent"
