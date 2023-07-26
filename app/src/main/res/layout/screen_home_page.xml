@@ -27,7 +27,6 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_setting"
-                android:layout_marginTop="1dp"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginRight="10dp"
@@ -41,7 +40,7 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_chat"
-                android:layout_marginTop="1dp"
+
 
                 android:layout_width="25dp"
                 android:layout_height="25dp"
@@ -55,8 +54,7 @@
 
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:background="@drawable/iconlogout"
-                android:paddingBottom="20dp"
+                android:background="@drawable/ic_exit"
                 />
 
 
@@ -68,7 +66,7 @@
             android:layout_height="12dp"
             android:background="#D0D9E1" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="10dp"
@@ -79,7 +77,9 @@
                 android:id="@+id/img_avt"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
-                android:layout_marginTop="5dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="10dp"
+                android:layout_centerVertical="true"
                 android:src="@drawable/default_user"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -87,27 +87,30 @@
 
             <LinearLayout
                 android:id="@+id/linearLayout3"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_toStartOf="@+id/btn_view_shop"
+                android:layout_toEndOf="@+id/img_avt"
                 android:orientation="vertical"
                 app:layout_constraintStart_toEndOf="@+id/img_avt"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/userName"
-                    android:layout_width="150dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserrat_lights"
                     android:text="Le Dang Thuong"
+                    android:textColor="#000000"
                     android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:textColor="#000000" />
+                    android:textStyle="bold" />
 
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
@@ -121,7 +124,7 @@
 
                     <TextView
                         android:id="@+id/userID"
-                        android:layout_width="130dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/montserrat_lights"
                         android:text="iP4llTJrEPWqJqqM19fGBAH71TY2"
@@ -133,22 +136,24 @@
                 android:id="@+id/btn_view_shop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="13dp"
                 android:fontFamily="@font/montserrat_medium"
                 android:text="View shop"
                 android:textAllCaps="false"
                 android:textColor="#FF8400"
                 android:textSize="15dp"
-                android:textStyle="bold"
                 app:backgroundTint="#FFFFFF"
+                android:layout_centerVertical="true"
+                app:cornerRadius="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.833"
+                app:layout_constraintStart_toEndOf="@+id/linearLayout3"
                 app:layout_constraintTop_toTopOf="parent"
                 app:strokeColor="#FF8400"
-                app:cornerRadius="20dp"
                 app:strokeWidth="2dp" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/textView23"
@@ -168,7 +173,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_medium"
-                android:text="Order news"
+                android:text="Quick Order"
                 android:layout_marginTop="5dp"
                 android:textColor="#000000"
                 android:textSize="15dp"
@@ -193,29 +198,28 @@
                 app:layout_constraintTop_toTopOf="@+id/view2"
                 tools:ignore="TextSizeCheck" />
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:divider="@drawable/empty_tall_divider"
-            android:orientation="horizontal"
-            android:padding="20dp"
-            android:showDividers="middle">
 
-            <FrameLayout
-                android:layout_width="385dp"
-                android:layout_height="match_parent">
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:layout_marginHorizontal="10dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="5dp">
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_cancel"
+                    android:id="@+id/btn_confirm"
                     android:layout_width="75dp"
                     android:layout_height="75dp"
-                    android:layout_weight="0.25"
                     android:background="@drawable/button_shape"
-                    android:backgroundTint="#F3F3F3"
                     android:fontFamily="@font/montserrat_lights"
                     android:textAlignment="center"
-                    android:textAllCaps="false"
+                    android:textAllCaps="true"
+                    android:text="CONFIRM"
+                    android:padding="5dp"
                     android:textColor="@color/black"
                     android:textSize="11sp" />
 
@@ -224,21 +228,21 @@
                     android:id="@+id/btn_wait"
                     android:layout_width="75dp"
                     android:layout_height="75dp"
-                    android:layout_marginLeft="100dp"
-                    android:layout_weight="0.25"
+                    android:layout_marginLeft="20dp"
                     android:background="@drawable/button_shape"
                     android:fontFamily="@font/montserrat_lights"
                     android:textAlignment="center"
-                    android:textAllCaps="false"
+                    android:textAllCaps="true"
+                    android:text="wait"
                     android:textColor="@color/black"
                     android:textSize="11sp" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_request"
+                    android:id="@+id/btn_delivering"
                     android:layout_width="75dp"
                     android:layout_height="75dp"
-                    android:layout_marginLeft="200dp"
-                    android:layout_weight="0.25"
+                    android:layout_marginLeft="20dp"
+
                     android:background="@drawable/button_shape"
                     android:backgroundTint="#F3F3F3"
                     android:fontFamily="@font/montserrat_lights"
@@ -246,26 +250,39 @@
                     android:minHeight="0dp"
 
                     android:textAlignment="center"
-                    android:textAllCaps="false"
+                    android:textAllCaps="true"
+                    android:text="delivering"
                     android:textColor="@color/black"
                     android:textSize="11sp" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_Review"
+                    android:id="@+id/btn_delivered"
                     android:layout_width="75dp"
                     android:layout_height="75dp"
-                    android:layout_marginLeft="300dp"
-                    android:layout_weight="0.25"
+                    android:layout_marginLeft="20dp"
                     android:background="@drawable/button_shape"
                     android:backgroundTint="#F3F3F3"
                     android:fontFamily="@font/montserrat_lights"
-
                     android:textAlignment="center"
-                    android:textAllCaps="false"
+                    android:textAllCaps="true"
+                    android:text="delivered"
                     android:textColor="@color/black"
                     android:textSize="11sp" />
-            </FrameLayout>
-        </LinearLayout>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_cancel"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/button_shape"
+                    android:backgroundTint="#F3F3F3"
+                    android:fontFamily="@font/montserrat_lights"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:text="cancel"
+                    android:textColor="@color/black"
+                    android:textSize="11sp" />
+            </LinearLayout>
+            </HorizontalScrollView>
         <TextView
             android:id="@+id/textView15"
             android:layout_width="413dp"
@@ -290,8 +307,8 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_categories"
-                    android:layout_width="85dp"
-                    android:layout_height="85dp"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
                     android:background="@drawable/btn_promotions"
                     android:fontFamily="@font/montserrat_lights"
                     android:lineSpacingExtra="0sp"
@@ -305,12 +322,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_lights"
+                    android:fontFamily="@font/montserrat"
                     android:text="Categories"
                     android:textColor="#000000"
-                    android:textStyle="bold"
                     android:layout_marginTop="5dp"
-                    android:textSize="18dp" />
+                    android:textSize="13dp" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -320,8 +336,8 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_my_product"
-                    android:layout_width="85dp"
-                    android:layout_height="85dp"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
                     android:background="@drawable/box"
                     android:fontFamily="@font/montserrat_lights"
                     android:lineSpacingExtra="0sp"
@@ -335,12 +351,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_lights"
+                    android:fontFamily="@font/montserrat"
                     android:text="Products"
                     android:textColor="#000000"
-                    android:textStyle="bold"
                     android:layout_marginTop="5dp"
-                    android:textSize="18dp"  />
+                    android:textSize="13dp"  />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -350,8 +365,8 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_my_order"
-                    android:layout_width="85dp"
-                    android:layout_height="85dp"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
                     android:background="@drawable/btn_my_order"
                     android:fontFamily="@font/montserrat_lights"
                     android:lineSpacingExtra="0sp"
@@ -365,12 +380,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_lights"
+                    android:fontFamily="@font/montserrat"
                     android:text="Orders"
                     android:textColor="#000000"
-                    android:textStyle="bold"
                     android:layout_marginTop="5dp"
-                    android:textSize="18dp"  />
+                    android:textSize="13dp"  />
             </LinearLayout>
 
 
@@ -387,8 +401,8 @@
 
                     <ImageButton
                         android:id="@+id/btn_promotions"
-                        android:layout_width="85dp"
-                        android:layout_height="85dp"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
                         android:background="@drawable/btn_promotions"
                         android:fontFamily="@font/montserrat_lights"
                         android:lineSpacingExtra="0sp"
@@ -402,12 +416,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat_lights"
+                        android:fontFamily="@font/montserrat"
                         android:text="Promotions"
                         android:textColor="#000000"
-                        android:textStyle="bold"
                         android:layout_marginTop="5dp"
-                        android:textSize="18dp"  />
+                        android:textSize="13dp"  />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -417,8 +430,8 @@
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_financial_report"
-                        android:layout_width="85dp"
-                        android:layout_height="85dp"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
                         android:background="@drawable/btn_financial"
                         android:fontFamily="@font/montserrat_lights"
                         android:lineSpacingExtra="0sp"
@@ -432,12 +445,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat_lights"
+                        android:fontFamily="@font/montserrat"
                         android:text="Financial Report"
                         android:textColor="#000000"
-                        android:textStyle="bold"
                         android:layout_marginTop="5dp"
-                        android:textSize="18dp"  />
+                        android:textSize="13dp"  />
                 </LinearLayout>
 
                 <LinearLayout
@@ -448,10 +460,10 @@
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_manage_user"
-                        android:layout_width="85dp"
-                        android:layout_height="85dp"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
                         android:background="@drawable/btn_manage_user"
-                        android:fontFamily="@font/montserrat_lights"
+                        android:fontFamily="@font/montserrat"
                         android:lineSpacingExtra="0sp"
                         android:minWidth="0dp"
                         android:minHeight="0dp"
@@ -464,12 +476,11 @@
                         android:id="@+id/txt_manage_user"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat_lights"
+                        android:fontFamily="@font/montserrat"
                         android:text="Manage User"
                         android:textColor="#000000"
-                        android:textStyle="bold"
                         android:layout_marginTop="5dp"
-                        android:textSize="18dp"  />
+                        android:textSize="13dp"  />
                 </LinearLayout>
             </TableRow>
         </TableLayout>

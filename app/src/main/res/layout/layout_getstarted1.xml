@@ -29,7 +29,7 @@
         android:layout_marginTop="200dp"
         android:elevation="200dp"
         android:textAlignment="center"
-        android:fontFamily="@font/monoton"
+        android:fontFamily="@font/montserrat"
         android:textColor="@color/white"
         android:textSize="50dp"
         android:layout_height="100dp"/>
