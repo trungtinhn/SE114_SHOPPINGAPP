@@ -26,7 +26,6 @@
 
         android:fontFamily="@font/montserrat_medium"
         android:layout_marginHorizontal="20dp"
-        android:fontFamily="@font/montserrat_medium"
         android:textColor="@color/black"
         android:layout_marginTop="5dp"
         />

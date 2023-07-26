@@ -58,7 +58,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView rcvCategories;
     private List<Categories> listCategories;
     private CategoriesAdapter categoriesAdapter;
-    private TextView txtSeeall;
+    private TextView txtSeeall, txtEx;
     private Button editSearch;
     private ImageView chatBtn;
     private  ImageView shoppingCart;
@@ -88,6 +88,7 @@ public class HomeFragment extends Fragment {
         editSearch = view.findViewById(R.id.editSearch);
         chatBtn = view.findViewById(R.id.chatBtn);
         shoppingCart = view.findViewById(R.id.ShoppingCart);
+        txtEx = view.findViewById(R.id.txtExploreNow);
 
         setDataRcvProduct();
         setDataRcvCategories();
@@ -98,7 +99,12 @@ public class HomeFragment extends Fragment {
         SoLuongShoppingCart();
 
 
-
+        txtEx.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomNavigationCustomActivity.gotoSearchingActivity();
+            }
+        });
         setOnClickShoppingCart();
         // Inflate the layout for this fragment
         return view;
