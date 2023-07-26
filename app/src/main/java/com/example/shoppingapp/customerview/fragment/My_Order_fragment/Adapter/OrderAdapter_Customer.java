@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,20 +19,23 @@ import com.example.shoppingapp.StaffView.MyOrder.Adapter.ProductAdapter;
 import com.example.shoppingapp.StaffView.MyOrder.ItemOrder;
 import com.example.shoppingapp.StaffView.MyOrder.Order;
 import com.example.shoppingapp.customerview.activity.activity_details_order_customer;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class OrderAdapter_Customer extends RecyclerView.Adapter<OrderAdapter_Customer.ViewHolder> {
@@ -104,23 +108,101 @@ public class OrderAdapter_Customer extends RecyclerView.Adapter<OrderAdapter_Cus
             @Override
             public void onClick(View v) {
                 String maDH = orderList.get(receive).getMaDH();
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-                DocumentReference washingtonRef = db.collection("DONHANG").document(maDH);
-
-                washingtonRef
-                        .update("TrangThai", "Cancel")
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-
+                FirebaseFirestore db_confirm = FirebaseFirestore.getInstance();
+                CollectionReference donHangRef = db_confirm.collection("DONHANG");
+                DocumentReference docRef = donHangRef.document(maDH);
+                docRef.get().addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        String trangThai = documentSnapshot.getString("TrangThai");
+                        if (trangThai != null) {
+                            String newTrangThai;
+                            if (trangThai.equals("Confirm")) {
+                                newTrangThai = "Cancel";
                             }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-
+                            else {
+                                return;
                             }
-                        });
+                            docRef.update("TrangThai", newTrangThai)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                // Cập nhật thành công
+                                                Toast.makeText(v.getContext(), "Trạng thái đã được cập nhật", Toast.LENGTH_SHORT).show();
+                                                refresh();
+                                            } else {
+                                                // Cập nhật thất bại
+                                                Toast.makeText(v.getContext(), "Cập nhật trạng thái thất bại", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+
+                        }
+                        CollectionReference maThongBaoRef = FirebaseFirestore.getInstance().collection("MATHONGBAO");
+                        // Truy vấn để lấy MaTB dựa trên trạng thái "trangThai"
+                        maThongBaoRef.whereEqualTo("LoaiTB" , "Cancel").limit(1).get()
+                                .addOnSuccessListener(querySnapshot -> {
+                                    // Kiểm tra xem có kết quả trả về không
+                                    if (!querySnapshot.isEmpty()) {
+                                        // Lấy MaTB từ tài liệu đầu tiên trong kết quả truy vấn
+                                        String maTB = querySnapshot.getDocuments().get(0).getId();
+                                        Boolean read = false;
+                                        // Truy vấn để lấy MaND dựa trên maDH
+                                        donHangRef.document(maDH).get()
+                                                .addOnSuccessListener(documentSnapshotTB -> {
+                                                    if (documentSnapshotTB.exists()) {
+                                                        String maND = documentSnapshotTB.getString("MaND");
+                                                        Date currentTime = new Date();
+                                                        Timestamp timestamp = new Timestamp(currentTime);
+                                                        if (maND != null) {
+                                                            // Tạo thông báo
+                                                            Map<String, Object> thongBao = new HashMap<>();
+                                                            thongBao.put("MaTB", maTB);
+                                                            thongBao.put("MaDH", maDH);
+                                                            thongBao.put("MaND", maND);
+                                                            thongBao.put("Read", read);
+                                                            thongBao.put("Thoigian", timestamp);
+                                                            // Thêm thông báo vào bộ sưu tập "THONGBAODONHANG"
+                                                            CollectionReference thongBaoDonHangRef = FirebaseFirestore.getInstance().collection("THONGBAODONHANG");
+                                                            thongBaoDonHangRef.add(thongBao)
+                                                                    .addOnSuccessListener(documentReference1 -> {
+                                                                        String thongBaoId = documentReference1.getId();
+                                                                        thongBao.put("TBO", thongBaoId);
+                                                                        documentReference1.set(thongBao)
+                                                                                .addOnSuccessListener(aVoid -> {
+                                                                                    notifyDataSetChanged();
+                                                                                })
+                                                                                .addOnFailureListener(e -> {
+                                                                                    // Xử lý lỗi khi cập nhật tài liệu "THONGBAODONHANG"
+                                                                                });
+
+                                                                    })
+                                                                    .addOnFailureListener(e -> {
+                                                                        // Tạo tài liệu thất bại
+                                                                        // Xử lý lỗi nếu cần
+                                                                    });
+                                                        } else {
+                                                            // Không tìm thấy MaND phù hợp với maDH
+                                                            // Xử lý trường hợp này nếu cần
+                                                        }
+                                                    } else {
+                                                        // Không tìm thấy tài liệu "DONHANG" tương ứng với maDH
+                                                        // Xử lý trường hợp này nếu cần
+                                                    }
+                                                })
+                                                .addOnFailureListener(e -> {
+                                                    // Xử lý lỗi nếu có lỗi khi truy vấn "DONHANG"
+                                                });
+                                    } else {
+                                        // Không tìm thấy MaTB phù hợp với trạng thái "trangThai"
+                                        // Xử lý trường hợp này nếu cần
+                                    }
+                                })
+                                .addOnFailureListener(e -> {
+                                    // Xử lý lỗi nếu có lỗi khi truy vấn "MATHONGBAO"
+                                });
+                    }
+                });
             }
         });
 

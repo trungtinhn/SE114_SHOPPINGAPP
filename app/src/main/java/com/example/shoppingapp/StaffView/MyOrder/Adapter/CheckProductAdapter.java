@@ -17,6 +17,7 @@ import com.example.shoppingapp.StaffView.MyOrder.ItemOrder;
 import com.example.shoppingapp.StaffView.MyOrder.Order;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -25,7 +26,10 @@ import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class CheckProductAdapter extends RecyclerView.Adapter<CheckProductAdapter.ViewHolder> {
@@ -114,10 +118,75 @@ public class CheckProductAdapter extends RecyclerView.Adapter<CheckProductAdapte
                                     });
 
                         }
+                        CollectionReference maThongBaoRef = FirebaseFirestore.getInstance().collection("MATHONGBAO");
+                        // Truy vấn để lấy MaTB dựa trên trạng thái "trangThai"
+                        maThongBaoRef.whereEqualTo("LoaiTB", trangThai).limit(1).get()
+                                .addOnSuccessListener(querySnapshot -> {
+                                    // Kiểm tra xem có kết quả trả về không
+                                    if (!querySnapshot.isEmpty()) {
+                                        // Lấy MaTB từ tài liệu đầu tiên trong kết quả truy vấn
+                                        String maTB = querySnapshot.getDocuments().get(0).getId();
+                                        Boolean read = false;
+                                        // Truy vấn để lấy MaND dựa trên maDH
+                                        donHangRef.document(maDH).get()
+                                                .addOnSuccessListener(documentSnapshotTB -> {
+                                                    if (documentSnapshotTB.exists()) {
+                                                        String maND = documentSnapshotTB.getString("MaND");
+                                                        Date currentTime = new Date();
+
+                                                        Timestamp timestamp = new Timestamp(currentTime);
+                                                        if (maND != null) {
+                                                            // Tạo thông báo
+                                                            Map<String, Object> thongBao = new HashMap<>();
+                                                            thongBao.put("MaTB", maTB);
+                                                            thongBao.put("MaDH", maDH);
+                                                            thongBao.put("MaND", maND);
+                                                            thongBao.put("Read", read);
+                                                            thongBao.put("Thoigian", timestamp);
+                                                            // Thêm thông báo vào bộ sưu tập "THONGBAODONHANG"
+                                                            CollectionReference thongBaoDonHangRef = FirebaseFirestore.getInstance().collection("THONGBAODONHANG");
+                                                            thongBaoDonHangRef.add(thongBao)
+                                                                    .addOnSuccessListener(documentReference1 -> {
+                                                                        String thongBaoId = documentReference1.getId();
+                                                                        thongBao.put("TBO", thongBaoId);
+                                                                        documentReference1.set(thongBao)
+                                                                                .addOnSuccessListener(aVoid -> {
+                                                                                    notifyDataSetChanged();
+                                                                                })
+                                                                                .addOnFailureListener(e -> {
+                                                                                    // Xử lý lỗi khi cập nhật tài liệu "THONGBAODONHANG"
+                                                                                });
+
+                                                                    })
+                                                                    .addOnFailureListener(e -> {
+                                                                        // Tạo tài liệu thất bại
+                                                                        // Xử lý lỗi nếu cần
+                                                                    });
+                                                        } else {
+                                                            // Không tìm thấy MaND phù hợp với maDH
+                                                            // Xử lý trường hợp này nếu cần
+                                                        }
+                                                    } else {
+                                                        // Không tìm thấy tài liệu "DONHANG" tương ứng với maDH
+                                                        // Xử lý trường hợp này nếu cần
+                                                    }
+                                                })
+                                                .addOnFailureListener(e -> {
+                                                    // Xử lý lỗi nếu có lỗi khi truy vấn "DONHANG"
+                                                });
+                                    } else {
+                                        // Không tìm thấy MaTB phù hợp với trạng thái "trangThai"
+                                        // Xử lý trường hợp này nếu cần
+                                    }
+                                })
+                                .addOnFailureListener(e -> {
+                                    // Xử lý lỗi nếu có lỗi khi truy vấn "MATHONGBAO"
+                                });
                     } else {
                         Toast.makeText(v.getContext(), "Document does not exist", Toast.LENGTH_SHORT).show();
                     }
                 });
+
             }
         });
 
