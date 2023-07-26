@@ -90,7 +90,7 @@ public class ProductTrendingAdapter extends  RecyclerView.Adapter<ProductTrendin
             @Override
             public void onClick(View v) {
                 if(onItemClick != null){
-                    onItemClick.onButtonItemClick(holder.getAdapterPosition());
+                    onItemClick.onButtonItemClick(holder.getBindingAdapterPosition());
                 }
             }
         });

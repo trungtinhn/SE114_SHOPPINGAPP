@@ -96,7 +96,7 @@ public class ProductCardAdapter extends RecyclerView.Adapter<ProductCardAdapter.
             @Override
             public void onClick(View v) {
                 if(onItemClick != null){
-                    onItemClick.onButtonItemClick(holder.getAdapterPosition());
+                    onItemClick.onButtonItemClick(holder.getBindingAdapterPosition());
                 }
             }
         });

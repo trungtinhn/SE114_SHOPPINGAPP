@@ -214,63 +214,71 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext(), RecyclerView.VERTICAL, false);
         rcvCategories.setLayoutManager(linearLayoutManager);
         categoriesAdapter = new CategoriesAdapter();
-
-        firebaseFirestore.collection("DANHMUC")
-                        .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                            @Override
-                            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                                if (error != null) {
-                                    Log.w("Error", "listen:error", error);
-                                    return;
-                                }
-                                listCategories = new ArrayList<>();
-                                for (DocumentSnapshot document : value.getDocuments()) {
-                                    if (document.exists()) {
-                                        String name = document.getString("TenDM");
-                                        String anh = document.getString("AnhDM");
-                                        String maDM = document.getString("MaDM");
-                                        listCategories.add(new Categories(name,anh, maDM));
-                                    } else {
-                                        Log.d("Error", "No such document");
-                                    }
-                                }
-                                categoriesAdapter.setData(listCategories);
-                                categoriesAdapter.setOnItemClick(new CategoriesAdapter.OnItemClick() {
-                                    @Override
-                                    public void onButtonItemClick(int position) {
-                                        Intent t = new Intent(bottomNavigationCustomActivity, CategoriesDetails.class);
-                                        t.putExtra("MaDM", listCategories.get(position).getMaDM());
-                                        t.putExtra("TenDM", listCategories.get(position).getName());
-                                        startActivity(t);
-                                    }
-                                });
-                                rcvCategories.setAdapter(categoriesAdapter);
+        try {
+            firebaseFirestore.collection("DANHMUC")
+                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                            if (error != null) {
+                                Log.w("Error", "listen:error", error);
+                                return;
                             }
-                        });
+                            listCategories = new ArrayList<>();
+                            for (DocumentSnapshot document : value.getDocuments()) {
+                                if (document.exists()) {
+                                    String name = document.getString("TenDM");
+                                    String anh = document.getString("AnhDM");
+                                    String maDM = document.getString("MaDM");
+                                    listCategories.add(new Categories(name,anh, maDM));
+                                } else {
+                                    Log.d("Error", "No such document");
+                                }
+                            }
+                            categoriesAdapter.setData(listCategories);
+                            categoriesAdapter.setOnItemClick(new CategoriesAdapter.OnItemClick() {
+                                @Override
+                                public void onButtonItemClick(int position) {
+                                    Intent t = new Intent(bottomNavigationCustomActivity, CategoriesDetails.class);
+                                    t.putExtra("MaDM", listCategories.get(position).getMaDM());
+                                    t.putExtra("TenDM", listCategories.get(position).getName());
+                                    startActivity(t);
+                                }
+                            });
+                            rcvCategories.setAdapter(categoriesAdapter);
+                        }
+                    });
+        }catch (Exception ex){
+
+        }
+
     }
     private void SoLuongShoppingCart(){
-        firebaseFirestore.collection("GIOHANG")
-                .whereEqualTo("MaND", firebaseAuth.getCurrentUser().getUid())
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                        if (error != null) {
-                            Log.w("Error", "listen:error", error);
-                            return;
-                        }
-                        dataGiohang = new ArrayList<>();
-                        for(DocumentSnapshot doc: value.getDocuments()){
-                            if(doc.exists()){
-                                String ma = doc.getString("MaGH");
-                                dataGiohang.add(ma);
+        try {
+            firebaseFirestore.collection("GIOHANG")
+                    .whereEqualTo("MaND", firebaseAuth.getCurrentUser().getUid())
+                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                            if (error != null) {
+                                Log.w("Error", "listen:error", error);
+                                return;
                             }
-                        }
-                        BadgeDrawable badgeDrawable = BadgeDrawable.create(getContext());
-                        badgeDrawable.setNumber(dataGiohang.size());
+                            dataGiohang = new ArrayList<>();
+                            for(DocumentSnapshot doc: value.getDocuments()){
+                                if(doc.exists()){
+                                    String ma = doc.getString("MaGH");
+                                    dataGiohang.add(ma);
+                                }
+                            }
+                            BadgeDrawable badgeDrawable = BadgeDrawable.create(requireContext());
+                            badgeDrawable.setNumber(dataGiohang.size());
 
-                        BadgeUtils.attachBadgeDrawable(badgeDrawable, shoppingCart, null);
-                    }
-                });
+                            BadgeUtils.attachBadgeDrawable(badgeDrawable, shoppingCart, null);
+                        }
+                    });
+        }catch (Exception ex){
+
+        }
 
     }
 }

@@ -176,7 +176,7 @@ public class ShoppingCart extends AppCompatActivity {
                             @Override
                             public void onButtonMinusClick(int position) {
                                 com.example.shoppingapp.customerview.shoppingcart.ShoppingCart shoppingCart = data.get(position);
-                                if(shoppingCart.getSoLuong() - 1 > 1) {
+                                if(shoppingCart.getSoLuong() - 1 >= 1) {
                                     MinusSoLuong(shoppingCart);
                                 }
                                 if(shoppingCart.getSoLuong() - 1 == 0){
