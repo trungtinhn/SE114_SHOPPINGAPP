@@ -130,9 +130,26 @@ public class activity_delete_promotion extends AppCompatActivity {
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
+                                // Get the MaKM of the promotion to be deleted
+                                String maKMToDelete = document.getId();
+                                // Delete the promotion document
                                 document.getReference().delete();
+                                // Delete related notifications in "THONGBAO" collection
+                                firestore.collection("THONGBAO")
+                                        .whereEqualTo("MaKM", maKMToDelete)
+                                        .get()
+                                        .addOnCompleteListener(notificationTask -> {
+                                            if (notificationTask.isSuccessful()) {
+                                                for (QueryDocumentSnapshot notificationDoc : notificationTask.getResult()) {
+                                                    notificationDoc.getReference().delete();
+                                                }
+                                            } else {
+                                                // Handle the failure if querying "THONGBAO" fails
+                                                Toast.makeText(activity_delete_promotion.this, "Failed to delete related notifications", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
                             }
-                            Toast.makeText(activity_delete_promotion.this, "Promotion deleted successfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(activity_delete_promotion.this, "Promotion and related notifications deleted successfully", Toast.LENGTH_SHORT).show();
                             adapter.notifyDataSetChanged();
                             Intent intent = new Intent(activity_delete_promotion.this, activity_promotions.class);
                             startActivity(intent);
@@ -141,7 +158,7 @@ public class activity_delete_promotion extends AppCompatActivity {
                         }
                     });
         } else {
-            Toast.makeText(activity_delete_promotion.this, "Cannot delete category with products, because this category have more than 2 products", Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity_delete_promotion.this, "Cannot delete category with products, because this category has more than 2 products", Toast.LENGTH_SHORT).show();
         }
     }
 

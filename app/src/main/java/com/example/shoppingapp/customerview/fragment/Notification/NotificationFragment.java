@@ -44,7 +44,6 @@ public class NotificationFragment extends Fragment {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
         adapter.addFragment(new GeneralFragment(), "General");
         adapter.addFragment(new OrderFragment(), "Order");
-        adapter.addFragment(new MessageFragment(), "Message");
         viewPager.setAdapter(adapter);
     }
 

@@ -6,8 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
+import com.example.shoppingapp.customerview.fragment.Notification.Adapter.OrderNotificationAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,6 +30,9 @@ public class OrderFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private List<Notification> notificationList;
+    private OrderNotificationAdapter orderNotificationAdapter;
+    private RecyclerView recyclerViewNotifications;
 
     public OrderFragment() {
         // Required empty public constructor
@@ -59,7 +68,15 @@ public class OrderFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_order, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_notification_order, container, false);
+
+        recyclerViewNotifications = rootView.findViewById(R.id.RCV_order_notification);
+        recyclerViewNotifications.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        notificationList = new ArrayList<>();
+        orderNotificationAdapter = new OrderNotificationAdapter(notificationList, requireContext());
+
+        recyclerViewNotifications.setAdapter(orderNotificationAdapter);
+        return rootView;
     }
 }
