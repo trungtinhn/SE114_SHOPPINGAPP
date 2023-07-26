@@ -54,6 +54,7 @@ import com.squareup.picasso.Picasso;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class ProfileActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -175,10 +176,9 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
                         try{
                             if(ImageUrl.isEmpty()) {}
                             else {
-                                int width = 200;
-                                int height = 200;
-                                Picasso.get().load(ImageUrl).resize(width,height).into((ImageView) findViewById(R.id.img_avt_Profile));
+                                Picasso.get().load(ImageUrl).into((ImageView) findViewById(R.id.img_avt_Profile));
                                 storageReference = firebaseStorage.getReferenceFromUrl(ImageUrl);
+                                oldImageUrl = ImageUrl;
                             }
                         }
                         catch (Exception e)
@@ -232,12 +232,10 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
         try{
             if(ImageUrl.isEmpty())
             {
-                Toast.makeText(getApplicationContext(),"null is recieved",Toast.LENGTH_SHORT).show();
+                if(!oldImageUrl.isEmpty()) Picasso.get().load(oldImageUrl).into(edImg);
             }
             else {
-                int width = 200;
-                int height = 200;
-                Picasso.get().load(ImageUrl).resize(width, height).into(edImg);
+                Picasso.get().load(ImageUrl).into(edImg);
             }
         }
         catch (Exception e)
@@ -249,9 +247,10 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
             public void onClick(View view) {
                 dialogPlus.dismiss();
                 try{
-                    if(!ImageUrl.isEmpty())
+                    if(!ImageUrl.isEmpty() && !ImageUrl.equals(oldImageUrl))
                     {
                         DeleteOldImg(ImageUrl);
+                        ImageUrl = oldImageUrl;
                     }
                 }
                 catch (Exception e)
@@ -315,6 +314,7 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
                                         try {
                                             if (!oldImageUrl.isEmpty()) {
                                                 DeleteOldImg(oldImageUrl);
+                                                oldImageUrl = ImageUrl;
                                             }}
                                         catch (Exception e)
                                         {
@@ -339,6 +339,7 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
                                         try {
                                             if (!ImageUrl.isEmpty()) {
                                                 DeleteOldImg(ImageUrl);
+                                                ImageUrl = oldImageUrl;
                                             }}
                                         catch (Exception d)
                                         {
@@ -381,7 +382,7 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
         progressDialog.show();
         StorageReference storageRef = firebaseStorage.getReference();
 
-        String imagePath = "ImageUser/" + firebaseAuth.getCurrentUser().getUid() + ".jpg";
+        String imagePath = "ImageUser/" + UUID.randomUUID().toString()+ ".jpg";
         StorageReference imageRef = storageRef.child(imagePath);
 
         imageRef.putFile(imageUri)
@@ -412,7 +413,7 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
         progressDialog.show();
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
-        StorageReference avatarRef = storageRef.child("ImageUser/" + currentUserId.toString() + ".jpg");
+        StorageReference avatarRef = storageRef.child("ImageUser/" + UUID.randomUUID().toString() + ".jpg");
 
         avatarRef.putFile(imageUri)
                 .addOnSuccessListener(taskSnapshot -> {
@@ -422,9 +423,7 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
                                 .update("avatar", ImageUrl)
                                 .addOnSuccessListener(aVoid -> {
                                     try{
-                                        int width = 200;
-                                        int height = 200;
-                                        Picasso.get().load(ImageUrl).resize(width,height).into(imgAvt);
+                                        Picasso.get().load(ImageUrl).into(imgAvt);
                                         showUpdateSuccessDialog_ava();
 
                                     }
@@ -433,6 +432,7 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
                                         try {
                                             if (!oldImageUrl.isEmpty()) {
                                                 DeleteOldImg(oldImageUrl);
+                                                oldImageUrl = ImageUrl;
                                             }
                                         } catch (Exception e) {}}
                                     } catch (Exception e) {}
