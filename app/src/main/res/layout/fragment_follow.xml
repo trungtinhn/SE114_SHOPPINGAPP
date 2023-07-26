@@ -27,6 +27,8 @@
             android:drawablePadding="12dp"
             android:iconifiedByDefault="false"
             android:maxLength="20"
+            android:queryBackground="@null"
+            android:background="@drawable/search_background"
             android:queryHint="Search product" />
 
         <ImageView
