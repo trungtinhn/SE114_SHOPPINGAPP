@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/txt_status"
@@ -13,7 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:padding="10dp">
+        android:padding="10dp"
+        style="@style/RectangleStyle"
+        >
 
         <ImageView
             android:id="@+id/backIcon"
@@ -21,7 +23,7 @@
             android:layout_height="25dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
-            android:src="@drawable/back" />
+            android:src="@drawable/baseline_arrow_back_24" />
 
         <TextView
             android:id="@+id/productName"
@@ -37,11 +39,16 @@
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcyAddress"
+        android:layout_below="@id/headingProductDetail"
         android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/addNewAddress"
+        >
     </androidx.recyclerview.widget.RecyclerView>
     <LinearLayout
+        android:id="@+id/addNewAddress"
+        android:layout_above="@id/btnDone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -76,8 +83,12 @@
         android:layout_height="200dp" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/btnDone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginVertical="30dp"
         android:gravity="center">
 
         <TextView
@@ -93,4 +104,4 @@
 
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

@@ -11,32 +11,33 @@
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="match_parent">
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/headingProductDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            style="@style/RectangleStyle"
             android:padding="10dp">
 
             <ImageView
                 android:id="@+id/backIcon"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-
-                android:layout_marginTop="5dp"
-                android:src="@drawable/back" />
+                android:layout_centerVertical="true"
+                android:src="@drawable/baseline_arrow_back_24"
+                android:layout_marginHorizontal="10dp"
+                />
         <TextView
             android:id="@+id/productName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
             android:layout_toRightOf="@id/backIcon"
             android:text="Cart"
             android:textColor="@color/black"
             android:textSize="25dp"
             android:textStyle="bold" />
-    </LinearLayout>
+    </RelativeLayout>
     <ScrollView
         android:layout_width="match_parent"
         android:id="@+id/scrollView"
@@ -45,11 +46,15 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+
+            >
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
+                android:layout_marginVertical="10dp"
+                android:layout_marginHorizontal="10dp"
                 android:background="@drawable/background_product_sliver">
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -73,7 +78,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:text="Ten San Pham"
-                            android:textSize="16sp"
+                            android:textSize="18dp"
+                            android:fontFamily="@font/montserrat_medium"
                             android:textStyle="bold" />
 
                         <TextView
@@ -81,6 +87,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
+                            android:fontFamily="@font/montserrat_medium"
                             android:text="Hồng"
                             android:textSize="16sp" />
                         <TextView
@@ -88,6 +95,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
+                            android:fontFamily="@font/montserrat_medium"
                             android:text="L"
                             android:textSize="16sp" />
 
@@ -96,16 +104,35 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
+                            android:fontFamily="@font/montserrat_medium"
                             android:text="10"
                             android:textSize="16sp" />
-                        <TextView
-                            android:id="@+id/txt_giaban"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:text="Gia Ban 200.000"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/txt_giaban"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/montserrat_medium"
+                                android:layout_marginTop="5dp"
+                                android:text="200.000"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_toRightOf="@id/txt_giaban"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/montserrat_medium"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginLeft="10dp"
+                                android:text="VND"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                        </RelativeLayout>
+
                     </LinearLayout>
                     <ImageView
                         android:id="@+id/image_next"
@@ -118,7 +145,7 @@
 
             </LinearLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp">
@@ -134,11 +161,12 @@
                     android:textStyle="bold" />
 
                 <ImageView
+                    android:layout_alignParentRight="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20dp"
                     android:src="@drawable/right" />
-            </LinearLayout>
+            </RelativeLayout>
             <LinearLayout
                 android:id="@+id/layout_not_promotion"
                 android:layout_width="match_parent"
@@ -256,7 +284,7 @@
             </LinearLayout>
 
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp">
@@ -272,12 +300,13 @@
                     android:textStyle="bold" />
 
                 <ImageView
+                    android:layout_alignParentRight="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20dp"
 
                     android:src="@drawable/right" />
-            </LinearLayout>
+            </RelativeLayout>
 
             <LinearLayout
                 android:id="@+id/layout_not_address"
@@ -312,15 +341,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/address" />
+
                 <LinearLayout
                     android:background="@drawable/background_categories"
                     android:orientation="vertical"
-                    android:layout_width="250dp"
-                    android:layout_margin="10dp"
+                    android:layout_width="320dp"
+
                     android:layout_height="wrap_content">
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -380,7 +406,7 @@
                     android:layout_weight="1" />
             </LinearLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp">
@@ -396,12 +422,13 @@
                     android:textStyle="bold" />
 
                 <ImageView
+                    android:layout_alignParentRight="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20dp"
 
                     android:src="@drawable/right" />
-            </LinearLayout>
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
