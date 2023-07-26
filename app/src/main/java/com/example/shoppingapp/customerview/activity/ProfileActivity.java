@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,17 +24,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.shoppingapp.Login.User;
 import com.example.shoppingapp.R;
+import com.example.shoppingapp.StaffView.Home.home_page;
+import com.example.shoppingapp.StaffView.activity.activity_setting;
 import com.example.shoppingapp.customerview.BottomNavigationCustomActivity;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -128,33 +132,6 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
         }
         EventInit();
     }
-    @Override
-    protected void onStop() {
-        super.onStop();
-        DocumentReference documentReference=FirebaseFirestore.getInstance().
-                collection("NGUOIDUNG").document(FirebaseAuth.getInstance().getUid());
-        documentReference.update("status","Offline").addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-            }
-        });
-
-
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        DocumentReference documentReference=FirebaseFirestore.getInstance().
-                collection("NGUOIDUNG").document(FirebaseAuth.getInstance().getUid());
-        documentReference.update("status","Online").addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-            }
-        });
-
-    }
     private void EventChangeAva() {
         Intent pickPhotoIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(pickPhotoIntent, REQUEST_IMAGE_PICK);
@@ -176,7 +153,9 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
                         try{
                             if(ImageUrl.isEmpty()) {}
                             else {
-                                Picasso.get().load(ImageUrl).into((ImageView) findViewById(R.id.img_avt_Profile));
+                                int weith = 200;
+                                int heith = 200;
+                                Picasso.get().load(ImageUrl).resize(weith,heith).into((ImageView) findViewById(R.id.img_avt_Profile));
                                 storageReference = firebaseStorage.getReferenceFromUrl(ImageUrl);
                                 oldImageUrl = ImageUrl;
                             }
@@ -232,10 +211,17 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
         try{
             if(ImageUrl.isEmpty())
             {
-                if(!oldImageUrl.isEmpty()) Picasso.get().load(oldImageUrl).into(edImg);
+                if(!oldImageUrl.isEmpty()) {
+                    int weith = 200;
+                    int heith = 200;
+                    Picasso.get().load(oldImageUrl).resize(weith,heith).into(edImg);
+
+                }
             }
             else {
-                Picasso.get().load(ImageUrl).into(edImg);
+                int weith = 200;
+                int heith = 200;
+                Picasso.get().load(ImageUrl).resize(weith,heith).into(edImg);
             }
         }
         catch (Exception e)
@@ -423,7 +409,9 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
                                 .update("avatar", ImageUrl)
                                 .addOnSuccessListener(aVoid -> {
                                     try{
-                                        Picasso.get().load(ImageUrl).into(imgAvt);
+                                        int weith = 200;
+                                        int heith = 200;
+                                        Picasso.get().load(ImageUrl).resize(weith,heith).into(imgAvt);
                                         showUpdateSuccessDialog_ava();
 
                                     }
@@ -490,7 +478,6 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
-
 
 
 }
