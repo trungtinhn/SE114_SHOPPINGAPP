@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,8 +19,7 @@ import com.example.shoppingapp.StaffView.MyOrder.Adapter.ProductAdapter;
 import com.example.shoppingapp.StaffView.MyOrder.ItemOrder;
 import com.example.shoppingapp.StaffView.MyOrder.Order;
 import com.example.shoppingapp.customerview.activity.activity_details_order_customer;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -30,7 +30,10 @@ import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class OrderCancelAdapter_Customer extends RecyclerView.Adapter<OrderCancelAdapter_Customer.ViewHolder> {
@@ -77,30 +80,13 @@ public class OrderCancelAdapter_Customer extends RecyclerView.Adapter<OrderCance
             }
         });
         holder.cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String maDH = orderList.get(receive).getMaDH();
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-                DocumentReference washingtonRef = db.collection("DONHANG").document(maDH);
+             @Override
+             public void onClick(View v) {
+                 holder.createNewOrder(order);
+                 Toast.makeText(v.getContext(), "Thực hiện việc ReOrder thành công, đơn hàng của bạn đã được tạo", Toast.LENGTH_SHORT).show();
 
-                washingtonRef
-                        .update("TrangThai", "Confirm")
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-
-                            }
-                        });
-            }
-        });
-
-
+             }
+         });
         // Truy vấn Firebase để lấy AnhDaiDien dựa trên maND
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -186,7 +172,7 @@ public class OrderCancelAdapter_Customer extends RecyclerView.Adapter<OrderCance
     }
 
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView orderIdTextView;
         public TextView customerNameTextView;
         private ImageView img_avatar;
@@ -205,6 +191,146 @@ public class OrderCancelAdapter_Customer extends RecyclerView.Adapter<OrderCance
             total = itemView.findViewById(R.id.moneytotal_customer);
             button = itemView.findViewById(R.id.btn_detail_customer);
             cancel = itemView.findViewById(R.id.confirm_customer);
+        }
+        public void createNewOrder(Order order) {
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            CollectionReference donHangCollection = db.collection("DONHANG");
+            Map<String, Object> newOrder = new HashMap<>();
+            newOrder.put("DuKienGiaoHang", order.getDuKienGiaoHang()); // Thay "MaSP" bằng trường thông tin mã sản phẩm trong đơn hàng cũ
+            newOrder.put("GiamGia", order.getGiamGia()); // Thay "SoLuong" bằng trường thông tin số lượng trong đơn hàng cũ
+            newOrder.put("MaDC", order.getMaDC()); // Thay "GiaTien" bằng trường thông tin giá tiền trong đơn hàng cũ
+            newOrder.put("MaKM", order.getMaKM());
+            newOrder.put("MaND", order.getMaND());
+            newOrder.put("NgayDatHang", order.getNgayDatHang());
+            newOrder.put("PhiVanChuyen", order.getPhiVanChuyen());
+            newOrder.put("PhuongThucTT", order.getPhuongThucTT());
+            newOrder.put("SDT", order.getSDT());
+            newOrder.put("TamTinh", order.getTamTinh());
+            newOrder.put("TenNguoiMua", order.getTenNguoiMua());
+            newOrder.put("TongTien", order.getTongTien());
+            newOrder.put("TrangThai", "Confirm");
+            donHangCollection.add(newOrder)
+                    .addOnSuccessListener(documentReference -> {
+                        // Lấy mã đơn hàng mới tạo
+                        String newMaDH = documentReference.getId();
+                        newOrder.put("MaDH", newMaDH);
+                        // Sau khi tạo đơn hàng mới, sao chép các sản phẩm từ đơn hàng cũ và thêm vào đơn hàng mới
+                        FirebaseFirestore db_con = FirebaseFirestore.getInstance();
+                        CollectionReference dathangRef = db_con.collection("DATHANG");
+                        dathangRef.whereEqualTo("MaDH", order.getMaDH())
+                                .get()
+                                .addOnSuccessListener(querySnapshot -> {
+                                    for (DocumentSnapshot document : querySnapshot.getDocuments()) {
+                                        // Sao chép thông tin sản phẩm từ đơn hàng cũ
+                                        String maSP = document.getString("MaSP");
+                                        String mauSac = document.getString("MauSac");
+                                        String size = document.getString("Size");
+                                        long thanhtien = document.getLong("ThanhTien");
+                                        int number = document.getLong("SoLuong") != null ? Math.toIntExact(document.getLong("SoLuong")) : 0;
+
+                                        // Tạo một HashMap chứa thông tin sản phẩm mới
+                                        Map<String, Object> newProduct = new HashMap<>();
+                                        newProduct.put("MaSP", maSP);
+                                        newProduct.put("MauSac", mauSac);
+                                        newProduct.put("Size", size);
+                                        newProduct.put("SoLuong", number);
+                                        newProduct.put("ThanhTien", thanhtien);
+                                        newProduct.put("MaDH", newMaDH);
+                                        // Thêm sản phẩm vào đơn hàng mới
+                                        db.collection("DATHANG").add(newProduct)
+                                                .addOnSuccessListener(documentReference1 -> {
+                                                    String newdathang = documentReference1.getId();
+                                                    documentReference.set(newOrder)
+                                                            .addOnSuccessListener(aVoid -> {
+                                                                refresh();
+                                                            })
+                                                            .addOnFailureListener(e -> {
+                                                                // Xử lý lỗi khi cập nhật tài liệu "THONGBAODONHANG"
+                                                            });
+                                                })
+                                                .addOnFailureListener(e -> {
+                                                    // Xử lý khi có lỗi xảy ra khi thêm sản phẩm vào đơn hàng mới
+                                                });
+                                    }
+                                })
+                                .addOnFailureListener(e -> {
+                                    // Xử lý khi truy vấn thất bại
+                                });
+                        FirebaseFirestore db_confirm = FirebaseFirestore.getInstance();
+                        CollectionReference donHangRef = db_confirm.collection("DONHANG");
+                        DocumentReference docRef = donHangRef.document(newMaDH);
+                        docRef.get().addOnSuccessListener(documentSnapshot -> {
+                            if (documentSnapshot.exists()) {
+                                String trangThai = documentSnapshot.getString("TrangThai");
+                                CollectionReference maThongBaoRef = FirebaseFirestore.getInstance().collection("MATHONGBAO");
+                                // Truy vấn để lấy MaTB dựa trên trạng thái "trangThai"
+                                maThongBaoRef.whereEqualTo("LoaiTB", "ReOrder").limit(1).get()
+                                        .addOnSuccessListener(querySnapshot -> {
+                                            // Kiểm tra xem có kết quả trả về không
+                                            if (!querySnapshot.isEmpty()) {
+                                                // Lấy MaTB từ tài liệu đầu tiên trong kết quả truy vấn
+                                                String maTB = querySnapshot.getDocuments().get(0).getId();
+                                                Boolean read = false;
+                                                // Truy vấn để lấy MaND dựa trên maDH
+                                                donHangRef.document(newMaDH).get()
+                                                        .addOnSuccessListener(documentSnapshotTB -> {
+                                                            if (documentSnapshotTB.exists()) {
+                                                                String maND = documentSnapshotTB.getString("MaND");
+                                                                Date currentTime = new Date();
+                                                                Timestamp timestamp = new Timestamp(currentTime);
+                                                                if (maND != null) {
+                                                                    // Tạo thông báo
+                                                                    Map<String, Object> thongBao = new HashMap<>();
+                                                                    thongBao.put("MaTB", maTB);
+                                                                    thongBao.put("MaDH", newMaDH);
+                                                                    thongBao.put("MaND", maND);
+                                                                    thongBao.put("Read", read);
+                                                                    thongBao.put("Thoigian", timestamp);
+                                                                    // Thêm thông báo vào bộ sưu tập "THONGBAODONHANG"
+                                                                    CollectionReference thongBaoDonHangRef = FirebaseFirestore.getInstance().collection("THONGBAODONHANG");
+                                                                    thongBaoDonHangRef.add(thongBao)
+                                                                            .addOnSuccessListener(documentReference1 -> {
+                                                                                String thongBaoId = documentReference1.getId();
+                                                                                thongBao.put("TBO", thongBaoId);
+                                                                                documentReference1.set(thongBao)
+                                                                                        .addOnSuccessListener(aVoid -> {
+                                                                                            notifyDataSetChanged();
+                                                                                        })
+                                                                                        .addOnFailureListener(e -> {
+                                                                                            // Xử lý lỗi khi cập nhật tài liệu "THONGBAODONHANG"
+                                                                                        });
+
+                                                                            })
+                                                                            .addOnFailureListener(e -> {
+                                                                                // Tạo tài liệu thất bại
+                                                                                // Xử lý lỗi nếu cần
+                                                                            });
+                                                                } else {
+                                                                    // Không tìm thấy MaND phù hợp với maDH
+                                                                    // Xử lý trường hợp này nếu cần
+                                                                }
+                                                            } else {
+                                                                // Không tìm thấy tài liệu "DONHANG" tương ứng với maDH
+                                                                // Xử lý trường hợp này nếu cần
+                                                            }
+                                                        })
+                                                        .addOnFailureListener(e -> {
+                                                            // Xử lý lỗi nếu có lỗi khi truy vấn "DONHANG"
+                                                        });
+                                            } else {
+                                                // Không tìm thấy MaTB phù hợp với trạng thái "trangThai"
+                                                // Xử lý trường hợp này nếu cần
+                                            }
+                                        })
+                                        .addOnFailureListener(e -> {
+                                            // Xử lý lỗi nếu có lỗi khi truy vấn "MATHONGBAO"
+                                        });
+                            }
+                        });
+                    })
+                    .addOnFailureListener(e -> {
+                        // Xử lý khi có lỗi xảy ra khi tạo đơn hàng mới
+                    });
         }
     }
 

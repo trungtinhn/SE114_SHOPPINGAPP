@@ -35,32 +35,41 @@
             android:textSize="25dp"
             android:textStyle="bold" />
     </LinearLayout>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcyPromotion"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    </androidx.recyclerview.widget.RecyclerView>
-    <Space
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcyPromotion"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </androidx.recyclerview.widget.RecyclerView>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
 
-        <TextView
-            android:id="@+id/btn_save"
-            android:layout_width="120dp"
-            android:layout_height="40dp"
-            android:background="@drawable/background_btn_orange"
-            android:gravity="center"
-            android:text="Done Address"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/btn_save"
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/background_btn_orange"
+                    android:gravity="center"
+                    android:text="Done Address"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
 
-    </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

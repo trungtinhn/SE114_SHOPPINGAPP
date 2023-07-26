@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
@@ -69,13 +69,10 @@ public class GeneralFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_general, container, false);
 
         recyclerViewNotifications = rootView.findViewById(R.id.RCV_general);
-        recyclerViewNotifications.setLayoutManager(new LinearLayoutManager(getActivity()));
-
+        recyclerViewNotifications.setLayoutManager(new GridLayoutManager(rootView.getContext(), 1));
         notificationList = new ArrayList<>();
-        generalAdapter = new GeneralAdapter(notificationList, requireContext());
-
+        generalAdapter = new GeneralAdapter(notificationList, rootView.getContext());
         recyclerViewNotifications.setAdapter(generalAdapter);
-
         return rootView;
     }
 }

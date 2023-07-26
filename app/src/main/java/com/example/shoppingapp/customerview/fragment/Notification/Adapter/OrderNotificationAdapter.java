@@ -33,18 +33,22 @@ public class OrderNotificationAdapter extends RecyclerView.Adapter<OrderNotifica
     private void loadDataFromFirestore() {
         String UserId = FirebaseAuth.getInstance().getUid();
         CollectionReference thongbaoRef = FirebaseFirestore.getInstance().collection("THONGBAODONHANG");
-        thongbaoRef.whereEqualTo("MaND", UserId).get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
+        thongbaoRef.whereEqualTo("MaND", UserId).addSnapshotListener((querySnapshot, error) -> {
+            if (error != null) {
+                // Xử lý khi có lỗi xảy ra
+                return;
+            }
+
+            if (querySnapshot != null) {
                 notificationList.clear();
-                for (DocumentSnapshot document : task.getResult()) {
-                    String MaDH= document.getString("MaDH");
+                for (DocumentSnapshot document : querySnapshot.getDocuments()) {
+                    String MaDH = document.getString("MaDH");
                     String MaND = document.getString("MaND");
                     String MaTB = document.getString("MaTB");
                     String TBO = document.getString("TBO");
                     CollectionReference mathongbaoRef = FirebaseFirestore.getInstance().collection("MATHONGBAO");
-                    mathongbaoRef.whereEqualTo("MaTB", MaTB).get().addOnSuccessListener(querySnapshot ->{
-                        for(DocumentSnapshot documentSnapshot : querySnapshot.getDocuments())
-                        {
+                    mathongbaoRef.whereEqualTo("MaTB", MaTB).addSnapshotListener((KMquerySnapshot, error1) -> {
+                        for (DocumentSnapshot documentSnapshot : KMquerySnapshot.getDocuments()) {
                             String Noidung = documentSnapshot.getString("NoiDung");
                             String LoaiTB = documentSnapshot.getString("LoaiTB");
                             String AnhTB = documentSnapshot.getString("AnhTB");
@@ -53,14 +57,8 @@ public class OrderNotificationAdapter extends RecyclerView.Adapter<OrderNotifica
                         }
                         notifyDataSetChanged();
                     });
-
                 }
-
                 notifyDataSetChanged();
-            } else {
-                // Xử lý khi không thành công
-                Exception exception = task.getException();
-                // ...
             }
         });
     }
