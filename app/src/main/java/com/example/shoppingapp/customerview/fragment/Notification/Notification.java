@@ -3,6 +3,15 @@ package com.example.shoppingapp.customerview.fragment.Notification;
 public class Notification {
     private String TenKM;
 
+    public String getLoaiKhuyenMai() {
+        return LoaiKhuyenMai;
+    }
+    public void setLoaiKhuyenMai(String loaiKhuyenMai) {
+        LoaiKhuyenMai = loaiKhuyenMai;
+    }
+
+    private String LoaiKhuyenMai;
+
     public String getHinhAnhKM() {
         return HinhAnhKM;
     }
@@ -15,6 +24,15 @@ public class Notification {
         return HinhAnhTB;
     }
 
+    public String getAnhTB() {
+        return AnhTB;
+    }
+
+    public void setAnhTB(String anhTB) {
+        AnhTB = anhTB;
+    }
+
+    private String AnhTB;
     public void setHinhAnhTB(String hinhAnhTB) {
         HinhAnhTB = hinhAnhTB;
     }
@@ -101,5 +119,15 @@ public class Notification {
         this.HinhAnhKM = HinhAnhKM;
         this.HinhAnhTB = HinhAnhTB;
         this.TenKM = TenKM;
+    }
+    public Notification (String AnhTB, String LoaiTB, String NoiDung , String MaTB, String TB, String MaDH, String MaND)
+    {
+        this.AnhTB = AnhTB;
+        this.LoaiTB = LoaiTB;
+        this.NoiDung = NoiDung;
+        this.MaTB = MaTB;
+        this.TB = TB;
+        this.MaDH = MaDH;
+        this.maND = MaND;
     }
 }
