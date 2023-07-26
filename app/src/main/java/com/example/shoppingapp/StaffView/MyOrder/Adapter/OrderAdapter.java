@@ -108,7 +108,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
                 FirebaseFirestore db_confirm = FirebaseFirestore.getInstance();
                 CollectionReference donHangRef = db_confirm.collection("DONHANG");
                 DocumentReference docRef = donHangRef.document(maDH);
-
                 docRef.get().addOnSuccessListener(documentSnapshot -> {
                     if (documentSnapshot.exists()) {
                         String trangThai = documentSnapshot.getString("TrangThai");
@@ -139,6 +138,65 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
                                     });
 
                         }
+                        CollectionReference maThongBaoRef = FirebaseFirestore.getInstance().collection("MATHONGBAO");
+                        // Truy vấn để lấy MaTB dựa trên trạng thái "trangThai"
+                        maThongBaoRef.whereEqualTo("LoaiTB", trangThai).limit(1).get()
+                                .addOnSuccessListener(querySnapshot -> {
+                                    // Kiểm tra xem có kết quả trả về không
+                                    if (!querySnapshot.isEmpty()) {
+                                        // Lấy MaTB từ tài liệu đầu tiên trong kết quả truy vấn
+                                        String maTB = querySnapshot.getDocuments().get(0).getId();
+
+                                        // Truy vấn để lấy MaND dựa trên maDH
+                                        donHangRef.document(maDH).get()
+                                                .addOnSuccessListener(documentSnapshotTB -> {
+                                                    if (documentSnapshotTB.exists()) {
+                                                        String maND = documentSnapshotTB.getString("MaND");
+                                                        if (maND != null) {
+                                                            // Tạo thông báo
+                                                            Map<String, Object> thongBao = new HashMap<>();
+                                                            thongBao.put("MaTB", maTB);
+                                                            thongBao.put("MaDH", maDH);
+                                                            thongBao.put("MaND", maND);
+                                                            // Thêm thông báo vào bộ sưu tập "THONGBAODONHANG"
+                                                            CollectionReference thongBaoDonHangRef = FirebaseFirestore.getInstance().collection("THONGBAODONHANG");
+                                                            thongBaoDonHangRef.add(thongBao)
+                                                                    .addOnSuccessListener(documentReference1 -> {
+                                                                        String thongBaoId = documentReference1.getId();
+                                                                        thongBao.put("TBO", thongBaoId);
+                                                                        documentReference1.set(thongBao)
+                                                                                .addOnSuccessListener(aVoid -> {
+                                                                                    notifyDataSetChanged();
+                                                                                })
+                                                                                .addOnFailureListener(e -> {
+                                                                                    // Xử lý lỗi khi cập nhật tài liệu "THONGBAODONHANG"
+                                                                                });
+
+                                                                    })
+                                                                    .addOnFailureListener(e -> {
+                                                                        // Tạo tài liệu thất bại
+                                                                        // Xử lý lỗi nếu cần
+                                                                    });
+                                                        } else {
+                                                            // Không tìm thấy MaND phù hợp với maDH
+                                                            // Xử lý trường hợp này nếu cần
+                                                        }
+                                                    } else {
+                                                        // Không tìm thấy tài liệu "DONHANG" tương ứng với maDH
+                                                        // Xử lý trường hợp này nếu cần
+                                                    }
+                                                })
+                                                .addOnFailureListener(e -> {
+                                                    // Xử lý lỗi nếu có lỗi khi truy vấn "DONHANG"
+                                                });
+                                    } else {
+                                        // Không tìm thấy MaTB phù hợp với trạng thái "trangThai"
+                                        // Xử lý trường hợp này nếu cần
+                                    }
+                                })
+                                .addOnFailureListener(e -> {
+                                    // Xử lý lỗi nếu có lỗi khi truy vấn "MATHONGBAO"
+                                });
                         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
                         String MaND = firebaseAuth.getUid();
                         Timestamp timestamp = Timestamp.now();

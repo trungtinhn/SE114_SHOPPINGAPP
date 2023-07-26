@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shoppingapp.Login.LoginActivity;
 import com.example.shoppingapp.R;
-import com.example.shoppingapp.customerview.BottomNavigationCustomActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -28,7 +26,7 @@ public class ChangePassWordActivity extends AppCompatActivity {
 
     private EditText mEmailEditText;
     private Button mVerifyButton;
-    private ImageButton back_to_Home;
+    private Button back_to_Home;
 
     private FirebaseAuth mAuth;
 
@@ -47,8 +45,6 @@ public class ChangePassWordActivity extends AppCompatActivity {
         back_to_Home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ChangePassWordActivity.this, BottomNavigationCustomActivity.class);
-                startActivity(intent);
                 finish();
             }
         });

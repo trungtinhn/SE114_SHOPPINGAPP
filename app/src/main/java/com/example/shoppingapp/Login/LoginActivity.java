@@ -2,10 +2,10 @@ package com.example.shoppingapp.Login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,8 +36,9 @@ public class LoginActivity extends AppCompatActivity {
     private EditText emailTextView, passwordTextView;
     // Xử lý sự kiện click vào Fortgot password và Sign up
     private TextView LG_forgotPassword, LG_SignUpNow;
+    private Boolean see;
     private Button button;
-    private ImageButton btn_showpassword;
+    private Button btn_showpassword;
     public ProgressBar progressbar;
     private User getStaff;
     private FirebaseAuth mAuth;
@@ -59,6 +60,9 @@ public class LoginActivity extends AppCompatActivity {
         btn_showpassword = findViewById(R.id.showPassword);
         LG_SignUpNow = (TextView)findViewById(R.id.SignUpNow);
         getStaff = new User();
+
+        see = false;
+        btn_showpassword.setBackground(getResources().getDrawable(R.drawable.ic_unsee));
         // Set on Click Listener on Sign-in button
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,6 +171,22 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(LoginActivity.this, Register.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+        btn_showpassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(see == false) {
+                    see = true;
+                    btn_showpassword.setBackground(getResources().getDrawable(R.drawable.ic_see));
+                    passwordTextView.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                }
+                else{
+                    see = false;
+                    btn_showpassword.setBackground(getResources().getDrawable(R.drawable.ic_unsee));
+                    passwordTextView.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                }
+                passwordTextView.setSelection(passwordTextView.length());
             }
         });
     }

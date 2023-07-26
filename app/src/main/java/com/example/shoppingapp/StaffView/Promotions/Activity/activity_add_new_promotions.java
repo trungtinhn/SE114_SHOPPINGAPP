@@ -27,6 +27,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -114,8 +115,9 @@ public class activity_add_new_promotions extends AppCompatActivity {
         btn_add_new.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                    savePromotionDataToFirestore();
+                uploadImageThongBaoToFirebase();
+                uploadImageToFirebase();
+                savePromotionDataToFirestore();
             }
         });
     }
@@ -191,7 +193,6 @@ public class activity_add_new_promotions extends AppCompatActivity {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
         return dateFormat.format(timestamp.toDate());
     }
-// ... phần code trước đó ...
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -246,9 +247,6 @@ public class activity_add_new_promotions extends AppCompatActivity {
                                 // Khi tải lên thành công, bạn có thể lưu đường dẫn downloadUrl vào biến hinhanhTB
                                 hinhanhTB = downloadUrl.toString();
                                 Log.d("UploadImage", "Image URL (ThongBao): " + hinhanhTB);
-
-                                // Tiếp tục với việc lưu thông tin khuyến mãi vào Firestore với imageUrl và hinhanhTB
-                                savePromotionDataToFirestore();
                             }
                         });
                     }
@@ -297,9 +295,6 @@ public class activity_add_new_promotions extends AppCompatActivity {
                                 // Khi tải lên thành công, bạn có thể sử dụng đường dẫn downloadUrl để lưu trữ trong imageUrl
                                 imageUrl = downloadUrl.toString();
                                 Log.d("UploadImage", "Image URL: " + imageUrl);
-
-                                // Tiếp tục với việc lưu thông tin khuyến mãi vào Firebase Firestore với imageUrl
-                                savePromotionDataToFirestore();
                             }
                         });
                     }
@@ -319,10 +314,6 @@ public class activity_add_new_promotions extends AppCompatActivity {
         }
     }
 
-// ... phần code tiếp theo ...
-
-
-    // Phương thức để lưu thông tin khuyến mãi vào Firebase Firestore
     private void savePromotionDataToFirestore() {
         // Lấy thông tin khuyến mãi từ các EditText (name, detail, minimum, kind, rate, start, end)
         String promotionName = name.getText().toString();
@@ -363,6 +354,16 @@ public class activity_add_new_promotions extends AppCompatActivity {
             Toast.makeText(activity_add_new_promotions.this, "Ngày kết thúc phải lớn hơn hoặc bằng ngày bắt đầu", Toast.LENGTH_SHORT).show();
             return;
         }
+        if(imageUrl == null)
+        {
+            Toast.makeText(activity_add_new_promotions.this, "Bạn chưa thêm hình ảnh cho chương trình giảm giá", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(hinhanhTB == null)
+        {
+            Toast.makeText(activity_add_new_promotions.this, "Bạn chưa thêm hình ảnh để thông báo khi hiển thị giảm giá cho sản phẩm", Toast.LENGTH_SHORT).show();
+            return;
+        }
         // Tạo một Map chứa thông tin khuyến mãi để thêm vào Firestore
         Map<String, Object> promotionData = new HashMap<>();
         promotionData.put("TenKM", promotionName);
@@ -374,6 +375,7 @@ public class activity_add_new_promotions extends AppCompatActivity {
         promotionData.put("NgayKetThuc", end);
         promotionData.put("HinhAnhKM", imageUrl); // Lưu đường dẫn hình ảnh vào Firestore
         promotionData.put("HinhAnhTB", hinhanhTB);
+
 
         // Thực hiện thêm dữ liệu vào collection "KHUYENMAI" trong Firestore
         db_khuyenmai.collection("KHUYENMAI")
@@ -403,6 +405,38 @@ public class activity_add_new_promotions extends AppCompatActivity {
                                         // Xử lý lỗi nếu có khi cập nhật trường "MaKM"
                                         Toast.makeText(activity_add_new_promotions.this, "Lỗi: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
+                                });
+                        db_khuyenmai.collection("MATHONGBAO")
+                                .whereEqualTo("LoaiTB", kindValue) // Compare with "kindValue"
+                                .get()
+                                .addOnSuccessListener(querySnapshot -> {
+                                    for (DocumentSnapshot document : querySnapshot.getDocuments()) {
+                                        String maTB = document.getId(); // MaTB from the matching document
+                                        // Create notification data
+                                        Map<String, Object> thongBao = new HashMap<>();
+                                        thongBao.put("MaTB", maTB);
+                                        thongBao.put("MaKM", maKM);
+                                        // Add the notification to "THONGBAO" collection
+                                        db_khuyenmai.collection("THONGBAO")
+                                                .add(thongBao)
+                                                .addOnSuccessListener(documentSetTB -> {
+                                                    String thongBaoId= documentSetTB.getId();
+                                                    thongBao.put("TB", thongBaoId);
+                                                    documentSetTB.set(thongBao)
+                                                            .addOnSuccessListener(aVoid -> {
+                                                            })
+                                                            .addOnFailureListener(e -> {
+                                                                // Xử lý lỗi khi cập nhật tài liệu "THONGBAODONHANG"
+                                                            });
+                                                    // Notification added successfully
+                                                })
+                                                .addOnFailureListener(e -> {
+                                                    // Handle the failure if adding notification fails
+                                                });
+                                    }
+                                })
+                                .addOnFailureListener(e -> {
+                                    // Handle the failure if querying "MATHONGBAO" fails
                                 });
                     }
                 })

@@ -173,7 +173,7 @@ public class ChatActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             // Call smooth scroll
-                            mmessagerecyclerview.smoothScrollToPosition(messagesAdapter.getItemCount() - 1);
+                            mmessagerecyclerview.smoothScrollToPosition(messagesAdapter.getItemCount());
                         }
                     });
                 }

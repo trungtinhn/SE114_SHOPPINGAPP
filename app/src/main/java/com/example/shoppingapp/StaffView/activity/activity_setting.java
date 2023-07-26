@@ -228,7 +228,7 @@ public class activity_setting extends AppCompatActivity implements AdapterView.O
         try{
             if(ImageUrl.isEmpty())
             {
-                Toast.makeText(getApplicationContext(),"null is recieved",Toast.LENGTH_SHORT).show();
+                if(!oldImageUrl.isEmpty()) Picasso.get().load(oldImageUrl).into(edImg);
             }
             else Picasso.get().load(ImageUrl).into(edImg);
         }
@@ -241,9 +241,10 @@ public class activity_setting extends AppCompatActivity implements AdapterView.O
             public void onClick(View view) {
                 dialogPlus.dismiss();
                 try{
-                    if(!ImageUrl.isEmpty())
+                    if(!ImageUrl.isEmpty() && !ImageUrl.equals(oldImageUrl))
                     {
                         DeleteOldImg(ImageUrl);
+                        ImageUrl = oldImageUrl;
                     }
                 }
                 catch (Exception e)
@@ -307,6 +308,7 @@ public class activity_setting extends AppCompatActivity implements AdapterView.O
                                         try {
                                         if (!oldImageUrl.isEmpty()) {
                                             DeleteOldImg(oldImageUrl);
+                                            oldImageUrl = ImageUrl;
                                         }}
                                         catch (Exception e)
                                         {
@@ -331,6 +333,7 @@ public class activity_setting extends AppCompatActivity implements AdapterView.O
                                         try {
                                             if (!ImageUrl.isEmpty()) {
                                                 DeleteOldImg(ImageUrl);
+                                                ImageUrl = oldImageUrl;
                                             }}
                                         catch (Exception d)
                                         {
@@ -373,7 +376,7 @@ public class activity_setting extends AppCompatActivity implements AdapterView.O
         progressDialog.show();
         StorageReference storageRef = firebaseStorage.getReference();
 
-        String imagePath = "ImageUser/" + firebaseAuth.getCurrentUser().getUid() + ".jpg";
+        String imagePath = "ImageUser/" + UUID.randomUUID().toString() + ".jpg";
         StorageReference imageRef = storageRef.child(imagePath);
 
         imageRef.putFile(imageUri)
@@ -421,6 +424,7 @@ public class activity_setting extends AppCompatActivity implements AdapterView.O
                                             try {
                                                 if (!oldImageUrl.isEmpty()) {
                                                     DeleteOldImg(oldImageUrl);
+                                                    oldImageUrl = ImageUrl;
                                                 }
                                             } catch (Exception e) {}}
                                     } catch (Exception e) {}
