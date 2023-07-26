@@ -101,12 +101,13 @@ public class DeliveryAddress extends AppCompatActivity {
         backIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent t = new Intent(DeliveryAddress.this, SaveAddress.class);
-                t.putExtra("ListMaGH", myList);
-                if(MaGG!=null){
-                    t.putExtra("MaGG", MaGG);
-                }
-                startActivity(t);
+//                Intent t = new Intent(DeliveryAddress.this, SaveAddress.class);
+//                t.putExtra("ListMaGH", myList);
+//                if(MaGG!=null){
+//                    t.putExtra("MaGG", MaGG);
+//                }
+//                startActivity(t);
+                finish();
             }
         });
 

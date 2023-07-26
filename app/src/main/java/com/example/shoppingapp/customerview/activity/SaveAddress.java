@@ -88,15 +88,16 @@ public class SaveAddress extends AppCompatActivity {
         backIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent t = new Intent(SaveAddress.this, BuyNow.class);
-                t.putExtra("ListMaGH", myList);
-                if(MaGG!=null){
-                    t.putExtra("MaGG", MaGG);
-                }
-                if(MaDC!=null){
-                    t.putExtra("MaDC", MaDC );
-                }
-                startActivity(t);
+//                Intent t = new Intent(SaveAddress.this, BuyNow.class);
+//                t.putExtra("ListMaGH", myList);
+//                if(MaGG!=null){
+//                    t.putExtra("MaGG", MaGG);
+//                }
+//                if(MaDC!=null){
+//                    t.putExtra("MaDC", MaDC );
+//                }
+//                startActivity(t);
+                finish();
             }
         });
         btn_done.setOnClickListener(new View.OnClickListener() {

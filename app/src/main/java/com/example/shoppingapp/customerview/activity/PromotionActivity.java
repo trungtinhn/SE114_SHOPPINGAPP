@@ -74,15 +74,16 @@ public class PromotionActivity extends AppCompatActivity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent t = new Intent(PromotionActivity.this, BuyNow.class);
-                t.putExtra("ListMaGH", myList);
-                if(MaDC!=null){
-                    t.putExtra("MaDC", MaDC);
-                }
-                if(MaGG!=null){
-                    t.putExtra("MaGG", MaGG );
-                }
-                startActivity(t);
+//                Intent t = new Intent(PromotionActivity.this, BuyNow.class);
+//                t.putExtra("ListMaGH", myList);
+//                if(MaDC!=null){
+//                    t.putExtra("MaDC", MaDC);
+//                }
+//                if(MaGG!=null){
+//                    t.putExtra("MaGG", MaGG );
+//                }
+//                startActivity(t);
+                finish();
             }
         });
         btn_done.setOnClickListener(new View.OnClickListener() {
