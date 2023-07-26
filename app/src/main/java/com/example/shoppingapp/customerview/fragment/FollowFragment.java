@@ -202,28 +202,33 @@ public class FollowFragment extends Fragment implements Filterable {
         progressDialog.dismiss();
     }
     private void SoLuongShoppingCart(){
-        firebaseFirestore.collection("GIOHANG")
-                .whereEqualTo("MaND", firebaseAuth.getCurrentUser().getUid())
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@androidx.annotation.Nullable QuerySnapshot value, @androidx.annotation.Nullable FirebaseFirestoreException error) {
-                        if (error != null) {
-                            Log.w("Error", "listen:error", error);
-                            return;
-                        }
-                        dataGiohang = new ArrayList<>();
-                        for(DocumentSnapshot doc: value.getDocuments()){
-                            if(doc.exists()){
-                                String ma = doc.getString("MaGH");
-                                dataGiohang.add(ma);
+        try {
+            firebaseFirestore.collection("GIOHANG")
+                    .whereEqualTo("MaND", firebaseAuth.getCurrentUser().getUid())
+                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@androidx.annotation.Nullable QuerySnapshot value, @androidx.annotation.Nullable FirebaseFirestoreException error) {
+                            if (error != null) {
+                                Log.w("Error", "listen:error", error);
+                                return;
                             }
-                        }
-                        BadgeDrawable badgeDrawable = BadgeDrawable.create(getContext());
-                        badgeDrawable.setNumber(dataGiohang.size());
+                            dataGiohang = new ArrayList<>();
+                            for(DocumentSnapshot doc: value.getDocuments()){
+                                if(doc.exists()){
+                                    String ma = doc.getString("MaGH");
+                                    dataGiohang.add(ma);
+                                }
+                            }
+                            BadgeDrawable badgeDrawable = BadgeDrawable.create(requireContext());
+                            badgeDrawable.setNumber(dataGiohang.size());
 
-                        BadgeUtils.attachBadgeDrawable(badgeDrawable, shoppingCart, null);
-                    }
-                });
+                            BadgeUtils.attachBadgeDrawable(badgeDrawable, shoppingCart, null);
+                        }
+                    });
+
+        }catch (Exception ex){
+
+        }
 
     }
 

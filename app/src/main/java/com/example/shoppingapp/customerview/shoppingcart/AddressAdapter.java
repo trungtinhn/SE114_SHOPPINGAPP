@@ -66,7 +66,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressV
             @Override
             public void onClick(View v) {
                 if(deleteClick != null){
-                    deleteClick.deleteClickOn(holder.getAdapterPosition());
+                    deleteClick.deleteClickOn(holder.getBindingAdapterPosition());
                 }
             }
         });
@@ -75,7 +75,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressV
             @Override
             public void onClick(View v) {
                 if(checkClick != null){
-                    checkClick.onCheckedChange(holder.getAdapterPosition());
+                    checkClick.onCheckedChange(holder.getBindingAdapterPosition());
                 }
             }
         });
