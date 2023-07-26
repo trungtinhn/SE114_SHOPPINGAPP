@@ -28,6 +28,8 @@ import com.example.shoppingapp.R;
 import com.example.shoppingapp.customerview.BottomNavigationCustomActivity;
 import com.example.shoppingapp.customerview.product.Product;
 import com.example.shoppingapp.customerview.product.ProductAdapter;
+import com.example.shoppingapp.customerview.product.ProductCard;
+import com.example.shoppingapp.customerview.product.ProductCardAdapter;
 import com.example.shoppingapp.customerview.product.customer_interface.IClickItemProductListener;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.badge.BadgeUtils;
@@ -55,7 +57,7 @@ public class FollowFragment extends Fragment implements Filterable {
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
-    private ProductAdapter productAdapter;
+    private ProductCardAdapter productAdapter;
     ProgressDialog progressDialog;
     private BottomNavigationCustomActivity bottomNavigationCustomActivity;
 
@@ -128,7 +130,7 @@ public class FollowFragment extends Fragment implements Filterable {
     }
 
 
-    private void onClickGoToDetailProduct(Product product) {
+    private void onClickGoToDetailProduct(ProductCard product) {
         bottomNavigationCustomActivity.gotoDetailProduct(product);
     }
     private void setOnClickShoppingCart() {
@@ -140,9 +142,9 @@ public class FollowFragment extends Fragment implements Filterable {
         });
     }
     private void setFollow() {
-        productAdapter = new ProductAdapter();
+        productAdapter = new ProductCardAdapter();
 
-        List<Product> products = new ArrayList<>();
+        List<ProductCard> products = new ArrayList<>();
 
         firebaseFirestore.collection("YEUTHICH")
                 .whereEqualTo("MaND", firebaseUser.getUid())
@@ -177,12 +179,13 @@ public class FollowFragment extends Fragment implements Filterable {
                                             String name = snapshot.getString("TenSP");
                                             Long giaSP = snapshot.getLong("GiaSP");
                                             List<String> Anh = (List<String>) snapshot.get("HinhAnhSP");
-                                            products.add(new Product(Anh.get(0), name, masp, giaSP));
+                                            products.add(new ProductCard(Anh.get(0), name, giaSP.intValue(), maSP));
 
-                                            productAdapter.setData(products, new IClickItemProductListener() {
+                                            productAdapter.setData(products);
+                                            productAdapter.setOnItemClick(new ProductCardAdapter.OnItemClick() {
                                                 @Override
-                                                public void onClickItemProduct(Product product) {
-                                                    onClickGoToDetailProduct(product);
+                                                public void onButtonItemClick(int position) {
+                                                    onClickGoToDetailProduct(products.get(position));
                                                 }
                                             });
                                             rcvFollow.setAdapter(productAdapter);

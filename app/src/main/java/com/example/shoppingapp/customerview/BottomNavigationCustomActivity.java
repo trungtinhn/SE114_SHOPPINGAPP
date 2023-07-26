@@ -27,6 +27,7 @@ import com.example.shoppingapp.customerview.fragment.AccountFragment;
 import com.example.shoppingapp.customerview.fragment.HomeFragment;
 import com.example.shoppingapp.customerview.fragment.ViewPagerAdapter;
 import com.example.shoppingapp.customerview.product.Product;
+import com.example.shoppingapp.customerview.product.ProductCard;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -111,6 +112,13 @@ public class BottomNavigationCustomActivity extends AppCompatActivity{
 
     }
 
+    public void gotoDetailProduct(ProductCard product)
+    {
+        Intent intent = new Intent(BottomNavigationCustomActivity.this, DetailProductActivity.class);
+        intent.putExtra("MaSP", product.getMaSp());
+        startActivity(intent);
+
+    }
     public void gotoDetailProduct(Product product)
     {
         Intent intent = new Intent(BottomNavigationCustomActivity.this, DetailProductActivity.class);
