@@ -30,30 +30,37 @@
             android:layout_marginLeft="15dp"
             android:layout_toRightOf="@id/backIcon"
             android:text="Shopping Cart"
-            android:textSize="25dp"
+            android:fontFamily="@font/montserrat_medium"
             android:textColor="@color/black"
+            android:textSize="25dp"
             android:textStyle="bold" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_gravity="center_horizontal"
         android:id="@+id/RecyclerData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/txt_total"
         android:layout_below="@id/headingProductDetail"
-        android:layout_width="wrap_content"
-        android:layout_height="450dp" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="center_horizontal" />
     <LinearLayout
         android:id="@+id/chooseall"
         android:layout_width="wrap_content"
         android:layout_above="@id/btnCheckout"
         android:orientation="horizontal"
         android:layout_gravity="center_vertical"
-        android:layout_height="wrap_content">
+        android:layout_height="40dp">
         <CheckBox
             android:layout_marginLeft="20dp"
             android:id="@+id/radio_btn_choose"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat"
+            android:textColor="@color/black"
             android:textSize="18dp"
+            android:buttonTint="@color/item_button"
             android:text="Choose All" />
 
 
@@ -65,10 +72,11 @@
         android:layout_above="@id/giatien"
         android:layout_alignParentRight="true"
         android:layout_marginRight="20dp"
-        android:gravity="end"
+        android:gravity="end|center"
         android:layout_toRightOf="@id/chooseall"
         android:text="Total"
-
+        android:fontFamily="@font/montserrat_medium"
+        android:textColor="@color/black"
         android:textSize="@dimen/_18pxh"
         android:textStyle="bold" />
     <LinearLayout
@@ -86,18 +94,19 @@
             android:text="100000000000"
             android:textSize="@dimen/_18pxh"
             android:textAlignment="textEnd"
-            android:textColor="#0E0D0D"
+            android:fontFamily="@font/montserrat_medium"
+            android:textColor="@color/black"
             android:textStyle="bold"
             android:gravity="end"/>
         <TextView
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
             android:text="VND"
             android:textSize="@dimen/_18pxh"
             android:textAlignment="textEnd"
-            android:textColor="#0E0D0D"
+            android:fontFamily="@font/montserrat_medium"
+            android:textColor="@color/black"
             android:textStyle="bold" />
     </LinearLayout>
     <LinearLayout
@@ -114,10 +123,11 @@
         <TextView
             android:id="@+id/btn_checkout"
             android:layout_width="160dp"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:background="@drawable/background_btn_orange"
             android:gravity="center"
             android:text="CHECK OUT"
+            android:fontFamily="@font/montserrat_medium"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textStyle="bold" />
