@@ -14,13 +14,12 @@
         android:layout_marginLeft="30dp"
         android:layout_marginBottom="30dp"
         android:orientation="horizontal">
-        <ImageButton
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnBacktoAccount"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:background="@color/white"
             android:contentDescription="Click to go to the home page"
-            android:src="@drawable/back" />
+            android:background="@drawable/navigation_back_arrow" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -35,27 +34,29 @@
 
 
     <androidx.cardview.widget.CardView
-        android:layout_height="150dp"
-        android:layout_width="350dp"
-        android:layout_marginLeft="30dp"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="30dp"
         app:cardCornerRadius="30dp"
+        android:elevation="10dp"
         >
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
             android:orientation="vertical"
-
             android:padding="24dp">
             <EditText
                 android:id="@+id/email_edittext_ChangePass"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:hint="Email Address"
+                android:fontFamily="@font/montserrat"
                 android:inputType="textEmailAddress"
+                android:textColor="@color/black"
                 android:padding="16dp" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 app:cornerRadius="10dp"
                 android:id="@+id/verify_button_ChangePass"
                 android:layout_width="match_parent"
@@ -63,7 +64,9 @@
                 android:text="Verify Email"
                 android:textAllCaps="false"
                 android:textColor="#ffffff"
+                android:fontFamily="@font/montserrat_medium"
                 android:textSize="16sp"
+                android:background="@drawable/corner_radius_20"
                 android:backgroundTint="@color/orange" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>

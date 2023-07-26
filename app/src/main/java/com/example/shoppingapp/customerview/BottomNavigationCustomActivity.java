@@ -23,6 +23,7 @@ import com.example.shoppingapp.customerview.activity.ProfileActivity;
 import com.example.shoppingapp.customerview.activity.SearchingActivity;
 import com.example.shoppingapp.customerview.activity.ShoppingCart;
 import com.example.shoppingapp.customerview.activity.TrendingActivity;
+import com.example.shoppingapp.customerview.fragment.AccountFragment;
 import com.example.shoppingapp.customerview.fragment.HomeFragment;
 import com.example.shoppingapp.customerview.fragment.ViewPagerAdapter;
 import com.example.shoppingapp.customerview.product.Product;
@@ -125,7 +126,12 @@ public class BottomNavigationCustomActivity extends AppCompatActivity{
         fragmentTransaction.commit();
     }
 
-
+    public void gotoProfileFragment()
+    {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.framehomepragment, new AccountFragment());
+        fragmentTransaction.commit();
+    }
 
     public void gotoSearchingActivity()
     {
@@ -207,17 +213,6 @@ public class BottomNavigationCustomActivity extends AppCompatActivity{
     }
     public void gotoLogOut() {
         showLogoutConfirmationDialog();
-    }
-    @Override
-    protected void onStop() {
-        super.onStop();
-        DocumentReference documentReference= FirebaseFirestore.getInstance().
-                collection("NGUOIDUNG").document(FirebaseAuth.getInstance().getUid());
-        documentReference.update("status","Offline").addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-            }
-        });
     }
 
     @Override

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,8 +35,9 @@ public class LoginActivity extends AppCompatActivity {
     private EditText emailTextView, passwordTextView;
     // Xử lý sự kiện click vào Fortgot password và Sign up
     private TextView LG_forgotPassword, LG_SignUpNow;
+    private Boolean see;
     private Button button;
-    private ImageButton btn_showpassword;
+    private Button btn_showpassword;
     public ProgressBar progressbar;
     private User getStaff;
     private FirebaseAuth mAuth;
@@ -56,6 +56,10 @@ public class LoginActivity extends AppCompatActivity {
         passwordTextView = findViewById(R.id.login_password);
         button = findViewById(R.id.login_button);
         LG_forgotPassword = (TextView)findViewById(R.id.forgot_password);
+        see = false;
+        if(!see){
+
+        }
         btn_showpassword = findViewById(R.id.showPassword);
         LG_SignUpNow = (TextView)findViewById(R.id.SignUpNow);
         getStaff = new User();
@@ -167,6 +171,12 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(LoginActivity.this, Register.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+        btn_showpassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
     }

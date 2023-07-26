@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.customerview.BottomNavigationCustomActivity;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -130,6 +131,13 @@ public class AccountFragment extends Fragment {
         Logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DocumentReference documentReference= FirebaseFirestore.getInstance().
+                        collection("NGUOIDUNG").document(FirebaseAuth.getInstance().getUid());
+                documentReference.update("status","Offline").addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+                });
                 bottomNavigationCustomActivity.gotoLogOut();
 
             }

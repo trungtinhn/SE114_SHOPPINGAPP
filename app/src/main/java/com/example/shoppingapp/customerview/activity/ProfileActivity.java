@@ -74,6 +74,7 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
     private String ImageUrl;
     private String oldImageUrl;
     private Uri Staff_imagepath;
+    private BottomNavigationCustomActivity bottomNavigationCustomActivity;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,8 +112,7 @@ public class ProfileActivity extends AppCompatActivity implements AdapterView.On
         findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ProfileActivity.this, BottomNavigationCustomActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
         findViewById(R.id.btn_changeAvt_Profile).setOnClickListener(new View.OnClickListener() {

@@ -5,84 +5,64 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/img_bg"
-            android:layout_width="match_parent"
-            android:layout_height="150sp"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/bg_profile"/>
-
+        android:layout_height="220dp"
+        android:orientation="vertical"
+        android:background="@drawable/bg_profile">
+        <androidx.cardview.widget.CardView
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:layout_gravity="center"
+            android:id="@+id/cv_avt_profile"
+            android:layout_marginTop="20dp"
+            android:elevation="10dp"
+            app:cardCornerRadius="130dp">
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/img_avt_account"
-            android:layout_width="97dp"
-            android:layout_height="98dp"
-
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
             android:src="@drawable/default_user"
             app:shapeAppearanceOverlay="@style/Circular"
-            app:layout_constraintBottom_toTopOf="@+id/user_name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             android:background="@color/white"
             app:srcCompat="@drawable/default_user"/>
-
+        </androidx.cardview.widget.CardView>
         <TextView
             android:id="@+id/user_name"
-            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:fontFamily="@font/montserrat_light"
-            android:text="Lê Khánh Duy"
-            android:textColor="#000000"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toBottomOf="@+id/img_bg"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:background="@color/white"
+            android:layout_marginTop="15dp"
+            android:paddingVertical="5dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="Name"
+            android:textColor="#fb7021"
+            android:textSize="23sp" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/constraintLayout"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="10dp"
         android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/l1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/background_behind_border"
-            android:clickable="true"
-            >
+            android:clickable="true">
 
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_gravity="center"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
                 android:src="@drawable/ic_soldout"
                 />
 
@@ -90,49 +70,42 @@
                 android:id="@+id/btn_your_oder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="15dp"
                 android:layout_marginStart="10dp"
-                android:layout_toEndOf="@+id/imageView2"
-                android:backgroundTint="@android:color/white"
-                android:fontFamily="@font/montserrat_semibold"
+                android:layout_marginVertical="15dp"
+                android:fontFamily="@font/montserrat"
                 android:textColor="#000000"
-                android:hint="Your Order"
+                android:gravity="center|start"
                 android:textSize="18dp"
-                android:textStyle="bold" />
+                android:text="Your Order" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/l2"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/l1"
             android:layout_marginTop="15dp"
-            android:background="@drawable/background_behind_border"
-            android:clickable="true"
-
-            >
+            android:clickable="true">
 
             <ImageView
                 android:id="@+id/imageView3"
                 android:layout_width="40dp"
-                android:layout_height="32dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/icon_message" />
+                android:src="@drawable/ic_chat" />
 
             <TextView
                 android:id="@+id/txt_Help_center"
-                android:layout_width="350dp"
-                android:layout_height="34dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:backgroundTint="@android:color/white"
-                android:fontFamily="@font/montserrat_semibold"
+                android:layout_marginVertical="15dp"
+                android:fontFamily="@font/montserrat"
                 android:textColor="#000000"
-                android:gravity="left|center_vertical"
-                android:hint="Help Center"
+                android:gravity="center|start"
                 android:textSize="18dp"
-                android:textStyle="bold" />
+                android:text="Help Center" />
         </LinearLayout>
 
         <LinearLayout
@@ -140,66 +113,59 @@
             android:layout_below="@+id/l2"
             android:id="@+id/l3"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/background_behind_border"
+            android:layout_height="wrap_content"
             android:clickable="true"
 
             >
             <ImageView
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
                 android:id="@+id/imageView4"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/user" />
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/ic_user"
+                app:tint="@color/black" />
             <TextView
                 android:id="@+id/btn_Profile"
-                android:layout_width="350dp"
-                android:layout_height="34dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:backgroundTint="@android:color/white"
-                android:fontFamily="@font/montserrat_semibold"
+                android:layout_marginVertical="15dp"
+                android:fontFamily="@font/montserrat"
                 android:textColor="#000000"
-                android:gravity="left|center_vertical"
-                android:hint="Profile"
-                android:textStyle="bold"
-                android:textSize="18dp"/>
+                android:gravity="center|start"
+                android:textSize="18dp"
+                android:text="Profile" />
         </LinearLayout>
         <LinearLayout
             android:layout_marginTop="15dp"
             android:layout_below="@+id/l3"
             android:id="@+id/l4"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/background_behind_border"
+            android:layout_height="wrap_content"
             android:clickable="true"
             >
             <ImageView
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="5dp"
                 android:id="@+id/imageView5"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/review" />
-            <TextView
+                android:layout_gravity="center"
                 android:layout_marginStart="10dp"
+                android:src="@drawable/ic_edit" />
+            <TextView
                 android:id="@+id/btn_Change_pass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/btn_Profile"
-                android:layout_marginTop="15dp"
-                android:backgroundTint="@android:color/white"
-                android:fontFamily="@font/montserrat_semibold"
+                android:layout_marginStart="10dp"
+                android:layout_marginVertical="15dp"
+                android:fontFamily="@font/montserrat"
                 android:textColor="#000000"
-                android:gravity="left|center_vertical"
-                android:hint="Change Password"
-                android:textStyle="bold"
-                android:textSize="18dp"/>
+                android:gravity="center|start"
+                android:textSize="18dp"
+                android:text="Change Password" />
         </LinearLayout>
 
         <LinearLayout
-            android:background="@drawable/background_behind_border"
             android:layout_marginTop="15dp"
             android:layout_below="@+id/l4"
             android:id="@+id/l5"
@@ -207,18 +173,24 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             >
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/ic_exit_smooth"
+                app:tint="@color/black" />
             <TextView
                 android:id="@+id/btn_log_out"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:backgroundTint="@android:color/white"
-                android:fontFamily="@font/montserrat_semibold"
-                android:gravity="left|center_vertical"
-                android:hint="Log Out"
-                android:textStyle="bold"
-                android:textSize="18dp"/>
+                android:layout_marginVertical="15dp"
+                android:fontFamily="@font/montserrat"
+                android:textColor="#000000"
+                android:gravity="center|start"
+                android:textSize="18dp"
+                android:text="Log Out"/>
         </LinearLayout>
 
     </RelativeLayout>
