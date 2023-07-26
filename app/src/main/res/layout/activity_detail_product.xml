@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     tools:context=".customerview.activity.DetailProductActivity">
@@ -10,20 +11,22 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingBottom="50dp">
 
         <RelativeLayout
             android:id="@+id/headingProductDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:padding="10dp"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="15dp"
             >
 
             <ImageView
                 android:id="@+id/backIcon"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:src="@drawable/navigation_back_arrow"
                 android:layout_centerVertical="true"
                 />
@@ -34,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/backIcon"
                 android:text="Product"
-                android:textSize="20dp"
+                android:textSize="23dp"
                 android:layout_marginLeft="10dp"
                 android:textStyle="bold"
                 android:fontFamily="@font/montserrat_semibold"
@@ -46,8 +49,8 @@
 
             <ImageView
                 android:id="@+id/heartIcon"
-                android:layout_width="19dp"
-                android:layout_height="21dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_centerVertical="true"
 
                 android:layout_toLeftOf="@id/cartIcon" />
@@ -55,9 +58,9 @@
 
             <ImageView
                 android:id="@+id/cartIcon"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/shoppingcarticon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_shopping_cart"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
@@ -97,9 +100,10 @@
                 android:id="@+id/txtProductNameDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
                 android:text="Ten san pham"
                 android:layout_alignParentLeft="true"
-                android:textSize="30dp"
+                android:textSize="25dp"
                 android:layout_marginLeft="20dp"
                 android:textColor="@color/black"
                 android:layout_centerVertical="true"
@@ -110,26 +114,29 @@
                 android:id="@+id/txtPriceProductDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="200.000"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="bottom"
                 android:layout_marginRight="5dp"
-                android:textSize="25dp"
-                android:textStyle="bold"
-                android:textColor="@color/yellow"
-                android:layout_centerVertical="true"
                 android:layout_toLeftOf="@id/txtVND"
-                />
+                android:fontFamily="@font/montserrat_bold"
+                android:text="200.000"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/txtVND"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:text="VND"
+                android:layout_alignParentBottom="true"
                 android:layout_marginRight="20dp"
-                android:textSize="25dp"
-                android:textStyle="bold"
-                android:textColor="@color/yellow"
-                android:layout_centerVertical="true"
-                />
+                android:layout_marginBottom="0dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="VND"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
 
         </RelativeLayout>
@@ -156,7 +163,8 @@
                 android:scaleY=".8"
                 android:transformPivotX="0dp"
                 android:transformPivotY="0dp"
-
+                android:theme="@style/RatingBar"
+                style="@style/Base.Widget.AppCompat.RatingBar.Indicator"
                 />
 
 
@@ -164,14 +172,15 @@
                 android:id="@+id/txtSeeReview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="italic"
-                android:text="See reviews"
-                android:layout_toRightOf="@id/starRating"
-                android:background="@drawable/item_selector"
-                android:textSize="20dp"
-                android:layout_marginLeft="-10dp"
+                android:layout_alignParentEnd="true"
                 android:layout_marginTop="5dp"
-                />
+                android:fontFamily="@font/montserrat"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/item_selector"
+                android:text="See reviews"
+                android:textSize="15dp"
+                android:textColor="@color/black"
+                android:textStyle="italic" />
 
 
         </RelativeLayout>
@@ -181,6 +190,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/layoutRating"
+            android:layout_marginTop="20dp"
             >
 
             <TextView
@@ -188,7 +198,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Color"
-                android:textSize="20dp"
+                android:textSize="18dp"
+                android:fontFamily="@font/montserrat_medium"
+                android:paddingEnd="10dp"
                 android:layout_marginLeft="20dp"
                 android:textColor="@color/black"
                 android:layout_centerVertical="true"
@@ -218,7 +230,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Size"
-                android:textSize="20dp"
+                android:textSize="18dp"
+                android:paddingEnd="20dp"
+                android:fontFamily="@font/montserrat_medium"
                 android:layout_marginLeft="20dp"
                 android:textColor="@color/black"
                 android:layout_centerVertical="true"
@@ -237,6 +251,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/layoutSize"
+            android:paddingVertical="5dp"
             android:layout_marginTop="10dp">
 
             <TextView
@@ -244,8 +259,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Number"
-                android:textSize="20dp"
+                android:textSize="18dp"
                 android:layout_marginLeft="20dp"
+                android:fontFamily="@font/montserrat_medium"
                 android:textColor="@color/black"
                 android:layout_centerVertical="true"
                 />
@@ -265,9 +281,9 @@
 
             <TextView
                 android:id="@+id/txtSoLuong"
-                android:layout_width="30dp"
+                android:layout_width="50dp"
                 android:layout_height="30dp"
-
+                android:fontFamily="@font/montserrat_medium"
                 android:text="1"
                 android:layout_toRightOf="@id/btnDown"
                 android:textSize="20dp"
@@ -294,7 +310,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/layoutNumber"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             >
 
             <TextView
@@ -302,6 +318,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="See product detail"
+                android:fontFamily="@font/montserrat"
                 android:textColor="@color/black"
                 android:textSize="18dp"
                 android:layout_marginLeft="20dp"
@@ -312,7 +329,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/arrow"
+                android:src="@drawable/navigate_down"
                 android:layout_marginRight="20dp"
 
                 />
@@ -325,7 +342,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/layoutSeeProductDetail"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:orientation="vertical"
             >
             <TextView
@@ -334,14 +351,15 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/layoutSeeProductDetail"
                 android:layout_marginHorizontal="20dp"
-
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/black"
                 android:text="Chiếc áo mà chúng tôi sẽ giới thiệu là một mẫu thiết kế đẹp và phong cách, mang lại sự thoải mái và sự tự tin cho người mặc. Chiếc áo được làm từ chất liệu cao cấp, nhẹ nhàng và thoáng mát, giúp bạn cảm thấy thoải mái suốt cả ngày."
                 />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="30dp">
 
                 <TextView
                     android:id="@+id/btnAddToCard"
@@ -349,6 +367,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/background_btn_carnation"
                     android:text="ADD TO CARD"
+                    android:fontFamily="@font/montserrat_medium"
                     android:paddingHorizontal="10dp"
                     android:paddingVertical="10dp"
                     android:textSize="18dp"
@@ -368,6 +387,7 @@
                     android:paddingHorizontal="10dp"
                     android:paddingVertical="10dp"
                     android:textSize="18dp"
+                    android:fontFamily="@font/montserrat_medium"
                     android:textStyle="bold"
                     android:textColor="@color/white"
                     android:gravity="center"

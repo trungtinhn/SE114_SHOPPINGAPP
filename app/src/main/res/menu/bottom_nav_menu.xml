@@ -2,25 +2,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menu_home"
-        android:icon="@drawable/home"
+        android:icon="@drawable/ic_home"
         android:title="Home"
         />
 
     <item
         android:id="@+id/menu_notification"
-        android:icon="@drawable/bell"
+        android:icon="@drawable/ic_notif"
         android:title="Notification"
         />
 
     <item
         android:id="@+id/menu_follow"
-        android:icon="@drawable/heart"
+        android:icon="@drawable/ic_favor"
         android:title="Follow"
         />
 
     <item
         android:id="@+id/menu_account"
-        android:icon="@drawable/user"
+        android:icon="@drawable/ic_user_circle"
         android:title="Account"
         />
 </menu>
