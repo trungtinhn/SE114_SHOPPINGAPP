@@ -32,6 +32,7 @@
                 android:layout_height="17dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/icon_setting"
+                android:backgroundTint="@color/black"
                 android:minWidth="0dp"
                 android:minHeight="0dp"
                 android:paddingEnd="10dp"
@@ -41,18 +42,19 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_chat"
                 android:layout_marginTop="1dp"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
                 android:background="@drawable/icon_message"
+                android:backgroundTint="@color/black"
                 android:layout_marginRight="10dp"
                 android:paddingStart="10dp" />
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_logout"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:background="@drawable/icon_logout"
-                android:paddingBottom="20dp"
-                />
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:backgroundTint="@color/black"
+                android:layout_marginTop="1dp"
+                android:background="@drawable/ic_exit" />
 
         </LinearLayout>
 

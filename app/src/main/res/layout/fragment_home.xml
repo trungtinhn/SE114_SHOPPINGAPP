@@ -12,7 +12,8 @@
     <RelativeLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-
+        android:paddingVertical="15dp"
+        android:paddingHorizontal="5dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -21,7 +22,7 @@
             android:id="@+id/editSearch"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginVertical="10dp"
+
             android:layout_toLeftOf="@id/chatBtn"
             android:layout_marginLeft="10dp"
             android:fontFamily="@font/montserrat"
@@ -40,10 +41,8 @@
             android:layout_gravity="center"
             android:layout_marginHorizontal="10dp"
             android:background="@drawable/background_icon"
-            android:layout_marginVertical="10dp"
-            android:padding="5dp"
             android:backgroundTint="@color/white"
-            app:srcCompat='@drawable/icon_message' />
+            app:srcCompat='@drawable/ic_chat' />
 
         <ImageView
             android:id="@+id/ShoppingCart"
@@ -54,9 +53,7 @@
             android:layout_gravity="center"
             android:background="@drawable/background_icon"
             android:backgroundTint="@color/white"
-            android:padding="5dp"
             android:scaleType="fitXY"
-            android:layout_marginVertical="10dp"
             app:srcCompat='@drawable/ic_shopping_cart' />
 
     </RelativeLayout>
@@ -100,15 +97,16 @@
 
                 <TextView
                     android:id="@+id/txtTrending"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginStart="15dp"
+                    android:fontFamily="@font/montserrat_medium"
                     android:text="Trending now"
                     android:textColor="@color/black"
                     android:textSize="20dp"
                     android:textStyle="italic"
-                    android:fontFamily="@font/montserrat_medium"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/txtSeeall"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -146,15 +144,16 @@
 
                 <TextView
                     android:id="@+id/txtOrderCategories"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="15dp"
-                    android:text="Order Categories"
+                    android:layout_marginStart="15dp"
                     android:fontFamily="@font/montserrat_medium"
+                    android:text="Order Categories"
                     android:textColor="@color/black"
                     android:textSize="20dp"
                     android:textStyle="italic"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/txtExploreNow"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
