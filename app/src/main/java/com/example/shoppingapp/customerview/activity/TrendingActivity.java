@@ -173,6 +173,7 @@ public class TrendingActivity extends AppCompatActivity implements Filterable {
                                 dataGiohang.add(ma);
                             }
                         }
+                        Log.d("SoLuongSanPhamGioHang", String.valueOf(dataGiohang.size()));
                         BadgeDrawable badgeDrawable = BadgeDrawable.create(TrendingActivity.this);
                         badgeDrawable.setNumber(dataGiohang.size());
 

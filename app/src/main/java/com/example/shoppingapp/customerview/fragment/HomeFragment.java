@@ -275,10 +275,12 @@ public class HomeFragment extends Fragment {
                                     dataGiohang.add(ma);
                                 }
                             }
-                            BadgeDrawable badgeDrawable = BadgeDrawable.create(requireContext());
-                            badgeDrawable.setNumber(dataGiohang.size());
+                            if(isAdded()){
+                                BadgeDrawable badgeDrawable = BadgeDrawable.create(requireContext());
+                                badgeDrawable.setNumber(dataGiohang.size());
 
-                            BadgeUtils.attachBadgeDrawable(badgeDrawable, shoppingCart, null);
+                                BadgeUtils.attachBadgeDrawable(badgeDrawable, shoppingCart, null);
+                            }
                         }
                     });
         }catch (Exception ex){
