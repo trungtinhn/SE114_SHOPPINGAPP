@@ -199,7 +199,7 @@ public class FollowFragment extends Fragment implements Filterable {
                                             });
                                             rcvFollow.setAdapter(productAdapter);
                                         } else {
-                                            layoutEmpty.setVisibility(View.VISIBLE);
+
                                         }
                                     }
                                 });
