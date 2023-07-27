@@ -31,6 +31,7 @@
             android:layout_marginLeft="15dp"
             android:layout_toRightOf="@id/backIcon"
             android:text="Address"
+            android:fontFamily="@font/montserrat_medium"
             android:textColor="@color/black"
             android:textSize="25dp"
             android:textStyle="bold" />
@@ -38,35 +39,39 @@
     </LinearLayout>
     <LinearLayout
         android:id="@+id/content"
-
         android:layout_below="@id/headingProductDetail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_marginHorizontal="30dp"
         android:gravity="center">
         <LinearLayout
             android:layout_marginTop="15dp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:orientation="vertical"
             android:layout_height="wrap_content">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Họ và Tên"
-                android:textColor="#120E0E"
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/black"
                 android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/text_name"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="5dp"
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/black"
+                android:drawableStart="@drawable/back_arrow"
+                android:drawableTint="@color/sliver"
                 android:background="@drawable/background_btn_sliver"
                 android:hint="Nguyen Van A" />
         </LinearLayout>
         <LinearLayout
             android:layout_marginTop="15dp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:orientation="vertical"
             android:layout_height="wrap_content">
 
@@ -74,20 +79,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Đường/Ấp"
-                android:textColor="#0E0C0C"
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/black"
                 android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/text_address"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/black"
+                android:drawableStart="@drawable/back_arrow"
+                android:drawableTint="@color/sliver"
                 android:background="@drawable/background_btn_sliver"
                 android:hint="14/4 duong so 4" />
         </LinearLayout>
         <LinearLayout
             android:layout_marginTop="15dp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:orientation="vertical"
             android:layout_height="wrap_content">
 
@@ -95,67 +105,85 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Phường/Xã"
-                android:textColor="#0E0C0C"
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/black"
                 android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/text_PX"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
+                android:drawableStart="@drawable/back_arrow"
+                android:drawableTint="@color/sliver"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/black"
                 android:background="@drawable/background_btn_sliver"
                 android:hint="Binh Hung Hoa" />
         </LinearLayout>
         <LinearLayout
-            android:layout_width="300dp"
-            android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2">
             <LinearLayout
             android:layout_marginTop="15dp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:orientation="vertical"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+                android:layout_weight="1">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Quận/Huyện"
-                    android:textColor="#0B0606"
+                    android:fontFamily="@font/montserrat"
+                    android:textColor="@color/black"
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/txt_district"
-                    android:layout_width="140dp"
+                    android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="5dp"
+                    android:drawableStart="@drawable/back_arrow"
+                    android:drawableTint="@color/sliver"
+                    android:fontFamily="@font/montserrat"
+                    android:textColor="@color/black"
                     android:background="@drawable/background_btn_sliver"
                     android:hint="Binh Tan" />
             </LinearLayout>
             <LinearLayout
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="15dp"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:orientation="vertical"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Tỉnh/Thành Phố"
-                    android:textColor="#070404"
+                    android:fontFamily="@font/montserrat"
+                    android:textColor="@color/black"
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/txt_city"
-                    android:layout_width="140dp"
+                    android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="5dp"
+                    android:drawableStart="@drawable/back_arrow"
+                    android:drawableTint="@color/sliver"
+                    android:fontFamily="@font/montserrat"
+                    android:textColor="@color/black"
                     android:background="@drawable/background_btn_sliver"
                     android:hint="Ho Chi Minh" />
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
             android:layout_marginTop="15dp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:orientation="vertical"
             android:layout_height="wrap_content">
 
@@ -163,16 +191,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Số Điện Thoại"
-                android:textColor="#0C0808"
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/black"
                 android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/text_phone"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
+                android:drawableStart="@drawable/back_arrow"
+                android:drawableTint="@color/sliver"
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/black"
                 android:background="@drawable/background_btn_sliver"
-                android:hint="+84704408389" />
+                android:hint="+84704408389"
+                 />
         </LinearLayout>
 
     </LinearLayout>
@@ -194,6 +228,7 @@
             android:background="@drawable/background_btn_orange"
             android:gravity="center"
             android:text="Choose Address"
+            android:fontFamily="@font/montserrat_medium"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="16sp"

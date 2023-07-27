@@ -10,24 +10,26 @@
         android:id = "@+id/cardview"
         android:layout_height="70dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_centerVertical="true"
         app:cardCornerRadius="10dp">
 
 
         <ImageView
             android:id="@+id/img_product"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:padding="5dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/anh1" />
+            android:src="@drawable/ic_product" />
     </androidx.cardview.widget.CardView>
 
     <LinearLayout
         android:id="@+id/linear1"
-        android:layout_width="326dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_toRightOf="@id/cardview"
         android:orientation="vertical">
 
@@ -36,82 +38,107 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_medium"
+            android:textColor="@color/black"
             android:text="T-Shirt Black Blank -VSD343545D - New Elevent"
             android:textSize="14dp" />
 
-        <TextView
-            android:id="@+id/product_price"
-            android:layout_width="100dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat"
-            android:text="139.999đ"
-            android:textSize="14dp" />
+            android:orientation="horizontal"
+            android:weightSum="2">
+            <TextView
+                android:id="@+id/product_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/black"
+                android:layout_weight="1"
+                android:text="139.999đ"
+                android:textSize="14dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:textSize="14dp"
+                    android:fontFamily="@font/montserrat"
+                    android:textColor="@color/black"
+                    android:text="Color: "/>
+                <TextView
+                    android:id="@+id/color_product"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="14dp"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:textColor="@color/black"
+                    android:textStyle="italic"
+                    android:text="alo"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
         <LinearLayout
             android:id="@+id/linear2"
-            android:layout_width="311dp"
-            android:layout_height="43dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/linear1"
-            android:layout_marginTop="-21dp">
-            <TextView
-                android:id="@+id/NUMBER_TEXT"
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="25dp"
-                android:text="Number: " />
-            <TextView
-                android:id="@+id/number_of_product"
-                android:layout_width="40dp"
-                android:layout_height="25dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="25dp"
-                android:text="1" />
-            <TextView
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:textSize="14dp"
-                android:layout_marginBottom="5dp"
-                android:text="Color: "/>
-            <TextView
-                android:id="@+id/color_product"
+            android:weightSum="2"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="5dp">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:textSize="14dp"
-                android:fontFamily="@font/montserrat_medium"
-                android:textStyle="italic"
-                android:layout_marginBottom="5dp"
-                android:text="alo"
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/linear3"
-            android:layout_width="220dp"
-            android:layout_height="43dp"
-            android:layout_marginLeft="97dp"
-            android:layout_below="@+id/linear1"
-            android:layout_marginTop="-20dp">
+                android:layout_weight="1">
+                <TextView
+                    android:id="@+id/NUMBER_TEXT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
+                    android:textColor="@color/black"
+                    android:text="Number: " />
+                <TextView
+                    android:id="@+id/number_of_product"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
+                    android:textColor="@color/black"
+                    android:text="1" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linear3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linear1"
+                android:layout_weight="1">
 
-            <TextView
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:textSize="14dp"
-                android:layout_marginBottom="5dp"
-                android:text="Size: "/>
-            <TextView
-                android:id="@+id/size_product"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:textSize="14dp"
-                android:fontFamily="@font/montserrat_medium"
-                android:textStyle="italic"
-                android:layout_marginBottom="5dp"
-                android:text="alo"
-                />
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:textSize="14dp"
+                    android:fontFamily="@font/montserrat"
+                    android:textColor="@color/black"
+                    android:text="Size: "/>
+                <TextView
+                    android:id="@+id/size_product"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="14dp"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:textColor="@color/black"
+                    android:textStyle="italic"
+                    android:text="alo"
+                    />
+            </LinearLayout>
+
         </LinearLayout>
+
     </LinearLayout>
 
 
