@@ -7,10 +7,12 @@
     android:layout_height="wrap_content">
     <RadioButton
         android:id="@+id/Check"
-        android:layout_width="wrap_content"
+        android:layout_width="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="5dp"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        />
+        android:buttonTint="@color/item_button"/>
     <LinearLayout
         android:id="@+id/contentAddress"
         android:layout_toRightOf="@id/Check"
@@ -20,16 +22,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
-            android:layout_marginLeft="15dp"
-            android:layout_width="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
             android:orientation="horizontal"
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/txt_Ten"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:text="TrungTinh"
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -37,36 +41,42 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
                 android:text="|"
-                android:textSize="20sp"
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/black"
+                android:textSize="16sp"
                 android:textStyle="bold" />
             <TextView
                 android:id="@+id/txt_SDT"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_marginLeft="5dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/black"
                 android:text="0704408389"
-                android:textSize="15sp" />
+                android:textSize="16sp" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/txt_DC"
-            android:layout_marginLeft="15dp"
-            android:layout_width="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="TrungTinh"
+            android:fontFamily="@font/montserrat"
+            android:textColor="@color/black"
             android:textSize="16sp" />
         <TextView
-            android:layout_marginLeft="15dp"
+            android:layout_marginHorizontal="15dp"
             android:id="@+id/txt_PX"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="Dinh Bo Linh"
-            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/montserrat"
+            android:textColor="@color/black"
+            android:layout_marginBottom="15dp"
             android:textSize="16sp" />
     </LinearLayout>
 
@@ -80,6 +90,6 @@
         android:layout_marginHorizontal="20dp"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="10dp"
-        android:src="@drawable/delete" />
+        android:src="@drawable/ic_trash" />
 
 </RelativeLayout>
