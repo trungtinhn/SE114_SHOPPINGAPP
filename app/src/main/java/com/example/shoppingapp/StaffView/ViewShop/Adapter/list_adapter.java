@@ -18,13 +18,22 @@ import java.util.List;
 
 public class list_adapter extends RecyclerView.Adapter<list_adapter.ViewHolder> {
 
-    private List<CategoryItem> categoryItemList;
+    private static List<CategoryItem> categoryItemList;
     private Context context;
+    private static OnItemClickListener onItemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
+    }
+    public interface OnItemClickListener {
+        void onItemClick(CategoryItem categoryItem);
+    }
 
     public list_adapter(List<CategoryItem> categoryItemList, Context context) {
         this.categoryItemList = categoryItemList;
         this.context = context;
     }
+
 
     @NonNull
     @Override
@@ -58,6 +67,18 @@ public class list_adapter extends RecyclerView.Adapter<list_adapter.ViewHolder> 
             imgItem = itemView.findViewById(R.id.img_item_img);
             txtName = itemView.findViewById(R.id.txt_item_name);
             txtQuantity = itemView.findViewById(R.id.txt_item_quanity);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onItemClickListener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            CategoryItem clickedItem = categoryItemList.get(position);
+                            onItemClickListener.onItemClick(clickedItem);
+                        }
+                    }
+                }
+            });
         }
     }
 }

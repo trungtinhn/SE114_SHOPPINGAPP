@@ -1,7 +1,19 @@
 package com.example.shoppingapp.customerview.fragment.Notification;
 
+import com.google.firebase.Timestamp;
+
 public class Notification {
     private String TenKM;
+
+    public Timestamp getThoigian() {
+        return Thoigian;
+    }
+
+    public void setThoigian(Timestamp thoigian) {
+        Thoigian = thoigian;
+    }
+
+    private Timestamp Thoigian;
 
     public String getLoaiKhuyenMai() {
         return LoaiKhuyenMai;
@@ -120,6 +132,18 @@ public class Notification {
         this.HinhAnhTB = HinhAnhTB;
         this.TenKM = TenKM;
     }
+    public Notification (String HinhAnhKM, String HinhAnhTB,String MaTB, String MaKM, String NoiDung, String TB, String LoaiTB, String TenKM, Timestamp Thoigian)
+    {
+        this.MaTB = MaTB;
+        this.MaKM = MaKM;
+        this.TB = TB;
+        this.LoaiTB = LoaiTB;
+        this.NoiDung = NoiDung;
+        this.HinhAnhKM = HinhAnhKM;
+        this.HinhAnhTB = HinhAnhTB;
+        this.TenKM = TenKM;
+        this.Thoigian = Thoigian;
+    }
     public Notification (String AnhTB, String LoaiTB, String NoiDung , String MaTB, String TB, String MaDH, String MaND)
     {
         this.AnhTB = AnhTB;
@@ -129,5 +153,16 @@ public class Notification {
         this.TB = TB;
         this.MaDH = MaDH;
         this.maND = MaND;
+    }
+    public Notification (String AnhTB, String LoaiTB, String NoiDung , String MaTB, String TB, String MaDH, String MaND, Timestamp timestamp)
+    {
+        this.AnhTB = AnhTB;
+        this.LoaiTB = LoaiTB;
+        this.NoiDung = NoiDung;
+        this.MaTB = MaTB;
+        this.TB = TB;
+        this.MaDH = MaDH;
+        this.maND = MaND;
+        this.Thoigian = timestamp;
     }
 }
