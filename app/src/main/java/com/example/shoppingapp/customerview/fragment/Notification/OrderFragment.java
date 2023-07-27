@@ -13,6 +13,8 @@ import com.example.shoppingapp.R;
 import com.example.shoppingapp.customerview.fragment.Notification.Adapter.OrderNotificationAdapter;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -74,6 +76,13 @@ public class OrderFragment extends Fragment {
         recyclerViewNotifications.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         notificationList = new ArrayList<>();
+        Collections.sort(notificationList, new Comparator<Notification>() {
+            @Override
+            public int compare(Notification notification1, Notification notification2) {
+                // Use the compareTo method of Timestamp to compare two timestamps.
+                return notification1.getThoigian().compareTo(notification2.getThoigian());
+            }
+        });
         orderNotificationAdapter = new OrderNotificationAdapter(notificationList, requireContext());
 
         recyclerViewNotifications.setAdapter(orderNotificationAdapter);

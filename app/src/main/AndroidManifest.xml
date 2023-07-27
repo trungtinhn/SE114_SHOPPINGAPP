@@ -91,7 +91,7 @@
             android:exported="false" />
         <activity
             android:name=".customerview.activity.ReViewer"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".customerview.activity.BuyNow"
             android:exported="false" />
@@ -196,6 +196,11 @@
         <activity
             android:name=".customerview.activity.OrderActivity"
             android:exported="true" />
+        <activity android:name=".StaffView.DetailProduct.Activity.activity_details_viewshop"
+            android:exported="true"/>
+        <activity android:name=".StaffView.DetailProduct.Activity.activity_details_category_view"
+            android:exported="true"/>
+
     </application>
 
 </manifest>

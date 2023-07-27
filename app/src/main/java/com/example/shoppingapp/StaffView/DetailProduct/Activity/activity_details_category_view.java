@@ -1,4 +1,4 @@
-package com.example.shoppingapp.StaffView.Categories.Activity;
+package com.example.shoppingapp.StaffView.DetailProduct.Activity;
 
 import android.app.SearchManager;
 import android.content.Intent;
@@ -16,8 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.StaffView.Categories.Adapter.adapter_details_category;
-import com.example.shoppingapp.StaffView.DetailProduct.Activity.activity_details_product_staff;
 import com.example.shoppingapp.StaffView.Product;
+import com.example.shoppingapp.StaffView.ViewShop.Activity.activity_viewshop;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -26,7 +26,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.List;
 
-public class activity_details_category extends AppCompatActivity implements Filterable {
+public class activity_details_category_view extends AppCompatActivity implements Filterable {
     private RecyclerView recyclerView;
     private adapter_details_category adapter;
     private List<Product> productList;
@@ -51,7 +51,7 @@ public class activity_details_category extends AppCompatActivity implements Filt
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(com.example.shoppingapp.StaffView.Categories.Activity.activity_details_category.this, activity_categories.class);
+                Intent intent = new Intent(activity_details_category_view.this, activity_viewshop.class);
                 startActivity(intent);
             }
         });
@@ -86,7 +86,7 @@ public class activity_details_category extends AppCompatActivity implements Filt
                             if (task.isSuccessful() && !task.getResult().isEmpty()) {
                                 // Lấy MaDM từ kết quả truy vấn
                                 String productID = task.getResult().getDocuments().get(0).getId();
-                                Intent intent = new Intent(com.example.shoppingapp.StaffView.Categories.Activity.activity_details_category.this, activity_details_product_staff.class);
+                                Intent intent = new Intent(activity_details_category_view.this, activity_details_product_staff.class);
                                 intent.putExtra("MaSP", productID);
                                 startActivity(intent);
                             }

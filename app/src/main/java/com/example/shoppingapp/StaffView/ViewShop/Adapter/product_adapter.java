@@ -23,6 +23,14 @@ import java.util.List;
 public class product_adapter extends RecyclerView.Adapter<product_adapter .ProductsViewHolder> {
     private List<Product> productList;
     private Context context;
+    private OnItemClickListener onItemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
+    }
+    public interface OnItemClickListener {
+        void onItemClick(Product product);
+    }
 
     public product_adapter (List<Product> productList, Context context) {
         this.context = context;
@@ -92,6 +100,16 @@ public class product_adapter extends RecyclerView.Adapter<product_adapter .Produ
             name = itemView.findViewById(R.id.txt_product_name);
             price = itemView.findViewById(R.id.txt_product_price);
             ava = itemView.findViewById(R.id.img_product_img);
+            itemView.setOnClickListener(v -> {
+                if (onItemClickListener != null) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        Product product = productList.get(position);
+                        onItemClickListener.onItemClick(product);
+                    }
+                }
+            });
+
         }
     }
 }
