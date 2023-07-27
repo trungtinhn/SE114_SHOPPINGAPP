@@ -14,8 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:padding="10dp"
-        style="@style/RectangleStyle"
-        >
+        style="@style/RectangleStyle">
 
         <ImageView
             android:id="@+id/backIcon"
@@ -33,6 +32,7 @@
             android:layout_marginLeft="15dp"
             android:layout_toRightOf="@id/backIcon"
             android:text="Address"
+            android:fontFamily="@font/montserrat_medium"
             android:textColor="@color/black"
             android:textSize="25dp"
             android:textStyle="bold" />

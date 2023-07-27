@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,12 +50,13 @@ public class BuyNow extends AppCompatActivity {
     String MaGG;
     String[] myList;
     List<com.example.shoppingapp.customerview.shoppingcart.ShoppingCart> myData;
-    TextView Subtotal, Delivery, CheckOut, Total, ClickGiamGia, ClickAddress, ClickPayment, Discount;
+    TextView Subtotal, Delivery, CheckOut, Total,  Discount;
     //
     TextView TenSP, KichThuoc, MauSac, SoLuong, Price;
     ImageView imageProduct;
     ImageView NextProduct;
     LinearLayout HaveDC, DontHaveDC, KhuyenMai, NotKhuyenMai;
+    RelativeLayout  ClickPayment, ClickAddress, ClickGiamGia;
     //
     TextView Ten, SDT, Duong, DC;
     //

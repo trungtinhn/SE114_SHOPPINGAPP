@@ -211,94 +211,109 @@ public class ShoppingCart extends AppCompatActivity {
                 });
     }
     private void AddSoLuong(com.example.shoppingapp.customerview.shoppingcart.ShoppingCart shoppingCart){
-        db.collection("GIOHANG")
-                .whereEqualTo("MaGH", shoppingCart.getMaGH())
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        if (!queryDocumentSnapshots.isEmpty()) {
-                            DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
-                            String docId = documentSnapshot.getId();
-                            Map<String, Object> newData = new HashMap<>();
-                            newData.put("SoLuong", shoppingCart.getSoLuong()+1);
-                            newData.put("GiaTien", (shoppingCart.getSoLuong()+1)*shoppingCart.getGiaSP());
-                            DocumentReference docRef = db.collection("GIOHANG").document(docId);
-                            docRef.update(newData)
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            Log.d("Access", "SoLuong updated successfully");
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Log.e("Error", "Error updating SoLuong", e);
-                                        }
-                                    });
+        try {
+            db.collection("GIOHANG")
+                    .whereEqualTo("MaGH", shoppingCart.getMaGH())
+                    .get()
+                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            if (!queryDocumentSnapshots.isEmpty()) {
+                                DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
+                                String docId = documentSnapshot.getId();
+                                Map<String, Object> newData = new HashMap<>();
+                                newData.put("SoLuong", shoppingCart.getSoLuong()+1);
+                                newData.put("GiaTien", (shoppingCart.getSoLuong()+1)*shoppingCart.getGiaSP());
+                                DocumentReference docRef = db.collection("GIOHANG").document(docId);
+                                docRef.update(newData)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d("Access", "SoLuong updated successfully");
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.e("Error", "Error updating SoLuong", e);
+                                            }
+                                        });
+                            }
                         }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.e("Error", "Error fetching document", e);
-                    }
-                });
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.e("Error", "Error fetching document", e);
+                        }
+                    });
+        }catch (Exception ex){
+
+        }
+
     }
     private void MinusSoLuong(com.example.shoppingapp.customerview.shoppingcart.ShoppingCart shoppingCart){
-        db.collection("GIOHANG")
-                .whereEqualTo("MaGH", shoppingCart.getMaGH())
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        if (!queryDocumentSnapshots.isEmpty()) {
-                            DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
-                            String docId = documentSnapshot.getId();
-                            Map<String, Object> newData = new HashMap<>();
-                            newData.put("SoLuong", shoppingCart.getSoLuong()-1);
-                            newData.put("GiaTien", (shoppingCart.getSoLuong()-1)*shoppingCart.getGiaSP());
-                            DocumentReference docRef = db.collection("GIOHANG").document(docId);
-                            docRef.update(newData)
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            Log.d("Access", "SoLuong updated successfully");
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Log.e("Error", "Error updating SoLuong", e);
-                                        }
-                                    });
+        try {
+            db.collection("GIOHANG")
+                    .whereEqualTo("MaGH", shoppingCart.getMaGH())
+                    .get()
+                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            if (!queryDocumentSnapshots.isEmpty()) {
+                                DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
+                                String docId = documentSnapshot.getId();
+                                Map<String, Object> newData = new HashMap<>();
+                                newData.put("SoLuong", shoppingCart.getSoLuong()-1);
+                                newData.put("GiaTien", (shoppingCart.getSoLuong()-1)*shoppingCart.getGiaSP());
+                                DocumentReference docRef = db.collection("GIOHANG").document(docId);
+                                docRef.update(newData)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d("Access", "SoLuong updated successfully");
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.e("Error", "Error updating SoLuong", e);
+                                            }
+                                        });
+                            }
                         }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.e("Error", "Error fetching document", e);
-                    }
-                });
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.e("Error", "Error fetching document", e);
+                        }
+                    });
+        }catch (Exception ex){
+
+        }
+
     }
     private void DeleteCart(com.example.shoppingapp.customerview.shoppingcart.ShoppingCart shoppingCart){
-        DocumentReference docRef = db.collection("GIOHANG").document(shoppingCart.getMaGH());
-        docRef.delete()
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d("Sucess", "Data deleted successfully");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.e("Error", "Error deleting data", e);
-                    }
-                });
+        try {
+            DocumentReference docRef = db.collection("GIOHANG").document(shoppingCart.getMaGH());
+            docRef.delete()
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d("Sucess", "Data deleted successfully");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.e("Error", "Error deleting data", e);
+                        }
+                    });
+        }catch (Exception ex){
+
+        }
+
     }
     private void SetToTal(List<com.example.shoppingapp.customerview.shoppingcart.ShoppingCart> data){
         int Sum = 0;

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.customerview.fragment.Notification.Notification;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -46,6 +47,7 @@ public class GeneralAdapter extends RecyclerView.Adapter<GeneralAdapter.Products
                     String MaKM = document.getString("MaKM");
                     String MaTB = document.getString("MaTB");
                     String TB = document.getString("TB");
+                    Timestamp Thoigian = document.getTimestamp("Thoigian");
                     CollectionReference mathongbaoRef = FirebaseFirestore.getInstance().collection("MATHONGBAO");
                     mathongbaoRef.whereEqualTo("MaTB", MaTB).addSnapshotListener((KMquerySnapshot, error1) -> {
                         for (DocumentSnapshot documentSnapshot : KMquerySnapshot.getDocuments()) {
@@ -59,7 +61,7 @@ public class GeneralAdapter extends RecyclerView.Adapter<GeneralAdapter.Products
 
                                     String LoaiKhuyenMai = kmdocumentSnapshot.getString("LoaiKhuyenMai");
                                     String TenKM = kmdocumentSnapshot.getString("ChiTietKM");
-                                    Notification notification = new Notification(HinhAnhKM, HinhAnhTB, MaTB, MaKM, Noidung, TB, LoaiTB, TenKM);
+                                    Notification notification = new Notification(HinhAnhKM, HinhAnhTB, MaTB, MaKM, Noidung, TB, LoaiTB, TenKM, Thoigian);
                                     notificationList.add(notification);
                                 }
                                 notifyDataSetChanged();
