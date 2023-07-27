@@ -111,6 +111,7 @@ public class CategoriesDetails extends AppCompatActivity implements Filterable {
     private void getDataCategories(){
         db.collection("SANPHAM")
                 .whereEqualTo("MaDM", MaDM)
+                .whereEqualTo("TrangThai", "Inventory")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {

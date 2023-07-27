@@ -126,6 +126,7 @@ public class TrendingActivity extends AppCompatActivity implements Filterable {
         rcvProductTrending.setLayoutManager(gridLayoutManager);
         firebaseFirestore.collection("SANPHAM")
                 .whereEqualTo("Trending",true)
+                .whereEqualTo("TrangThai", "Inventory")
                         .addSnapshotListener(new EventListener<QuerySnapshot>() {
                             @Override
                             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {

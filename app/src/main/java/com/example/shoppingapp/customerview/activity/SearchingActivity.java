@@ -125,6 +125,7 @@ public class SearchingActivity extends AppCompatActivity implements Filterable {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
         rcvProductTrending.setLayoutManager(gridLayoutManager);
         firebaseFirestore.collection("SANPHAM")
+                .whereEqualTo("TrangThai", "Inventory")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
