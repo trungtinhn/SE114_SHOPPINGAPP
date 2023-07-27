@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
-import com.example.shoppingapp.StaffView.Categories.Activity.activity_categories;
+import com.example.shoppingapp.StaffView.ViewShop.Activity.activity_viewshop;
 import com.example.shoppingapp.customerview.activity.DetailProductActivity;
 import com.example.shoppingapp.customerview.activity.ReViewer;
 import com.example.shoppingapp.customerview.color.ColorAdapter;
@@ -37,7 +37,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-public class  activity_details_product_staff extends AppCompatActivity {
+public class  activity_details_viewshop extends AppCompatActivity {
 
     private ImageView backIcon;
     private ImageButton show;
@@ -60,7 +60,7 @@ public class  activity_details_product_staff extends AppCompatActivity {
         setContentView(R.layout.activity_details_product_staff);
 
         MaDM = getIntent().getStringExtra("MaDM");
-        MaSP = getIntent().getStringExtra("MaSP");
+        MaSP = getIntent().getStringExtra("MaSPP");
         backIcon = findViewById(R.id.icon_back);
         show = findViewById(R.id.show);
         detail = findViewById(R.id.txt_detail);
@@ -77,7 +77,7 @@ public class  activity_details_product_staff extends AppCompatActivity {
         review.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Tạo một truy vấn Firestore để lấy MaDM từ TenDM
+
                 FirebaseFirestore.getInstance().collection("DANHGIA")
                         .whereEqualTo("MaSP", MaSP)
                         .get()
@@ -87,7 +87,7 @@ public class  activity_details_product_staff extends AppCompatActivity {
                                 String categoryId = task.getResult().getDocuments().get(0).getId();
 
                                 // Chuyển sang màn hình hiển thị sản phẩm với categoryId
-                                Intent intent = new Intent(activity_details_product_staff.this, ReViewer.class);
+                                Intent intent = new Intent(activity_details_viewshop.this, ReViewer.class);
                                 intent.putExtra("MaSP", MaSP);
                                 startActivity(intent);
                             }
@@ -117,10 +117,10 @@ public class  activity_details_product_staff extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
                                             // Cập nhật thành công
-                                            Toast.makeText(activity_details_product_staff.this, "Trending đã được cập nhật: " + String.valueOf(newTrangThai), Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(activity_details_viewshop.this, "Trending đã được cập nhật: " + String.valueOf(newTrangThai), Toast.LENGTH_SHORT).show();
                                         } else {
                                             // Cập nhật thất bại
-                                            Toast.makeText(activity_details_product_staff.this, "Trending cập nhật thất bại", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(activity_details_viewshop.this, "Trending cập nhật thất bại", Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 });
@@ -249,7 +249,7 @@ public class  activity_details_product_staff extends AppCompatActivity {
         backIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity_details_product_staff.this, activity_categories.class);
+                Intent intent = new Intent(activity_details_viewshop.this, activity_viewshop.class);
                 intent.putExtra("MaDM", MaDM);
                 startActivity(intent);
                 finish();

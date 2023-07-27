@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.customerview.fragment.Notification.Notification;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -46,13 +47,14 @@ public class OrderNotificationAdapter extends RecyclerView.Adapter<OrderNotifica
                     String MaND = document.getString("MaND");
                     String MaTB = document.getString("MaTB");
                     String TBO = document.getString("TBO");
+                    Timestamp Thoigian = document.getTimestamp("Thoigian");
                     CollectionReference mathongbaoRef = FirebaseFirestore.getInstance().collection("MATHONGBAO");
                     mathongbaoRef.whereEqualTo("MaTB", MaTB).addSnapshotListener((KMquerySnapshot, error1) -> {
                         for (DocumentSnapshot documentSnapshot : KMquerySnapshot.getDocuments()) {
                             String Noidung = documentSnapshot.getString("NoiDung");
                             String LoaiTB = documentSnapshot.getString("LoaiTB");
                             String AnhTB = documentSnapshot.getString("AnhTB");
-                            Notification notification = new Notification(AnhTB, LoaiTB, Noidung, MaTB, TBO, MaDH, MaND);
+                            Notification notification = new Notification(AnhTB, LoaiTB, Noidung, MaTB, TBO, MaDH, MaND, Thoigian);
                             notificationList.add(notification);
                         }
                         notifyDataSetChanged();
