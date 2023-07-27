@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
-import com.example.shoppingapp.StaffView.MyOrder.Adapter.CheckProductAdapter;
+import com.example.shoppingapp.StaffView.MyOrder.Adapter.OrderAdapter;
 import com.example.shoppingapp.StaffView.MyOrder.Order;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -35,7 +35,7 @@ public class cancel_fragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private List<Order> orderList;
-    private CheckProductAdapter orderAdapter;
+    private OrderAdapter orderAdapter;
     private RecyclerView recyclerView;
 
     public cancel_fragment() {
@@ -95,7 +95,7 @@ public class cancel_fragment extends Fragment {
                     }
 
                     // Khởi tạo adapter và gán nó cho RecyclerView
-                    orderAdapter = new CheckProductAdapter(orderList);
+                    orderAdapter = new OrderAdapter(orderList);
                     orderAdapter.refresh();
                     recyclerView.setAdapter(orderAdapter);
                 });
