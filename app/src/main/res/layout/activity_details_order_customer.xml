@@ -66,7 +66,8 @@
                     android:layout_marginTop ="25dp"
                     android:src ="@drawable/map_icon"
                     android:elevation="10dp"
-                    android:layout_marginLeft="10dp"></ImageView>
+                    android:layout_marginLeft="10dp"
+                    app:tint="#FF8400"></ImageView>
 
                 <TextView
                     android:layout_width="91dp"
@@ -76,7 +77,7 @@
                     android:elevation="10dp"
                     android:text="Address"
                     android:layout_marginBottom="2dp"
-                    android:textColor="@color/DarkBlue"
+                    android:textColor="#FF8400"
                     android:textSize="18dp"
                     android:fontFamily="@font/montserrat_medium" />
 
@@ -131,7 +132,8 @@
                     android:layout_marginTop ="25dp"
                     android:src ="@drawable/payment_icon"
                     android:elevation="10dp"
-                    android:layout_marginLeft="10dp"></ImageView>
+                    android:layout_marginLeft="10dp"
+                    app:tint="#FF8400"></ImageView>
 
                 <TextView
                     android:id="@+id/txtPayment"
@@ -141,7 +143,7 @@
                     android:layout_marginLeft="40dp"
                     android:elevation="10dp"
                     android:text="Payment"
-                    android:textColor="@color/DarkBlue"
+                    android:textColor="#FF8400"
                     android:textSize="18dp"
                     android:fontFamily="@font/montserrat_medium" />
 
@@ -197,9 +199,10 @@
                     />
                     <TextView
                         android:id="@+id/giatridonhang_customer"
-                        android:layout_width="100dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
 
                         android:elevation="10dp"
                         android:fontFamily="@font/montserrat_lights"
@@ -228,9 +231,10 @@
                     />
                     <TextView
                         android:id="@+id/discount_customer"
-                        android:layout_width="100dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
 
                         android:elevation="10dp"
                         android:fontFamily="@font/montserrat_lights"
@@ -256,13 +260,13 @@
                         android:elevation="10dp"
                         android:fontFamily="@font/montserrat_lights"
                         android:text="Phí vận chuyển (VND): "
-                        android:textColor="@color/black"
-           />
+                        android:textColor="@color/black" />
                     <TextView
                         android:id="@+id/phiVanChuyen_customer"
-                        android:layout_width="100dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
                         android:elevation="10dp"
                         android:fontFamily="@font/montserrat_lights"
                         android:text="50000"
@@ -290,9 +294,10 @@
                      />
                     <TextView
                         android:id="@+id/TongTien_customer"
-                        android:layout_width="100dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
                         android:elevation="10dp"
                         android:fontFamily="@font/montserrat_lights"
                         android:text="50000"
@@ -305,7 +310,7 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="84dp">
+                android:layout_height="wrap_content">
 
                 <View
                     android:id="@+id/nguoimua_customer"
@@ -325,34 +330,33 @@
                     android:layout_marginTop="30dp"
                     android:elevation="10dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/anh1"
+                    android:src="@drawable/default_user"
                     app:cardCornerRadius="20dp" />
 
                 <TextView
                     android:id="@+id/tenND_customer"
-                    android:layout_width="300dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="70dp"
                     android:layout_marginTop="30dp"
                     android:elevation="10dp"
                     android:textStyle="bold"
-
                     android:fontFamily="@font/montserrat_lights"
                     android:text="Le Dang Thuong"
                     android:textColor="@color/black"
                     android:textSize="13dp" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="84dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="70dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="10dp"
                     android:elevation="10dp">
 
                     <TextView
                         android:layout_width="20dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="70dp"
-                        android:layout_marginTop="50dp"
-                        android:elevation="10dp"
+
                         android:fontFamily="@font/montserrat_lights"
                         android:text="ID: "
                         android:textColor="@color/black"
@@ -360,10 +364,11 @@
 
                     <TextView
                         android:id="@+id/maND_customer"
-                        android:layout_width="300dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:layout_marginTop="50dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_gravity="bottom"
                         android:elevation="10dp"
                         android:fontFamily="@font/montserrat_lights"
                         android:text="21522654"
@@ -372,16 +377,19 @@
 
                 </LinearLayout>
 
+
+
             </FrameLayout>
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:id="@+id/list_sanpham_customer"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
+                android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="10dp" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
                 android:gravity="right"
                 >
                 <TextView
