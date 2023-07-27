@@ -3,52 +3,61 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
 
-    <View
-        android:id="@+id/img"
-        android:layout_width="420dp"
-        android:layout_height="873dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/img_start"
-        tools:layout_editor_absoluteX="-5dp"
-        tools:layout_editor_absoluteY="-85dp" />
     <!-- Auto layout, variables, and unit scale are not yet supported -->
     <View
         android:id="@+id/shadow"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#99000000" />
+        android:background="@color/white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:text="FAUGET"
+            android:layout_marginTop="100dp"
+            android:elevation="200dp"
+            android:textAlignment="center"
+            android:fontFamily="@font/montserrat"
+            android:textColor="@color/black"
+            android:textSize="50dp"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:text="Build the better world in fashion"
+            android:layout_marginTop="5dp"
+            android:elevation="200dp"
+            android:textAlignment="center"
+            android:fontFamily="@font/montserrat"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:layout_height="wrap_content"/>
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animOrder"
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_height="280dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/bg" />
+        <Button
+            android:layout_width="186dp"
+            android:layout_height="62dp"
+            android:text="GET STARTED"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:elevation="400dp"
+            android:fontFamily="@font/montserrat_medium"
+            android:backgroundTint="#FF8400"
+            android:id="@+id/getStarted"
+            />
+    </LinearLayout>
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:text="FAUGET"
-        android:layout_marginTop="200dp"
-        android:elevation="200dp"
-        android:textAlignment="center"
-        android:fontFamily="@font/montserrat"
-        android:textColor="@color/white"
-        android:textSize="50dp"
-        android:layout_height="100dp"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:text="Build the better world in fashion"
-        android:layout_marginTop="260dp"
-        android:elevation="200dp"
-        android:textAlignment="center"
-        android:fontFamily="@font/montserrat"
-        android:textColor="@color/white"
-        android:textSize="20dp"
-        android:layout_height="100dp"/>
-    <Button
-        android:layout_width="186dp"
-        android:layout_height="62dp"
-        android:text="GET STARTED"
-        android:elevation="400dp"
-        android:id="@+id/getStarted"
-        android:layout_marginTop="500dp"
-        android:layout_marginLeft="120dp" />
 </FrameLayout>

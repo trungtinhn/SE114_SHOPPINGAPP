@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:background="@android:color/white"
     tools:context=".StaffView.Categories.Activity.activity_add_new_category">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <RelativeLayout
         android:id = "@+id/rll1"
         android:layout_width="wrap_content"
@@ -225,5 +229,6 @@
         android:layout_below="@+id/rll1"
         android:backgroundTint="@color/orange"
         android:text="ADD NEW" />
+    </RelativeLayout>
 
-</RelativeLayout>
+</ScrollView>
