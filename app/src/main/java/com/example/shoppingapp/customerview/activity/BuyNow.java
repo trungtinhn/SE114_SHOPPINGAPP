@@ -50,13 +50,13 @@ public class BuyNow extends AppCompatActivity {
     String MaGG;
     String[] myList;
     List<com.example.shoppingapp.customerview.shoppingcart.ShoppingCart> myData;
-    TextView Subtotal, Delivery, CheckOut, Total, ClickPayment, Discount;
+    TextView Subtotal, Delivery, CheckOut, Total,  Discount;
     //
     TextView TenSP, KichThuoc, MauSac, SoLuong, Price;
     ImageView imageProduct;
     ImageView NextProduct;
     LinearLayout HaveDC, DontHaveDC, KhuyenMai, NotKhuyenMai;
-    RelativeLayout  ClickAddress, ClickGiamGia;
+    RelativeLayout  ClickPayment, ClickAddress, ClickGiamGia;
     //
     TextView Ten, SDT, Duong, DC;
     //

@@ -48,8 +48,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
-            >
+            android:paddingBottom="50dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -221,14 +220,16 @@
                 android:id="@+id/layout_promotion"
                 android:gravity="center_vertical"
                 android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="10dp"
                 android:background="@drawable/background_categories"
-                android:layout_height="90dp">
+                android:layout_height="wrap_content">
                 <LinearLayout
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_marginHorizontal="10dp"
-                    android:layout_height="90dp"
+                    android:layout_marginVertical="20dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1">
                     <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/imagePromotion"
@@ -348,30 +349,33 @@
                 android:id="@+id/layout_not_address"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginLeft="20dp"
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="20dp"
                 android:gravity="center">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/address" />
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_map" />
 
                 <TextView
                     android:id="@+id/txt_address"
-                    android:layout_width="243dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="42dp"
-                    android:text="Add your address"
-                    android:textAlignment="center"
+                    android:text="Choose your address"
+                    android:fontFamily="@font/montserrat"
+                    android:textColor="@color/black"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_weight="1"
                     android:textSize="20sp" />
 
                 <CheckBox
                     android:id="@+id/checkbox_address1"
-                    android:layout_width="match_parent"
+                    android:layout_width="40dp"
                     android:layout_height="match_parent"
                     android:checked="false"
                     android:buttonTint="@color/item_button"
-                    android:enabled="false"
-                    android:layout_weight="1" />
+                    android:enabled="false" />
 
             </LinearLayout>
             <LinearLayout
@@ -379,16 +383,21 @@
                 android:layout_marginLeft="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center">
+                android:gravity="center_vertical"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="10dp"
+                android:background="@drawable/background_categories">
 
                 <LinearLayout
-                    android:background="@drawable/background_categories"
+                    android:gravity="center_vertical"
                     android:orientation="vertical"
-                    android:layout_width="320dp"
-
-                    android:layout_height="wrap_content">
+                    android:layout_width="match_parent"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginVertical="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:orientation="horizontal"
                         android:layout_marginLeft="15dp"
                         android:layout_height="wrap_content">
@@ -396,107 +405,120 @@
                             android:id="@+id/txt_Ten"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
                             android:text="TrungTinh"
                             android:textSize="15sp"
+                            android:fontFamily="@font/montserrat"
+                            android:textColor="@color/black"
                             android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
-                            android:layout_marginTop="5dp"
                             android:text="|"
+                            android:fontFamily="@font/montserrat"
+                            android:textColor="@color/black"
                             android:textSize="20sp"
                             android:textStyle="bold" />
                         <TextView
                             android:id="@+id/txt_SDT"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_marginLeft="5dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
                             android:text="0704408389"
+                            android:fontFamily="@font/montserrat"
+                            android:textColor="@color/black"
                             android:textSize="15sp" />
                     </LinearLayout>
 
                     <TextView
                         android:layout_marginLeft="15dp"
                         android:id="@+id/txt_DC"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:text="TrungTinh"
+                        android:fontFamily="@font/montserrat"
+                        android:textColor="@color/black"
                         android:textSize="15sp" />
                     <TextView
                         android:layout_marginLeft="15dp"
                         android:id="@+id/txt_PX"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:text="Dinh Bo Linh"
+                        android:fontFamily="@font/montserrat"
+                        android:textColor="@color/black"
                         android:textSize="15sp" />
                 </LinearLayout>
                 <CheckBox
                     android:id="@+id/checkBox_payment1"
-                    android:layout_width="match_parent"
+                    android:layout_width="40dp"
+                    android:buttonTint="@color/black"
                     android:checked="true"
                     android:enabled="false"
-                    android:layout_height="match_parent"
-                    android:buttonTint="@color/item_button"
-                    android:layout_weight="1" />
+                    android:layout_height="match_parent" />
             </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:id="@+id/click_payment">
 
                 <TextView
-                    android:id="@+id/click_payment"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="5dp"
                     android:text="Payment Method"
+                    android:fontFamily="@font/montserrat"
+                    android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:layout_alignParentRight="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_marginRight="20dp"
-
-                    android:src="@drawable/right" />
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/navigation_after"
+                    android:layout_alignParentRight="true"/>
             </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginLeft="20dp"
-                android:gravity="center_vertical">
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="20dp"
+                android:gravity="center">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/visa" />
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_wallet" />
 
                 <TextView
                     android:id="@+id/txt_payment"
-                    android:layout_width="243dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="42dp"
-                    android:gravity="center"
+                    android:gravity="center|start"
                     android:text="Cash Payment"
-                    android:textAlignment="center"
+                    android:fontFamily="@font/montserrat"
+                    android:textColor="@color/black"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_weight="1"
                     android:textSize="20sp" />
 
                 <CheckBox
                     android:id="@+id/checkBox_payment"
-                    android:layout_width="match_parent"
+                    android:layout_width="40dp"
+                    android:buttonTint="@color/black"
                     android:checked="true"
                     android:enabled="false"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
+                    android:layout_height="match_parent" />
 
             </LinearLayout>
 
@@ -510,6 +532,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Order Info"
+                    android:fontFamily="@font/montserrat"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -525,7 +548,8 @@
                         android:text="Subtotal"
                         android:textAlignment="viewStart"
                         android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:fontFamily="@font/montserrat"
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/subtotal_text"
@@ -535,7 +559,8 @@
                         android:text="0"
                         android:textAlignment="textEnd"
                         android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:fontFamily="@font/montserrat"
+                        android:textColor="@color/black" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -547,7 +572,8 @@
                         android:layout_height="wrap_content"
                         android:text="Discount"
                         android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:fontFamily="@font/montserrat"
+                        android:textColor="@color/black"/>
 
                     <TextView
                         android:id="@+id/discount_text"
@@ -557,7 +583,8 @@
                         android:text="0"
                         android:textAlignment="textEnd"
                         android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:fontFamily="@font/montserrat"
+                        android:textColor="@color/black" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -569,7 +596,8 @@
                         android:layout_height="wrap_content"
                         android:text="Delivery Charge"
                         android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:fontFamily="@font/montserrat"
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/delivery_text"
@@ -579,7 +607,8 @@
                         android:text="0"
                         android:textAlignment="textEnd"
                         android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:fontFamily="@font/montserrat"
+                        android:textColor="@color/black" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -592,17 +621,19 @@
                         android:layout_height="wrap_content"
                         android:text="Total"
                         android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:fontFamily="@font/montserrat_medium"
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/total_text"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginRight="20dp"
+                        android:layout_marginEnd="20dp"
                         android:text="0"
                         android:textAlignment="textEnd"
                         android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:fontFamily="@font/montserrat_medium"
+                        android:textColor="@color/black" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -610,12 +641,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingVertical="10dp"
                 android:gravity="center">
 
                 <TextView
                     android:id="@+id/btn_checkout"
                     android:layout_width="160dp"
-                    android:layout_height="40dp"
+                    android:layout_height="60dp"
                     android:background="@drawable/background_btn_orange"
                     android:gravity="center"
                     android:text="CHECK OUT"
