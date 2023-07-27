@@ -156,6 +156,7 @@ public class HomeFragment extends Fragment {
         productAdapter = new ProductAdapter();
         firebaseFirestore.collection("SANPHAM")
                         .whereEqualTo("Trending", true)
+                .whereEqualTo("TrangThai", "Inventory")
                                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                                     @Override
                                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {

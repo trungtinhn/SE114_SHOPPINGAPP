@@ -165,7 +165,7 @@ public class FollowFragment extends Fragment implements Filterable {
                             Log.w(TAG, "Listen failed.", e);
                             return;
                         }
-
+                        products.clear();
                         if (value.size() == 0) {
                             layoutEmpty.setVisibility(View.VISIBLE);
                         }else {
