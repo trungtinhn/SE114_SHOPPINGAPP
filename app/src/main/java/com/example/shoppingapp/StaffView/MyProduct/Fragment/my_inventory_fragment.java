@@ -22,7 +22,10 @@ import com.example.shoppingapp.StaffView.MyProduct.Adapter.My_inventory_Adapter;
 import com.example.shoppingapp.StaffView.Product;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,6 +100,11 @@ public class my_inventory_fragment extends Fragment implements Filterable {
                         int love = document.getLong("SoLuongYeuThich") != null ? document.getLong("SoLuongYeuThich").intValue() : 0;
                         int view = document.getLong("SoLuongXem") != null ? document.getLong("SoLuongXem").intValue() : 0;
 
+
+
+
+
+
                         // Kiểm tra xem trường "HinhAnhSP" có dữ liệu không
                         if (document.contains("HinhAnhSP")) {
                             Object hinhAnhSPValue = document.get("HinhAnhSP");
@@ -140,8 +148,11 @@ public class my_inventory_fragment extends Fragment implements Filterable {
                 });
     }
 
+
     @Override
     public Filter getFilter() {
         return null;
     }
+
+
 }

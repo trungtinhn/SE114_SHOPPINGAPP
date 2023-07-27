@@ -36,6 +36,8 @@ public class activity_MyOrder extends AppCompatActivity {
 
     private ImageButton back_to_Home;
     private Button detail;
+    private int selectedTabPosition = -1; // Default value is -1 to indicate no specific tab is selected
+
     private int [] tabLayoutSize = new int[5];
     @SuppressLint("MissingInflatedId")
     @Override
@@ -51,7 +53,11 @@ public class activity_MyOrder extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         tabLayoutSize[0] = 0;
         back_to_Home = findViewById(R.id.imgbtn_back);
+        selectedTabPosition = getIntent().getIntExtra("selected_tab", -1);
 
+        if (selectedTabPosition >= 0 && selectedTabPosition < AdminOrderPagerAdapter.NUM_PAGES) {
+            viewPager.setCurrentItem(selectedTabPosition);
+        }
         adapter.setupBadges(tabLayout);
         back_to_Home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,7 +131,7 @@ public class activity_MyOrder extends AppCompatActivity {
                 });
         FirebaseFirestore db_cancel = FirebaseFirestore.getInstance();
         CollectionReference cancelRef = db_cancel.collection("DONHANG");
-        cancelRef.whereEqualTo("TrangThai", "cancel")
+        cancelRef.whereEqualTo("TrangThai", "Cancel")
                 .addSnapshotListener((queryDocumentSnapshots, e) ->{
                     if (e != null) {
                         // Handle the error here if necessary.
@@ -174,6 +180,9 @@ public class activity_MyOrder extends AppCompatActivity {
         private final String[] TAB_TITLES = {"Confirm", "Wait", "Delivering", "Delivered", "Cancel"};
 
         private int confirmProductCount = 0;
+        public void setSelectedTabPosition(int position) {
+            selectedTabPosition = position;
+        }
         public AdminOrderPagerAdapter(FragmentManager fm) {
             super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         }
@@ -234,5 +243,6 @@ public class activity_MyOrder extends AppCompatActivity {
 
 
     }
+
 
 }
