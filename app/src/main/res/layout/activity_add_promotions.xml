@@ -3,30 +3,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/white"
     tools:context=".StaffView.Categories.Activity.activity_add_new_category">
 
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/RectangleStyle"
+        android:paddingVertical="12dp"
+        >
 
         <ImageButton
             android:id="@+id/btn_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginBottom="30dp"
+
+            android:layout_centerVertical="true"
+
             android:background="@color/white"
-            android:src="@drawable/back_arrow" />
+            android:src="@drawable/baseline_arrow_back_24" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Promotions / Add New Promotion"
-            android:layout_marginTop="28dp"
-            android:layout_marginLeft="60dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="70dp"
             android:fontFamily="@font/montserrat_medium"
             android:textColor="@color/black"/>
 
@@ -62,7 +66,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="430dp"
+        android:layout_height="match_parent"
+        android:layout_above="@id/btn_add_new"
         android:layout_below="@id/addpicture">
 
         <LinearLayout
@@ -361,13 +366,14 @@
 
         </LinearLayout>
     </ScrollView>
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_add_new"
+            android:layout_alignParentBottom="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="150dp"
-            android:layout_marginTop="600dp"
+            app:cornerRadius="20dp"
             android:backgroundTint="@color/orange"
             android:text="ADD NEW" />
 
