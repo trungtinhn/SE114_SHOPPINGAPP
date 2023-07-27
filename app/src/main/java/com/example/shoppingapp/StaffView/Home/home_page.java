@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import com.example.shoppingapp.Login.LoginActivity;
 import com.example.shoppingapp.Login.User;
@@ -42,6 +43,7 @@ public class home_page extends AppCompatActivity {
     private ImageButton btn_Promotions;
     ProgressDialog progressDialog;
     User user;
+    private AppCompatButton btn_confirm, btn_wait, btn_delivering, btn_delivered, btn_cancel;
     FirebaseFirestore firebaseFirestore;
 
     @Override
@@ -64,6 +66,72 @@ public class home_page extends AppCompatActivity {
         btn_Promotions = findViewById(R.id.btn_promotions);
         btn_logout = findViewById(R.id.btn_logout);
         btn_financial_report = findViewById(R.id.btn_financial_report);
+        btn_confirm = findViewById(R.id.btn_confirm);
+        btn_wait =findViewById(R.id.btn_wait);
+        btn_delivering = findViewById(R.id.btn_delivering);
+        btn_delivered = findViewById(R.id.btn_delivered);
+        //...
+        btn_cancel = findViewById(R.id.btn_cancel);
+
+        btn_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Khi nút "Confirm" được nhấp vào, chuyển đến "activity_MyOrder" và hiển thị fragment Confirm
+                Intent intent = new Intent(home_page.this, activity_MyOrder.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("selected_tab", 0); // 0 là vị trí tab Confirm
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
+        btn_wait.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Khi nút "Wait" được nhấp vào, chuyển đến "activity_MyOrder" và hiển thị fragment Wait
+                Intent intent = new Intent(home_page.this, activity_MyOrder.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("selected_tab", 1); // 1 là vị trí tab Wait
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
+        btn_delivering.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Khi nút "Delivering" được nhấp vào, chuyển đến "activity_MyOrder" và hiển thị fragment Delivering
+                Intent intent = new Intent(home_page.this, activity_MyOrder.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("selected_tab", 2); // 2 là vị trí tab Delivering
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
+        btn_delivered.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Khi nút "Delivered" được nhấp vào, chuyển đến "activity_MyOrder" và hiển thị fragment Delivered
+                Intent intent = new Intent(home_page.this, activity_MyOrder.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("selected_tab", 3); // 3 là vị trí tab Delivered
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(home_page.this, activity_MyOrder.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("selected_tab", 4); // 0 là vị trí tab Confirm
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
+
         btn_financial_report.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
