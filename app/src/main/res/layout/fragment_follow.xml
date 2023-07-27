@@ -100,6 +100,7 @@
             android:paddingHorizontal="20dp"
             android:paddingVertical="10dp"
             android:layout_centerHorizontal="true"
+            android:clickable="true"
             />
     </RelativeLayout>
     <androidx.recyclerview.widget.RecyclerView

@@ -6,6 +6,7 @@ import static android.content.Context.SEARCH_SERVICE;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -26,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.customerview.BottomNavigationCustomActivity;
+import com.example.shoppingapp.customerview.activity.SearchingActivity;
 import com.example.shoppingapp.customerview.product.Product;
 import com.example.shoppingapp.customerview.product.ProductAdapter;
 import com.example.shoppingapp.customerview.product.ProductCard;
@@ -110,6 +112,13 @@ public class FollowFragment extends Fragment implements Filterable {
             }
         });
 
+        btnEmpty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomNavigationCustomActivity.gotoSearchingActivity();
+            }
+        });
+
         return view;
     }
 
@@ -190,7 +199,7 @@ public class FollowFragment extends Fragment implements Filterable {
                                             });
                                             rcvFollow.setAdapter(productAdapter);
                                         } else {
-                                            Log.d(TAG, "Current data: null");
+                                            layoutEmpty.setVisibility(View.VISIBLE);
                                         }
                                     }
                                 });
